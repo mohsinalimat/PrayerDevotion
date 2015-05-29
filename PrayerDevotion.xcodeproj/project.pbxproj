@@ -1,0 +1,491 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6102E38B1B093076005D3EC9 /* EditCategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6102E38A1B093076005D3EC9 /* EditCategoriesViewController.swift */; };
+		61293E0B1B013602005B7267 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61293E0A1B013602005B7267 /* AppDelegate.swift */; };
+		61293E0E1B013602005B7267 /* PrayerDevotion.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 61293E0C1B013602005B7267 /* PrayerDevotion.xcdatamodeld */; };
+		61293E101B013602005B7267 /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61293E0F1B013602005B7267 /* CategoriesViewController.swift */; };
+		61293E131B013602005B7267 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 61293E111B013602005B7267 /* Main.storyboard */; };
+		61293E151B013602005B7267 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 61293E141B013602005B7267 /* Images.xcassets */; };
+		61293E181B013602005B7267 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 61293E161B013602005B7267 /* LaunchScreen.xib */; };
+		61293E241B013602005B7267 /* PrayerDevotionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61293E231B013602005B7267 /* PrayerDevotionTests.swift */; };
+		61293E301B013692005B7267 /* Prayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61293E2E1B013692005B7267 /* Prayer.swift */; };
+		61293E311B013692005B7267 /* CategoryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61293E2F1B013692005B7267 /* CategoryStore.swift */; };
+		61293E331B013A21005B7267 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61293E321B013A21005B7267 /* Category.swift */; };
+		61F540B11B03CFDF0072BA6F /* PersonalPrayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F540B01B03CFDF0072BA6F /* PersonalPrayerViewController.swift */; };
+		61F540B51B03DC730072BA6F /* Cells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F540B41B03DC730072BA6F /* Cells.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		61293E1E1B013602005B7267 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 61293DFD1B013602005B7267 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 61293E041B013602005B7267;
+			remoteInfo = PrayerDevotion;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		6102E38A1B093076005D3EC9 /* EditCategoriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditCategoriesViewController.swift; sourceTree = "<group>"; };
+		61293E051B013602005B7267 /* PrayerDevotion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PrayerDevotion.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		61293E091B013602005B7267 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		61293E0A1B013602005B7267 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		61293E0D1B013602005B7267 /* PrayerDevotion.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PrayerDevotion.xcdatamodel; sourceTree = "<group>"; };
+		61293E0F1B013602005B7267 /* CategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewController.swift; sourceTree = "<group>"; };
+		61293E121B013602005B7267 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		61293E141B013602005B7267 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		61293E171B013602005B7267 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		61293E1D1B013602005B7267 /* PrayerDevotionTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PrayerDevotionTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		61293E221B013602005B7267 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		61293E231B013602005B7267 /* PrayerDevotionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayerDevotionTests.swift; sourceTree = "<group>"; };
+		61293E2E1B013692005B7267 /* Prayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Prayer.swift; sourceTree = "<group>"; };
+		61293E2F1B013692005B7267 /* CategoryStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryStore.swift; sourceTree = "<group>"; };
+		61293E321B013A21005B7267 /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		61F540B01B03CFDF0072BA6F /* PersonalPrayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalPrayerViewController.swift; sourceTree = "<group>"; };
+		61F540B41B03DC730072BA6F /* Cells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cells.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		61293E021B013602005B7267 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		61293E1A1B013602005B7267 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		61293DFC1B013602005B7267 = {
+			isa = PBXGroup;
+			children = (
+				61293E071B013602005B7267 /* PrayerDevotion */,
+				61293E201B013602005B7267 /* PrayerDevotionTests */,
+				61293E061B013602005B7267 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		61293E061B013602005B7267 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				61293E051B013602005B7267 /* PrayerDevotion.app */,
+				61293E1D1B013602005B7267 /* PrayerDevotionTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		61293E071B013602005B7267 /* PrayerDevotion */ = {
+			isa = PBXGroup;
+			children = (
+				61293E0A1B013602005B7267 /* AppDelegate.swift */,
+				61293E0F1B013602005B7267 /* CategoriesViewController.swift */,
+				6102E38A1B093076005D3EC9 /* EditCategoriesViewController.swift */,
+				61F540B01B03CFDF0072BA6F /* PersonalPrayerViewController.swift */,
+				61F540B21B03DC620072BA6F /* Views */,
+				61293E2D1B01367B005B7267 /* Stores */,
+				61293E111B013602005B7267 /* Main.storyboard */,
+				61293E141B013602005B7267 /* Images.xcassets */,
+				61293E161B013602005B7267 /* LaunchScreen.xib */,
+				61293E0C1B013602005B7267 /* PrayerDevotion.xcdatamodeld */,
+				61293E081B013602005B7267 /* Supporting Files */,
+			);
+			path = PrayerDevotion;
+			sourceTree = "<group>";
+		};
+		61293E081B013602005B7267 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				61293E091B013602005B7267 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		61293E201B013602005B7267 /* PrayerDevotionTests */ = {
+			isa = PBXGroup;
+			children = (
+				61293E231B013602005B7267 /* PrayerDevotionTests.swift */,
+				61293E211B013602005B7267 /* Supporting Files */,
+			);
+			path = PrayerDevotionTests;
+			sourceTree = "<group>";
+		};
+		61293E211B013602005B7267 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				61293E221B013602005B7267 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		61293E2D1B01367B005B7267 /* Stores */ = {
+			isa = PBXGroup;
+			children = (
+				61293E321B013A21005B7267 /* Category.swift */,
+				61293E2E1B013692005B7267 /* Prayer.swift */,
+				61293E2F1B013692005B7267 /* CategoryStore.swift */,
+			);
+			name = Stores;
+			sourceTree = "<group>";
+		};
+		61F540B21B03DC620072BA6F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				61F540B31B03DC680072BA6F /* Cells */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		61F540B31B03DC680072BA6F /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				61F540B41B03DC730072BA6F /* Cells.swift */,
+			);
+			name = Cells;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		61293E041B013602005B7267 /* PrayerDevotion */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 61293E271B013602005B7267 /* Build configuration list for PBXNativeTarget "PrayerDevotion" */;
+			buildPhases = (
+				61293E011B013602005B7267 /* Sources */,
+				61293E021B013602005B7267 /* Frameworks */,
+				61293E031B013602005B7267 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PrayerDevotion;
+			productName = PrayerDevotion;
+			productReference = 61293E051B013602005B7267 /* PrayerDevotion.app */;
+			productType = "com.apple.product-type.application";
+		};
+		61293E1C1B013602005B7267 /* PrayerDevotionTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 61293E2A1B013602005B7267 /* Build configuration list for PBXNativeTarget "PrayerDevotionTests" */;
+			buildPhases = (
+				61293E191B013602005B7267 /* Sources */,
+				61293E1A1B013602005B7267 /* Frameworks */,
+				61293E1B1B013602005B7267 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				61293E1F1B013602005B7267 /* PBXTargetDependency */,
+			);
+			name = PrayerDevotionTests;
+			productName = PrayerDevotionTests;
+			productReference = 61293E1D1B013602005B7267 /* PrayerDevotionTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		61293DFD1B013602005B7267 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0630;
+				ORGANIZATIONNAME = "Jonathan Hart";
+				TargetAttributes = {
+					61293E041B013602005B7267 = {
+						CreatedOnToolsVersion = 6.3;
+					};
+					61293E1C1B013602005B7267 = {
+						CreatedOnToolsVersion = 6.3;
+						TestTargetID = 61293E041B013602005B7267;
+					};
+				};
+			};
+			buildConfigurationList = 61293E001B013602005B7267 /* Build configuration list for PBXProject "PrayerDevotion" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 61293DFC1B013602005B7267;
+			productRefGroup = 61293E061B013602005B7267 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				61293E041B013602005B7267 /* PrayerDevotion */,
+				61293E1C1B013602005B7267 /* PrayerDevotionTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		61293E031B013602005B7267 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				61293E131B013602005B7267 /* Main.storyboard in Resources */,
+				61293E181B013602005B7267 /* LaunchScreen.xib in Resources */,
+				61293E151B013602005B7267 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		61293E1B1B013602005B7267 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		61293E011B013602005B7267 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				61293E101B013602005B7267 /* CategoriesViewController.swift in Sources */,
+				61293E0E1B013602005B7267 /* PrayerDevotion.xcdatamodeld in Sources */,
+				6102E38B1B093076005D3EC9 /* EditCategoriesViewController.swift in Sources */,
+				61293E311B013692005B7267 /* CategoryStore.swift in Sources */,
+				61F540B51B03DC730072BA6F /* Cells.swift in Sources */,
+				61293E301B013692005B7267 /* Prayer.swift in Sources */,
+				61293E0B1B013602005B7267 /* AppDelegate.swift in Sources */,
+				61293E331B013A21005B7267 /* Category.swift in Sources */,
+				61F540B11B03CFDF0072BA6F /* PersonalPrayerViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		61293E191B013602005B7267 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				61293E241B013602005B7267 /* PrayerDevotionTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		61293E1F1B013602005B7267 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 61293E041B013602005B7267 /* PrayerDevotion */;
+			targetProxy = 61293E1E1B013602005B7267 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		61293E111B013602005B7267 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				61293E121B013602005B7267 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		61293E161B013602005B7267 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				61293E171B013602005B7267 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		61293E251B013602005B7267 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		61293E261B013602005B7267 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		61293E281B013602005B7267 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = PrayerDevotion/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		61293E291B013602005B7267 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = PrayerDevotion/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		61293E2B1B013602005B7267 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = PrayerDevotionTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PrayerDevotion.app/PrayerDevotion";
+			};
+			name = Debug;
+		};
+		61293E2C1B013602005B7267 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = PrayerDevotionTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PrayerDevotion.app/PrayerDevotion";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		61293E001B013602005B7267 /* Build configuration list for PBXProject "PrayerDevotion" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				61293E251B013602005B7267 /* Debug */,
+				61293E261B013602005B7267 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		61293E271B013602005B7267 /* Build configuration list for PBXNativeTarget "PrayerDevotion" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				61293E281B013602005B7267 /* Debug */,
+				61293E291B013602005B7267 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		61293E2A1B013602005B7267 /* Build configuration list for PBXNativeTarget "PrayerDevotionTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				61293E2B1B013602005B7267 /* Debug */,
+				61293E2C1B013602005B7267 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		61293E0C1B013602005B7267 /* PrayerDevotion.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				61293E0D1B013602005B7267 /* PrayerDevotion.xcdatamodel */,
+			);
+			currentVersion = 61293E0D1B013602005B7267 /* PrayerDevotion.xcdatamodel */;
+			path = PrayerDevotion.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 61293DFD1B013602005B7267 /* Project object */;
+}

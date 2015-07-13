@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6214" systemVersion="14A314h" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6207"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -11,31 +11,68 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  Copyright (c) 2015 Jonathan Hart. All rights reserved." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="8ie-xW-0ye">
-                    <rect key="frame" x="20" y="439" width="441" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PD-1024.png" translatesAutoresizingMaskIntoConstraints="NO" id="I56-Vo-4rA">
+                    <rect key="frame" x="103" y="102" width="275" height="275"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="275" id="10g-5l-FEr"/>
+                        <constraint firstAttribute="height" constant="275" id="KWs-GJ-tge"/>
+                        <constraint firstAttribute="width" constant="275" id="Tkb-hn-5A7"/>
+                        <constraint firstAttribute="width" constant="275" id="kqq-y0-1Nz"/>
+                    </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="KWs-GJ-tge"/>
+                            <exclude reference="kqq-y0-1Nz"/>
+                        </mask>
+                    </variation>
+                </imageView>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PrayerDevotion" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="8ie-xW-0ye">
+                    <rect key="frame" x="112" y="436" width="257" height="36"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="34" id="kNN-ui-BSd"/>
+                        <constraint firstAttribute="width" constant="257" id="loZ-GD-Y7n"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="32"/>
                     <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PrayerDevotion" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="kId-c2-rCX">
-                    <rect key="frame" x="20" y="140" width="441" height="43"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="36"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                    <nil key="highlightedColor"/>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="kNN-ui-BSd"/>
+                        </mask>
+                    </variation>
                 </label>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="0.60000002379999995" green="0.40000000600000002" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstItem="kId-c2-rCX" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="bottom" multiplier="1/3" constant="1" id="5cJ-9S-tgC"/>
-                <constraint firstAttribute="centerX" secondItem="kId-c2-rCX" secondAttribute="centerX" id="Koa-jz-hwk"/>
-                <constraint firstAttribute="bottom" secondItem="8ie-xW-0ye" secondAttribute="bottom" constant="20" id="Kzo-t9-V3l"/>
+                <constraint firstItem="8ie-xW-0ye" firstAttribute="top" secondItem="I56-Vo-4rA" secondAttribute="bottom" constant="59" id="1jz-Ft-GMK"/>
+                <constraint firstItem="8ie-xW-0ye" firstAttribute="centerX" secondItem="I56-Vo-4rA" secondAttribute="centerX" id="28U-6g-Aw5"/>
+                <constraint firstItem="I56-Vo-4rA" firstAttribute="centerX" secondItem="8ie-xW-0ye" secondAttribute="centerX" id="4l0-uW-Pvu"/>
+                <constraint firstAttribute="centerX" secondItem="I56-Vo-4rA" secondAttribute="centerX" id="8qO-FU-KtC"/>
+                <constraint firstItem="I56-Vo-4rA" firstAttribute="bottom" secondItem="8ie-xW-0ye" secondAttribute="bottom" id="BOD-SO-71L"/>
+                <constraint firstAttribute="bottom" secondItem="8ie-xW-0ye" secondAttribute="bottom" constant="103" id="Kzo-t9-V3l"/>
                 <constraint firstItem="8ie-xW-0ye" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" symbolic="YES" id="MfP-vx-nX0"/>
                 <constraint firstAttribute="centerX" secondItem="8ie-xW-0ye" secondAttribute="centerX" id="ZEH-qu-HZ9"/>
-                <constraint firstItem="kId-c2-rCX" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" symbolic="YES" id="fvb-Df-36g"/>
+                <constraint firstAttribute="centerY" secondItem="I56-Vo-4rA" secondAttribute="centerY" id="ZbY-Po-Ybf"/>
+                <constraint firstAttribute="centerX" secondItem="I56-Vo-4rA" secondAttribute="centerX" id="jIC-bc-Pgb"/>
+                <constraint firstItem="8ie-xW-0ye" firstAttribute="bottom" secondItem="iN0-l3-epB" secondAttribute="bottomMargin" id="kPI-Jl-1Fw"/>
+                <constraint firstAttribute="centerY" secondItem="I56-Vo-4rA" secondAttribute="centerY" id="p4F-0E-UQX"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="4l0-uW-Pvu"/>
+                    <exclude reference="8qO-FU-KtC"/>
+                    <exclude reference="BOD-SO-71L"/>
+                    <exclude reference="p4F-0E-UQX"/>
+                    <exclude reference="Kzo-t9-V3l"/>
+                    <exclude reference="MfP-vx-nX0"/>
+                    <exclude reference="ZEH-qu-HZ9"/>
+                </mask>
+            </variation>
             <point key="canvasLocation" x="548" y="455"/>
         </view>
     </objects>
+    <resources>
+        <image name="PD-1024.png" width="1024" height="1024"/>
+    </resources>
 </document>

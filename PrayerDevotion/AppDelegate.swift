@@ -1,4 +1,4 @@
-//
+ //
 //  AppDelegate.swift
 //  PrayerDevotion
 //
@@ -14,9 +14,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        //window!.tintColor = UIColor(red: 39/255.0, green: 20/255.0, blue: 1/255.0, alpha: 1)
+        window!.tintColor = UIColor(red: 194/255.0, green: 153/255.0, blue: 89/255.0, alpha: 1)
+        
+        let userNotifications = UIUserNotificationSettings(forTypes: .Alert | .Badge | .Sound, categories: nil)
+        UIApplication.sharedApplication().registerUserNotificationSettings(userNotifications)
+        
+        let userPrefs = NSUserDefaults.standardUserDefaults()
+        
+        let installString: String? = userPrefs.objectForKey("didInstallApp") as? String
+        if installString == nil || installString == "" {
+            println("User installed app for the first time. Make sure all local notifications are deleted")
+            UIApplication.sharedApplication().cancelAllLocalNotifications()
+        }
+        
+        var todayDict = userPrefs.objectForKey("todayOrderDict") as? Dictionary<String, String>
+        if todayDict == nil {
+            todayDict = ["section1_title": "On_Date", "section2_title": "Daily", "section3_title": "Weekly"]
+            userPrefs.setObject(todayDict!, forKey: "todayOrderDict")
+        }
+        
+        userPrefs.setObject("installed", forKey: "didInstallApp")
+        
+        Notifications.sharedNotifications.updateNotificationQueue()
+        AlertStore.sharedInstance.deletePastAlerts()
+                
         return true
     }
 
@@ -28,6 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        Notifications.sharedNotifications.updateNotificationQueue()
     }
 
     func applicationWillEnterForeground(application: UIApplication) {
@@ -36,12 +61,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        Notifications.sharedNotifications.updateNotificationQueue()
+        AlertStore.sharedInstance.deletePastAlerts()
     }
 
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
         self.saveContext()
+        Notifications.sharedNotifications.updateNotificationQueue()
+    }
+    
+    // MARK: Local Notifications
+    
+    func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
+        Notifications.sharedNotifications.updateNotificationQueue()
     }
 
     // MARK: - Core Data stack
@@ -65,7 +99,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("PrayerDevotion.sqlite")
         var error: NSError? = nil
         var failureReason = "There was an error creating or loading the application's saved data."
-        if coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil, error: &error) == nil {
+        if coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: [NSMigratePersistentStoresAutomaticallyOption: true, NSInferMappingModelAutomaticallyOption: true], error: &error) == nil {
             coordinator = nil
             // Report any error we got.
             var dict = [String: AnyObject]()

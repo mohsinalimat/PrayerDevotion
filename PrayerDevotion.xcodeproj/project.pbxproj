@@ -8,18 +8,42 @@
 
 /* Begin PBXBuildFile section */
 		6102E38B1B093076005D3EC9 /* EditCategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6102E38A1B093076005D3EC9 /* EditCategoriesViewController.swift */; };
+		6111EE461B2290E400767914 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6111EE451B2290E400767914 /* SettingsViewController.swift */; };
+		6113B8DF1B4AF1CE006D952F /* PD-1024.png in Resources */ = {isa = PBXBuildFile; fileRef = 6113B8DE1B4AF1CE006D952F /* PD-1024.png */; };
+		6116BE211B1EA9960018BB73 /* PrayerSearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6116BE201B1EA9960018BB73 /* PrayerSearchCell.swift */; };
 		61293E0B1B013602005B7267 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61293E0A1B013602005B7267 /* AppDelegate.swift */; };
 		61293E0E1B013602005B7267 /* PrayerDevotion.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 61293E0C1B013602005B7267 /* PrayerDevotion.xcdatamodeld */; };
 		61293E101B013602005B7267 /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61293E0F1B013602005B7267 /* CategoriesViewController.swift */; };
 		61293E131B013602005B7267 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 61293E111B013602005B7267 /* Main.storyboard */; };
-		61293E151B013602005B7267 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 61293E141B013602005B7267 /* Images.xcassets */; };
 		61293E181B013602005B7267 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 61293E161B013602005B7267 /* LaunchScreen.xib */; };
 		61293E241B013602005B7267 /* PrayerDevotionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61293E231B013602005B7267 /* PrayerDevotionTests.swift */; };
 		61293E301B013692005B7267 /* Prayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61293E2E1B013692005B7267 /* Prayer.swift */; };
-		61293E311B013692005B7267 /* CategoryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61293E2F1B013692005B7267 /* CategoryStore.swift */; };
 		61293E331B013A21005B7267 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61293E321B013A21005B7267 /* Category.swift */; };
+		612DD0761B1D1E950086765C /* MovePrayersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 612DD0751B1D1E950086765C /* MovePrayersViewController.swift */; };
+		612DD0781B1D35730086765C /* CategoriesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 612DD0771B1D35730086765C /* CategoriesStore.swift */; };
+		612DD07A1B1D360D0086765C /* BaseStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 612DD0791B1D360D0086765C /* BaseStore.swift */; };
+		612DD07D1B1D36AC0086765C /* PrayerStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 612DD07C1B1D36AC0086765C /* PrayerStore.swift */; };
+		612DD07F1B1D38490086765C /* AlertStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 612DD07E1B1D38490086765C /* AlertStore.swift */; };
+		614442BC1B23BE0700727245 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 614442BB1B23BE0700727245 /* Images.xcassets */; };
+		614442BE1B23DB8C00727245 /* AddPrayerDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614442BD1B23DB8C00727245 /* AddPrayerDateCell.swift */; };
+		614769C31B51AD9C000EE6C8 /* PrayerPriorityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614769C21B51AD9C000EE6C8 /* PrayerPriorityCell.swift */; };
+		6153FCD71B1CCA5400BF8105 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6153FCD61B1CCA5400BF8105 /* Alert.swift */; };
+		6153FCD91B1CD06400BF8105 /* PrayerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6153FCD81B1CD06400BF8105 /* PrayerCell.swift */; };
+		615922F51B5210A60088BB5F /* PrayerNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615922F41B5210A60088BB5F /* PrayerNameCell.swift */; };
+		615BF62C1B1924B1002A8731 /* PrayerSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615BF62B1B1924B1002A8731 /* PrayerSearchViewController.swift */; };
+		6167D6CD1B1BF18E00BB8BA2 /* PrayerDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6167D6CC1B1BF18E00BB8BA2 /* PrayerDetailsViewController.swift */; };
+		6167D6CF1B1BF41900BB8BA2 /* PrayerAlertCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6167D6CE1B1BF41900BB8BA2 /* PrayerAlertCell.swift */; };
+		61955BD61B210C5600C993DE /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61955BD51B210C5600C993DE /* Notifications.swift */; };
+		61994DB01B520135005220E6 /* TodayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61994DAF1B520135005220E6 /* TodayCell.swift */; };
+		61ACC5AD1B237F8C00A45C0E /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61ACC5AC1B237F8C00A45C0E /* TodayViewController.swift */; };
+		61D4213B1B47242F0039BD7F /* CreatePrayerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D4213A1B47242F0039BD7F /* CreatePrayerCell.swift */; };
+		61D4213D1B4724610039BD7F /* PrayerDetailsExtendedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D4213C1B4724610039BD7F /* PrayerDetailsExtendedCell.swift */; };
+		61D421411B4724BA0039BD7F /* PrayerAnsweredCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D421401B4724BA0039BD7F /* PrayerAnsweredCell.swift */; };
+		61D421431B4724D50039BD7F /* PrayerAnsweredNotesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D421421B4724D50039BD7F /* PrayerAnsweredNotesCell.swift */; };
+		61F0C4B71B1D560E00E4C40A /* AddPrayerAlertCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F0C4B61B1D560E00E4C40A /* AddPrayerAlertCell.swift */; };
 		61F540B11B03CFDF0072BA6F /* PersonalPrayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F540B01B03CFDF0072BA6F /* PersonalPrayerViewController.swift */; };
-		61F540B51B03DC730072BA6F /* Cells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F540B41B03DC730072BA6F /* Cells.swift */; };
+		61F540B51B03DC730072BA6F /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F540B41B03DC730072BA6F /* CategoryCell.swift */; };
+		61FB19941B4C7C5C0068A71C /* PrayerDetailsViewController_New.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FB19931B4C7C5C0068A71C /* PrayerDetailsViewController_New.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,22 +58,46 @@
 
 /* Begin PBXFileReference section */
 		6102E38A1B093076005D3EC9 /* EditCategoriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditCategoriesViewController.swift; sourceTree = "<group>"; };
+		6111EE451B2290E400767914 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		6113B8DE1B4AF1CE006D952F /* PD-1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PD-1024.png"; sourceTree = "<group>"; };
+		6116BE201B1EA9960018BB73 /* PrayerSearchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerSearchCell.swift; sourceTree = "<group>"; };
 		61293E051B013602005B7267 /* PrayerDevotion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PrayerDevotion.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		61293E091B013602005B7267 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		61293E0A1B013602005B7267 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		61293E0D1B013602005B7267 /* PrayerDevotion.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PrayerDevotion.xcdatamodel; sourceTree = "<group>"; };
 		61293E0F1B013602005B7267 /* CategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewController.swift; sourceTree = "<group>"; };
 		61293E121B013602005B7267 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		61293E141B013602005B7267 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		61293E171B013602005B7267 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		61293E1D1B013602005B7267 /* PrayerDevotionTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PrayerDevotionTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		61293E221B013602005B7267 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		61293E231B013602005B7267 /* PrayerDevotionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayerDevotionTests.swift; sourceTree = "<group>"; };
 		61293E2E1B013692005B7267 /* Prayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Prayer.swift; sourceTree = "<group>"; };
-		61293E2F1B013692005B7267 /* CategoryStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryStore.swift; sourceTree = "<group>"; };
 		61293E321B013A21005B7267 /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		612DD0751B1D1E950086765C /* MovePrayersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovePrayersViewController.swift; sourceTree = "<group>"; };
+		612DD0771B1D35730086765C /* CategoriesStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesStore.swift; sourceTree = "<group>"; };
+		612DD0791B1D360D0086765C /* BaseStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseStore.swift; sourceTree = "<group>"; };
+		612DD07C1B1D36AC0086765C /* PrayerStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerStore.swift; sourceTree = "<group>"; };
+		612DD07E1B1D38490086765C /* AlertStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertStore.swift; sourceTree = "<group>"; };
+		614442BB1B23BE0700727245 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		614442BD1B23DB8C00727245 /* AddPrayerDateCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPrayerDateCell.swift; sourceTree = "<group>"; };
+		614769C21B51AD9C000EE6C8 /* PrayerPriorityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerPriorityCell.swift; sourceTree = "<group>"; };
+		6153FCD61B1CCA5400BF8105 /* Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
+		6153FCD81B1CD06400BF8105 /* PrayerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerCell.swift; sourceTree = "<group>"; };
+		615922F41B5210A60088BB5F /* PrayerNameCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerNameCell.swift; sourceTree = "<group>"; };
+		615BF62B1B1924B1002A8731 /* PrayerSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerSearchViewController.swift; sourceTree = "<group>"; };
+		6167D6CC1B1BF18E00BB8BA2 /* PrayerDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerDetailsViewController.swift; sourceTree = "<group>"; };
+		6167D6CE1B1BF41900BB8BA2 /* PrayerAlertCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerAlertCell.swift; sourceTree = "<group>"; };
+		61955BD51B210C5600C993DE /* Notifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
+		61994DAF1B520135005220E6 /* TodayCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodayCell.swift; sourceTree = "<group>"; };
+		61ACC5AC1B237F8C00A45C0E /* TodayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
+		61D4213A1B47242F0039BD7F /* CreatePrayerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePrayerCell.swift; sourceTree = "<group>"; };
+		61D4213C1B4724610039BD7F /* PrayerDetailsExtendedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerDetailsExtendedCell.swift; sourceTree = "<group>"; };
+		61D421401B4724BA0039BD7F /* PrayerAnsweredCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerAnsweredCell.swift; sourceTree = "<group>"; };
+		61D421421B4724D50039BD7F /* PrayerAnsweredNotesCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerAnsweredNotesCell.swift; sourceTree = "<group>"; };
+		61F0C4B61B1D560E00E4C40A /* AddPrayerAlertCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPrayerAlertCell.swift; sourceTree = "<group>"; };
 		61F540B01B03CFDF0072BA6F /* PersonalPrayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalPrayerViewController.swift; sourceTree = "<group>"; };
-		61F540B41B03DC730072BA6F /* Cells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cells.swift; sourceTree = "<group>"; };
+		61F540B41B03DC730072BA6F /* CategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
+		61FB19931B4C7C5C0068A71C /* PrayerDetailsViewController_New.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerDetailsViewController_New.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,11 +142,19 @@
 				61293E0A1B013602005B7267 /* AppDelegate.swift */,
 				61293E0F1B013602005B7267 /* CategoriesViewController.swift */,
 				6102E38A1B093076005D3EC9 /* EditCategoriesViewController.swift */,
+				612DD0751B1D1E950086765C /* MovePrayersViewController.swift */,
 				61F540B01B03CFDF0072BA6F /* PersonalPrayerViewController.swift */,
+				615BF62B1B1924B1002A8731 /* PrayerSearchViewController.swift */,
+				6167D6CC1B1BF18E00BB8BA2 /* PrayerDetailsViewController.swift */,
+				61FB19931B4C7C5C0068A71C /* PrayerDetailsViewController_New.swift */,
+				6111EE451B2290E400767914 /* SettingsViewController.swift */,
+				61ACC5AC1B237F8C00A45C0E /* TodayViewController.swift */,
 				61F540B21B03DC620072BA6F /* Views */,
+				612DD07B1B1D36120086765C /* Models */,
 				61293E2D1B01367B005B7267 /* Stores */,
+				61955BD51B210C5600C993DE /* Notifications.swift */,
 				61293E111B013602005B7267 /* Main.storyboard */,
-				61293E141B013602005B7267 /* Images.xcassets */,
+				614442BB1B23BE0700727245 /* Images.xcassets */,
 				61293E161B013602005B7267 /* LaunchScreen.xib */,
 				61293E0C1B013602005B7267 /* PrayerDevotion.xcdatamodeld */,
 				61293E081B013602005B7267 /* Supporting Files */,
@@ -109,6 +165,7 @@
 		61293E081B013602005B7267 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				6113B8DE1B4AF1CE006D952F /* PD-1024.png */,
 				61293E091B013602005B7267 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -134,11 +191,49 @@
 		61293E2D1B01367B005B7267 /* Stores */ = {
 			isa = PBXGroup;
 			children = (
-				61293E321B013A21005B7267 /* Category.swift */,
-				61293E2E1B013692005B7267 /* Prayer.swift */,
-				61293E2F1B013692005B7267 /* CategoryStore.swift */,
+				612DD0791B1D360D0086765C /* BaseStore.swift */,
+				612DD07C1B1D36AC0086765C /* PrayerStore.swift */,
+				612DD0771B1D35730086765C /* CategoriesStore.swift */,
+				612DD07E1B1D38490086765C /* AlertStore.swift */,
 			);
 			name = Stores;
+			sourceTree = "<group>";
+		};
+		612DD07B1B1D36120086765C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				6153FCD61B1CCA5400BF8105 /* Alert.swift */,
+				61293E321B013A21005B7267 /* Category.swift */,
+				61293E2E1B013692005B7267 /* Prayer.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		61D4213E1B47247A0039BD7F /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				61F540B41B03DC730072BA6F /* CategoryCell.swift */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
+		61D4213F1B47247F0039BD7F /* Prayers */ = {
+			isa = PBXGroup;
+			children = (
+				61F0C4B61B1D560E00E4C40A /* AddPrayerAlertCell.swift */,
+				614442BD1B23DB8C00727245 /* AddPrayerDateCell.swift */,
+				61D4213A1B47242F0039BD7F /* CreatePrayerCell.swift */,
+				6167D6CE1B1BF41900BB8BA2 /* PrayerAlertCell.swift */,
+				61D421401B4724BA0039BD7F /* PrayerAnsweredCell.swift */,
+				61D421421B4724D50039BD7F /* PrayerAnsweredNotesCell.swift */,
+				6153FCD81B1CD06400BF8105 /* PrayerCell.swift */,
+				61D4213C1B4724610039BD7F /* PrayerDetailsExtendedCell.swift */,
+				615922F41B5210A60088BB5F /* PrayerNameCell.swift */,
+				614769C21B51AD9C000EE6C8 /* PrayerPriorityCell.swift */,
+				6116BE201B1EA9960018BB73 /* PrayerSearchCell.swift */,
+				61994DAF1B520135005220E6 /* TodayCell.swift */,
+			);
+			name = Prayers;
 			sourceTree = "<group>";
 		};
 		61F540B21B03DC620072BA6F /* Views */ = {
@@ -152,7 +247,8 @@
 		61F540B31B03DC680072BA6F /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				61F540B41B03DC730072BA6F /* Cells.swift */,
+				61D4213E1B47247A0039BD7F /* Categories */,
+				61D4213F1B47247F0039BD7F /* Prayers */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -206,6 +302,11 @@
 				TargetAttributes = {
 					61293E041B013602005B7267 = {
 						CreatedOnToolsVersion = 6.3;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 0;
+							};
+						};
 					};
 					61293E1C1B013602005B7267 = {
 						CreatedOnToolsVersion = 6.3;
@@ -237,9 +338,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				614442BC1B23BE0700727245 /* Images.xcassets in Resources */,
 				61293E131B013602005B7267 /* Main.storyboard in Resources */,
+				6113B8DF1B4AF1CE006D952F /* PD-1024.png in Resources */,
 				61293E181B013602005B7267 /* LaunchScreen.xib in Resources */,
-				61293E151B013602005B7267 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,15 +359,38 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				612DD07D1B1D36AC0086765C /* PrayerStore.swift in Sources */,
 				61293E101B013602005B7267 /* CategoriesViewController.swift in Sources */,
+				614769C31B51AD9C000EE6C8 /* PrayerPriorityCell.swift in Sources */,
+				615922F51B5210A60088BB5F /* PrayerNameCell.swift in Sources */,
 				61293E0E1B013602005B7267 /* PrayerDevotion.xcdatamodeld in Sources */,
 				6102E38B1B093076005D3EC9 /* EditCategoriesViewController.swift in Sources */,
-				61293E311B013692005B7267 /* CategoryStore.swift in Sources */,
-				61F540B51B03DC730072BA6F /* Cells.swift in Sources */,
+				612DD0781B1D35730086765C /* CategoriesStore.swift in Sources */,
+				61D421431B4724D50039BD7F /* PrayerAnsweredNotesCell.swift in Sources */,
+				61FB19941B4C7C5C0068A71C /* PrayerDetailsViewController_New.swift in Sources */,
+				6167D6CF1B1BF41900BB8BA2 /* PrayerAlertCell.swift in Sources */,
+				6167D6CD1B1BF18E00BB8BA2 /* PrayerDetailsViewController.swift in Sources */,
+				615BF62C1B1924B1002A8731 /* PrayerSearchViewController.swift in Sources */,
+				612DD07F1B1D38490086765C /* AlertStore.swift in Sources */,
+				6111EE461B2290E400767914 /* SettingsViewController.swift in Sources */,
+				61D421411B4724BA0039BD7F /* PrayerAnsweredCell.swift in Sources */,
+				61F540B51B03DC730072BA6F /* CategoryCell.swift in Sources */,
+				61F0C4B71B1D560E00E4C40A /* AddPrayerAlertCell.swift in Sources */,
+				614442BE1B23DB8C00727245 /* AddPrayerDateCell.swift in Sources */,
+				61ACC5AD1B237F8C00A45C0E /* TodayViewController.swift in Sources */,
+				612DD0761B1D1E950086765C /* MovePrayersViewController.swift in Sources */,
+				6153FCD71B1CCA5400BF8105 /* Alert.swift in Sources */,
 				61293E301B013692005B7267 /* Prayer.swift in Sources */,
 				61293E0B1B013602005B7267 /* AppDelegate.swift in Sources */,
+				61955BD61B210C5600C993DE /* Notifications.swift in Sources */,
 				61293E331B013A21005B7267 /* Category.swift in Sources */,
+				61D4213D1B4724610039BD7F /* PrayerDetailsExtendedCell.swift in Sources */,
+				6153FCD91B1CD06400BF8105 /* PrayerCell.swift in Sources */,
+				61994DB01B520135005220E6 /* TodayCell.swift in Sources */,
 				61F540B11B03CFDF0072BA6F /* PersonalPrayerViewController.swift in Sources */,
+				6116BE211B1EA9960018BB73 /* PrayerSearchCell.swift in Sources */,
+				612DD07A1B1D360D0086765C /* BaseStore.swift in Sources */,
+				61D4213B1B47242F0039BD7F /* CreatePrayerCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -392,9 +517,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Edward Hart (2699J5KRKE)";
 				INFOPLIST_FILE = PrayerDevotion/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
 			};
 			name = Debug;
 		};
@@ -402,9 +530,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Edward Hart (2699J5KRKE)";
 				INFOPLIST_FILE = PrayerDevotion/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
 			};
 			name = Release;
 		};

@@ -12,7 +12,7 @@ import UIKit
 // Constants / IDs
 let UnwindFromEditID = "UnwindFromEditID"
 
-class EditCategoriesViewController: UITableViewController, UITextFieldDelegate {
+class EditCategoriesViewController: UITableViewController, UITextFieldDelegate, UITableViewDataSource {
     
     var currentCategory: Category!
     
@@ -42,6 +42,14 @@ class EditCategoriesViewController: UITableViewController, UITextFieldDelegate {
         super.didReceiveMemoryWarning()
     }
     
+    // MARK: TableView Data Source
+    
+    override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        var headerView = view as! UITableViewHeaderFooterView
+        
+        headerView.textLabel.textColor = UIColor.whiteColor()
+    }
+    
     // MARK: IBActions
     
     @IBAction func deleteCategory(sender: AnyObject) {
@@ -58,8 +66,8 @@ class EditCategoriesViewController: UITableViewController, UITextFieldDelegate {
             var sortKey: String! = userPrefs.stringForKey("categoriesSortKey")
             var ascending = userPrefs.boolForKey("categoriesAscending")
             
-            PrayerStore.sharedInstance.deleteCategory(self.currentCategory!)
-            PrayerStore.sharedInstance.fetchCategoriesData(nil, sortKey: sortKey, ascending: ascending)
+            CategoryStore.sharedInstance.deleteCategory(self.currentCategory!)
+            CategoryStore.sharedInstance.fetchCategoriesData(nil, sortKey: sortKey, ascending: ascending)
             
             self.performSegueWithIdentifier(UnwindFromEditID, sender: self)
         })
@@ -88,7 +96,7 @@ class EditCategoriesViewController: UITableViewController, UITextFieldDelegate {
     
     func textFieldDidEndEditing(textField: UITextField) {
         var newCategoryName = textField.text
-        if (PrayerStore.sharedInstance.categoryExists(newCategoryName) == true && newCategoryName != oldCategoryName) {
+        if (CategoryStore.sharedInstance.categoryExists(newCategoryName) == true && newCategoryName != oldCategoryName) {
             let alert = UIAlertController(title: "Unable to Change Name", message: "There already exists another category with the same name as \"\(newCategoryName)\".", preferredStyle: .Alert)
             var okAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
             alert.addAction(okAction)

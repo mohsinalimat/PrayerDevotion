@@ -11,37 +11,52 @@ import UIKit
 // Segue IDs
 let PresentPrayersSegueID = "PresentPrayersSegueID"
 let EditCategorySegueID = "EditCategorySegueID"
+let MovePrayersSegueID = "MovePrayersSegueID"
 
 class CategoriesViewController: UITableViewController, UITableViewDelegate, UITableViewDataSource {
     
+    // Button to click to sort categories
     private var sortBarButton: UIBarButtonItem!
 
+    // This is a private variable that holds all fetchedCategories
     private var fetchedCategories: NSMutableArray!
-    private var categoryCount = 0
+    private var categoryCount = 0 // The number of categories in the fetchedCategories array
     
+    // A boolean that is passed to MovePrayersViewController telling it that the user is deleting a prayer after the move
+    private var isDeletingCategory: Bool = false
+    
+    // This is a private variable passed to numerous ViewControllers that holds the instance of the current Category
+    // that was selected
     private var selectedCategory: Category?
     
+    // This is the singleton instance of the NSUserDefaults (or the user preferences)
     private var userPrefs = NSUserDefaults.standardUserDefaults()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         
+        // This is the sorting feature - it calls the userPrefs "categoriesSortKey" (a String) and then
+        // passes that key along to the PrayerStore for the NSSortDescriptor
+        // In the instance that the sort key is nil (meaning it isn't set yet - such as the first time opening the application)
+        // the sort key is automatically set to "creationDate" to sort by the date the categories were created
         var sortKey: String? = userPrefs.stringForKey("categoriesSortKey")
         if sortKey == nil { sortKey = "creationDate"; userPrefs.setObject("creationDate", forKey: "categoriesSortKey") }
         
+        // Ascending or Descending
         var ascending = userPrefs.boolForKey("categoriesAscending")
         
-        PrayerStore.sharedInstance.fetchCategoriesData(nil, sortKey: sortKey!, ascending: ascending)
+        // Now fetch the categories data from the SQLite Database via a CoreData request
+        CategoryStore.sharedInstance.fetchCategoriesData(nil, sortKey: sortKey!, ascending: ascending)
         println("Fetched Categories")
-        fetchedCategories = PrayerStore.sharedInstance.allCategories().mutableCopy() as! NSMutableArray
+        
+        // TODO: Stop using "fetchedCategories" and use "CategoriesStore.allCategories() instead!
+        fetchedCategories = CategoryStore.sharedInstance.allCategories().mutableCopy() as! NSMutableArray
         categoryCount = fetchedCategories.count
         
-        // Add Edit button to the top right
-        navigationItem.leftBarButtonItem = editButtonItem()
-        
+        // Set the sort key title
         var sortBy = sortKey == "name" ? "Alphabetically" : "By Date Created"
         
+        // Create the toolbar and its buttons
         sortBarButton = UIBarButtonItem(title: "Sorting: \(sortBy)", style: .Plain, target: self, action: "sortTable")
         var toolbarSpace = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: self, action: nil)
         
@@ -93,8 +108,8 @@ class CategoriesViewController: UITableViewController, UITableViewDelegate, UITa
     func sortItems(sortKey: String = "name", ascending: Bool = false) {
         let objectsBeforeSorting = fetchedCategories
         
-        PrayerStore.sharedInstance.fetchCategoriesData(nil, sortKey: sortKey, ascending: ascending)
-        fetchedCategories = PrayerStore.sharedInstance.allCategories().mutableCopy() as! NSMutableArray
+        CategoryStore.sharedInstance.fetchCategoriesData(nil, sortKey: sortKey, ascending: ascending)
+        fetchedCategories = CategoryStore.sharedInstance.allCategories().mutableCopy() as! NSMutableArray
         
         tableView.beginUpdates()
         for var i = 0; i < fetchedCategories.count; i++ {
@@ -108,6 +123,8 @@ class CategoriesViewController: UITableViewController, UITableViewDelegate, UITa
     @IBAction func createNewCategory(sender: AnyObject) {
         println("Adding new category to the database")
         
+        tableView.editing = false
+        
         var alertController = UIAlertController(title: "Create New Personal Category", message: "Enter a name below and press Create to create a new personal category", preferredStyle: .Alert)
         
         var cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
@@ -117,8 +134,8 @@ class CategoriesViewController: UITableViewController, UITableViewDelegate, UITa
             let textField = alertController.textFields![0] as! UITextField
             let categoryName = textField.text
                 
-            if (PrayerStore.sharedInstance.categoryExists(categoryName) == false) {
-                PrayerStore.sharedInstance.addCategoryToDatabase(categoryName, dateCreated: NSDate())
+            if (CategoryStore.sharedInstance.categoryExists(categoryName) == false) {
+                CategoryStore.sharedInstance.addCategoryToDatabase(categoryName, dateCreated: NSDate())
                     
                 CATransaction.begin()
                 CATransaction.setCompletionBlock({
@@ -131,8 +148,8 @@ class CategoriesViewController: UITableViewController, UITableViewDelegate, UITa
                 })
                     
                 self.tableView.beginUpdates()
-                PrayerStore.sharedInstance.fetchCategoriesData(nil)
-                self.fetchedCategories = PrayerStore.sharedInstance.allCategories().mutableCopy() as! NSMutableArray
+                CategoryStore.sharedInstance.fetchCategoriesData(nil)
+                self.fetchedCategories = CategoryStore.sharedInstance.allCategories().mutableCopy() as! NSMutableArray
                 self.categoryCount += 1
                     
                 self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: .Right)
@@ -194,7 +211,15 @@ class CategoriesViewController: UITableViewController, UITableViewDelegate, UITa
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let cell = tableView.cellForRowAtIndexPath(indexPath)
+        let cell = tableView.cellForRowAtIndexPath(indexPath)!
+        
+        //cell.contentView.backgroundColor = UIColor(red: 255/255.0, green: 249/255.0, blue: 187/255.0, alpha: 1)
+        //cell.backgroundColor = UIColor(red: 255/255.0, green: 249/255.0, blue: 187/255.0, alpha: 1)
+        
+        //tableView.separatorColor = UIColor(red: 252/255.0, green: 212/255.0, blue: 128/255.0, alpha: 1)
+        
+        cell.contentView.backgroundColor = UIColor.whiteColor()
+        cell.backgroundColor = UIColor.whiteColor()
         
         if !tableView.editing {
             let category = fetchedCategories[indexPath.row] as! Category
@@ -218,18 +243,26 @@ class CategoriesViewController: UITableViewController, UITableViewDelegate, UITa
         var deleteAction = UITableViewRowAction(style: .Normal, title: "Delete", handler: { rowAction, indexPath in
             let categoryName = (self.fetchedCategories[indexPath.row] as! Category).name
             
-            var alertController = UIAlertController(title: "Confirm Delete", message: "Are you sure you want to delete category \"\(categoryName)\"? All prayers under this category will be deleted along with it, and this action is irreversable.", preferredStyle: .Alert)
+            var alertController = UIAlertController(title: "Confirm Delete", message: "Are you sure you want to delete category \"\(categoryName)\"? All prayers under this category will be deleted along with it, and this action is irreversable.\n\nYou can also move all prayers under this category to another category before deletion.", preferredStyle: .Alert)
             
             var cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: { alertAction in
                 
             })
             alertController.addAction(cancelAction)
             
+            var moveAction = UIAlertAction(title: "Move Prayers", style: .Default, handler: { alertAction in
+                self.selectedCategory = self.fetchedCategories[indexPath.row] as? Category
+                self.isDeletingCategory = true
+                self.performSegueWithIdentifier(MovePrayersSegueID, sender: self)
+            })
+            moveAction.enabled = !(PrayerStore.sharedInstance.prayerCountForCategory(self.fetchedCategories[indexPath.row] as! Category) == 0 || self.categoryCount <= 1)
+            alertController.addAction(moveAction)
+            
             var confirmAction = UIAlertAction(title: "Confirm", style: .Destructive, handler: { alertAction in
                 self.tableView.beginUpdates()
-                PrayerStore.sharedInstance.deleteCategory(self.fetchedCategories[indexPath.row] as! Category)
-                PrayerStore.sharedInstance.fetchCategoriesData(nil)
-                self.fetchedCategories = PrayerStore.sharedInstance.allCategories().mutableCopy() as! NSMutableArray
+                CategoryStore.sharedInstance.deleteCategory(self.fetchedCategories[indexPath.row] as! Category)
+                CategoryStore.sharedInstance.fetchCategoriesData(nil)
+                self.fetchedCategories = CategoryStore.sharedInstance.allCategories().mutableCopy() as! NSMutableArray
                 
                 self.categoryCount -= 1
                 
@@ -242,7 +275,41 @@ class CategoriesViewController: UITableViewController, UITableViewDelegate, UITa
         })
         deleteAction.backgroundColor = UIColor.redColor()
         
-        return [deleteAction, editAction]
+        var moveAction = UITableViewRowAction(style: .Normal, title: "Move", handler: { rowAction, indexPath in
+            if self.categoryCount > 1 {
+                if PrayerStore.sharedInstance.prayerCountForCategory(self.fetchedCategories[indexPath.row] as! Category) == 0 {
+                    var alertController = UIAlertController(title: "Not Enough Prayers", message: "There are no prayers to move.", preferredStyle: .Alert)
+                    
+                    var okAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+                    alertController.addAction(okAction)
+                    
+                    self.presentViewController(alertController, animated: true, completion: nil)
+                } else {
+                    self.selectedCategory = self.fetchedCategories[indexPath.row] as? Category
+                    self.isDeletingCategory = false
+                    self.performSegueWithIdentifier(MovePrayersSegueID, sender: self)
+                }
+            } else {
+                var alertController = UIAlertController(title: "Not Enough Categories", message: "There are no other categories to move the prayers to.", preferredStyle: .Alert)
+                
+                var okAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+                alertController.addAction(okAction)
+                
+                self.presentViewController(alertController, animated: true, completion: nil)
+            }
+        })
+        if categoryCount > 1 {
+            if PrayerStore.sharedInstance.prayerCountForCategory(fetchedCategories[indexPath.row] as! Category) > 0 {
+                moveAction.backgroundColor = UIColor(red: 50/255.0, green: 205/255.0, blue: 50/255.0, alpha: 1)
+            } else {
+                moveAction.backgroundColor = UIColor.lightGrayColor()
+            }
+        } else {
+            moveAction.backgroundColor = UIColor.lightGrayColor()
+        }
+        //moveAction.backgroundColor = categoryCount > 1 || PrayerStore.sharedInstance.prayerCountForCategory(fetchedCategories[indexPath.row] as! Category) == 0 ? UIColor(red: 50/255.0, green: 205/255.0, blue: 50/255.0, alpha: 1) : UIColor.lightGrayColor()
+        
+        return [deleteAction, moveAction, editAction]
     }
     
     // MARK: Segues
@@ -266,6 +333,16 @@ class CategoriesViewController: UITableViewController, UITableViewDelegate, UITa
             } else {
                 println("ERROR!! Something went wrong! Category is nil!!")
             }
+            
+        case MovePrayersSegueID:
+            let toVC = (segue.destinationViewController as! UINavigationController).viewControllers[0] as! MovePrayersViewController
+            
+            if let category = selectedCategory {
+                toVC.fromCategory = category
+                toVC.deletingCategory = isDeletingCategory
+            } else {
+                println("ERROR!! Something went wrong! Category is nil!!")
+            }
         
         default:
             break
@@ -275,7 +352,7 @@ class CategoriesViewController: UITableViewController, UITableViewDelegate, UITa
     @IBAction func prepareForUnwindFromEdit(segue: UIStoryboardSegue) {
         println("Unwinding from Editing Category")
         
-        fetchedCategories = PrayerStore.sharedInstance.allCategories().mutableCopy() as! NSMutableArray
+        fetchedCategories = CategoryStore.sharedInstance.allCategories().mutableCopy() as! NSMutableArray
         categoryCount = fetchedCategories.count
         
         tableView.reloadData()
@@ -287,8 +364,26 @@ class CategoriesViewController: UITableViewController, UITableViewDelegate, UITa
         var sortKey: String? = userPrefs.stringForKey("categoriesSortKey")
         var ascending = userPrefs.boolForKey("categoriesAscending")
         
-        PrayerStore.sharedInstance.fetchCategoriesData(nil, sortKey: sortKey!, ascending: ascending)
-        fetchedCategories = PrayerStore.sharedInstance.allCategories().mutableCopy() as! NSMutableArray
+        CategoryStore.sharedInstance.fetchCategoriesData(nil, sortKey: sortKey!, ascending: ascending)
+        fetchedCategories = CategoryStore.sharedInstance.allCategories().mutableCopy() as! NSMutableArray
+        categoryCount = fetchedCategories.count
+        
+        tableView.reloadData()
+    }
+    
+    @IBAction func prepareForUnwindFromMovingPrayers(segue: UIStoryboardSegue) {
+        println("Unwinding from Moving Prayers")
+        
+        fetchedCategories = CategoryStore.sharedInstance.allCategories().mutableCopy() as! NSMutableArray
+        categoryCount = fetchedCategories.count
+        
+        tableView.reloadData()
+    }
+    
+    @IBAction func prepareForUnwindFromToday(segue: UIStoryboardSegue) {
+        println("Unwinding from Today Tab")
+        
+        fetchedCategories = CategoryStore.sharedInstance.allCategories().mutableCopy() as! NSMutableArray
         categoryCount = fetchedCategories.count
         
         tableView.reloadData()

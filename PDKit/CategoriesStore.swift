@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import CoreData
 
-class CategoryStore: BaseStore {
+public class CategoryStore: BaseStore {
     
     // I also only want this class to edit the categories directly
     // If you want to add or delete categories, use the provided functions
@@ -21,7 +21,7 @@ class CategoryStore: BaseStore {
     // This is the singleton variable for PrayerStore that is
     // used to get an instance to the store
     // Used nested functions to return the instance
-    class var sharedInstance: CategoryStore {
+    public class var sharedInstance: CategoryStore {
         struct Static {
             static var onceToken: dispatch_once_t = 0
             static var instance: CategoryStore? = nil
@@ -38,7 +38,7 @@ class CategoryStore: BaseStore {
     // MARK: Fetching
     
     // Fetch the categoreis only from the database
-    func fetchCategoriesData(predicate: NSPredicate?, sortKey: String = "creationDate", ascending: Bool = false) {
+    public func fetchCategoriesData(predicate: NSPredicate?, sortKey: String = "creationDate", ascending: Bool = false) {
         var fetchReq = NSFetchRequest(entityName: "Category")
         
         println("fetchCategoriesData key is \(sortKey)")
@@ -56,7 +56,7 @@ class CategoryStore: BaseStore {
         
         if let array = fetchedArray {
             for var i = 0; i < array.count; i++ {
-                println("--> Fetched Item at index \(i) is \((array[i] as! Category).name)")
+                println("--> Fetched Item at index \(i) is \((array[i] as! PDCategory).name)")
             }
             
             categories = NSMutableArray(array: array)
@@ -66,7 +66,7 @@ class CategoryStore: BaseStore {
         }
     }
     
-    func fetchCategoriesForMove(excludedCategory: String) -> NSArray! {
+    public func fetchCategoriesForMove(excludedCategory: String) -> NSArray! {
         var fetchRequest = NSFetchRequest(entityName: "Category")
         
         let predicate = NSPredicate(format: "name != %@", excludedCategory)
@@ -84,13 +84,13 @@ class CategoryStore: BaseStore {
     }
     
     // Returns an NSArray of all prayers
-    func allCategories() -> NSArray {
+    public func allCategories() -> NSArray {
         return categories
     }
     
     // Delete a category from the database
     // Takes a "Category" argument
-    func deleteCategory(category: Category!) {
+    public func deleteCategory(category: PDCategory!) {
         println("Deleting category")
         
         var fetchRequest = NSFetchRequest(entityName: "Prayer")
@@ -100,7 +100,7 @@ class CategoryStore: BaseStore {
         fetchRequest.predicate = predicate
         
         var error: NSError?
-        var results = managedContext!.executeFetchRequest(fetchRequest, error: &error) as! [Prayer]?
+        var results = managedContext!.executeFetchRequest(fetchRequest, error: &error) as! [PDPrayer]?
         
         if let prayersToDelete = results {
             for prayer in prayersToDelete {
@@ -130,8 +130,8 @@ class CategoryStore: BaseStore {
     
     // Add a category to the database
     // Takes a String argument and an NSDate argument
-    func addCategoryToDatabase(name: String, dateCreated: NSDate) {
-        var category = NSEntityDescription.insertNewObjectForEntityForName("Category", inManagedObjectContext: managedContext!) as! Category
+    public func addCategoryToDatabase(name: String, dateCreated: NSDate) {
+        var category = NSEntityDescription.insertNewObjectForEntityForName("Category", inManagedObjectContext: managedContext!) as! PDCategory
         
         // This is the method for an "order" - may use in the future
         /*var order = 1.0
@@ -156,7 +156,7 @@ class CategoryStore: BaseStore {
     // MARK: Moving Prayers in Category
     
     // Moves all prayers in a specific category to another category
-    func movePrayers(inCategory: Category, toCategory category: Category) {
+    public func movePrayers(inCategory: PDCategory, toCategory category: PDCategory) {
         var toCategoryCount = PrayerStore.sharedInstance.prayerCountForCategory(category)
         var fromCategoryCount = PrayerStore.sharedInstance.prayerCountForCategory(inCategory)
         
@@ -189,12 +189,12 @@ class CategoryStore: BaseStore {
     // MARK: Helper methods
     
     // Returns the count of all categories
-    func allCategoriesCount() -> Int {
+    public func allCategoriesCount() -> Int {
         return categories.count
     }
     
     // This method takes a string and returns the corresponding category with that string
-    func categoryForString(categoryName: String!) -> Category? {
+    public func categoryForString(categoryName: String!) -> Category? {
         for category in categories {
             if category.name == categoryName {
                 return category as? Category
@@ -205,7 +205,7 @@ class CategoryStore: BaseStore {
     }
     
     // This checks to see if a category exists (Dunno what to use this for... yet)
-    func categoryExists(categoryName: String!) -> Bool {
+    public func categoryExists(categoryName: String!) -> Bool {
         var fetchReq = NSFetchRequest(entityName: "Category")
         fetchReq.predicate = NSPredicate(format: "name == %@", categoryName)
         fetchReq.fetchLimit = 1

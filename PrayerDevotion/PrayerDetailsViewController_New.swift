@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import CoreData
+import PDKit
 
 let EnterPrayerNameCellID = "EnterPrayerNameCellID"
 let DetailsExtendedCellID = "DetailsExtendedCellID"
@@ -21,7 +22,7 @@ let PriorityCellID = "PriorityCellID"
 
 class PrayerDetailsViewController_New: UITableViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
     
-    var currentPrayer: Prayer! // This is the prayer that the user is currently editing
+    var currentPrayer: PDPrayer! // This is the prayer that the user is currently editing
     var prayerAlerts: NSMutableOrderedSet! // This is the mutable set of the prayer alerts that are included in the prayer
     var prayerAlertsCount: Int!
     var addedDate: NSDate? // This is the added date of the prayer... Dunno what it is used for actually
@@ -119,7 +120,7 @@ class PrayerDetailsViewController_New: UITableViewController, UITableViewDataSou
             } else {
                 var cell = tableView.dequeueReusableCellWithIdentifier(PrayerAlertCellID, forIndexPath: indexPath) as! PrayerAlertCell
                 
-                let currentAlert = prayerAlerts[indexPath.row] as! Alert
+                let currentAlert = prayerAlerts[indexPath.row] as! PDAlert
                 cell.alertLabel.text = AlertStore.sharedInstance.convertDateToString(currentAlert.alertDate)
                 
                 return cell
@@ -246,7 +247,7 @@ class PrayerDetailsViewController_New: UITableViewController, UITableViewDataSou
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         switch editingStyle {
         case .Delete:
-            AlertStore.sharedInstance.deleteAlert(prayerAlerts[indexPath.row] as! Alert, inPrayer: currentPrayer)
+            AlertStore.sharedInstance.deleteAlert(prayerAlerts[indexPath.row] as! PDAlert, inPrayer: currentPrayer)
             prayerAlerts = currentPrayer.alerts.mutableCopy() as! NSMutableOrderedSet
             prayerAlertsCount = prayerAlertsCount - 1
             

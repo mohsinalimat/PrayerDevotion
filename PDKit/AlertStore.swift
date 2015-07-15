@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-class AlertStore: BaseStore {
+public class AlertStore: BaseStore {
     
     let dateFormatter = NSDateFormatter()
     
@@ -17,7 +17,7 @@ class AlertStore: BaseStore {
     // This is the singleton variable for AlertStore that is
     // used to get an instance to the store
     // Used nested functions to return the instance
-    class var sharedInstance: AlertStore {
+    public class var sharedInstance: AlertStore {
         struct Static {
             static var onceToken: dispatch_once_t = 0
             static var instance: AlertStore? = nil
@@ -33,8 +33,8 @@ class AlertStore: BaseStore {
     // MARK: Alerts
     // This methods creates an alert for a specific prayer and stores it in the database
     // The Category is included for now, although it does nothing (yet)
-    func createAlert(prayer: Prayer!, inCategory category: String!, withDate date: NSDate!) {
-        var alert = NSEntityDescription.insertNewObjectForEntityForName("Alert", inManagedObjectContext: managedContext!) as! Alert
+    public func createAlert(prayer: PDPrayer!, inCategory category: String!, withDate date: NSDate!) {
+        var alert = NSEntityDescription.insertNewObjectForEntityForName("Alert", inManagedObjectContext: managedContext!) as! PDAlert
         
         alert.alertDate = date
         
@@ -72,7 +72,7 @@ class AlertStore: BaseStore {
         saveDatabase()
     }
     
-    func deleteAlert(alert: Alert, inPrayer prayer: Prayer!) {
+    public func deleteAlert(alert: PDAlert, inPrayer prayer: PDPrayer!) {
         var prayerAlerts = prayer.alerts.mutableCopy() as! NSMutableOrderedSet
         
         Notifications.sharedNotifications.deleteLocalNotification(alert.notificationID)
@@ -87,7 +87,7 @@ class AlertStore: BaseStore {
     
     // Delete all past alerts
     
-    func deletePastAlerts() {
+    public func deletePastAlerts() {
         var fetchRequest = NSFetchRequest(entityName: "Alert")
         
         var error: NSError?
@@ -95,7 +95,7 @@ class AlertStore: BaseStore {
         
         if let fetchedAlerts = results {
             for fetchedAlert in fetchedAlerts {
-                let alert = fetchedAlert as! Alert
+                let alert = fetchedAlert as! PDAlert
                 
                 let now = NSDate()
                 let alertDate = alert.alertDate
@@ -114,7 +114,7 @@ class AlertStore: BaseStore {
     // MARK: Helper Methods
     
     // Converts an NSDate to a string with format "September 17, 2003 at 3:00 PM"
-    func convertDateToString(date: NSDate) -> String {
+    public func convertDateToString(date: NSDate) -> String {
         dateFormatter.dateStyle = .LongStyle
         dateFormatter.timeStyle = .NoStyle
         
@@ -136,7 +136,7 @@ class AlertStore: BaseStore {
     
     // This function will search the database for all dates that are related to
     // the specified prayer
-    func allDates(forPrayer: Prayer) -> NSArray! {
+    public func allDates(forPrayer: PDPrayer) -> NSArray! {
         var fetchReq = NSFetchRequest(entityName: "Dates")
         fetchReq.predicate = NSPredicate(format: "prayer == %@", forPrayer)
         fetchReq.sortDescriptors = nil
@@ -155,7 +155,7 @@ class AlertStore: BaseStore {
     // This function will insert a data for a specific prayer into the database
     // NOTE: DO NOT USE THIS METHOD!!!!! It uses the value "dates" which I have removed for now - a one-many relationship
     // in the database (may use it later)
-    func insertDate(forPrayer: Prayer, date: NSDate) {
+    public func insertDate(forPrayer: PDPrayer, date: NSDate) {
         var addedDate: NSManagedObject = NSEntityDescription.insertNewObjectForEntityForName("Dates", inManagedObjectContext: managedContext!) as! NSManagedObject
         addedDate.setValue(date, forKey: "date")
         

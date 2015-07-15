@@ -9,6 +9,7 @@
 import Foundation
 import CoreData
 import UIKit
+import PDKit
 
 let TodayPrayerCellID = "TodayPrayerCellID"
 
@@ -42,7 +43,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     var section2: String?
     var section3: String?
     
-    var selectedPrayer: Prayer?
+    var selectedPrayer: PDPrayer?
     
     // IBOutlets
     @IBOutlet var noPrayersLabel: UILabel!

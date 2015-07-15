@@ -9,10 +9,11 @@
 import Foundation
 import CoreData
 import UIKit
+import PDKit
 
 class PrayerDetailsViewController: UITableViewController, UITableViewDataSource, UITableViewDelegate {
     
-    var currentPrayer: Prayer!
+    var currentPrayer: PDPrayer!
     var prayerAlerts: NSMutableOrderedSet!
     
     // This is the added date to the prayer
@@ -124,7 +125,7 @@ class PrayerDetailsViewController: UITableViewController, UITableViewDataSource,
         } else if indexPath.section == 2 && indexPath.row < prayerAlerts.count {
             var cell = tableView.dequeueReusableCellWithIdentifier(PrayerAlertCellID, forIndexPath: indexPath) as! PrayerAlertCell
             
-            let currentAlert = prayerAlerts[indexPath.row] as! Alert
+            let currentAlert = prayerAlerts[indexPath.row] as! PDAlert
             cell.alertLabel.text = AlertStore.sharedInstance.convertDateToString(currentAlert.alertDate)
             
             return cell
@@ -213,7 +214,7 @@ class PrayerDetailsViewController: UITableViewController, UITableViewDataSource,
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         switch editingStyle {
         case .Delete:
-            AlertStore.sharedInstance.deleteAlert(prayerAlerts[indexPath.row] as! Alert, inPrayer: currentPrayer)
+            AlertStore.sharedInstance.deleteAlert(prayerAlerts[indexPath.row] as! PDAlert, inPrayer: currentPrayer)
             prayerAlerts = currentPrayer.alerts.mutableCopy() as! NSMutableOrderedSet
             
             let cell = tableView.cellForRowAtIndexPath(indexPath) as? PrayerAlertCell

@@ -8,11 +8,12 @@
 
 import Foundation
 import UIKit
+import PDKit
 
 class PrayerDetailsExtendedCell: UITableViewCell, UITextViewDelegate {
     
     var detailsTextView: UITextView!
-    var currentPrayer: Prayer!
+    var currentPrayer: PDPrayer!
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)

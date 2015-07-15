@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import QuartzCore
+import PDKit
 
 class AddPrayerDateCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewDataSource {
     
@@ -24,7 +25,7 @@ class AddPrayerDateCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewData
     var saveButton: UIButton!
     var cancelButton: UIButton!
     
-    var currentPrayer: Prayer!
+    var currentPrayer: PDPrayer!
     
     var selectedType: PrayerType?
     var isAddingDate: Bool = false
@@ -76,7 +77,7 @@ class AddPrayerDateCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewData
         }
     }
     
-    func refreshCell(didSelect: Bool, selectedPrayer: Prayer) {
+    func refreshCell(didSelect: Bool, selectedPrayer: PDPrayer) {
         selectionStyle = didSelect == true ? .None : .Default
         
         let type = selectedPrayer.prayerType!

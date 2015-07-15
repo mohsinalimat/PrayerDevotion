@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import PDKit
 
 let PrayerSearchCellID = "PrayerSearchCellID"
 
@@ -19,7 +20,7 @@ class SearchViewController: UITableViewController, UITableViewDataSource, UISear
     var prayerSearchController: PrayerSearchViewController!
     var searchBar: CustomSearchBar!
     
-    var selectedPrayer: Prayer?
+    var selectedPrayer: PDPrayer?
     
     var filteredPrayers: NSMutableArray = NSMutableArray()
     
@@ -105,7 +106,7 @@ class SearchViewController: UITableViewController, UITableViewDataSource, UISear
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCellWithIdentifier(PrayerSearchCellID, forIndexPath: indexPath) as! PrayerSearchCell
         
-        let currentPrayer = filteredPrayers[indexPath.row] as! Prayer
+        let currentPrayer = filteredPrayers[indexPath.row] as! PDPrayer
         
         println("Prayer \(currentPrayer.name) is at indexPath \(indexPath) and is in category \(currentPrayer.category)")
         
@@ -117,7 +118,7 @@ class SearchViewController: UITableViewController, UITableViewDataSource, UISear
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        selectedPrayer = filteredPrayers[indexPath.row] as? Prayer
+        selectedPrayer = filteredPrayers[indexPath.row] as? PDPrayer
         
         performSegueWithIdentifier(PresentPrayerDetailsFromSearchSegueID, sender: self)
     }
@@ -238,7 +239,7 @@ class PrayerSearchViewController: UITableViewController, UITableViewDataSource, 
     func configureCell(cell: PrayerSearchCell, indexPath: NSIndexPath) {
         var editedIndexPath = NSIndexPath(forRow: indexPath.row, inSection: 0)
         
-        var prayer = filteredPrayers[indexPath.row] as! Prayer
+        var prayer = filteredPrayers[indexPath.row] as! PDPrayer
         
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateStyle = .LongStyle

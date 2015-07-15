@@ -9,12 +9,13 @@
 import Foundation
 import UIKit
 import CoreData
+import PDKit
 
 let UnwindFromMoveID = "UnwindFromMoveID"
 
 class MovePrayersViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    var fromCategory: Category!
+    var fromCategory: PDCategory!
     var deletingCategory: Bool = false
     
     private var fetchedCategories: NSArray!
@@ -35,13 +36,13 @@ class MovePrayersViewController: UIViewController, UITableViewDataSource, UITabl
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCellWithIdentifier("MoveCategoriesCellID", forIndexPath: indexPath) as! UITableViewCell
         
-        cell.textLabel?.text = (fetchedCategories[indexPath.row] as! Category).name
+        cell.textLabel?.text = (fetchedCategories[indexPath.row] as! PDCategory).name
         
         return cell
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let toCategory = fetchedCategories[indexPath.row] as! Category
+        let toCategory = fetchedCategories[indexPath.row] as! PDCategory
         
         if deletingCategory {
             var alert = UIAlertController(title: "Confirm Move and Delete", message: "Are you sure you want to move all prayers from the category \(fromCategory.name) to the category \(toCategory.name) then delete the original category?", preferredStyle: .Alert)

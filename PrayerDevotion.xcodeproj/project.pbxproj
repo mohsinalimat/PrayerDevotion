@@ -8,6 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		6102E38B1B093076005D3EC9 /* EditCategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6102E38A1B093076005D3EC9 /* EditCategoriesViewController.swift */; };
+		61081BEF1B55FDB8002F1BF3 /* PDKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 61081BEE1B55FDB8002F1BF3 /* PDKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		61081BF51B55FDB8002F1BF3 /* PDKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61081BEA1B55FDB8002F1BF3 /* PDKit.framework */; };
+		61081BFE1B55FDB8002F1BF3 /* PDKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61081BFD1B55FDB8002F1BF3 /* PDKitTests.swift */; };
+		61081C011B55FDB8002F1BF3 /* PDKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61081BEA1B55FDB8002F1BF3 /* PDKit.framework */; };
+		61081C021B55FDB8002F1BF3 /* PDKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 61081BEA1B55FDB8002F1BF3 /* PDKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		61081C121B55FDC3002F1BF3 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61081C091B55FDC3002F1BF3 /* Alert.swift */; };
+		61081C131B55FDC3002F1BF3 /* AlertStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61081C0A1B55FDC3002F1BF3 /* AlertStore.swift */; };
+		61081C141B55FDC3002F1BF3 /* BaseStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61081C0B1B55FDC3002F1BF3 /* BaseStore.swift */; };
+		61081C151B55FDC3002F1BF3 /* CategoriesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61081C0C1B55FDC3002F1BF3 /* CategoriesStore.swift */; };
+		61081C161B55FDC3002F1BF3 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61081C0D1B55FDC3002F1BF3 /* Category.swift */; };
+		61081C171B55FDC3002F1BF3 /* CoreDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61081C0E1B55FDC3002F1BF3 /* CoreDataStore.swift */; };
+		61081C181B55FDC3002F1BF3 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61081C0F1B55FDC3002F1BF3 /* Notifications.swift */; };
+		61081C191B55FDC3002F1BF3 /* Prayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61081C101B55FDC3002F1BF3 /* Prayer.swift */; };
+		61081C1A1B55FDC3002F1BF3 /* PrayerStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61081C111B55FDC3002F1BF3 /* PrayerStore.swift */; };
 		6111EE461B2290E400767914 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6111EE451B2290E400767914 /* SettingsViewController.swift */; };
 		6113B8DF1B4AF1CE006D952F /* PD-1024.png in Resources */ = {isa = PBXBuildFile; fileRef = 6113B8DE1B4AF1CE006D952F /* PD-1024.png */; };
 		6116BE211B1EA9960018BB73 /* PrayerSearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6116BE201B1EA9960018BB73 /* PrayerSearchCell.swift */; };
@@ -17,23 +31,15 @@
 		61293E131B013602005B7267 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 61293E111B013602005B7267 /* Main.storyboard */; };
 		61293E181B013602005B7267 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 61293E161B013602005B7267 /* LaunchScreen.xib */; };
 		61293E241B013602005B7267 /* PrayerDevotionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61293E231B013602005B7267 /* PrayerDevotionTests.swift */; };
-		61293E301B013692005B7267 /* Prayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61293E2E1B013692005B7267 /* Prayer.swift */; };
-		61293E331B013A21005B7267 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61293E321B013A21005B7267 /* Category.swift */; };
 		612DD0761B1D1E950086765C /* MovePrayersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 612DD0751B1D1E950086765C /* MovePrayersViewController.swift */; };
-		612DD0781B1D35730086765C /* CategoriesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 612DD0771B1D35730086765C /* CategoriesStore.swift */; };
-		612DD07A1B1D360D0086765C /* BaseStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 612DD0791B1D360D0086765C /* BaseStore.swift */; };
-		612DD07D1B1D36AC0086765C /* PrayerStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 612DD07C1B1D36AC0086765C /* PrayerStore.swift */; };
-		612DD07F1B1D38490086765C /* AlertStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 612DD07E1B1D38490086765C /* AlertStore.swift */; };
 		614442BC1B23BE0700727245 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 614442BB1B23BE0700727245 /* Images.xcassets */; };
 		614442BE1B23DB8C00727245 /* AddPrayerDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614442BD1B23DB8C00727245 /* AddPrayerDateCell.swift */; };
 		614769C31B51AD9C000EE6C8 /* PrayerPriorityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614769C21B51AD9C000EE6C8 /* PrayerPriorityCell.swift */; };
-		6153FCD71B1CCA5400BF8105 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6153FCD61B1CCA5400BF8105 /* Alert.swift */; };
 		6153FCD91B1CD06400BF8105 /* PrayerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6153FCD81B1CD06400BF8105 /* PrayerCell.swift */; };
 		615922F51B5210A60088BB5F /* PrayerNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615922F41B5210A60088BB5F /* PrayerNameCell.swift */; };
 		615BF62C1B1924B1002A8731 /* PrayerSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615BF62B1B1924B1002A8731 /* PrayerSearchViewController.swift */; };
 		6167D6CD1B1BF18E00BB8BA2 /* PrayerDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6167D6CC1B1BF18E00BB8BA2 /* PrayerDetailsViewController.swift */; };
 		6167D6CF1B1BF41900BB8BA2 /* PrayerAlertCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6167D6CE1B1BF41900BB8BA2 /* PrayerAlertCell.swift */; };
-		61955BD61B210C5600C993DE /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61955BD51B210C5600C993DE /* Notifications.swift */; };
 		61994DB01B520135005220E6 /* TodayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61994DAF1B520135005220E6 /* TodayCell.swift */; };
 		61ACC5AD1B237F8C00A45C0E /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61ACC5AC1B237F8C00A45C0E /* TodayViewController.swift */; };
 		61D4213B1B47242F0039BD7F /* CreatePrayerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D4213A1B47242F0039BD7F /* CreatePrayerCell.swift */; };
@@ -47,6 +53,27 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		61081BF61B55FDB8002F1BF3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 61293DFD1B013602005B7267 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 61081BE91B55FDB8002F1BF3;
+			remoteInfo = PDKit;
+		};
+		61081BF81B55FDB8002F1BF3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 61293DFD1B013602005B7267 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 61293E041B013602005B7267;
+			remoteInfo = PrayerDevotion;
+		};
+		61081BFF1B55FDB8002F1BF3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 61293DFD1B013602005B7267 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 61081BE91B55FDB8002F1BF3;
+			remoteInfo = PDKit;
+		};
 		61293E1E1B013602005B7267 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 61293DFD1B013602005B7267 /* Project object */;
@@ -56,8 +83,37 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		61CCE8B71B55F8BF00CDBD97 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				61081C021B55FDB8002F1BF3 /* PDKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		6102E38A1B093076005D3EC9 /* EditCategoriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditCategoriesViewController.swift; sourceTree = "<group>"; };
+		61081BEA1B55FDB8002F1BF3 /* PDKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PDKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		61081BED1B55FDB8002F1BF3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		61081BEE1B55FDB8002F1BF3 /* PDKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PDKit.h; sourceTree = "<group>"; };
+		61081BF41B55FDB8002F1BF3 /* PDKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PDKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		61081BFC1B55FDB8002F1BF3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		61081BFD1B55FDB8002F1BF3 /* PDKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDKitTests.swift; sourceTree = "<group>"; };
+		61081C091B55FDC3002F1BF3 /* Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
+		61081C0A1B55FDC3002F1BF3 /* AlertStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertStore.swift; sourceTree = "<group>"; };
+		61081C0B1B55FDC3002F1BF3 /* BaseStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseStore.swift; sourceTree = "<group>"; };
+		61081C0C1B55FDC3002F1BF3 /* CategoriesStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesStore.swift; sourceTree = "<group>"; };
+		61081C0D1B55FDC3002F1BF3 /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		61081C0E1B55FDC3002F1BF3 /* CoreDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStore.swift; sourceTree = "<group>"; };
+		61081C0F1B55FDC3002F1BF3 /* Notifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
+		61081C101B55FDC3002F1BF3 /* Prayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Prayer.swift; sourceTree = "<group>"; };
+		61081C111B55FDC3002F1BF3 /* PrayerStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerStore.swift; sourceTree = "<group>"; };
 		6111EE451B2290E400767914 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		6113B8DE1B4AF1CE006D952F /* PD-1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PD-1024.png"; sourceTree = "<group>"; };
 		6116BE201B1EA9960018BB73 /* PrayerSearchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerSearchCell.swift; sourceTree = "<group>"; };
@@ -71,25 +127,18 @@
 		61293E1D1B013602005B7267 /* PrayerDevotionTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PrayerDevotionTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		61293E221B013602005B7267 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		61293E231B013602005B7267 /* PrayerDevotionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayerDevotionTests.swift; sourceTree = "<group>"; };
-		61293E2E1B013692005B7267 /* Prayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Prayer.swift; sourceTree = "<group>"; };
-		61293E321B013A21005B7267 /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		612DD0751B1D1E950086765C /* MovePrayersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovePrayersViewController.swift; sourceTree = "<group>"; };
-		612DD0771B1D35730086765C /* CategoriesStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesStore.swift; sourceTree = "<group>"; };
-		612DD0791B1D360D0086765C /* BaseStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseStore.swift; sourceTree = "<group>"; };
-		612DD07C1B1D36AC0086765C /* PrayerStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerStore.swift; sourceTree = "<group>"; };
-		612DD07E1B1D38490086765C /* AlertStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertStore.swift; sourceTree = "<group>"; };
 		614442BB1B23BE0700727245 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		614442BD1B23DB8C00727245 /* AddPrayerDateCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPrayerDateCell.swift; sourceTree = "<group>"; };
 		614769C21B51AD9C000EE6C8 /* PrayerPriorityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerPriorityCell.swift; sourceTree = "<group>"; };
-		6153FCD61B1CCA5400BF8105 /* Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		6153FCD81B1CD06400BF8105 /* PrayerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerCell.swift; sourceTree = "<group>"; };
 		615922F41B5210A60088BB5F /* PrayerNameCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerNameCell.swift; sourceTree = "<group>"; };
 		615BF62B1B1924B1002A8731 /* PrayerSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerSearchViewController.swift; sourceTree = "<group>"; };
 		6167D6CC1B1BF18E00BB8BA2 /* PrayerDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerDetailsViewController.swift; sourceTree = "<group>"; };
 		6167D6CE1B1BF41900BB8BA2 /* PrayerAlertCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerAlertCell.swift; sourceTree = "<group>"; };
-		61955BD51B210C5600C993DE /* Notifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		61994DAF1B520135005220E6 /* TodayCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodayCell.swift; sourceTree = "<group>"; };
 		61ACC5AC1B237F8C00A45C0E /* TodayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
+		61CCE8BB1B55F92900CDBD97 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
 		61D4213A1B47242F0039BD7F /* CreatePrayerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePrayerCell.swift; sourceTree = "<group>"; };
 		61D4213C1B4724610039BD7F /* PrayerDetailsExtendedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerDetailsExtendedCell.swift; sourceTree = "<group>"; };
 		61D421401B4724BA0039BD7F /* PrayerAnsweredCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerAnsweredCell.swift; sourceTree = "<group>"; };
@@ -101,10 +150,26 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		61081BE61B55FDB8002F1BF3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		61081BF11B55FDB8002F1BF3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				61081BF51B55FDB8002F1BF3 /* PDKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		61293E021B013602005B7267 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				61081C011B55FDB8002F1BF3 /* PDKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -118,11 +183,73 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		61081BEB1B55FDB8002F1BF3 /* PDKit */ = {
+			isa = PBXGroup;
+			children = (
+				61081C1B1B55FDC4002F1BF3 /* Stores */,
+				61081C1C1B55FDC7002F1BF3 /* Models */,
+				61081C0E1B55FDC3002F1BF3 /* CoreDataStore.swift */,
+				61081C0F1B55FDC3002F1BF3 /* Notifications.swift */,
+				61081BEE1B55FDB8002F1BF3 /* PDKit.h */,
+				61081BEC1B55FDB8002F1BF3 /* Supporting Files */,
+			);
+			path = PDKit;
+			sourceTree = "<group>";
+		};
+		61081BEC1B55FDB8002F1BF3 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				61081BED1B55FDB8002F1BF3 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		61081BFA1B55FDB8002F1BF3 /* PDKitTests */ = {
+			isa = PBXGroup;
+			children = (
+				61081BFD1B55FDB8002F1BF3 /* PDKitTests.swift */,
+				61081BFB1B55FDB8002F1BF3 /* Supporting Files */,
+			);
+			path = PDKitTests;
+			sourceTree = "<group>";
+		};
+		61081BFB1B55FDB8002F1BF3 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				61081BFC1B55FDB8002F1BF3 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		61081C1B1B55FDC4002F1BF3 /* Stores */ = {
+			isa = PBXGroup;
+			children = (
+				61081C0B1B55FDC3002F1BF3 /* BaseStore.swift */,
+				61081C0A1B55FDC3002F1BF3 /* AlertStore.swift */,
+				61081C0C1B55FDC3002F1BF3 /* CategoriesStore.swift */,
+				61081C111B55FDC3002F1BF3 /* PrayerStore.swift */,
+			);
+			name = Stores;
+			sourceTree = "<group>";
+		};
+		61081C1C1B55FDC7002F1BF3 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				61081C091B55FDC3002F1BF3 /* Alert.swift */,
+				61081C0D1B55FDC3002F1BF3 /* Category.swift */,
+				61081C101B55FDC3002F1BF3 /* Prayer.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
 		61293DFC1B013602005B7267 = {
 			isa = PBXGroup;
 			children = (
+				61CCE8BB1B55F92900CDBD97 /* CoreData.framework */,
 				61293E071B013602005B7267 /* PrayerDevotion */,
 				61293E201B013602005B7267 /* PrayerDevotionTests */,
+				61081BEB1B55FDB8002F1BF3 /* PDKit */,
+				61081BFA1B55FDB8002F1BF3 /* PDKitTests */,
 				61293E061B013602005B7267 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -132,6 +259,8 @@
 			children = (
 				61293E051B013602005B7267 /* PrayerDevotion.app */,
 				61293E1D1B013602005B7267 /* PrayerDevotionTests.xctest */,
+				61081BEA1B55FDB8002F1BF3 /* PDKit.framework */,
+				61081BF41B55FDB8002F1BF3 /* PDKitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -150,9 +279,6 @@
 				6111EE451B2290E400767914 /* SettingsViewController.swift */,
 				61ACC5AC1B237F8C00A45C0E /* TodayViewController.swift */,
 				61F540B21B03DC620072BA6F /* Views */,
-				612DD07B1B1D36120086765C /* Models */,
-				61293E2D1B01367B005B7267 /* Stores */,
-				61955BD51B210C5600C993DE /* Notifications.swift */,
 				61293E111B013602005B7267 /* Main.storyboard */,
 				614442BB1B23BE0700727245 /* Images.xcassets */,
 				61293E161B013602005B7267 /* LaunchScreen.xib */,
@@ -186,27 +312,6 @@
 				61293E221B013602005B7267 /* Info.plist */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		61293E2D1B01367B005B7267 /* Stores */ = {
-			isa = PBXGroup;
-			children = (
-				612DD0791B1D360D0086765C /* BaseStore.swift */,
-				612DD07C1B1D36AC0086765C /* PrayerStore.swift */,
-				612DD0771B1D35730086765C /* CategoriesStore.swift */,
-				612DD07E1B1D38490086765C /* AlertStore.swift */,
-			);
-			name = Stores;
-			sourceTree = "<group>";
-		};
-		612DD07B1B1D36120086765C /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				6153FCD61B1CCA5400BF8105 /* Alert.swift */,
-				61293E321B013A21005B7267 /* Category.swift */,
-				61293E2E1B013692005B7267 /* Prayer.swift */,
-			);
-			name = Models;
 			sourceTree = "<group>";
 		};
 		61D4213E1B47247A0039BD7F /* Categories */ = {
@@ -255,7 +360,55 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		61081BE71B55FDB8002F1BF3 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				61081BEF1B55FDB8002F1BF3 /* PDKit.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
+		61081BE91B55FDB8002F1BF3 /* PDKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 61081C031B55FDB8002F1BF3 /* Build configuration list for PBXNativeTarget "PDKit" */;
+			buildPhases = (
+				61081BE51B55FDB8002F1BF3 /* Sources */,
+				61081BE61B55FDB8002F1BF3 /* Frameworks */,
+				61081BE71B55FDB8002F1BF3 /* Headers */,
+				61081BE81B55FDB8002F1BF3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PDKit;
+			productName = PDKit;
+			productReference = 61081BEA1B55FDB8002F1BF3 /* PDKit.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		61081BF31B55FDB8002F1BF3 /* PDKitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 61081C061B55FDB8002F1BF3 /* Build configuration list for PBXNativeTarget "PDKitTests" */;
+			buildPhases = (
+				61081BF01B55FDB8002F1BF3 /* Sources */,
+				61081BF11B55FDB8002F1BF3 /* Frameworks */,
+				61081BF21B55FDB8002F1BF3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				61081BF71B55FDB8002F1BF3 /* PBXTargetDependency */,
+				61081BF91B55FDB8002F1BF3 /* PBXTargetDependency */,
+			);
+			name = PDKitTests;
+			productName = PDKitTests;
+			productReference = 61081BF41B55FDB8002F1BF3 /* PDKitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		61293E041B013602005B7267 /* PrayerDevotion */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 61293E271B013602005B7267 /* Build configuration list for PBXNativeTarget "PrayerDevotion" */;
@@ -263,10 +416,12 @@
 				61293E011B013602005B7267 /* Sources */,
 				61293E021B013602005B7267 /* Frameworks */,
 				61293E031B013602005B7267 /* Resources */,
+				61CCE8B71B55F8BF00CDBD97 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				61081C001B55FDB8002F1BF3 /* PBXTargetDependency */,
 			);
 			name = PrayerDevotion;
 			productName = PrayerDevotion;
@@ -300,6 +455,13 @@
 				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = "Jonathan Hart";
 				TargetAttributes = {
+					61081BE91B55FDB8002F1BF3 = {
+						CreatedOnToolsVersion = 6.4;
+					};
+					61081BF31B55FDB8002F1BF3 = {
+						CreatedOnToolsVersion = 6.4;
+						TestTargetID = 61293E041B013602005B7267;
+					};
 					61293E041B013602005B7267 = {
 						CreatedOnToolsVersion = 6.3;
 						SystemCapabilities = {
@@ -329,11 +491,27 @@
 			targets = (
 				61293E041B013602005B7267 /* PrayerDevotion */,
 				61293E1C1B013602005B7267 /* PrayerDevotionTests */,
+				61081BE91B55FDB8002F1BF3 /* PDKit */,
+				61081BF31B55FDB8002F1BF3 /* PDKitTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		61081BE81B55FDB8002F1BF3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		61081BF21B55FDB8002F1BF3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		61293E031B013602005B7267 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -355,23 +533,44 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		61081BE51B55FDB8002F1BF3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				61081C1A1B55FDC3002F1BF3 /* PrayerStore.swift in Sources */,
+				61081C171B55FDC3002F1BF3 /* CoreDataStore.swift in Sources */,
+				61081C181B55FDC3002F1BF3 /* Notifications.swift in Sources */,
+				61081C191B55FDC3002F1BF3 /* Prayer.swift in Sources */,
+				61081C131B55FDC3002F1BF3 /* AlertStore.swift in Sources */,
+				61081C161B55FDC3002F1BF3 /* Category.swift in Sources */,
+				61081C121B55FDC3002F1BF3 /* Alert.swift in Sources */,
+				61081C141B55FDC3002F1BF3 /* BaseStore.swift in Sources */,
+				61081C151B55FDC3002F1BF3 /* CategoriesStore.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		61081BF01B55FDB8002F1BF3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				61081BFE1B55FDB8002F1BF3 /* PDKitTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		61293E011B013602005B7267 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				612DD07D1B1D36AC0086765C /* PrayerStore.swift in Sources */,
 				61293E101B013602005B7267 /* CategoriesViewController.swift in Sources */,
 				614769C31B51AD9C000EE6C8 /* PrayerPriorityCell.swift in Sources */,
 				615922F51B5210A60088BB5F /* PrayerNameCell.swift in Sources */,
 				61293E0E1B013602005B7267 /* PrayerDevotion.xcdatamodeld in Sources */,
 				6102E38B1B093076005D3EC9 /* EditCategoriesViewController.swift in Sources */,
-				612DD0781B1D35730086765C /* CategoriesStore.swift in Sources */,
 				61D421431B4724D50039BD7F /* PrayerAnsweredNotesCell.swift in Sources */,
 				61FB19941B4C7C5C0068A71C /* PrayerDetailsViewController_New.swift in Sources */,
 				6167D6CF1B1BF41900BB8BA2 /* PrayerAlertCell.swift in Sources */,
 				6167D6CD1B1BF18E00BB8BA2 /* PrayerDetailsViewController.swift in Sources */,
 				615BF62C1B1924B1002A8731 /* PrayerSearchViewController.swift in Sources */,
-				612DD07F1B1D38490086765C /* AlertStore.swift in Sources */,
 				6111EE461B2290E400767914 /* SettingsViewController.swift in Sources */,
 				61D421411B4724BA0039BD7F /* PrayerAnsweredCell.swift in Sources */,
 				61F540B51B03DC730072BA6F /* CategoryCell.swift in Sources */,
@@ -379,17 +578,12 @@
 				614442BE1B23DB8C00727245 /* AddPrayerDateCell.swift in Sources */,
 				61ACC5AD1B237F8C00A45C0E /* TodayViewController.swift in Sources */,
 				612DD0761B1D1E950086765C /* MovePrayersViewController.swift in Sources */,
-				6153FCD71B1CCA5400BF8105 /* Alert.swift in Sources */,
-				61293E301B013692005B7267 /* Prayer.swift in Sources */,
 				61293E0B1B013602005B7267 /* AppDelegate.swift in Sources */,
-				61955BD61B210C5600C993DE /* Notifications.swift in Sources */,
-				61293E331B013A21005B7267 /* Category.swift in Sources */,
 				61D4213D1B4724610039BD7F /* PrayerDetailsExtendedCell.swift in Sources */,
 				6153FCD91B1CD06400BF8105 /* PrayerCell.swift in Sources */,
 				61994DB01B520135005220E6 /* TodayCell.swift in Sources */,
 				61F540B11B03CFDF0072BA6F /* PersonalPrayerViewController.swift in Sources */,
 				6116BE211B1EA9960018BB73 /* PrayerSearchCell.swift in Sources */,
-				612DD07A1B1D360D0086765C /* BaseStore.swift in Sources */,
 				61D4213B1B47242F0039BD7F /* CreatePrayerCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -405,6 +599,21 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		61081BF71B55FDB8002F1BF3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 61081BE91B55FDB8002F1BF3 /* PDKit */;
+			targetProxy = 61081BF61B55FDB8002F1BF3 /* PBXContainerItemProxy */;
+		};
+		61081BF91B55FDB8002F1BF3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 61293E041B013602005B7267 /* PrayerDevotion */;
+			targetProxy = 61081BF81B55FDB8002F1BF3 /* PBXContainerItemProxy */;
+		};
+		61081C001B55FDB8002F1BF3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 61081BE91B55FDB8002F1BF3 /* PDKit */;
+			targetProxy = 61081BFF1B55FDB8002F1BF3 /* PBXContainerItemProxy */;
+		};
 		61293E1F1B013602005B7267 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 61293E041B013602005B7267 /* PrayerDevotion */;
@@ -432,6 +641,89 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		61081C041B55FDB8002F1BF3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Edward Hart (2699J5KRKE)";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = PDKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		61081C051B55FDB8002F1BF3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Edward Hart (2699J5KRKE)";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = PDKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		61081C071B55FDB8002F1BF3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = PDKitTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PrayerDevotion.app/PrayerDevotion";
+			};
+			name = Debug;
+		};
+		61081C081B55FDB8002F1BF3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = PDKitTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PrayerDevotion.app/PrayerDevotion";
+			};
+			name = Release;
+		};
 		61293E251B013602005B7267 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -576,6 +868,22 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		61081C031B55FDB8002F1BF3 /* Build configuration list for PBXNativeTarget "PDKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				61081C041B55FDB8002F1BF3 /* Debug */,
+				61081C051B55FDB8002F1BF3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		61081C061B55FDB8002F1BF3 /* Build configuration list for PBXNativeTarget "PDKitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				61081C071B55FDB8002F1BF3 /* Debug */,
+				61081C081B55FDB8002F1BF3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		61293E001B013602005B7267 /* Build configuration list for PBXProject "PrayerDevotion" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

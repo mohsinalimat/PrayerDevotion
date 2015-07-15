@@ -8,11 +8,12 @@
 
 import Foundation
 import UIKit
+import PDKit
 
 class PrayerNameCell: UITableViewCell {
     
     var nameField: UITextField!
-    var currentPrayer: Prayer!
+    var currentPrayer: PDPrayer!
     
     override func awakeFromNib() {
         super.awakeFromNib()

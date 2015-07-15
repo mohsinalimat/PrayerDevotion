@@ -10,13 +10,13 @@ import Foundation
 import CoreData
 
 // An enum to identify the "Today" Fetch Type easily
-enum PrayerType: Int, Printable {
+public enum PrayerType: Int, Printable {
     case OnDate // This describes a prayer set to a specified date
     case Daily // This describes a daily prayer
     case Weekly // This describes a weekly prayer
     case None // This is used as a placeholder for the prayer type - It is not used in the today tab at all
     
-    var description: String {
+    public var description: String {
         switch self {
         case .OnDate: return "On Date"
         case .Daily: return "Daily"
@@ -26,13 +26,13 @@ enum PrayerType: Int, Printable {
     }
 }
 
-class PrayerStore: BaseStore {
+public class PrayerStore: BaseStore {
     
     // MARK: Singleton Instance
     // This is the singleton variable for PrayerStore that is
     // used to get an instance to the store
     // Used nested functions to return the instance
-    class var sharedInstance: PrayerStore {
+    public class var sharedInstance: PrayerStore {
         struct Static {
             static var onceToken: dispatch_once_t = 0
             static var instance: PrayerStore? = nil
@@ -51,7 +51,7 @@ class PrayerStore: BaseStore {
     // This method will fetch all the prayers in a certain category.
     // It makes it easier than fetching all prayers into memory and then sorting them
     // manually
-    func fetchAllPrayersInCategory(category: Category!, sortDescriptors: [NSSortDescriptor], batchSize: Int = 20) -> NSMutableArray! {
+    public func fetchAllPrayersInCategory(category: PDCategory!, sortDescriptors: [NSSortDescriptor], batchSize: Int = 20) -> NSMutableArray! {
         var fetchRequest = NSFetchRequest(entityName: "Prayer")
         
         let categoryName = category.name
@@ -72,7 +72,7 @@ class PrayerStore: BaseStore {
     }
     
     // Returns a tuple of two NSMutableArrays
-    func fetchAndSortPrayersInCategory(category: Category, sortDescriptors: [NSSortDescriptor], batchSize: Int = 20) -> (unanswered: NSMutableArray, answered: NSMutableArray) {
+    public func fetchAndSortPrayersInCategory(category: PDCategory, sortDescriptors: [NSSortDescriptor], batchSize: Int = 20) -> (unanswered: NSMutableArray, answered: NSMutableArray) {
         var unansweredPrayers: NSMutableArray = NSMutableArray()
         var answeredPrayers: NSMutableArray = NSMutableArray()
         let categoryName = category.name
@@ -110,7 +110,7 @@ class PrayerStore: BaseStore {
     }
     
     // This method will filter prayers for searching through database
-    func filterPrayers(searchText text: String!, sortDescriptors sortDesc: [NSSortDescriptor], batchSize size: Int = 20) -> NSMutableArray! {
+    public func filterPrayers(searchText text: String!, sortDescriptors sortDesc: [NSSortDescriptor], batchSize size: Int = 20) -> NSMutableArray! {
         var fetchRequest = NSFetchRequest(entityName: "Prayer")
         
         println("Searching for string \"\(text)\"")
@@ -133,7 +133,7 @@ class PrayerStore: BaseStore {
     }
     
     // Fetches the "Today" Prayers from the database
-    func fetchTodayPrayers(todayFetchType: PrayerType) -> [Prayer]! {
+    public func fetchTodayPrayers(todayFetchType: PrayerType) -> [PDPrayer]! {
         var fetchRequest = NSFetchRequest(entityName: "Prayer")
         let today = NSDate()
         let dateFormatter = NSDateFormatter()
@@ -165,18 +165,18 @@ class PrayerStore: BaseStore {
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "priority", ascending: false), NSSortDescriptor(key: "name", ascending: true)]
         
         var error: NSError?
-        var results = managedContext!.executeFetchRequest(fetchRequest, error: &error) as! [Prayer]?
+        var results = managedContext!.executeFetchRequest(fetchRequest, error: &error) as! [PDPrayer]?
         
         if let fetchError = error {
             println("An error occurred while fetching today prayers: \(fetchError), \(fetchError.userInfo)")
-            return Array<Prayer>()
+            return [PDPrayer]()
         }
         
         return results!
     }
     
     // Returns the prayer count for a specified category
-    func prayerCountForCategory(category: Category!) -> Int {
+    public func prayerCountForCategory(category: PDCategory!) -> Int {
         var fetchRequest = NSFetchRequest(entityName: "Prayer")
         fetchRequest.resultType = .CountResultType
         fetchRequest.predicate = NSPredicate(format: "category == %@", category.name)
@@ -193,11 +193,11 @@ class PrayerStore: BaseStore {
     }
     
     // Delete a prayer from the database
-    func deletePrayer(prayer: Prayer!, inCategory category: Category!) {
+    public func deletePrayer(prayer: PDPrayer!, inCategory category: PDCategory!) {
         println("Deleting prayer")
         
         for alert in prayer.alerts {
-            let currentAlert = alert as! Alert
+            let currentAlert = alert as! PDAlert
             Notifications.sharedNotifications.deleteLocalNotification(currentAlert.notificationID)
         }
         
@@ -219,8 +219,8 @@ class PrayerStore: BaseStore {
     // MARK: Adding Prayers
     
     // Add a prayer to the database
-    func addPrayerToDatabase(name: String!, details: String, category: Category!, dateCreated: NSDate) {
-        var prayer = NSEntityDescription.insertNewObjectForEntityForName("Prayer", inManagedObjectContext: managedContext!) as! Prayer
+    public func addPrayerToDatabase(name: String!, details: String, category: PDCategory!, dateCreated: NSDate) {
+        var prayer = NSEntityDescription.insertNewObjectForEntityForName("Prayer", inManagedObjectContext: managedContext!) as! PDPrayer
         
         // This is the method for an "order" - may use in the future
         /*var order = 1.0
@@ -256,9 +256,8 @@ class PrayerStore: BaseStore {
     }
     
     // MARK: Prayer Dates
-
     
-    func addDateToPrayer(prayer: Prayer!, prayerType: String, date: NSDate?, weekday: String?) {
+    public func addDateToPrayer(prayer: PDPrayer!, prayerType: String, date: NSDate?, weekday: String?) {
         prayer.prayerType = prayerType
         
         if prayerType == "On Date" {
@@ -286,7 +285,7 @@ class PrayerStore: BaseStore {
         saveDatabase()
     }
     
-    func removeDateFromPrayer(prayer: Prayer!) {
+    public func removeDateFromPrayer(prayer: PDPrayer!) {
         prayer.addedDate = nil
         prayer.prayerType = "None"
         prayer.weekday = nil
@@ -295,7 +294,7 @@ class PrayerStore: BaseStore {
         saveDatabase()
     }
     
-    func prayerType(prayer: Prayer!) -> PrayerType {
+    public func prayerType(prayer: PDPrayer!) -> PrayerType {
         if prayer.prayerType == "On Date" { return .OnDate }
         if prayer.prayerType == "Daily" { return .Daily }
         if prayer.prayerType == "Weekly" { return .Weekly }
@@ -303,7 +302,7 @@ class PrayerStore: BaseStore {
         return .None
     }
     
-    func stringToPrayerType(string: String) -> PrayerType {
+    public func stringToPrayerType(string: String) -> PrayerType {
         if string == "On Date" { return .OnDate }
         if string == "Daily" { return .Daily }
         if string == "Weekly" { return .Weekly }
@@ -313,7 +312,7 @@ class PrayerStore: BaseStore {
     // MARK: Helper Methods
     
     // Returns the number of prayers that is in a specified Category
-    func numberOfPrayersInCategory(category: Category!) -> Int {
+    public func numberOfPrayersInCategory(category: PDCategory!) -> Int {
         var count = 0;
         
         count = Int(category.prayerCount)

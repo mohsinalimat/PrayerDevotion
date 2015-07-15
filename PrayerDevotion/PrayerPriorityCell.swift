@@ -8,11 +8,12 @@
 
 import Foundation
 import UIKit
+import PDKit
 
 class PrayerPriorityCell: UITableViewCell {
     
     var segmentedControl: UISegmentedControl!
-    var currentPrayer: Prayer!
+    var currentPrayer: PDPrayer!
     
     override func awakeFromNib() {
         super.awakeFromNib()

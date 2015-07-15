@@ -11,11 +11,11 @@ import CoreData
 import UIKit
 
 // This is the basic store that will be used by the CategoryStore, PrayerStore, and AlertStore
-class BaseStore {
+public class BaseStore {
     
     // This is a reference to the app delegate (as AppDelegate for its methods
     // and variables)
-    let managedContext: NSManagedObjectContext? = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+    let managedContext: NSManagedObjectContext? = CoreDataStore.sharedInstance.managedObjectContext!
     let userPrefs = NSUserDefaults.standardUserDefaults()
     
     // MARK: -----------
@@ -25,7 +25,7 @@ class BaseStore {
     // This is the singleton variable for PrayerStore that is
     // used to get an instance to the store
     // Used nested functions to return the instance
-    class var baseInstance: BaseStore {
+    public class var baseInstance: BaseStore {
         struct Static {
             static var onceToken: dispatch_once_t = 0
             static var instance: BaseStore? = nil
@@ -39,7 +39,7 @@ class BaseStore {
     }
     
     // Save the database
-    func saveDatabase() {
+    public func saveDatabase() {
         var error: NSError?
         managedContext!.save(&error)
         

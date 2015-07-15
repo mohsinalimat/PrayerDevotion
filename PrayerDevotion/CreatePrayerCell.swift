@@ -8,11 +8,12 @@
 
 import Foundation
 import UIKit
+import PDKit
 
 class CreatePrayerCell: UITableViewCell {
     
     var prayerTextField: UITextField!
-    var currentCategory: Category?
+    var currentCategory: PDCategory?
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)

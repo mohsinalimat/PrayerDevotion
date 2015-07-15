@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import CoreData
+import PDKit
 
 let CreatePrayerCellID = "CreatePrayerCellID"
 let PrayerCellID = "PrayerCellID"
@@ -20,7 +21,7 @@ let SearchSegueID = "SearchSegueID"
 class PersonalPrayerViewController: UITableViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UISearchBarDelegate {
     
     // Global variable that holds the current category
-    var currentCategory: Category!
+    var currentCategory: PDCategory!
     var prayers: NSMutableArray!
     var answeredPrayers: NSMutableArray!
     
@@ -28,7 +29,7 @@ class PersonalPrayerViewController: UITableViewController, UITableViewDelegate, 
     var answeredCount: Int!
     //var prayersCount: Int!
     
-    private var selectedPrayer: Prayer?
+    private var selectedPrayer: PDPrayer?
 
     @IBOutlet var navItem: UINavigationItem?
     
@@ -94,24 +95,24 @@ class PersonalPrayerViewController: UITableViewController, UITableViewDelegate, 
             let cell = tableView.dequeueReusableCellWithIdentifier(PrayerCellID, forIndexPath: indexPath) as! PrayerCell
             println("Index Path Row is = \(indexPath.row)")
         
-            configureCell(cell, prayer: prayers[indexPath.row] as? Prayer, indexPath: indexPath)
+            configureCell(cell, prayer: prayers[indexPath.row] as? PDPrayer, indexPath: indexPath)
             cell.prayerNameLabel.textColor = UIColor.blackColor()
-            setPriorityText((prayers[indexPath.row] as! Prayer).priority, forCell: cell)
+            setPriorityText((prayers[indexPath.row] as! PDPrayer).priority, forCell: cell)
             
             return cell
         } else {
             let cell = tableView.dequeueReusableCellWithIdentifier(PrayerCellID, forIndexPath: indexPath) as! PrayerCell
             println("Index Path Row is = \(indexPath.row)")
             
-            configureCell(cell, prayer: answeredPrayers[indexPath.row] as? Prayer, indexPath: indexPath)
+            configureCell(cell, prayer: answeredPrayers[indexPath.row] as? PDPrayer, indexPath: indexPath)
             cell.prayerNameLabel.textColor = UIColor.darkGrayColor()
-            setPriorityText((answeredPrayers[indexPath.row] as! Prayer).priority, forCell: cell)
+            setPriorityText((answeredPrayers[indexPath.row] as! PDPrayer).priority, forCell: cell)
             
             return cell
         }
     }
     
-    func configureCell(cell: PrayerCell, prayer: Prayer?, indexPath: NSIndexPath) {
+    func configureCell(cell: PrayerCell, prayer: PDPrayer?, indexPath: NSIndexPath) {
         var editedIndexPath = NSIndexPath(forRow: indexPath.row, inSection: 0)
         
         //let prayer = prayers[indexPath.row] as! Prayer
@@ -135,7 +136,7 @@ class PersonalPrayerViewController: UITableViewController, UITableViewDelegate, 
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         switch editingStyle {
         case .Delete:
-            PrayerStore.sharedInstance.deletePrayer(indexPath.section == 1 ? prayers[indexPath.row] as! Prayer : answeredPrayers[indexPath.row] as! Prayer, inCategory: currentCategory)
+            PrayerStore.sharedInstance.deletePrayer(indexPath.section == 1 ? prayers[indexPath.row] as! PDPrayer : answeredPrayers[indexPath.row] as! PDPrayer, inCategory: currentCategory)
             
             if indexPath.section == 1 {
                 prayers.removeObjectAtIndex(indexPath.row)
@@ -159,7 +160,7 @@ class PersonalPrayerViewController: UITableViewController, UITableViewDelegate, 
             return
         }
         
-        selectedPrayer = indexPath.section == 1 ? prayers[indexPath.row] as! Prayer : answeredPrayers[indexPath.row] as! Prayer
+        selectedPrayer = indexPath.section == 1 ? prayers[indexPath.row] as! PDPrayer : answeredPrayers[indexPath.row] as! PDPrayer
         let cell = tableView.cellForRowAtIndexPath(indexPath) as! PrayerCell
         
         performSegueWithIdentifier(PresentPrayerDetailsSegueID, sender: cell)
@@ -180,7 +181,7 @@ class PersonalPrayerViewController: UITableViewController, UITableViewDelegate, 
     
     override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]? {
         var deleteAction = UITableViewRowAction(style: .Normal, title: "Delete", handler: { rowAction, indexPath in
-            PrayerStore.sharedInstance.deletePrayer(indexPath.section == 1 ? self.prayers[indexPath.row] as! Prayer : self.answeredPrayers[indexPath.row] as! Prayer, inCategory: self.currentCategory)
+            PrayerStore.sharedInstance.deletePrayer(indexPath.section == 1 ? self.prayers[indexPath.row] as! PDPrayer : self.answeredPrayers[indexPath.row] as! PDPrayer, inCategory: self.currentCategory)
             
             if indexPath.section == 1 {
                 self.prayers.removeObjectAtIndex(indexPath.row)
@@ -199,7 +200,7 @@ class PersonalPrayerViewController: UITableViewController, UITableViewDelegate, 
         })
         deleteAction.backgroundColor = UIColor.redColor()
         
-        let prayer = indexPath.section == 1 ? self.prayers[indexPath.row] as! Prayer : self.answeredPrayers[indexPath.row] as! Prayer
+        let prayer = indexPath.section == 1 ? self.prayers[indexPath.row] as! PDPrayer : self.answeredPrayers[indexPath.row] as! PDPrayer
         var answeredAction = UITableViewRowAction(style: .Normal, title: prayer.answered == true ? "Answered" : "Unanswered", handler: { rowAction, indexPath in
             self.tableView.editing = false
             

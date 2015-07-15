@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import QuartzCore
+import PDKit
 
 class AddPrayerAlertCell: UITableViewCell {
     var saveButton: UIButton!
@@ -22,7 +23,7 @@ class AddPrayerAlertCell: UITableViewCell {
     var isAddingAlert: Bool = false
     var alertCount = 0
     
-    var currentPrayer: Prayer!
+    var currentPrayer: PDPrayer!
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -46,7 +47,7 @@ class AddPrayerAlertCell: UITableViewCell {
         clipsToBounds = true
     }
     
-    func refreshCell(didSelect: Bool, selectedPrayer: Prayer!) {
+    func refreshCell(didSelect: Bool, selectedPrayer: PDPrayer!) {
         selectionStyle = didSelect == true ? .None : .Default
         
         saveButton.hidden = !didSelect

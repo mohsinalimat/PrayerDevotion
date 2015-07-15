@@ -10,12 +10,12 @@ import Foundation
 import UIKit
 import CoreData
 
-class Notifications {
+public class Notifications {
     
     var updateTries = 0
     
     // The singleton method to access Notifications functions
-    class var sharedNotifications: Notifications {
+    public class var sharedNotifications: Notifications {
         struct Static {
             static var onceToken: dispatch_once_t = 0
             static var instance: Notifications? = nil
@@ -30,7 +30,7 @@ class Notifications {
     
     // MARK: Updating Notification Queue
     
-    func updateNotificationQueue() {
+    public func updateNotificationQueue() {
         let application = UIApplication.sharedApplication()
         let notificationCount = application.scheduledLocalNotifications.count
         
@@ -44,7 +44,7 @@ class Notifications {
             fetchRequest.fetchLimit = countToAdd
             
             var error: NSError?
-            let context = (application.delegate as! AppDelegate).managedObjectContext!
+            let context = CoreDataStore.sharedInstance.managedObjectContext!
             
             let results = context.executeFetchRequest(fetchRequest, error: &error)
             
@@ -65,7 +65,7 @@ class Notifications {
                 println("There are \(alerts.count) alerts waiting in the database to be scheduled")
                 
                 for fetchedAlert in alerts {
-                    let alert = fetchedAlert as! Alert
+                    let alert = fetchedAlert as! PDAlert
                     let localNotification = createNotification(alert)
                     application.scheduleLocalNotification(localNotification)
                 }
@@ -80,7 +80,7 @@ class Notifications {
     // MARK: Creating and Fetching Notifications
     
     // Create a notification from an Alert object
-    func createNotification(fromAlert: Alert!) -> UILocalNotification {
+    public func createNotification(fromAlert: PDAlert!) -> UILocalNotification {
         var localNotification = UILocalNotification()
         localNotification.fireDate = fromAlert.alertDate
         localNotification.alertBody = fromAlert.prayer.name
@@ -97,7 +97,7 @@ class Notifications {
     }
     
     // Search the local notifications for a certain notification based on the Notification ID
-    func getLocalNotification(forNotificationID: UInt32) -> UILocalNotification? {
+    public func getLocalNotification(forNotificationID: UInt32) -> UILocalNotification? {
         var application = UIApplication.sharedApplication()
         
         for notification in application.scheduledLocalNotifications {
@@ -113,7 +113,7 @@ class Notifications {
         return nil
     }
     
-    func deleteLocalNotification(forNotificationID: UInt32) {
+    public func deleteLocalNotification(forNotificationID: UInt32) {
         var application = UIApplication.sharedApplication()
         
         let notificationToDelete = getLocalNotification(forNotificationID)

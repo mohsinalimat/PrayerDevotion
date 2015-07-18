@@ -10,15 +10,23 @@ import UIKit
 import CoreData
 import PDKit
 
+// View Controller IDs
+let SBTodayNavControllerID = "SBTodayNavControllerID"
+let SBPrayerDetailsNavControllerID = "SBPrayerDetailsNavControllerID"
+ 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         //window!.tintColor = UIColor(red: 39/255.0, green: 20/255.0, blue: 1/255.0, alpha: 1)
+        
         window!.tintColor = UIColor(red: 194/255.0, green: 153/255.0, blue: 89/255.0, alpha: 1)
+        
+        migrateData()
+        PrayerStore.sharedInstance.checkIDs()
         
         let userNotifications = UIUserNotificationSettings(forTypes: .Alert | .Badge | .Sound, categories: nil)
         UIApplication.sharedApplication().registerUserNotificationSettings(userNotifications)
@@ -39,9 +47,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         userPrefs.setObject("installed", forKey: "didInstallApp")
         
+        var storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        var tabBarController = window!.rootViewController as! UITabBarController
+        let categoriesNavVC = tabBarController.viewControllers!.first as! UINavigationController
+        let categoriesVC = categoriesNavVC.topViewController as! CategoriesViewController
+        
+        NSNotificationCenter.defaultCenter().addObserver(categoriesVC, selector: "handleURL:", name: "HandleURLNotification", object: nil)
+        
         Notifications.sharedNotifications.updateNotificationQueue()
         AlertStore.sharedInstance.deletePastAlerts()
+                        
+        return true
+    }
+    
+    func application(application: UIApplication, handleOpenURL url: NSURL) -> Bool {
+        println("URL was \(url.host)")
+        
+        if let host = url.host {
+            if host == "open-today" {
+                println("URL with scheme \(url.scheme!) and host \(host) opened today view")
                 
+                let userInfo: [NSObject: AnyObject] = ["command": "open-today"]
+                NSNotificationCenter.defaultCenter().postNotificationName("HandleURLNotification", object: nil, userInfo: userInfo)
+            } else if host == "open-prayer" {
+                println("URL with scheme \(url.scheme!) and host \(host) passed query \(url.query!) to open prayer")
+                
+                let userInfo: [NSObject: AnyObject] = ["command": "open-prayer", "prayerID": "\(getURLPrayerID(url.query!)!)"]
+                NSNotificationCenter.defaultCenter().postNotificationName("HandleURLNotification", object: nil, userInfo: userInfo)
+            }
+        }
+        
         return true
     }
 
@@ -69,7 +105,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
-        self.saveContext()
+        //self.saveContext()
         Notifications.sharedNotifications.updateNotificationQueue()
     }
     
@@ -140,6 +176,62 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 abort()
             }
         }
+    }
+    
+    func migrateData() {
+        let userDefaults = NSUserDefaults.standardUserDefaults()
+        
+        if userDefaults.boolForKey("didMigratePrayerToBeta2.0") == false {
+            var groupURL = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier("group.shadowsystems.prayerdevotion")
+            var oldStoreURL = applicationDocumentsDirectory.URLByAppendingPathComponent("PrayerDevotion.sqlite")
+            var newStoreURL = groupURL!.URLByAppendingPathComponent("PrayerDevotion.sqlite")
+        
+            var sourceStore: NSPersistentStore? = nil
+            var destinationStore: NSPersistentStore? = nil
+            var error: NSError? = nil
+        
+            sourceStore = persistentStoreCoordinator!.persistentStoreForURL(oldStoreURL)
+            var newError: NSError? = nil
+            if sourceStore != nil {
+                destinationStore = persistentStoreCoordinator!.migratePersistentStore(sourceStore!, toURL: newStoreURL, options: [NSMigratePersistentStoresAutomaticallyOption: true, NSInferMappingModelAutomaticallyOption: true], withType: NSSQLiteStoreType, error: &error)
+                if destinationStore == nil {
+                    println("Error migrating store")
+                } else {
+                    println("Migration successful!")
+                
+                    if NSFileManager.defaultManager().removeItemAtPath(oldStoreURL.path!, error: &newError) == false {
+                        println("An error occurred while deleting old store")
+                    } else {
+                        println("Removed old store")
+                    }
+                    
+                    userDefaults.setBool(true, forKey: "didMigratePrayerToBeta2.0")
+                }
+            }
+        }
+        
+        migrateToPrayerID()
+    }
+    
+    func migrateToPrayerID() {
+        let userDefaults = NSUserDefaults.standardUserDefaults()
+        
+        if userDefaults.boolForKey("didAddPrayerIDs") == false {
+            println("Adding Prayer IDs to prayers")
+            PrayerStore.sharedInstance.addPrayerIDDuringMigration()
+        }
+    }
+    
+    func getURLPrayerID(query: String) -> Int32? {
+        var dict = [String: Int32]()
+        
+        let comps: [String] = query.componentsSeparatedByString("=")
+        
+        if comps.count == 2 {
+            return Int32(comps[1].toInt()!)
+        }
+        
+        return nil
     }
 
 }

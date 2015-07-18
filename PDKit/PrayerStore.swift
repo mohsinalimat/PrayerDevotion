@@ -133,8 +133,10 @@ public class PrayerStore: BaseStore {
     }
     
     // Fetches the "Today" Prayers from the database
-    public func fetchTodayPrayers(todayFetchType: PrayerType) -> [PDPrayer]! {
+    public func fetchTodayPrayers(todayFetchType: PrayerType, forWidget: Bool) -> [PDPrayer]! {
         var fetchRequest = NSFetchRequest(entityName: "Prayer")
+        if forWidget { fetchRequest.fetchLimit = 2 }
+        
         let today = NSDate()
         let dateFormatter = NSDateFormatter()
         
@@ -309,6 +311,68 @@ public class PrayerStore: BaseStore {
         return .None
     }
     
+    public func checkIDs() {
+        var fetchReqest = NSFetchRequest(entityName: "Prayer")
+        
+        var error: NSError? = nil
+        let fetchedPrayers = managedContext!.executeFetchRequest(fetchReqest, error: &error) as? [PDPrayer]
+        
+        if let fetchError = error {
+            println("An error occurred fetching prayers for check")
+        }
+        
+        for prayer in fetchedPrayers! {
+            println("Prayer ID for prayer \(prayer.name) is \(prayer.prayerID)")
+        }
+    }
+    
+    // MARK: Prayer Migration Methods
+
+    public func addPrayerIDDuringMigration() -> Bool {
+        var fetchReqest = NSFetchRequest(entityName: "Prayer")
+        
+        var error: NSError? = nil
+        let fetchedPrayers = managedContext!.executeFetchRequest(fetchReqest, error: &error) as? [PDPrayer]
+        
+        if let fetchError = error {
+            println("An error occurred fetching prayers for migration")
+            return false
+        }
+        
+        for prayer in fetchedPrayers! {
+            var id: Int32 = 0
+            
+            while true {
+                let generatedID = generateID()
+            
+                let newFetchRequest = NSFetchRequest(entityName: "Prayer")
+                newFetchRequest.fetchLimit = 1
+                newFetchRequest.predicate = NSPredicate(format: "prayerID == %d", generatedID)
+            
+                let fetchedPrayer = managedContext!.executeFetchRequest(newFetchRequest, error: &error)
+            
+                if let fetchedError = error {
+                    println("Error checking database for prayer with ID \(generatedID)")
+                } else if fetchedPrayer!.count > 0 {
+                    continue
+                } else {
+                    id = generatedID
+                    prayer.prayerID = generatedID
+                    break
+                }
+            }
+            
+            println("Prayer ID for prayer \(prayer.name) before save is \(prayer.prayerID)")
+            saveDatabase()
+            println("Prayer ID for prayer \(prayer.name) after save is \(prayer.prayerID)")
+        }
+        
+        let userDefaults = NSUserDefaults.standardUserDefaults()
+        userDefaults.setBool(true, forKey: "didAddPrayerIDs")
+        
+        return true
+    }
+    
     // MARK: Helper Methods
     
     // Returns the number of prayers that is in a specified Category
@@ -318,6 +382,31 @@ public class PrayerStore: BaseStore {
         count = Int(category.prayerCount)
         
         return count
+    }
+    
+    public func getPrayerForID(id: Int32) -> PDPrayer? {
+        var fetchRequest = NSFetchRequest(entityName: "Prayer")
+        fetchRequest.fetchLimit = 1
+        fetchRequest.predicate = NSPredicate(format: "prayerID == %d", id)
+        
+        var error: NSError? = nil
+        let fetchedPrayer = managedContext!.executeFetchRequest(fetchRequest, error: &error) as? [PDPrayer]
+        
+        if fetchedPrayer?.count == 0 {
+            println("Could not find prayer for ID \(id)")
+            return nil
+        } else if error != nil {
+            println("An error occurred while fetching prayer for ID \(id)")
+            return nil
+        }
+        
+        return fetchedPrayer![0]
+    }
+    
+    func generateID() -> Int32 {
+        var id: UInt32 = arc4random_uniform(UInt32(Int32.max))
+        //arc4random_buf(&id, sizeof(Int32))
+        return Int32(id)
     }
     
 }

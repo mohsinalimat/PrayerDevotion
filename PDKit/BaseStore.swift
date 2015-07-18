@@ -15,7 +15,7 @@ public class BaseStore {
     
     // This is a reference to the app delegate (as AppDelegate for its methods
     // and variables)
-    let managedContext: NSManagedObjectContext? = CoreDataStore.sharedInstance.managedObjectContext!
+    let managedContext: NSManagedObjectContext? = CoreDataStore.sharedInstance.managedObjectContext
     let userPrefs = NSUserDefaults.standardUserDefaults()
     
     // MARK: -----------

@@ -63,6 +63,8 @@ class CategoriesViewController: UITableViewController, UITableViewDelegate, UITa
         
         toolbarItems = [toolbarSpace, sortBarButton, toolbarSpace]
         navigationController?.toolbarHidden = false
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleURL:", name: "HandleURLNotification", object: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -388,6 +390,31 @@ class CategoriesViewController: UITableViewController, UITableViewDelegate, UITa
         categoryCount = fetchedCategories.count
         
         tableView.reloadData()
+    }
+    
+    // MARK: Notifications
+    
+    // MARK: Notifications
+    
+    func handleURL(notification: NSNotification) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        let notificationInfo = notification.userInfo!
+        let command = notificationInfo["command"] as! String
+        
+        if command == "open-today" {
+            let prayerNavController = storyboard.instantiateViewControllerWithIdentifier(SBTodayNavControllerID) as! UINavigationController
+            
+            presentViewController(prayerNavController, animated: true, completion: nil)
+        } else if command == "open-prayer" {
+            let prayerID = Int32((notificationInfo["prayerID"] as! String).toInt()!)
+            
+            let prayerNavController = storyboard.instantiateViewControllerWithIdentifier(SBPrayerDetailsNavControllerID) as! UINavigationController
+            let prayerDetailsController = prayerNavController.topViewController as! PrayerDetailsViewController_New
+            prayerDetailsController.currentPrayer = PrayerStore.sharedInstance.getPrayerForID(prayerID)!
+            
+            presentViewController(prayerNavController, animated: true, completion: nil)
+        }
     }
     
 }

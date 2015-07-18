@@ -34,9 +34,9 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     var userPrefs = NSUserDefaults.standardUserDefaults()
     
     // Arrays
-    var onDatePrayers = PrayerStore.sharedInstance.fetchTodayPrayers(.OnDate)
-    var dailyPrayers = PrayerStore.sharedInstance.fetchTodayPrayers(.Daily)
-    var weeklyPrayers = PrayerStore.sharedInstance.fetchTodayPrayers(.Weekly)
+    var onDatePrayers = PrayerStore.sharedInstance.fetchTodayPrayers(.OnDate, forWidget: false)
+    var dailyPrayers = PrayerStore.sharedInstance.fetchTodayPrayers(.Daily, forWidget: false)
+    var weeklyPrayers = PrayerStore.sharedInstance.fetchTodayPrayers(.Weekly, forWidget: false)
     
     var todayOrder: [PrayerType] = [.OnDate, .Daily, .Weekly] // 1 - On Date, 2 - Daily, 3 - Weekly
     var section1: String?
@@ -250,9 +250,9 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         println("Unwinding from Editing Prayer")
         BaseStore.baseInstance.saveDatabase()
         
-        onDatePrayers = PrayerStore.sharedInstance.fetchTodayPrayers(.OnDate)
-        dailyPrayers = PrayerStore.sharedInstance.fetchTodayPrayers(.Daily)
-        weeklyPrayers = PrayerStore.sharedInstance.fetchTodayPrayers(.Weekly)
+        onDatePrayers = PrayerStore.sharedInstance.fetchTodayPrayers(.OnDate, forWidget: false)
+        dailyPrayers = PrayerStore.sharedInstance.fetchTodayPrayers(.Daily, forWidget: false)
+        weeklyPrayers = PrayerStore.sharedInstance.fetchTodayPrayers(.Weekly, forWidget: false)
         
         var tableViewHidden = onDatePrayers.count == 0 && dailyPrayers.count == 0 && weeklyPrayers.count == 0
         

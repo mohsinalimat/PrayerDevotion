@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="14D136" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Alert" representedClassName="PDAlert" syncable="YES">
+        <attribute name="alertDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="didSchedule" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="notificationID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="prayer" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Prayer" inverseName="alerts" inverseEntity="Prayer" syncable="YES"/>
+    </entity>
+    <entity name="Category" representedClassName="PDCategory" syncable="YES">
+        <attribute name="creationDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="prayerCount" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+    </entity>
+    <entity name="Prayer" representedClassName="PDPrayer" syncable="YES">
+        <attribute name="addedDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="answered" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="answeredNotes" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="answeredTimestamp" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="category" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="creationDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="details" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isDateAdded" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="prayerID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="prayerType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="priority" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="weekday" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="alerts" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Alert" inverseName="prayer" inverseEntity="Alert" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Alert" positionX="-63" positionY="-18" width="128" height="105"/>
+        <element name="Category" positionX="-45" positionY="126" width="128" height="90"/>
+        <element name="Prayer" positionX="-54" positionY="18" width="128" height="255"/>
+    </elements>
+</model>

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="M4Y-Lb-cyx">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--Today View Controller-->
+        <scene sceneID="cwh-vc-ff4">
+            <objects>
+                <viewController id="M4Y-Lb-cyx" customClass="TodayViewController" customModule="PDTodayWidget" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Ft6-oW-KC0"/>
+                        <viewControllerLayoutGuide type="bottom" id="FKl-LY-JtV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" simulatedAppContext="notificationCenter" id="S3S-Oj-5AN">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="343"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Prayers Scheduled Today" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fiA-oE-5n1">
+                                <rect key="frame" x="49" y="161" width="223" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="56" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="8o8-AX-ES6">
+                                <rect key="frame" x="0.0" y="49" width="320" height="294"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" priority="750" constant="294" id="fzH-KR-Te8"/>
+                                </constraints>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PrayerTodayCellID" rowHeight="56" id="ULh-yx-Uti" customClass="PrayerTodayCell" customModule="PDTodayWidget" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ULh-yx-Uti" id="wCA-8n-Ynv">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cKV-ko-tQu">
+                                                    <rect key="frame" x="23" y="35" width="270" height="16"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="16" id="Zpf-IS-uDX"/>
+                                                        <constraint firstAttribute="width" constant="270" id="ZqT-dq-z9q"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="!!!" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="41s-nn-iaz">
+                                                    <rect key="frame" x="301" y="36" width="11" height="16"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="11" id="9d3-xp-A4t"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <color key="textColor" red="0.50196081400000003" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qpP-Si-kkp">
+                                                    <rect key="frame" x="23" y="13" width="289" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="cKV-ko-tQu" secondAttribute="bottom" constant="4" id="10V-Cw-RTi"/>
+                                                <constraint firstItem="qpP-Si-kkp" firstAttribute="leading" secondItem="wCA-8n-Ynv" secondAttribute="leadingMargin" constant="15" id="9ws-AF-5iZ"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="41s-nn-iaz" secondAttribute="bottom" constant="-5" id="ITP-Bc-hvM"/>
+                                                <constraint firstItem="41s-nn-iaz" firstAttribute="top" secondItem="qpP-Si-kkp" secondAttribute="bottom" constant="2" id="Wgq-Wi-rCT"/>
+                                                <constraint firstItem="qpP-Si-kkp" firstAttribute="trailing" secondItem="41s-nn-iaz" secondAttribute="trailing" id="aA5-cN-Xlw"/>
+                                                <constraint firstItem="cKV-ko-tQu" firstAttribute="top" secondItem="qpP-Si-kkp" secondAttribute="bottom" constant="1" id="abc-lu-l8j"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="qpP-Si-kkp" secondAttribute="trailing" id="lw7-pf-T0X"/>
+                                                <constraint firstItem="qpP-Si-kkp" firstAttribute="leading" secondItem="cKV-ko-tQu" secondAttribute="leading" id="y7T-tC-aDi"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="AllTodayCellID" rowHeight="35" id="wpk-xo-2sq">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wpk-xo-2sq" id="9VC-vJ-fGB">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="View All Today Prayers..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pTv-N0-2U4">
+                                                    <rect key="frame" x="8" y="14" width="304" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="pTv-N0-2U4" secondAttribute="bottom" id="c9P-iM-lHF"/>
+                                                <constraint firstItem="pTv-N0-2U4" firstAttribute="top" secondItem="9VC-vJ-fGB" secondAttribute="topMargin" constant="6" id="hKq-Kg-ewu"/>
+                                                <constraint firstItem="pTv-N0-2U4" firstAttribute="leading" secondItem="9VC-vJ-fGB" secondAttribute="leadingMargin" id="t9F-oQ-tHF"/>
+                                                <constraint firstItem="pTv-N0-2U4" firstAttribute="centerX" secondItem="9VC-vJ-fGB" secondAttribute="centerX" id="x1l-jD-IlT"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="M4Y-Lb-cyx" id="MkA-or-8AS"/>
+                                    <outlet property="delegate" destination="M4Y-Lb-cyx" id="yXm-hm-Bnm"/>
+                                </connections>
+                            </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Prayer Data" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tbz-iL-WyC">
+                                <rect key="frame" x="115" y="14" width="91" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="8o8-AX-ES6" firstAttribute="centerX" secondItem="Tbz-iL-WyC" secondAttribute="centerX" id="7aF-E3-mZ1"/>
+                            <constraint firstItem="8o8-AX-ES6" firstAttribute="top" secondItem="Tbz-iL-WyC" secondAttribute="bottom" constant="14" id="FTX-Cf-9H9"/>
+                            <constraint firstItem="8o8-AX-ES6" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leading" id="ISe-Be-GbU"/>
+                            <constraint firstAttribute="centerX" secondItem="fiA-oE-5n1" secondAttribute="centerX" id="bKV-zp-mL3"/>
+                            <constraint firstAttribute="centerY" secondItem="fiA-oE-5n1" secondAttribute="centerY" id="cLP-4y-neh"/>
+                            <constraint firstItem="8o8-AX-ES6" firstAttribute="bottom" secondItem="FKl-LY-JtV" secondAttribute="top" id="f2A-Ej-8gD"/>
+                            <constraint firstItem="Tbz-iL-WyC" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" constant="14" id="hCO-Lx-geC"/>
+                            <constraint firstAttribute="trailing" secondItem="8o8-AX-ES6" secondAttribute="trailing" id="qd2-Ai-T99"/>
+                        </constraints>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="343"/>
+                    <connections>
+                        <outlet property="noPrayersLabel" destination="fiA-oE-5n1" id="eQW-q8-UYS"/>
+                        <outlet property="tableView" destination="8o8-AX-ES6" id="7gn-QV-VXf"/>
+                        <outlet property="tableViewHeight" destination="fzH-KR-Te8" id="tD1-po-rP3"/>
+                        <outlet property="todayLabel" destination="Tbz-iL-WyC" id="UWd-Pi-myZ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vXp-U4-Rya" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="520" y="329.5"/>
+        </scene>
+    </scenes>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>

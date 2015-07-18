@@ -51,6 +51,7 @@ class PersonalPrayerViewController: UITableViewController, UITableViewDelegate, 
         fetchAndUpdatePrayers(sortDescriptors)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadFromEditingPrayer:", name: "ReloadPrayers", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleURL:", name: "HandleURLNotification", object: nil)
         
         refreshControl!.addTarget(self, action: "refreshView", forControlEvents: .ValueChanged)
     }
@@ -359,5 +360,28 @@ class PersonalPrayerViewController: UITableViewController, UITableViewDelegate, 
         tableView.reloadData()
         
         refreshControl!.endRefreshing()
+    }
+    
+    // MARK: Notifications
+    
+    func handleURL(notification: NSNotification) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        let notificationInfo = notification.userInfo!
+        let command = notificationInfo["command"] as! String
+        
+        if command == "open-today" {
+            let prayerNavController = storyboard.instantiateViewControllerWithIdentifier(SBTodayNavControllerID) as! UINavigationController
+            
+            presentViewController(prayerNavController, animated: true, completion: nil)
+        } else if command == "open-prayer" {
+            let prayerID = Int32((notificationInfo["prayerID"] as! String).toInt()!)
+            
+            let prayerNavController = storyboard.instantiateViewControllerWithIdentifier(SBPrayerDetailsNavControllerID) as! UINavigationController
+            let prayerDetailsController = prayerNavController.topViewController as! PrayerDetailsViewController_New
+            prayerDetailsController.currentPrayer = PrayerStore.sharedInstance.getPrayerForID(prayerID)!
+            
+            presentViewController(prayerNavController, animated: true, completion: nil)
+        }
     }
 }

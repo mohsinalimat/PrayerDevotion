@@ -19,6 +19,7 @@ let AnsweredPrayerCellID = "AnsweredPrayerCellID"
 let AnsweredPrayerNotesCellID = "AnsweredPrayerNotesCellID"
 let SetPrayerDateCellID = "SetPrayerDateCellID"
 let PriorityCellID = "PriorityCellID"
+let PrayerCategoryCellID = "PrayerCategoryCellID"
 
 class PrayerDetailsViewController_New: UITableViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
     
@@ -58,7 +59,7 @@ class PrayerDetailsViewController_New: UITableViewController, UITableViewDataSou
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
-        case 0: return 1
+        case 0: return 2
         case 1: return 1
         case 2: return 1
         case 3: return 1
@@ -73,11 +74,18 @@ class PrayerDetailsViewController_New: UITableViewController, UITableViewDataSou
         
         switch indexPath.section {
         case 0:
-            var cell = tableView.dequeueReusableCellWithIdentifier(EnterPrayerNameCellID, forIndexPath: indexPath) as! PrayerNameCell
-            cell.nameField.delegate = self
-            cell.nameField.text = currentPrayer.name
+            if indexPath.row == 0 {
+                var cell = tableView.dequeueReusableCellWithIdentifier(EnterPrayerNameCellID, forIndexPath: indexPath) as! PrayerNameCell
+                cell.nameField.delegate = self
+                cell.nameField.text = currentPrayer.name
             
-            return cell
+                return cell
+            } else {
+                var cell = tableView.dequeueReusableCellWithIdentifier(PrayerCategoryCellID, forIndexPath: indexPath) as! PrayerCategoryCell
+                cell.prayerCategoryLabel.text = "Prayer in Category \(currentPrayer.category)"
+                
+                return cell
+            }
             
         case 1:
             var cell = tableView.dequeueReusableCellWithIdentifier(DetailsExtendedCellID, forIndexPath: indexPath) as! PrayerDetailsExtendedCell
@@ -134,7 +142,7 @@ class PrayerDetailsViewController_New: UITableViewController, UITableViewDataSou
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.section == 1 || indexPath.section == 2 || indexPath.section == 5 && indexPath.row < prayerAlerts.count { return }
         
-        if indexPath.section == 0 {
+        if indexPath.section == 0 && indexPath.row == 0 {
             let cell = tableView.cellForRowAtIndexPath(indexPath) as! PrayerNameCell
             cell.nameField.becomeFirstResponder()
         }
@@ -176,7 +184,13 @@ class PrayerDetailsViewController_New: UITableViewController, UITableViewDataSou
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         switch indexPath.section {
-        case 0: return 44
+        case 0:
+            if indexPath.row == 0 {
+                return 44
+            } else {
+                return 23
+            }
+            
         case 1: return UITableViewAutomaticDimension
         case 2: return 30
         case 3: return 44
@@ -230,9 +244,9 @@ class PrayerDetailsViewController_New: UITableViewController, UITableViewDataSou
         switch section {
         case 0: return "Prayer Name"
         case 1: return "Extended Details"
-        case 2: return "Priority"
+        //case 2: return "Priority"
         case 3: return ""
-        case 4: return "Prayer Date"
+        //case 4: return "Prayer Date"
         case 5: return "Alerts"
         default: return ""
         }

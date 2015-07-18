@@ -20,19 +20,17 @@ import CoreData
     }
     
     init() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "contextDidSaveMainQueueContext", name: NSManagedObjectContextDidSaveNotification, object: self.managedObjectContext)
+        //NSNotificationCenter.defaultCenter().addObserver(self, selector: "contextDidSaveMainQueueContext:", name: NSManagedObjectContextDidSaveNotification, object: self.managedObjectContext)
     }
     
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        //NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     func contextDidSaveMainQueueContext(notification: NSNotification) {
         if let context = self.managedObjectContext {
-            self.synced(self, closure: { () -> () in
-                context.performBlock({() -> Void in
-                    context.mergeChangesFromContextDidSaveNotification(notification)
-                })
+            context.performBlock({() -> Void in
+                context.mergeChangesFromContextDidSaveNotification(notification)
             })
         }
     }
@@ -47,15 +45,17 @@ import CoreData
     
     lazy var applicationDocumentsDirectory: NSURL = {
         // The directory the application uses to store the Core Data store file. This code uses a directory named "com.shadowsystems.PrayerDevotion" in the application's documents Application Support directory.
-        let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
-        return urls[urls.count-1] as! NSURL
-        }()
+        //let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
+        //return urls[urls.count-1] as! NSURL
+        return NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier("group.shadowsystems.prayerdevotion")!
+    }()
     
     lazy var managedObjectModel: NSManagedObjectModel = {
         // The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
-        let modelURL = NSBundle.mainBundle().URLForResource("PrayerDevotion", withExtension: "momd")!
+        let bundle = NSBundle(identifier: "com.shadowsystems.PDKit")!
+        let modelURL = bundle.URLForResource("PrayerDevotion", withExtension: "momd")!
         return NSManagedObjectModel(contentsOfURL: modelURL)!
-        }()
+    }()
     
     lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator? = {
         // The persistent store coordinator for the application. This implementation creates and return a coordinator, having added the store for the application to it. This property is optional since there are legitimate error conditions that could cause the creation of the store to fail.

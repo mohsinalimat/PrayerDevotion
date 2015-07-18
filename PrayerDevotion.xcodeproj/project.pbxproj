@@ -40,8 +40,16 @@
 		615BF62C1B1924B1002A8731 /* PrayerSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615BF62B1B1924B1002A8731 /* PrayerSearchViewController.swift */; };
 		6167D6CD1B1BF18E00BB8BA2 /* PrayerDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6167D6CC1B1BF18E00BB8BA2 /* PrayerDetailsViewController.swift */; };
 		6167D6CF1B1BF41900BB8BA2 /* PrayerAlertCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6167D6CE1B1BF41900BB8BA2 /* PrayerAlertCell.swift */; };
+		6184764B1B5896BD00081E8B /* PrayerCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6184764A1B5896BD00081E8B /* PrayerCategoryCell.swift */; };
 		61994DB01B520135005220E6 /* TodayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61994DAF1B520135005220E6 /* TodayCell.swift */; };
 		61ACC5AD1B237F8C00A45C0E /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61ACC5AC1B237F8C00A45C0E /* TodayViewController.swift */; };
+		61C52CB11B56AFA200F3FB04 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61C52CB01B56AFA200F3FB04 /* NotificationCenter.framework */; };
+		61C52CB61B56AFA200F3FB04 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61C52CB51B56AFA200F3FB04 /* TodayViewController.swift */; };
+		61C52CB81B56AFA200F3FB04 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 61C52CB71B56AFA200F3FB04 /* MainInterface.storyboard */; };
+		61C52CBB1B56AFA200F3FB04 /* PDTodayWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 61C52CAE1B56AFA200F3FB04 /* PDTodayWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		61C52CC11B56B1F000F3FB04 /* PrayerTodayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61C52CC01B56B1F000F3FB04 /* PrayerTodayCell.swift */; };
+		61CB0F3B1B57188E00343DD4 /* PrayerDevotion.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 61CB0F391B57188E00343DD4 /* PrayerDevotion.xcdatamodeld */; };
+		61CB0F3F1B57238500343DD4 /* Model.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 61CB0F3E1B57238500343DD4 /* Model.xcmappingmodel */; };
 		61D4213B1B47242F0039BD7F /* CreatePrayerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D4213A1B47242F0039BD7F /* CreatePrayerCell.swift */; };
 		61D4213D1B4724610039BD7F /* PrayerDetailsExtendedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D4213C1B4724610039BD7F /* PrayerDetailsExtendedCell.swift */; };
 		61D421411B4724BA0039BD7F /* PrayerAnsweredCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D421401B4724BA0039BD7F /* PrayerAnsweredCell.swift */; };
@@ -81,9 +89,27 @@
 			remoteGlobalIDString = 61293E041B013602005B7267;
 			remoteInfo = PrayerDevotion;
 		};
+		61C52CB91B56AFA200F3FB04 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 61293DFD1B013602005B7267 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 61C52CAD1B56AFA200F3FB04;
+			remoteInfo = PDTodayWidget;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		61C52CBF1B56AFA200F3FB04 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				61C52CBB1B56AFA200F3FB04 /* PDTodayWidget.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		61CCE8B71B55F8BF00CDBD97 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -131,13 +157,25 @@
 		614442BB1B23BE0700727245 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		614442BD1B23DB8C00727245 /* AddPrayerDateCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPrayerDateCell.swift; sourceTree = "<group>"; };
 		614769C21B51AD9C000EE6C8 /* PrayerPriorityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerPriorityCell.swift; sourceTree = "<group>"; };
+		61478CC21B582A6A00F0775F /* PrayerDevotion 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "PrayerDevotion 2.xcdatamodel"; sourceTree = "<group>"; };
 		6153FCD81B1CD06400BF8105 /* PrayerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerCell.swift; sourceTree = "<group>"; };
 		615922F41B5210A60088BB5F /* PrayerNameCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerNameCell.swift; sourceTree = "<group>"; };
 		615BF62B1B1924B1002A8731 /* PrayerSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerSearchViewController.swift; sourceTree = "<group>"; };
 		6167D6CC1B1BF18E00BB8BA2 /* PrayerDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerDetailsViewController.swift; sourceTree = "<group>"; };
 		6167D6CE1B1BF41900BB8BA2 /* PrayerAlertCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerAlertCell.swift; sourceTree = "<group>"; };
+		6184764A1B5896BD00081E8B /* PrayerCategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerCategoryCell.swift; sourceTree = "<group>"; };
 		61994DAF1B520135005220E6 /* TodayCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodayCell.swift; sourceTree = "<group>"; };
 		61ACC5AC1B237F8C00A45C0E /* TodayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
+		61C52CAE1B56AFA200F3FB04 /* PDTodayWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PDTodayWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		61C52CB01B56AFA200F3FB04 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
+		61C52CB41B56AFA200F3FB04 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		61C52CB51B56AFA200F3FB04 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
+		61C52CB71B56AFA200F3FB04 /* MainInterface.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MainInterface.storyboard; sourceTree = "<group>"; };
+		61C52CC01B56B1F000F3FB04 /* PrayerTodayCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerTodayCell.swift; sourceTree = "<group>"; };
+		61CB0F3A1B57188E00343DD4 /* PrayerDevotion.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PrayerDevotion.xcdatamodel; sourceTree = "<group>"; };
+		61CB0F3C1B571EAD00343DD4 /* PDTodayWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PDTodayWidget.entitlements; sourceTree = "<group>"; };
+		61CB0F3D1B571EBE00343DD4 /* PrayerDevotion.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrayerDevotion.entitlements; sourceTree = "<group>"; };
+		61CB0F3E1B57238500343DD4 /* Model.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = Model.xcmappingmodel; sourceTree = "<group>"; };
 		61CCE8BB1B55F92900CDBD97 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
 		61D4213A1B47242F0039BD7F /* CreatePrayerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePrayerCell.swift; sourceTree = "<group>"; };
 		61D4213C1B4724610039BD7F /* PrayerDetailsExtendedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerDetailsExtendedCell.swift; sourceTree = "<group>"; };
@@ -180,6 +218,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		61C52CAB1B56AFA200F3FB04 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				61C52CB11B56AFA200F3FB04 /* NotificationCenter.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -192,6 +238,8 @@
 				61081C0F1B55FDC3002F1BF3 /* Notifications.swift */,
 				61081BEE1B55FDB8002F1BF3 /* PDKit.h */,
 				61081BEC1B55FDB8002F1BF3 /* Supporting Files */,
+				61CB0F391B57188E00343DD4 /* PrayerDevotion.xcdatamodeld */,
+				61CB0F3E1B57238500343DD4 /* Model.xcmappingmodel */,
 			);
 			path = PDKit;
 			sourceTree = "<group>";
@@ -250,6 +298,8 @@
 				61293E201B013602005B7267 /* PrayerDevotionTests */,
 				61081BEB1B55FDB8002F1BF3 /* PDKit */,
 				61081BFA1B55FDB8002F1BF3 /* PDKitTests */,
+				61C52CB21B56AFA200F3FB04 /* PDTodayWidget */,
+				61C52CAF1B56AFA200F3FB04 /* Frameworks */,
 				61293E061B013602005B7267 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -261,6 +311,7 @@
 				61293E1D1B013602005B7267 /* PrayerDevotionTests.xctest */,
 				61081BEA1B55FDB8002F1BF3 /* PDKit.framework */,
 				61081BF41B55FDB8002F1BF3 /* PDKitTests.xctest */,
+				61C52CAE1B56AFA200F3FB04 /* PDTodayWidget.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -268,6 +319,7 @@
 		61293E071B013602005B7267 /* PrayerDevotion */ = {
 			isa = PBXGroup;
 			children = (
+				61CB0F3D1B571EBE00343DD4 /* PrayerDevotion.entitlements */,
 				61293E0A1B013602005B7267 /* AppDelegate.swift */,
 				61293E0F1B013602005B7267 /* CategoriesViewController.swift */,
 				6102E38A1B093076005D3EC9 /* EditCategoriesViewController.swift */,
@@ -314,6 +366,34 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		61C52CAF1B56AFA200F3FB04 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				61C52CB01B56AFA200F3FB04 /* NotificationCenter.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		61C52CB21B56AFA200F3FB04 /* PDTodayWidget */ = {
+			isa = PBXGroup;
+			children = (
+				61CB0F3C1B571EAD00343DD4 /* PDTodayWidget.entitlements */,
+				61C52CB51B56AFA200F3FB04 /* TodayViewController.swift */,
+				61C52CC01B56B1F000F3FB04 /* PrayerTodayCell.swift */,
+				61C52CB71B56AFA200F3FB04 /* MainInterface.storyboard */,
+				61C52CB31B56AFA200F3FB04 /* Supporting Files */,
+			);
+			path = PDTodayWidget;
+			sourceTree = "<group>";
+		};
+		61C52CB31B56AFA200F3FB04 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				61C52CB41B56AFA200F3FB04 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		61D4213E1B47247A0039BD7F /* Categories */ = {
 			isa = PBXGroup;
 			children = (
@@ -326,6 +406,7 @@
 			isa = PBXGroup;
 			children = (
 				61F0C4B61B1D560E00E4C40A /* AddPrayerAlertCell.swift */,
+				6184764A1B5896BD00081E8B /* PrayerCategoryCell.swift */,
 				614442BD1B23DB8C00727245 /* AddPrayerDateCell.swift */,
 				61D4213A1B47242F0039BD7F /* CreatePrayerCell.swift */,
 				6167D6CE1B1BF41900BB8BA2 /* PrayerAlertCell.swift */,
@@ -417,11 +498,13 @@
 				61293E021B013602005B7267 /* Frameworks */,
 				61293E031B013602005B7267 /* Resources */,
 				61CCE8B71B55F8BF00CDBD97 /* Embed Frameworks */,
+				61C52CBF1B56AFA200F3FB04 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				61081C001B55FDB8002F1BF3 /* PBXTargetDependency */,
+				61C52CBA1B56AFA200F3FB04 /* PBXTargetDependency */,
 			);
 			name = PrayerDevotion;
 			productName = PrayerDevotion;
@@ -446,6 +529,23 @@
 			productReference = 61293E1D1B013602005B7267 /* PrayerDevotionTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		61C52CAD1B56AFA200F3FB04 /* PDTodayWidget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 61C52CBE1B56AFA200F3FB04 /* Build configuration list for PBXNativeTarget "PDTodayWidget" */;
+			buildPhases = (
+				61C52CAA1B56AFA200F3FB04 /* Sources */,
+				61C52CAB1B56AFA200F3FB04 /* Frameworks */,
+				61C52CAC1B56AFA200F3FB04 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PDTodayWidget;
+			productName = PDTodayWidget;
+			productReference = 61C52CAE1B56AFA200F3FB04 /* PDTodayWidget.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -464,7 +564,11 @@
 					};
 					61293E041B013602005B7267 = {
 						CreatedOnToolsVersion = 6.3;
+						DevelopmentTeam = P5B237A769;
 						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
 							com.apple.BackgroundModes = {
 								enabled = 0;
 							};
@@ -473,6 +577,15 @@
 					61293E1C1B013602005B7267 = {
 						CreatedOnToolsVersion = 6.3;
 						TestTargetID = 61293E041B013602005B7267;
+					};
+					61C52CAD1B56AFA200F3FB04 = {
+						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = P5B237A769;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -493,6 +606,7 @@
 				61293E1C1B013602005B7267 /* PrayerDevotionTests */,
 				61081BE91B55FDB8002F1BF3 /* PDKit */,
 				61081BF31B55FDB8002F1BF3 /* PDKitTests */,
+				61C52CAD1B56AFA200F3FB04 /* PDTodayWidget */,
 			);
 		};
 /* End PBXProject section */
@@ -530,6 +644,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		61C52CAC1B56AFA200F3FB04 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				61C52CB81B56AFA200F3FB04 /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -543,7 +665,9 @@
 				61081C191B55FDC3002F1BF3 /* Prayer.swift in Sources */,
 				61081C131B55FDC3002F1BF3 /* AlertStore.swift in Sources */,
 				61081C161B55FDC3002F1BF3 /* Category.swift in Sources */,
+				61CB0F3B1B57188E00343DD4 /* PrayerDevotion.xcdatamodeld in Sources */,
 				61081C121B55FDC3002F1BF3 /* Alert.swift in Sources */,
+				61CB0F3F1B57238500343DD4 /* Model.xcmappingmodel in Sources */,
 				61081C141B55FDC3002F1BF3 /* BaseStore.swift in Sources */,
 				61081C151B55FDC3002F1BF3 /* CategoriesStore.swift in Sources */,
 			);
@@ -573,6 +697,7 @@
 				615BF62C1B1924B1002A8731 /* PrayerSearchViewController.swift in Sources */,
 				6111EE461B2290E400767914 /* SettingsViewController.swift in Sources */,
 				61D421411B4724BA0039BD7F /* PrayerAnsweredCell.swift in Sources */,
+				6184764B1B5896BD00081E8B /* PrayerCategoryCell.swift in Sources */,
 				61F540B51B03DC730072BA6F /* CategoryCell.swift in Sources */,
 				61F0C4B71B1D560E00E4C40A /* AddPrayerAlertCell.swift in Sources */,
 				614442BE1B23DB8C00727245 /* AddPrayerDateCell.swift in Sources */,
@@ -593,6 +718,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				61293E241B013602005B7267 /* PrayerDevotionTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		61C52CAA1B56AFA200F3FB04 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				61C52CC11B56B1F000F3FB04 /* PrayerTodayCell.swift in Sources */,
+				61C52CB61B56AFA200F3FB04 /* TodayViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -618,6 +752,11 @@
 			isa = PBXTargetDependency;
 			target = 61293E041B013602005B7267 /* PrayerDevotion */;
 			targetProxy = 61293E1E1B013602005B7267 /* PBXContainerItemProxy */;
+		};
+		61C52CBA1B56AFA200F3FB04 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 61C52CAD1B56AFA200F3FB04 /* PDTodayWidget */;
+			targetProxy = 61C52CB91B56AFA200F3FB04 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -809,6 +948,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = PrayerDevotion/PrayerDevotion.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Edward Hart (2699J5KRKE)";
 				INFOPLIST_FILE = PrayerDevotion/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
@@ -822,6 +962,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = PrayerDevotion/PrayerDevotion.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Edward Hart (2699J5KRKE)";
 				INFOPLIST_FILE = PrayerDevotion/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
@@ -865,6 +1006,44 @@
 			};
 			name = Release;
 		};
+		61C52CBC1B56AFA200F3FB04 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = TodayIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = PDTodayWidget/PDTodayWidget.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = PDTodayWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		61C52CBD1B56AFA200F3FB04 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = TodayIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = PDTodayWidget/PDTodayWidget.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = PDTodayWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -875,6 +1054,7 @@
 				61081C051B55FDB8002F1BF3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		61081C061B55FDB8002F1BF3 /* Build configuration list for PBXNativeTarget "PDKitTests" */ = {
 			isa = XCConfigurationList;
@@ -883,6 +1063,7 @@
 				61081C081B55FDB8002F1BF3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		61293E001B013602005B7267 /* Build configuration list for PBXProject "PrayerDevotion" */ = {
 			isa = XCConfigurationList;
@@ -911,6 +1092,15 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		61C52CBE1B56AFA200F3FB04 /* Build configuration list for PBXNativeTarget "PDTodayWidget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				61C52CBC1B56AFA200F3FB04 /* Debug */,
+				61C52CBD1B56AFA200F3FB04 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
@@ -920,6 +1110,17 @@
 				61293E0D1B013602005B7267 /* PrayerDevotion.xcdatamodel */,
 			);
 			currentVersion = 61293E0D1B013602005B7267 /* PrayerDevotion.xcdatamodel */;
+			path = PrayerDevotion.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+		61CB0F391B57188E00343DD4 /* PrayerDevotion.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				61478CC21B582A6A00F0775F /* PrayerDevotion 2.xcdatamodel */,
+				61CB0F3A1B57188E00343DD4 /* PrayerDevotion.xcdatamodel */,
+			);
+			currentVersion = 61478CC21B582A6A00F0775F /* PrayerDevotion 2.xcdatamodel */;
 			path = PrayerDevotion.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

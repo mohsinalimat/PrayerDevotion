@@ -712,6 +712,27 @@
                                     </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="PrayerCategoryCellID" rowHeight="23" id="KdL-Cu-sJt" customClass="PrayerCategoryCell" customModule="PrayerDevotion" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KdL-Cu-sJt" id="yIz-az-lV5">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Prayer In Category" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QzY-IR-zV4">
+                                            <rect key="frame" x="20" y="0.0" width="572" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailingMargin" secondItem="QzY-IR-zV4" secondAttribute="trailing" id="Kdt-eF-EFp"/>
+                                        <constraint firstItem="QzY-IR-zV4" firstAttribute="leading" secondItem="yIz-az-lV5" secondAttribute="leadingMargin" constant="12" id="ai3-lf-w0k"/>
+                                        <constraint firstItem="QzY-IR-zV4" firstAttribute="top" secondItem="yIz-az-lV5" secondAttribute="top" id="c75-47-M3r"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="QzY-IR-zV4" secondAttribute="bottom" constant="-7" id="xSp-9y-t02"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                            </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="DetailsExtendedCellID" rowHeight="130" id="gl1-no-Agd" customClass="PrayerDetailsExtendedCell" customModule="PrayerDevotion" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gl1-no-Agd" id="73J-o5-gK5">
@@ -929,7 +950,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <segmentedControl tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="B5n-ZT-i49">
-                                            <rect key="frame" x="8" y="0.0" width="584" height="29"/>
+                                            <rect key="frame" x="71" y="0.0" width="521" height="29"/>
                                             <segments>
                                                 <segment title="None"/>
                                                 <segment title="!"/>
@@ -938,11 +959,19 @@
                                             </segments>
                                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </segmentedControl>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Priority" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lu4-RW-R45">
+                                            <rect key="frame" x="8" y="4" width="55" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="B5n-ZT-i49" firstAttribute="top" secondItem="ZNL-rs-BiC" secondAttribute="topMargin" constant="-8" id="9fW-Hk-Vc4"/>
-                                        <constraint firstItem="B5n-ZT-i49" firstAttribute="leading" secondItem="ZNL-rs-BiC" secondAttribute="leadingMargin" id="Zei-hT-lj9"/>
-                                        <constraint firstItem="B5n-ZT-i49" firstAttribute="centerX" secondItem="ZNL-rs-BiC" secondAttribute="centerX" id="lc3-w1-WCk"/>
+                                        <constraint firstAttribute="centerY" secondItem="Lu4-RW-R45" secondAttribute="centerY" id="NWE-VK-qkK"/>
+                                        <constraint firstItem="Lu4-RW-R45" firstAttribute="leading" secondItem="ZNL-rs-BiC" secondAttribute="leadingMargin" id="Ort-D2-xI0"/>
+                                        <constraint firstItem="B5n-ZT-i49" firstAttribute="leading" secondItem="ZNL-rs-BiC" secondAttribute="leadingMargin" constant="63" id="Zei-hT-lj9"/>
+                                        <constraint firstItem="B5n-ZT-i49" firstAttribute="centerX" secondItem="ZNL-rs-BiC" secondAttribute="centerX" constant="31.5" id="lc3-w1-WCk"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1123,7 +1152,7 @@
         <!--Navigation Controller-->
         <scene sceneID="rLa-ef-iwg">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Bpi-Wf-dEB" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="SBPrayerDetailsNavControllerID" automaticallyAdjustsScrollViewInsets="NO" id="Bpi-Wf-dEB" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="dMD-65-hmR">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1159,7 +1188,7 @@
         <!--Navigation Controller-->
         <scene sceneID="n6x-wf-kAW">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7v7-me-2eV" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="SBTodayNavControllerID" automaticallyAdjustsScrollViewInsets="NO" id="7v7-me-2eV" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="DcM-vH-oy1">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

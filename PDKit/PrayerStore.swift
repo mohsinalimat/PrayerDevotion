@@ -11,10 +11,10 @@ import CoreData
 
 // An enum to identify the "Today" Fetch Type easily
 public enum PrayerType: Int, Printable {
-    case OnDate // This describes a prayer set to a specified date
-    case Daily // This describes a daily prayer
-    case Weekly // This describes a weekly prayer
-    case None // This is used as a placeholder for the prayer type - It is not used in the today tab at all
+    case OnDate = 0// This describes a prayer set to a specified date
+    case Daily = 1// This describes a daily prayer
+    case Weekly = 2 // This describes a weekly prayer
+    case None = 3// This is used as a placeholder for the prayer type - It is not used in the today tab at all
     
     public var description: String {
         switch self {

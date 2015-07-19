@@ -38,7 +38,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     var dailyPrayers = PrayerStore.sharedInstance.fetchTodayPrayers(.Daily, forWidget: false)
     var weeklyPrayers = PrayerStore.sharedInstance.fetchTodayPrayers(.Weekly, forWidget: false)
     
-    var todayOrder: [PrayerType] = [.OnDate, .Daily, .Weekly] // 1 - On Date, 2 - Daily, 3 - Weekly
+    var todayOrder: [PrayerType]! //= [.OnDate, .Daily, .Weekly] // 1 - On Date, 2 - Daily, 3 - Weekly
     var section1: String?
     var section2: String?
     var section3: String?
@@ -58,6 +58,12 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         tableView.hidden = tableViewHidden
         todayLabel.hidden = tableViewHidden
         noPrayersLabel.hidden = !tableViewHidden
+        
+        let todayOrder1 = PrayerType(rawValue: userPrefs.objectForKey("prayerTodayOrder_1") as! Int)!
+        let todayOrder2 = PrayerType(rawValue: userPrefs.objectForKey("prayerTodayOrder_2") as! Int)!
+        let todayOrder3 = PrayerType(rawValue: userPrefs.objectForKey("prayerTodayOrder_3") as! Int)!
+        
+        todayOrder = [todayOrder1, todayOrder2, todayOrder3]
         
         // Figures out where the location of the numerical value of the specified type is
         // And delete it from the array

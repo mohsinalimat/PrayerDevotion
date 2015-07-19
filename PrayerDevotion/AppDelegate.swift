@@ -33,6 +33,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let userPrefs = NSUserDefaults.standardUserDefaults()
         
+        let firstTimeInstall: Bool? = userPrefs.objectForKey("firstInstallation") as? Bool
+        
+        if firstTimeInstall == nil || firstTimeInstall == false {
+            userPrefs.setBool(true, forKey: "firstInstallation")
+            userPrefs.setObject(PrayerType.OnDate.rawValue, forKey: "prayerTodayOrder_1")
+            userPrefs.setObject(PrayerType.Daily.rawValue, forKey: "prayerTodayOrder_2")
+            userPrefs.setObject(PrayerType.Weekly.rawValue, forKey: "prayerTodayOrder_3")
+        }
+        
         let installString: String? = userPrefs.objectForKey("didInstallApp") as? String
         if installString == nil || installString == "" {
             println("User installed app for the first time. Make sure all local notifications are deleted")

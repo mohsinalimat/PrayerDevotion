@@ -9,11 +9,30 @@
 import Foundation
 import UIKit
 import MessageUI
+import PDKit
 
 class SettingsViewController: UITableViewController, UITableViewDataSource, MFMailComposeViewControllerDelegate {
     
+    @IBOutlet weak var todayOrderLabel: UILabel!
+    
+    let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let userDefaults = NSUserDefaults.standardUserDefaults()
+        
+        let todayType1 = PrayerType(rawValue: userDefaults.objectForKey("prayerTodayOrder_1") as! Int)!
+        let todayType2 = PrayerType(rawValue: userDefaults.objectForKey("prayerTodayOrder_2") as! Int)!
+        let todayType3 = PrayerType(rawValue: userDefaults.objectForKey("prayerTodayOrder_3") as! Int)!
+        
+        let todayOrderString = String(format: "%@, %@, %@", todayType1.description, todayType2.description, todayType3.description)
+        
+        todayOrderLabel.text = todayOrderString
     }
     
     override func didReceiveMemoryWarning() {
@@ -26,15 +45,34 @@ class SettingsViewController: UITableViewController, UITableViewDataSource, MFMa
         headerView.textLabel.textColor = UIColor.whiteColor()
     }
     
+    override func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {
+        switch indexPath.section {
+        case 0: break
+        case 1:
+            let todayOrderVC = mainStoryboard.instantiateViewControllerWithIdentifier("TodayOrderNavControllerID") as! UINavigationController
+            presentViewController(todayOrderVC, animated: true, completion: nil)
+            
+        default: break
+        }
+    }
+    
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.section == 0 {
-            createEmailMessage(indexPath.row == 0 ? "feedback" : "bug_report")
+        let emailTypes = ["feedback", "bug_report", "feature_request"]
+        
+        switch indexPath.section {
+        case 0: createEmailMessage(emailTypes[indexPath.row])
+        case 1: break
+        default: break
         }
     }
     
     // MARK: Custom Functions
     func createEmailMessage(type: String) {
-        let emailTitle = type == "feedback" ? "PrayerDevotion User Feedback" : "PrayerDevotion User Bug Report"
+        var emailTitle = ""
+        if type == "feedback" { emailTitle = "PrayerDevotion User Feedback" }
+        else if type == "bug_report" { emailTitle = "PrayerDevotion User Bug Report" }
+        else { emailTitle = "PrayerDevotion User Feature Request" }
+        
         let toEmail = ["jonathanhart3000@gmail.com"]
         
         var mailController = MFMailComposeViewController()

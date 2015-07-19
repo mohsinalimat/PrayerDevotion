@@ -41,6 +41,7 @@
 		6167D6CD1B1BF18E00BB8BA2 /* PrayerDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6167D6CC1B1BF18E00BB8BA2 /* PrayerDetailsViewController.swift */; };
 		6167D6CF1B1BF41900BB8BA2 /* PrayerAlertCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6167D6CE1B1BF41900BB8BA2 /* PrayerAlertCell.swift */; };
 		6184764B1B5896BD00081E8B /* PrayerCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6184764A1B5896BD00081E8B /* PrayerCategoryCell.swift */; };
+		6190329C1B5B48CB00E5A45C /* TodayOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6190329B1B5B48CB00E5A45C /* TodayOrderViewController.swift */; };
 		61994DB01B520135005220E6 /* TodayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61994DAF1B520135005220E6 /* TodayCell.swift */; };
 		61ACC5AD1B237F8C00A45C0E /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61ACC5AC1B237F8C00A45C0E /* TodayViewController.swift */; };
 		61C52CB11B56AFA200F3FB04 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61C52CB01B56AFA200F3FB04 /* NotificationCenter.framework */; };
@@ -164,6 +165,7 @@
 		6167D6CC1B1BF18E00BB8BA2 /* PrayerDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerDetailsViewController.swift; sourceTree = "<group>"; };
 		6167D6CE1B1BF41900BB8BA2 /* PrayerAlertCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerAlertCell.swift; sourceTree = "<group>"; };
 		6184764A1B5896BD00081E8B /* PrayerCategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerCategoryCell.swift; sourceTree = "<group>"; };
+		6190329B1B5B48CB00E5A45C /* TodayOrderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodayOrderViewController.swift; sourceTree = "<group>"; };
 		61994DAF1B520135005220E6 /* TodayCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodayCell.swift; sourceTree = "<group>"; };
 		61ACC5AC1B237F8C00A45C0E /* TodayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
 		61C52CAE1B56AFA200F3FB04 /* PDTodayWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PDTodayWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -329,6 +331,7 @@
 				6167D6CC1B1BF18E00BB8BA2 /* PrayerDetailsViewController.swift */,
 				61FB19931B4C7C5C0068A71C /* PrayerDetailsViewController_New.swift */,
 				6111EE451B2290E400767914 /* SettingsViewController.swift */,
+				6190329B1B5B48CB00E5A45C /* TodayOrderViewController.swift */,
 				61ACC5AC1B237F8C00A45C0E /* TodayViewController.swift */,
 				61F540B21B03DC620072BA6F /* Views */,
 				61293E111B013602005B7267 /* Main.storyboard */,
@@ -710,6 +713,7 @@
 				61F540B11B03CFDF0072BA6F /* PersonalPrayerViewController.swift in Sources */,
 				6116BE211B1EA9960018BB73 /* PrayerSearchCell.swift in Sources */,
 				61D4213B1B47242F0039BD7F /* CreatePrayerCell.swift in Sources */,
+				6190329C1B5B48CB00E5A45C /* TodayOrderViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -24,6 +24,6 @@ class CreatePrayerCell: UITableViewCell {
         
         prayerTextField = self.viewWithTag(1) as! UITextField
         
-        assert(currentCategory == nil, "ERROR!!! CreatePrayerCell must have a non-nil category!!!!")
+        //assert(currentCategory == nil, "ERROR!!! CreatePrayerCell must have a non-nil category!!!!")
     }
 }

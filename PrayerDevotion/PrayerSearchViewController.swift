@@ -10,19 +10,16 @@ import Foundation
 import UIKit
 import PDKit
 
-let PrayerSearchCellID = "PrayerSearchCellID"
-
-let PresentPrayerDetailsFromSearchSegueID = "PresentPrayerDetailsFromSearchSegueID"
-
 class SearchViewController: UITableViewController, UITableViewDataSource, UISearchControllerDelegate, UISearchResultsUpdating {
     
+    var previousViewController: UIViewController? = nil
+    
     var searchController: CustomSearchController!
-    var prayerSearchController: PrayerSearchViewController!
     var searchBar: CustomSearchBar!
     
     var selectedPrayer: PDPrayer?
     
-    var filteredPrayers: NSMutableArray = NSMutableArray()
+    var filteredPrayers = [PDPrayer]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,13 +35,19 @@ class SearchViewController: UITableViewController, UITableViewDataSource, UISear
         searchController.hidesNavigationBarDuringPresentation = false // Do not hid Nav Bar during presentation
         searchController.dimsBackgroundDuringPresentation = true // Dim the background while searching
         
-        self.navigationItem.titleView = searchController.searchBar // Now set the naviation item's titleView to the searchBar
-        
         definesPresentationContext = true
         
+        navigationItem.titleView = searchController.searchBar // Now set the naviation item's titleView to the searchBar
+        
         tableView.tableFooterView = UIView(frame: CGRectZero)
-
+        
+        navigationItem.hidesBackButton = true
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadFromEditingPrayer:", name: "ReloadSearchPrayers", object: nil)
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -56,8 +59,13 @@ class SearchViewController: UITableViewController, UITableViewDataSource, UISear
     }
     
     @IBAction func didCancel(sender: AnyObject) {
-        
+        println("Did Cancel")
         searchController.searchBar.endEditing(true)
+        //navigationController?.popViewControllerAnimated(true)
+        
+        if let navController = navigationController {
+            navController.popViewControllerAnimated(true)
+        }
         //dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -106,7 +114,7 @@ class SearchViewController: UITableViewController, UITableViewDataSource, UISear
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCellWithIdentifier(PrayerSearchCellID, forIndexPath: indexPath) as! PrayerSearchCell
         
-        let currentPrayer = filteredPrayers[indexPath.row] as! PDPrayer
+        let currentPrayer = filteredPrayers[indexPath.row]
         
         println("Prayer \(currentPrayer.name) is at indexPath \(indexPath) and is in category \(currentPrayer.category)")
         
@@ -118,9 +126,9 @@ class SearchViewController: UITableViewController, UITableViewDataSource, UISear
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        selectedPrayer = filteredPrayers[indexPath.row] as? PDPrayer
+        selectedPrayer = filteredPrayers[indexPath.row]
         
-        performSegueWithIdentifier(PresentPrayerDetailsFromSearchSegueID, sender: self)
+        performSegueWithIdentifier(PresentPrayerDetailsSegueID, sender: self)
     }
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -136,8 +144,8 @@ class SearchViewController: UITableViewController, UITableViewDataSource, UISear
     // MARK: Segues
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == PresentPrayerDetailsFromSearchSegueID {
-            let destinationVC = (segue.destinationViewController as! UINavigationController).topViewController as! PrayerDetailsViewController_New
+        if segue.identifier == PresentPrayerDetailsSegueID {
+            let destinationVC = (segue.destinationViewController as! UINavigationController).topViewController as! PrayerDetailsViewController
             destinationVC.currentPrayer = selectedPrayer!
             destinationVC.unwindToSearch = true
         }
@@ -249,6 +257,28 @@ class PrayerSearchViewController: UITableViewController, UITableViewDataSource, 
         
         if let categoryLabel = cell.categoryNameLabel {
             categoryLabel.text = searchInCurrentCategory ? "" : "Category: \(prayer.category)"
+        }
+    }
+    
+    // MARK: Notifications
+    
+    func handleURL(notification: NSNotification) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        let notificationInfo = notification.userInfo!
+        let command = notificationInfo["command"] as! String
+        
+        if command == "open-today" {
+            (UIApplication.sharedApplication().delegate as! AppDelegate).switchTabBarToTab(0)
+        } else if command == "open-prayer" {
+            let prayerID = Int32((notificationInfo["prayerID"] as! String).toInt()!)
+            
+            let prayerNavController = storyboard.instantiateViewControllerWithIdentifier(SBPrayerDetailsNavControllerID) as! UINavigationController
+            let prayerDetailsController = prayerNavController.topViewController as! PrayerDetailsViewController
+            prayerDetailsController.currentPrayer = PrayerStore.sharedInstance.getPrayerForID(prayerID)!
+            prayerDetailsController.previousViewController = self
+            
+            presentViewController(prayerNavController, animated: true, completion: nil)
         }
     }
 }

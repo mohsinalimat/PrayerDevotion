@@ -18,18 +18,19 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="ihU-Zp-70x" kind="relationship" relationship="viewControllers" id="QvM-ep-f63"/>
-                        <segue destination="7DG-Ua-1d9" kind="relationship" relationship="viewControllers" id="Qkq-aC-5VJ"/>
+                        <segue destination="7v7-me-2eV" kind="relationship" relationship="viewControllers" id="iSe-d8-bjA"/>
+                        <segue destination="ihU-Zp-70x" kind="relationship" relationship="viewControllers" id="vhJ-P3-fT6"/>
+                        <segue destination="7DG-Ua-1d9" kind="relationship" relationship="viewControllers" id="TCw-BO-rhp"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8hW-zB-DSh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="344" y="379"/>
+            <point key="canvasLocation" x="-2450" y="3"/>
         </scene>
-        <!--Today View Controller-->
+        <!--Today Prayers View Controller-->
         <scene sceneID="Teo-eN-afC">
             <objects>
-                <viewController id="Z9j-Me-c6T" customClass="TodayViewController" customModule="PrayerDevotion" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Z9j-Me-c6T" customClass="TodayPrayersViewController" customModule="PrayerDevotion" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="TOU-04-dZV"/>
                         <viewControllerLayoutGuide type="bottom" id="Xh6-0w-N5g"/>
@@ -53,45 +54,82 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="sLO-Ms-GjW">
-                                <rect key="frame" x="0.0" y="147" width="600" height="453"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="sLO-Ms-GjW">
+                                <rect key="frame" x="0.0" y="147" width="600" height="404"/>
                                 <color key="backgroundColor" red="0.60000002379999995" green="0.40000000600000002" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="sectionIndexBackgroundColor" red="0.60000002379999995" green="0.40000000600000002" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="sectionIndexTrackingBackgroundColor" red="0.60000002379999995" green="0.40000000600000002" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TodayPrayerCellID" id="9aa-O9-p4t" customClass="TodayCell" customModule="PrayerDevotion" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="CreatePrayerCellID" id="sau-Fc-7O8" customClass="CreatePrayerCell" customModule="PrayerDevotion" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sau-Fc-7O8" id="TW5-wT-FxW">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Add New Prayer..." minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Fau-KT-7Rn">
+                                                    <rect key="frame" x="19" y="0.0" width="581" height="43"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="yes" spellCheckingType="yes"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="Fau-KT-7Rn" secondAttribute="trailing" id="41y-hr-eQy"/>
+                                                <constraint firstItem="Fau-KT-7Rn" firstAttribute="top" secondItem="TW5-wT-FxW" secondAttribute="top" id="IOk-92-EL1"/>
+                                                <constraint firstItem="Fau-KT-7Rn" firstAttribute="leading" secondItem="TW5-wT-FxW" secondAttribute="leadingMargin" constant="11" id="Qdw-jg-Xxo"/>
+                                                <constraint firstAttribute="bottom" secondItem="Fau-KT-7Rn" secondAttribute="bottom" id="URi-BZ-Nao"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TodayPrayerCellID" rowHeight="50" id="9aa-O9-p4t" customClass="TodayPrayerCell" customModule="PrayerDevotion" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9aa-O9-p4t" id="ERM-uD-WrL">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QOT-1F-3Ls">
-                                                    <rect key="frame" x="8" y="11" width="534" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="QOT-1F-3Ls">
+                                                    <rect key="frame" x="18" y="8" width="508" height="33"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Haa-5l-Gd5">
-                                                    <rect key="frame" x="550" y="11" width="42" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Haa-5l-Gd5">
+                                                    <rect key="frame" x="534" y="8" width="58" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="58" id="sUN-wo-NQZ"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.50196081400000003" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Daily" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="btJ-xc-eMN">
+                                                    <rect key="frame" x="477" y="28" width="115" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="115" id="m6K-WQ-cSl"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="Haa-5l-Gd5" firstAttribute="trailing" secondItem="ERM-uD-WrL" secondAttribute="trailingMargin" id="3jh-6X-ubQ"/>
-                                                <constraint firstItem="QOT-1F-3Ls" firstAttribute="top" secondItem="ERM-uD-WrL" secondAttribute="topMargin" constant="3" id="FkP-1l-NVS"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="QOT-1F-3Ls" secondAttribute="bottom" constant="3" id="NvD-9f-Ny3"/>
-                                                <constraint firstItem="QOT-1F-3Ls" firstAttribute="leading" secondItem="ERM-uD-WrL" secondAttribute="leadingMargin" id="Z8e-le-Srw"/>
-                                                <constraint firstItem="Haa-5l-Gd5" firstAttribute="trailing" secondItem="ERM-uD-WrL" secondAttribute="trailingMargin" id="eQ9-An-svq"/>
-                                                <constraint firstItem="Haa-5l-Gd5" firstAttribute="leading" secondItem="QOT-1F-3Ls" secondAttribute="trailing" constant="8" id="hWd-na-FTs"/>
-                                                <constraint firstItem="Haa-5l-Gd5" firstAttribute="top" secondItem="ERM-uD-WrL" secondAttribute="topMargin" constant="3" id="mIA-IL-bxJ"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Haa-5l-Gd5" secondAttribute="trailing" id="1q7-gA-Pfg"/>
+                                                <constraint firstItem="Haa-5l-Gd5" firstAttribute="trailing" secondItem="btJ-xc-eMN" secondAttribute="trailing" constant="-516" id="5Hh-rC-7ts"/>
+                                                <constraint firstAttribute="bottom" secondItem="btJ-xc-eMN" secondAttribute="bottom" id="8Fz-rS-PG5"/>
+                                                <constraint firstItem="Haa-5l-Gd5" firstAttribute="leading" secondItem="QOT-1F-3Ls" secondAttribute="trailing" constant="-574" id="Kc0-3Z-vsb"/>
+                                                <constraint firstItem="btJ-xc-eMN" firstAttribute="top" secondItem="ERM-uD-WrL" secondAttribute="topMargin" constant="20" id="MkB-9m-k0O"/>
+                                                <constraint firstItem="btJ-xc-eMN" firstAttribute="trailing" secondItem="Haa-5l-Gd5" secondAttribute="trailing" id="OpF-e7-oXQ"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="QOT-1F-3Ls" secondAttribute="bottom" id="R2K-RH-7VK"/>
+                                                <constraint firstItem="Haa-5l-Gd5" firstAttribute="top" secondItem="ERM-uD-WrL" secondAttribute="topMargin" id="R9y-cT-6EO"/>
+                                                <constraint firstItem="QOT-1F-3Ls" firstAttribute="firstBaseline" secondItem="Haa-5l-Gd5" secondAttribute="firstBaseline" id="TLF-M2-Xpa"/>
+                                                <constraint firstItem="Haa-5l-Gd5" firstAttribute="leading" secondItem="QOT-1F-3Ls" secondAttribute="trailing" constant="8" symbolic="YES" id="VsF-zK-IiL"/>
+                                                <constraint firstItem="QOT-1F-3Ls" firstAttribute="leading" secondItem="ERM-uD-WrL" secondAttribute="leadingMargin" constant="10" id="dfa-c1-e41"/>
                                                 <constraint firstItem="QOT-1F-3Ls" firstAttribute="top" secondItem="ERM-uD-WrL" secondAttribute="topMargin" constant="3" id="rzx-Nv-ja8"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="Haa-5l-Gd5" secondAttribute="bottom" constant="3" id="tyM-sI-tSI"/>
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="constraints">
                                                     <exclude reference="rzx-Nv-ja8"/>
+                                                    <exclude reference="5Hh-rC-7ts"/>
+                                                    <exclude reference="Kc0-3Z-vsb"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
@@ -118,24 +156,17 @@
                             <constraint firstItem="10i-09-PlJ" firstAttribute="top" secondItem="TOU-04-dZV" secondAttribute="bottom" constant="19" id="xEE-fb-HeJ"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="urR-ad-a2q">
-                        <barButtonItem key="leftBarButtonItem" title="Close" id="MDi-O9-Hph">
-                            <connections>
-                                <segue destination="Qk9-Re-uhi" kind="unwind" unwindAction="prepareForUnwindFromToday:" id="7Sz-ZB-fGa"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="urR-ad-a2q"/>
                     <connections>
                         <outlet property="noPrayersLabel" destination="4J0-Jj-kXA" id="2F2-0d-aJP"/>
                         <outlet property="tableView" destination="sLO-Ms-GjW" id="OB0-d2-Mhg"/>
                         <outlet property="todayLabel" destination="10i-09-PlJ" id="tMr-DA-O3L"/>
-                        <segue destination="Bpi-Wf-dEB" kind="presentation" identifier="PresentPrayerDetailsFromTodaySegueID" id="5Sv-Np-opN"/>
+                        <segue destination="Bpi-Wf-dEB" kind="presentation" identifier="PresentPrayerDetailsSegueID" id="dSi-5r-Trj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RqQ-es-JNA" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="Qk9-Re-uhi" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1952" y="-1489"/>
+            <point key="canvasLocation" x="-1630" y="-789"/>
         </scene>
         <!--Move Prayers-->
         <scene sceneID="sej-6S-GwZ">
@@ -199,13 +230,13 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jrF-dw-1d9" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="gz3-5o-8NQ" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1952" y="-795"/>
+            <point key="canvasLocation" x="-15" y="-733"/>
         </scene>
-        <!--Personal-->
+        <!--Categories-->
         <scene sceneID="skn-YK-nZb">
             <objects>
-                <navigationController id="ihU-Zp-70x" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Personal" image="personal_new" id="ywm-2N-vhF"/>
+                <navigationController storyboardIdentifier="SBPersonalCategoriesNavID" id="ihU-Zp-70x" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Categories" id="ywm-2N-vhF"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="AEQ-Ty-Wmz">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -219,7 +250,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ul1-cr-MQW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1157" y="-103"/>
+            <point key="canvasLocation" x="-1598" y="3"/>
         </scene>
         <!--Edit Category-->
         <scene sceneID="FYj-MA-kIQ">
@@ -356,7 +387,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1iY-Ev-QMT" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="3I7-xj-sCU" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="5208" y="-1523"/>
+            <point key="canvasLocation" x="805" y="3"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="zyR-oC-ceD">
@@ -372,9 +403,9 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6I8-kn-dAQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4388" y="-1523"/>
+            <point key="canvasLocation" x="-15" y="3"/>
         </scene>
-        <!--Personal Categories-->
+        <!--Categories-->
         <scene sceneID="89f-KQ-97F">
             <objects>
                 <tableViewController id="Ash-dh-016" customClass="CategoriesViewController" customModule="PrayerDevotion" customModuleProvider="target" sceneMemberID="viewController">
@@ -423,27 +454,98 @@
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Personal" image="personal_new" id="QTH-FX-eFN"/>
-                    <navigationItem key="navigationItem" title="Personal Categories" id="YwE-Fh-2dY">
-                        <barButtonItem key="leftBarButtonItem" title="Today" id="MEw-5C-KIB">
-                            <connections>
-                                <segue destination="7v7-me-2eV" kind="presentation" identifier="ViewTodaySegueID" id="44O-g7-h86"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="New" id="hXf-5l-YtP">
+                    <navigationItem key="navigationItem" title="Categories" id="YwE-Fh-2dY">
+                        <barButtonItem key="leftBarButtonItem" title="Create New" id="hXf-5l-YtP">
                             <connections>
                                 <action selector="createNewCategory:" destination="Ash-dh-016" id="Sk4-Hb-Ao9"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="p0E-N7-nHA">
+                            <connections>
+                                <segue destination="PSC-pJ-Rww" kind="show" identifier="ShowSearchSegueID" id="ETJ-cZ-vTs"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <segue destination="qbp-Ix-9yc" kind="presentation" identifier="EditCategorySegueID" id="v98-3o-W32"/>
-                        <segue destination="i81-ol-Wp0" kind="presentation" identifier="PresentPrayersSegueID" modalTransitionStyle="flipHorizontal" id="afW-U5-EeS"/>
                         <segue destination="7dA-XT-yXI" kind="presentation" identifier="MovePrayersSegueID" id="LAw-Xn-QG5"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="saV-lQ-XtO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1952" y="-103"/>
+            <point key="canvasLocation" x="-827" y="3"/>
+        </scene>
+        <!--Answered Prayers View Controller-->
+        <scene sceneID="KJg-97-muM">
+            <objects>
+                <tableViewController storyboardIdentifier="SBAnsweredPrayersViewControllerID" id="doe-nT-kWJ" customClass="AnsweredPrayersViewController" customModule="PrayerDevotion" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="CbZ-Hk-ebg">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.60000002379999995" green="0.40000000600000002" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="sectionIndexColor" red="0.60000002379999995" green="0.40000000600000002" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="sectionIndexBackgroundColor" red="0.60000002379999995" green="0.40000000600000002" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="sectionIndexTrackingBackgroundColor" red="0.60000002379999995" green="0.40000000600000002" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PrayerCellID" rowHeight="50" id="blS-e3-2U4" customClass="PrayerCell" customModule="PrayerDevotion" customModuleProvider="target">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="blS-e3-2U4" id="HI5-vs-Vbz">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SG4-Py-zp6">
+                                            <rect key="frame" x="18" y="8" width="508" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kPw-Sa-7H8">
+                                            <rect key="frame" x="534" y="8" width="58" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="58" id="1Q9-ii-Ghm"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.50196081400000003" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="September 1, 2001" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GCc-75-Ag4">
+                                            <rect key="frame" x="477" y="28" width="115" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="115" id="kTA-8I-aWO"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="SG4-Py-zp6" firstAttribute="baseline" secondItem="kPw-Sa-7H8" secondAttribute="firstBaseline" id="FYm-qG-qdO"/>
+                                        <constraint firstItem="SG4-Py-zp6" firstAttribute="leading" secondItem="HI5-vs-Vbz" secondAttribute="leadingMargin" constant="10" id="MhA-5b-L2v"/>
+                                        <constraint firstAttribute="bottom" secondItem="GCc-75-Ag4" secondAttribute="bottom" id="RxY-tv-HjU"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="kPw-Sa-7H8" secondAttribute="trailing" id="Vuc-Kj-WjP"/>
+                                        <constraint firstItem="SG4-Py-zp6" firstAttribute="baseline" secondItem="kPw-Sa-7H8" secondAttribute="baseline" id="ZuI-no-D71"/>
+                                        <constraint firstItem="SG4-Py-zp6" firstAttribute="top" secondItem="HI5-vs-Vbz" secondAttribute="topMargin" id="bCo-rh-aGp"/>
+                                        <constraint firstItem="kPw-Sa-7H8" firstAttribute="leading" secondItem="SG4-Py-zp6" secondAttribute="trailing" constant="8" symbolic="YES" id="hze-hY-MG8"/>
+                                        <constraint firstItem="kPw-Sa-7H8" firstAttribute="trailing" secondItem="GCc-75-Ag4" secondAttribute="trailing" id="wyL-sg-fMv"/>
+                                        <constraint firstItem="GCc-75-Ag4" firstAttribute="top" secondItem="HI5-vs-Vbz" secondAttribute="topMargin" constant="20" id="yJd-ln-1Bl"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="doe-nT-kWJ" id="jzN-RI-aQL"/>
+                            <outlet property="delegate" destination="doe-nT-kWJ" id="ixQ-90-Ubi"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <segue destination="xkQ-3y-Y0l" kind="unwind" identifier="UnwindFromAnsweredID" unwindAction="prepareForUnwindFromPrayers:" id="DHH-AI-hSF"/>
+                        <segue destination="Bpi-Wf-dEB" kind="presentation" identifier="PresentPrayerDetailsSegueID" id="R2r-FO-19d"/>
+                        <segue destination="PSC-pJ-Rww" kind="show" identifier="ShowSearchSegueID" id="YQj-yP-DjY"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Zax-cW-uxq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="xkQ-3y-Y0l" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="-1611" y="745"/>
         </scene>
         <!--Settings and Feedback-->
         <scene sceneID="0ot-sA-n2b">
@@ -495,6 +597,27 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Ib9-m8-D49">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ib9-m8-D49" id="mDn-j4-RX7">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Request a Feature" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Ja-gm-ECs">
+                                                    <rect key="frame" x="8" y="11" width="584" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                                    <color key="textColor" red="0.0" green="0.50196081399917603" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="5Ja-gm-ECs" firstAttribute="leading" secondItem="mDn-j4-RX7" secondAttribute="leadingMargin" id="0dr-QI-DO4"/>
+                                                <constraint firstItem="5Ja-gm-ECs" firstAttribute="centerY" secondItem="mDn-j4-RX7" secondAttribute="centerY" id="J5H-c4-gm5"/>
+                                                <constraint firstItem="5Ja-gm-ECs" firstAttribute="centerX" secondItem="mDn-j4-RX7" secondAttribute="centerX" id="deG-fb-Akk"/>
+                                                <constraint firstItem="5Ja-gm-ECs" firstAttribute="top" secondItem="mDn-j4-RX7" secondAttribute="topMargin" constant="3" id="mxf-ru-wfG"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -507,7 +630,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zsa-tz-UcP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1977" y="873"/>
+            <point key="canvasLocation" x="-1611" y="1441"/>
         </scene>
         <!--Settings-->
         <scene sceneID="aTt-N7-2Ei">
@@ -524,23 +647,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hpg-mN-C1J" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1157" y="873"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="1AQ-VI-4ts">
-            <objects>
-                <navigationController id="D7i-sH-uOf" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="5dF-7M-Z2E">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="PSC-pJ-Rww" kind="relationship" relationship="rootViewController" id="SEI-2E-nLc"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="mKl-YW-Omv" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2728" y="-1523"/>
+            <point key="canvasLocation" x="-2450" y="1441"/>
         </scene>
         <!--Search View Controller-->
         <scene sceneID="rvu-uv-7bb">
@@ -604,88 +711,21 @@
                         <barButtonItem key="rightBarButtonItem" title="Cancel" id="dIS-Z2-Pjm">
                             <connections>
                                 <action selector="didCancel:" destination="PSC-pJ-Rww" id="bP2-Ti-a2A"/>
-                                <segue destination="r3D-lR-oQS" kind="unwind" unwindAction="prepareForUnwindFromSearch:" id="DGp-ug-F23"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <segue destination="Bpi-Wf-dEB" kind="presentation" identifier="PresentPrayerDetailsFromSearchSegueID" id="vde-Dt-tRC"/>
+                        <segue destination="Bpi-Wf-dEB" kind="presentation" identifier="PresentPrayerDetailsSegueID" id="vde-Dt-tRC"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rbM-L9-cs8" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="r3D-lR-oQS" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3540" y="-1523"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="Noj-8Q-CE3">
-            <objects>
-                <navigationController id="i81-ol-Wp0" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="HqH-Zz-YRL">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="3RO-70-0sl" kind="relationship" relationship="rootViewController" id="OTj-uM-8Fy"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="EAS-dO-Doj" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2728" y="-795"/>
-        </scene>
-        <!--Prayer Search View Controller-->
-        <scene sceneID="69g-pw-4kT">
-            <objects>
-                <tableViewController storyboardIdentifier="PrayerSearchViewControllerID" useStoryboardIdentifierAsRestorationIdentifier="YES" id="FV8-Ss-DqN" customClass="PrayerSearchViewController" customModule="PrayerDevotion" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="58" sectionHeaderHeight="22" sectionFooterHeight="22" id="eIQ-DM-3h5">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PrayerSearchCellID" rowHeight="58" id="app-al-c9P" customClass="PrayerSearchCell" customModule="PrayerDevotion" customModuleProvider="target">
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="app-al-c9P" id="YKY-dr-4G7">
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Awv-Xd-Ksw">
-                                            <rect key="frame" x="24" y="11" width="568" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="In Category " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EWe-Nm-exm">
-                                            <rect key="frame" x="24" y="36" width="568" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                            <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstItem="EWe-Nm-exm" firstAttribute="trailing" secondItem="Awv-Xd-Ksw" secondAttribute="trailing" id="1pD-zz-9tC"/>
-                                        <constraint firstItem="EWe-Nm-exm" firstAttribute="top" secondItem="Awv-Xd-Ksw" secondAttribute="bottom" constant="4" id="4MO-8l-jfr"/>
-                                        <constraint firstItem="Awv-Xd-Ksw" firstAttribute="centerY" secondItem="YKY-dr-4G7" secondAttribute="centerY" constant="-7" id="OQf-rB-CcU"/>
-                                        <constraint firstItem="EWe-Nm-exm" firstAttribute="leading" secondItem="Awv-Xd-Ksw" secondAttribute="leading" id="VcN-JN-vgi"/>
-                                        <constraint firstAttribute="bottom" secondItem="EWe-Nm-exm" secondAttribute="bottom" id="dqF-r2-BNl"/>
-                                        <constraint firstItem="Awv-Xd-Ksw" firstAttribute="leading" secondItem="YKY-dr-4G7" secondAttribute="leadingMargin" constant="16" id="nbm-BL-EJb"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="Awv-Xd-Ksw" secondAttribute="trailing" id="s5X-7S-zGO"/>
-                                    </constraints>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="FV8-Ss-DqN" id="2js-9e-9WG"/>
-                            <outlet property="delegate" destination="FV8-Ss-DqN" id="4bj-UK-Adu"/>
-                        </connections>
-                    </tableView>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="wE2-ao-clz" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4201" y="-795"/>
+            <point key="canvasLocation" x="-827" y="1441"/>
         </scene>
         <!--Edit Prayer-->
         <scene sceneID="Xd9-4y-gve">
             <objects>
-                <tableViewController id="meC-BL-Voi" customClass="PrayerDetailsViewController_New" customModule="PrayerDevotion" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="meC-BL-Voi" customClass="PrayerDetailsViewController" customModule="PrayerDevotion" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="mSM-HU-obI">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="1500"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -712,24 +752,55 @@
                                     </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="PrayerCategoryCellID" rowHeight="23" id="KdL-Cu-sJt" customClass="PrayerCategoryCell" customModule="PrayerDevotion" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="PrayerCategoryCellID" rowHeight="30" id="KdL-Cu-sJt" customClass="PrayerCategoryCell" customModule="PrayerDevotion" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KdL-Cu-sJt" id="yIz-az-lV5">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Prayer In Category" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QzY-IR-zV4">
-                                            <rect key="frame" x="20" y="0.0" width="572" height="21"/>
+                                            <rect key="frame" x="20" y="4" width="572" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uu9-fp-lF9">
+                                            <rect key="frame" x="546" y="0.0" width="54" height="30"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="54" id="3Hs-gs-AhO"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <state key="normal" title="Change">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                        </button>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstItem="uu9-fp-lF9" firstAttribute="top" secondItem="yIz-az-lV5" secondAttribute="top" id="73F-Z3-mIm"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="uu9-fp-lF9" secondAttribute="bottom" constant="-9" id="Eq3-Nv-PAn"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="QzY-IR-zV4" secondAttribute="trailing" id="Kdt-eF-EFp"/>
+                                        <constraint firstAttribute="trailing" secondItem="uu9-fp-lF9" secondAttribute="trailing" id="Pfm-kB-RKB"/>
                                         <constraint firstItem="QzY-IR-zV4" firstAttribute="leading" secondItem="yIz-az-lV5" secondAttribute="leadingMargin" constant="12" id="ai3-lf-w0k"/>
-                                        <constraint firstItem="QzY-IR-zV4" firstAttribute="top" secondItem="yIz-az-lV5" secondAttribute="top" id="c75-47-M3r"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="QzY-IR-zV4" secondAttribute="bottom" constant="-7" id="xSp-9y-t02"/>
+                                        <constraint firstItem="QzY-IR-zV4" firstAttribute="top" secondItem="yIz-az-lV5" secondAttribute="top" constant="4" id="c75-47-M3r"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="QzY-IR-zV4" secondAttribute="bottom" constant="-4" id="xSp-9y-t02"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ChangeCategoryCellID" rowHeight="162" id="ufr-QI-FPc">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ufr-QI-FPc" id="BZL-vv-V7E">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <pickerView tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3fS-vg-Bff">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="162"/>
+                                        </pickerView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="3fS-vg-Bff" firstAttribute="top" secondItem="BZL-vv-V7E" secondAttribute="top" id="1dz-Tu-ycJ"/>
+                                        <constraint firstItem="3fS-vg-Bff" firstAttribute="leading" secondItem="BZL-vv-V7E" secondAttribute="leading" id="OZA-BU-Tsp"/>
+                                        <constraint firstAttribute="trailing" secondItem="3fS-vg-Bff" secondAttribute="trailing" id="dgv-bZ-R76"/>
+                                        <constraint firstAttribute="bottom" secondItem="3fS-vg-Bff" secondAttribute="bottom" id="rtq-8E-RI9"/>
                                     </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -808,13 +879,6 @@
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                         </button>
-                                        <button tag="9" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="olE-Lc-azT">
-                                            <rect key="frame" x="8" y="8" width="57" height="30"/>
-                                            <state key="normal" title="Remove">
-                                                <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                        </button>
                                         <button tag="8" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dZb-X8-fkG">
                                             <rect key="frame" x="558" y="8" width="34" height="30"/>
                                             <state key="normal" title="Save">
@@ -829,9 +893,9 @@
                                         <constraint firstItem="KQ2-XG-V3k" firstAttribute="baseline" secondItem="YLk-yQ-xyS" secondAttribute="firstBaseline" id="8bE-Q8-pgC"/>
                                         <constraint firstItem="QaS-UL-jGL" firstAttribute="leading" secondItem="zow-JX-dUY" secondAttribute="leadingMargin" id="BT0-4X-R9k"/>
                                         <constraint firstItem="KQ2-XG-V3k" firstAttribute="top" secondItem="QaS-UL-jGL" secondAttribute="top" id="Bmr-zH-jGg"/>
-                                        <constraint firstItem="olE-Lc-azT" firstAttribute="leading" secondItem="QaS-UL-jGL" secondAttribute="leading" id="Bx5-rH-JpK"/>
                                         <constraint firstItem="KQ2-XG-V3k" firstAttribute="baseline" secondItem="YLk-yQ-xyS" secondAttribute="baseline" id="CcJ-LE-JHb"/>
                                         <constraint firstItem="KQ2-XG-V3k" firstAttribute="centerX" secondItem="OtE-ar-cGI" secondAttribute="centerX" id="DLO-Q5-pqU"/>
+                                        <constraint firstItem="dZb-X8-fkG" firstAttribute="top" secondItem="zow-JX-dUY" secondAttribute="topMargin" id="EQe-Kk-daB"/>
                                         <constraint firstItem="QaS-UL-jGL" firstAttribute="baseline" secondItem="KQ2-XG-V3k" secondAttribute="firstBaseline" id="Ift-h5-hxd"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="FXj-7B-dBR" secondAttribute="bottom" constant="-4" id="LYP-fi-orI"/>
                                         <constraint firstItem="OtE-ar-cGI" firstAttribute="leading" secondItem="zow-JX-dUY" secondAttribute="leadingMargin" id="LaY-yW-px8"/>
@@ -842,8 +906,6 @@
                                         <constraint firstItem="OtE-ar-cGI" firstAttribute="trailing" secondItem="zow-JX-dUY" secondAttribute="trailingMargin" id="c8D-LB-ZUH"/>
                                         <constraint firstItem="niu-W9-X4p" firstAttribute="leading" secondItem="zow-JX-dUY" secondAttribute="leading" id="cbr-dy-WRj"/>
                                         <constraint firstItem="KQ2-XG-V3k" firstAttribute="baseline" secondItem="QaS-UL-jGL" secondAttribute="firstBaseline" id="dgj-9c-NF2"/>
-                                        <constraint firstItem="olE-Lc-azT" firstAttribute="top" secondItem="zow-JX-dUY" secondAttribute="topMargin" id="gsE-CT-JS2"/>
-                                        <constraint firstItem="olE-Lc-azT" firstAttribute="baseline" secondItem="dZb-X8-fkG" secondAttribute="baseline" id="lI6-QZ-g7x"/>
                                         <constraint firstItem="OtE-ar-cGI" firstAttribute="top" secondItem="zow-JX-dUY" secondAttribute="topMargin" constant="3" id="mLg-Aw-CCW"/>
                                         <constraint firstItem="KQ2-XG-V3k" firstAttribute="centerX" secondItem="niu-W9-X4p" secondAttribute="centerX" id="nTs-xq-ygI"/>
                                         <constraint firstItem="niu-W9-X4p" firstAttribute="trailing" secondItem="FXj-7B-dBR" secondAttribute="trailing" id="tIT-uV-IXQ"/>
@@ -1047,12 +1109,12 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tkt-2c-yZZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4201" y="347"/>
+            <point key="canvasLocation" x="2541" y="745"/>
         </scene>
         <!--<Category Name>-->
         <scene sceneID="c7e-1y-aIa">
             <objects>
-                <tableViewController id="3RO-70-0sl" customClass="PersonalPrayerViewController" customModule="PrayerDevotion" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="SBPrayersViewControllerID" id="3RO-70-0sl" customClass="PersonalPrayerViewController" customModule="PrayerDevotion" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="vON-UK-sGx">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1123,18 +1185,7 @@
                             <outlet property="delegate" destination="3RO-70-0sl" id="WnJ-L7-K83"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="&lt;Category Name&gt;" id="qrO-nD-lGx">
-                        <barButtonItem key="leftBarButtonItem" title="Categories" id="g0U-fW-RAR">
-                            <connections>
-                                <segue destination="fQb-ND-ErM" kind="unwind" unwindAction="prepareForUnwindFromPrayers:" id="EUn-QS-Du0"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="opE-gY-J67">
-                            <connections>
-                                <segue destination="D7i-sH-uOf" kind="presentation" identifier="SearchSegueID" id="z8F-oq-xHH"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="&lt;Category Name&gt;" id="qrO-nD-lGx"/>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="E2h-Qn-wiH">
                         <autoresizingMask key="autoresizingMask"/>
                         <attributedString key="attributedTitle"/>
@@ -1142,12 +1193,14 @@
                     <connections>
                         <outlet property="navItem" destination="qrO-nD-lGx" id="Tfe-Rn-3Sx"/>
                         <segue destination="Bpi-Wf-dEB" kind="presentation" identifier="PresentPrayerDetailsSegueID" id="SdU-ZI-pnh"/>
+                        <segue destination="bIA-9x-cAr" kind="unwind" identifier="UnwindFromPrayersID" unwindAction="prepareForUnwindFromPrayers:" id="tlN-Iz-Ogx"/>
+                        <segue destination="PSC-pJ-Rww" kind="show" identifier="ShowSearchSegueID" id="KwS-Zd-WEf"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dug-eB-Mbb" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="fQb-ND-ErM" userLabel="Exit" sceneMemberID="exit"/>
+                <exit id="bIA-9x-cAr" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2728" y="-103"/>
+            <point key="canvasLocation" x="-827" y="745"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="rLa-ef-iwg">
@@ -1165,7 +1218,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q2q-9U-lrv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3389" y="-103"/>
+            <point key="canvasLocation" x="1015" y="675"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Kwv-Rd-KzH">
@@ -1183,12 +1236,13 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d7I-Yt-VKH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1140" y="-795"/>
+            <point key="canvasLocation" x="-827" y="-733"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Today-->
         <scene sceneID="n6x-wf-kAW">
             <objects>
                 <navigationController storyboardIdentifier="SBTodayNavControllerID" automaticallyAdjustsScrollViewInsets="NO" id="7v7-me-2eV" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Today" image="personal_new" id="mPL-x5-Af2"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="DcM-vH-oy1">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1201,7 +1255,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G29-6n-r9s" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1140" y="-1523"/>
+            <point key="canvasLocation" x="-2442" y="-789"/>
         </scene>
     </scenes>
     <resources>
@@ -1209,6 +1263,7 @@
         <image name="settings_new" width="24" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="5Sv-Np-opN"/>
+        <segue reference="R2r-FO-19d"/>
+        <segue reference="YQj-yP-DjY"/>
     </inferredMetricsTieBreakers>
 </document>

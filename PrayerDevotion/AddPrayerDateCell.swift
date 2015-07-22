@@ -23,7 +23,7 @@ class AddPrayerDateCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewData
     var weeklyButton: UIButton!
     
     var saveButton: UIButton!
-    var cancelButton: UIButton!
+    //var cancelButton: UIButton!
     
     var currentPrayer: PDPrayer!
     
@@ -52,7 +52,7 @@ class AddPrayerDateCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewData
         weeklyButton = viewWithTag(7) as! UIButton
         
         saveButton = viewWithTag(8) as! UIButton
-        cancelButton = viewWithTag(9) as! UIButton
+        //cancelButton = viewWithTag(9) as! UIButton
         
         // Add click actions to the buttons
         onDateButton.addTarget(self, action: "didClickButton:", forControlEvents: .TouchDown)
@@ -60,7 +60,7 @@ class AddPrayerDateCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewData
         weeklyButton.addTarget(self, action: "didClickButton:", forControlEvents: .TouchDown)
         
         saveButton.addTarget(self, action: "didAddPrayerDate:", forControlEvents: .TouchDown)
-        cancelButton.addTarget(self, action: "didCancelAddingDate:", forControlEvents: .TouchDown)
+        //cancelButton.addTarget(self, action: "didCancelAddingDate:", forControlEvents: .TouchDown)
         
         datePicker.addTarget(self, action: "dateChanged:", forControlEvents: .ValueChanged)
         
@@ -78,78 +78,86 @@ class AddPrayerDateCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewData
     }
     
     func refreshCell(didSelect: Bool, selectedPrayer: PDPrayer) {
-        selectionStyle = didSelect == true ? .None : .Default
-        
-        let type = selectedPrayer.prayerType!
-        
-        // Format prayer type
-        var prayerType: PrayerType = PrayerStore.sharedInstance.stringToPrayerType(type)
-        selectedType = prayerType
-        
-        if selectedType == nil {
-            selectedType = .None
-        }
-        
-        switch selectedType! {
-        case .OnDate:
-            let dateFormatter = NSDateFormatter()
-            dateFormatter.dateStyle = .LongStyle
-            dateFormatter.timeStyle = .NoStyle
-            
-            datePicker.setDate(selectedPrayer.addedDate == nil ? NSDate() : selectedPrayer.addedDate!, animated: false)
-            addDateLabel.text = "Prayer Due on \(dateFormatter.stringFromDate(datePicker.date))"
-            didAddDate = selectedPrayer.isDateAdded
-            
-        case .Daily:
-            addDateLabel.text = "Prayer Repeating Every Day"
-            didAddDate = selectedPrayer.isDateAdded
-            
-        case .Weekly:
-            let today = NSDate()
-            let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
-            let comps = calendar!.components(.CalendarUnitDay | .CalendarUnitWeekday, fromDate: today)
-            let day = comps.weekday
-            
-            let row = selectedPrayer.weekday == nil ? day - 1 : find(weekdays, selectedPrayer.weekday!)!
-            
-            weekdayPicker.selectRow(row, inComponent: 0, animated: false)
-            weekday = pickerView(weekdayPicker, titleForRow: row, forComponent: 0)
-            
-            if let selectedWeekday = selectedPrayer.weekday {
-                addDateLabel.text = "Prayer Repeating Every \(selectedWeekday)"
-            }
-            didAddDate = selectedPrayer.isDateAdded
-            
-        default:
-            didAddDate = false
-        }
-        
-        if didAddDate == false {
-            addDateLabel.text = "Set Prayer Date"
-        }
-        
-        isAddingDate = didSelect
-        
-        // Now hide/show buttons as selected
-        weekdayPicker.hidden = !(selectedType == .Weekly)
-        datePicker.hidden = !(selectedType == .OnDate)
-        
-        addDateLabel.hidden = didSelect
-        saveButton.hidden = !didSelect
-        if didSelect == true {
-            cancelButton.hidden = false
-            cancelButton.setTitle(didAddDate == true ? "Remove" : "Cancel", forState: .Normal)
-            cancelButton.addTarget(self, action: didAddDate == true ? "didRemoveDate:" : "didCancelAddingDate:", forControlEvents: .TouchDown)
+        if selectedPrayer.answered == true {
+            addDateLabel.text = "No Prayer Date"
+            addDateLabel.textColor = UIColor.lightGrayColor()
+            selectionStyle = .None
+            saveButton.hidden = true
         } else {
-            cancelButton.hidden = true
+            selectionStyle = didSelect == true ? .None : .Default
+            addDateLabel.textColor = UIColor.blackColor()
+        
+            let type = selectedPrayer.prayerType!
+        
+            // Format prayer type
+            var prayerType: PrayerType = PrayerStore.sharedInstance.stringToPrayerType(type)
+            selectedType = prayerType
+        
+            if selectedType == nil {
+                selectedType = .None
+            }
+        
+            switch selectedType! {
+            case .OnDate:
+                let dateFormatter = NSDateFormatter()
+                dateFormatter.dateStyle = .LongStyle
+                dateFormatter.timeStyle = .NoStyle
+            
+                datePicker.setDate(selectedPrayer.addedDate == nil ? NSDate() : selectedPrayer.addedDate!, animated: false)
+                addDateLabel.text = "Prayer Due on \(dateFormatter.stringFromDate(datePicker.date))"
+                didAddDate = selectedPrayer.isDateAdded
+            
+            case .Daily:
+                addDateLabel.text = "Prayer Repeating Every Day"
+                didAddDate = selectedPrayer.isDateAdded
+            
+            case .Weekly:
+                let today = NSDate()
+                let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
+                let comps = calendar!.components(.CalendarUnitDay | .CalendarUnitWeekday, fromDate: today)
+                let day = comps.weekday
+            
+                let row = selectedPrayer.weekday == nil ? day - 1 : find(weekdays, selectedPrayer.weekday!)!
+            
+                weekdayPicker.selectRow(row, inComponent: 0, animated: false)
+                weekday = pickerView(weekdayPicker, titleForRow: row, forComponent: 0)
+            
+                if let selectedWeekday = selectedPrayer.weekday {
+                    addDateLabel.text = "Prayer Repeating Every \(selectedWeekday)"
+                }
+                didAddDate = selectedPrayer.isDateAdded
+            
+            default:
+                didAddDate = false
+            }
+        
+            if didAddDate == false {
+                addDateLabel.text = "Set Prayer Date"
+            }
+        
+            isAddingDate = didSelect
+        
+            // Now hide/show buttons as selected
+            weekdayPicker.hidden = !(selectedType == .Weekly)
+            datePicker.hidden = !(selectedType == .OnDate)
+        
+            addDateLabel.hidden = didSelect
+            saveButton.hidden = !didSelect
+            /*if didSelect == true {
+                cancelButton.hidden = false
+                cancelButton.setTitle(didAddDate == true ? "Remove" : "Cancel", forState: .Normal)
+                cancelButton.addTarget(self, action: didAddDate == true ? "didRemoveDate:" : "didCancelAddingDate:", forControlEvents: .TouchDown)
+            } else {
+                cancelButton.hidden = true
+            }*/
+        
+            // Format buttons
+            formatButton(onDateButton, didSelect: selectedType == .OnDate)
+            formatButton(dailyButton, didSelect: selectedType == .Daily)
+            formatButton(weeklyButton, didSelect: selectedType == .Weekly)
+        
+            tableView?.scrollEnabled = !didSelect
         }
-        
-        // Format buttons
-        formatButton(onDateButton, didSelect: selectedType == .OnDate)
-        formatButton(dailyButton, didSelect: selectedType == .Daily)
-        formatButton(weeklyButton, didSelect: selectedType == .Weekly)
-        
-        tableView?.scrollEnabled = !didSelect
     }
     
     func didClickButton(sender: AnyObject) {

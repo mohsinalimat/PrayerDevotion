@@ -33,7 +33,7 @@ public class AlertStore: BaseStore {
     // MARK: Alerts
     // This methods creates an alert for a specific prayer and stores it in the database
     // The Category is included for now, although it does nothing (yet)
-    public func createAlert(prayer: PDPrayer!, inCategory category: String!, withDate date: NSDate!) {
+    public func createAlert(prayer: PDPrayer, inCategory category: String, withDate date: NSDate) {
         var alert = NSEntityDescription.insertNewObjectForEntityForName("Alert", inManagedObjectContext: managedContext!) as! PDAlert
         
         alert.alertDate = date
@@ -72,7 +72,7 @@ public class AlertStore: BaseStore {
         saveDatabase()
     }
     
-    public func deleteAlert(alert: PDAlert, inPrayer prayer: PDPrayer!) {
+    public func deleteAlert(alert: PDAlert, inPrayer prayer: PDPrayer) {
         var prayerAlerts = prayer.alerts.mutableCopy() as! NSMutableOrderedSet
         
         Notifications.sharedNotifications.deleteLocalNotification(alert.notificationID)
@@ -81,6 +81,21 @@ public class AlertStore: BaseStore {
         managedContext!.deleteObject(alert)
         
         prayer.alerts = prayerAlerts.copy() as! NSOrderedSet
+        
+        saveDatabase()
+    }
+    
+    public func deleteAllAlertsForPrayer(prayer: PDPrayer) {
+        var alerts = prayer.alerts.mutableCopy() as! NSMutableOrderedSet
+        
+        for alert in alerts {
+            Notifications.sharedNotifications.deleteLocalNotification(alert.notificationID)
+            
+            alerts.removeObject(alert)
+            managedContext!.deleteObject(alert as! NSManagedObject)
+        }
+        
+        prayer.alerts = NSOrderedSet()
         
         saveDatabase()
     }
@@ -136,20 +151,20 @@ public class AlertStore: BaseStore {
     
     // This function will search the database for all dates that are related to
     // the specified prayer
-    public func allDates(forPrayer: PDPrayer) -> NSArray! {
+    public func allDates(forPrayer: PDPrayer) -> [PDAlert] {
         var fetchReq = NSFetchRequest(entityName: "Dates")
         fetchReq.predicate = NSPredicate(format: "prayer == %@", forPrayer)
         fetchReq.sortDescriptors = nil
         
         var error: NSError?
-        let fetchedDates: NSArray? = managedContext!.executeFetchRequest(fetchReq, error: &error)
+        let fetchedDates = managedContext!.executeFetchRequest(fetchReq, error: &error) as? [PDAlert]
         
         if let fetchError = error {
             println("An error occurred while fetching data for prayer \(forPrayer)")
-            return NSArray()
+            return [PDAlert]()
         }
         
-        return fetchedDates
+        return fetchedDates!
     }
     
     // This function will insert a data for a specific prayer into the database

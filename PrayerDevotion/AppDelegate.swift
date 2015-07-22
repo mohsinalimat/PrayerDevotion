@@ -1,4 +1,4 @@
- //
+//
 //  AppDelegate.swift
 //  PrayerDevotion
 //
@@ -10,10 +10,6 @@ import UIKit
 import CoreData
 import PDKit
 
-// View Controller IDs
-let SBTodayNavControllerID = "SBTodayNavControllerID"
-let SBPrayerDetailsNavControllerID = "SBPrayerDetailsNavControllerID"
- 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -25,6 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window!.tintColor = UIColor(red: 194/255.0, green: 153/255.0, blue: 89/255.0, alpha: 1)
         
+        // Migrate the data from the first release of the application
         migrateData()
         PrayerStore.sharedInstance.checkIDs()
         
@@ -34,30 +31,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let userPrefs = NSUserDefaults.standardUserDefaults()
         
         let installString: String? = userPrefs.objectForKey("didInstallApp") as? String
+        
         if installString == nil || installString == "" {
+            userPrefs.setBool(true, forKey: "firstInstallation")
+            CategoryStore.sharedInstance.addCategoryToDatabase("Uncategorized", dateCreated: NSDate())
+            
             println("User installed app for the first time. Make sure all local notifications are deleted")
             UIApplication.sharedApplication().cancelAllLocalNotifications()
+            
+            userPrefs.setObject("installed", forKey: "didInstallApp")
         }
         
-        var todayDict = userPrefs.objectForKey("todayOrderDict") as? Dictionary<String, String>
-        if todayDict == nil {
-            todayDict = ["section1_title": "On_Date", "section2_title": "Daily", "section3_title": "Weekly"]
-            userPrefs.setObject(todayDict!, forKey: "todayOrderDict")
-        }
-        
-        userPrefs.setObject("installed", forKey: "didInstallApp")
-        
-        var storyboard = UIStoryboard(name: "Main", bundle: nil)
-        
-        var tabBarController = window!.rootViewController as! UITabBarController
-        let categoriesNavVC = tabBarController.viewControllers!.first as! UINavigationController
-        let categoriesVC = categoriesNavVC.topViewController as! CategoriesViewController
-        
-        NSNotificationCenter.defaultCenter().addObserver(categoriesVC, selector: "handleURL:", name: "HandleURLNotification", object: nil)
-        
+        // Check for pending alerts and notifications and update them
         Notifications.sharedNotifications.updateNotificationQueue()
         AlertStore.sharedInstance.deletePastAlerts()
-                        
+                                
         return true
     }
     
@@ -178,6 +166,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
+    // MARK: Migration
+    
+    // Function for migration to later version of PrayerDevotion
+    // CURRENT: Beta 2.0
     func migrateData() {
         let userDefaults = NSUserDefaults.standardUserDefaults()
         
@@ -205,14 +197,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         println("Removed old store")
                     }
                     
+                    migrateToPrayerID()
+                    
                     userDefaults.setBool(true, forKey: "didMigratePrayerToBeta2.0")
                 }
             }
         }
-        
-        migrateToPrayerID()
     }
     
+    // Migrate each prayer to user a prayer ID that distinguishes each prayer from one another
     func migrateToPrayerID() {
         let userDefaults = NSUserDefaults.standardUserDefaults()
         
@@ -222,6 +215,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
+    // This takes a URL that I make and returns the prayer ID sent
     func getURLPrayerID(query: String) -> Int32? {
         var dict = [String: Int32]()
         
@@ -232,6 +226,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         return nil
+    }
+    
+    // MARK: Custom Methods
+    
+    func switchTabBarToTab(tab: Int) {
+        (window?.rootViewController as! UITabBarController).selectedIndex = tab
     }
 
 }

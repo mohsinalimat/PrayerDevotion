@@ -10,9 +10,6 @@ import Foundation
 import UIKit
 import PDKit
 
-// Constants / IDs
-let UnwindFromEditID = "UnwindFromEditID"
-
 class EditCategoriesViewController: UITableViewController, UITextFieldDelegate, UITableViewDataSource {
     
     var currentCategory: PDCategory!

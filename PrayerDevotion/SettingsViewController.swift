@@ -9,11 +9,18 @@
 import Foundation
 import UIKit
 import MessageUI
+import PDKit
 
 class SettingsViewController: UITableViewController, UITableViewDataSource, MFMailComposeViewControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleURL:", name: "HandleURLNotification", object: nil)
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
     }
     
     override func didReceiveMemoryWarning() {
@@ -26,15 +33,29 @@ class SettingsViewController: UITableViewController, UITableViewDataSource, MFMa
         headerView.textLabel.textColor = UIColor.whiteColor()
     }
     
+    override func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {
+        switch indexPath.section {
+        case 0: break
+        default: break
+        }
+    }
+    
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.section == 0 {
-            createEmailMessage(indexPath.row == 0 ? "feedback" : "bug_report")
+        let emailTypes = ["feedback", "bug_report", "feature_request"]
+        
+        switch indexPath.section {
+        case 0: createEmailMessage(emailTypes[indexPath.row])
+        default: break
         }
     }
     
     // MARK: Custom Functions
     func createEmailMessage(type: String) {
-        let emailTitle = type == "feedback" ? "PrayerDevotion User Feedback" : "PrayerDevotion User Bug Report"
+        var emailTitle = ""
+        if type == "feedback" { emailTitle = "PrayerDevotion User Feedback" }
+        else if type == "bug_report" { emailTitle = "PrayerDevotion User Bug Report" }
+        else { emailTitle = "PrayerDevotion User Feature Request" }
+        
         let toEmail = ["jonathanhart3000@gmail.com"]
         
         var mailController = MFMailComposeViewController()
@@ -66,6 +87,28 @@ class SettingsViewController: UITableViewController, UITableViewDataSource, MFMa
         }
         
         dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    // MARK: Notifications
+    
+    func handleURL(notification: NSNotification) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        let notificationInfo = notification.userInfo!
+        let command = notificationInfo["command"] as! String
+        
+        if command == "open-today" {
+            (UIApplication.sharedApplication().delegate as! AppDelegate).switchTabBarToTab(0)
+        } else if command == "open-prayer" {
+            let prayerID = Int32((notificationInfo["prayerID"] as! String).toInt()!)
+            
+            let prayerNavController = storyboard.instantiateViewControllerWithIdentifier(SBPrayerDetailsNavControllerID) as! UINavigationController
+            let prayerDetailsController = prayerNavController.topViewController as! PrayerDetailsViewController
+            prayerDetailsController.currentPrayer = PrayerStore.sharedInstance.getPrayerForID(prayerID)!
+            prayerDetailsController.previousViewController = self
+            
+            presentViewController(prayerNavController, animated: true, completion: nil)
+        }
     }
     
 }

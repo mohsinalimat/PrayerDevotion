@@ -11,8 +11,6 @@ import UIKit
 import CoreData
 import PDKit
 
-let UnwindFromMoveID = "UnwindFromMoveID"
-
 class MovePrayersViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     var fromCategory: PDCategory!
@@ -34,7 +32,7 @@ class MovePrayersViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier("MoveCategoriesCellID", forIndexPath: indexPath) as! UITableViewCell
+        var cell = tableView.dequeueReusableCellWithIdentifier(MoveCategoriesCellID, forIndexPath: indexPath) as! UITableViewCell
         
         cell.textLabel?.text = (fetchedCategories[indexPath.row] as! PDCategory).name
         

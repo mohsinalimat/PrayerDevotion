@@ -11,27 +11,21 @@ import UIKit
 import CoreData
 import PDKit
 
-let CreatePrayerCellID = "CreatePrayerCellID"
-let PrayerCellID = "PrayerCellID"
-
-let PrayerSearchViewControllerID = "PrayerSearchViewControllerID"
-let PresentPrayerDetailsSegueID = "PresentPrayerDetailsSegueID"
-let SearchSegueID = "SearchSegueID"
-
 class PersonalPrayerViewController: UITableViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UISearchBarDelegate {
     
     // Global variable that holds the current category
-    var currentCategory: PDCategory!
-    var prayers: NSMutableArray!
-    var answeredPrayers: NSMutableArray!
+    var currentCategory: PDCategory?
+    var prayers: [PDPrayer]!
+    var answeredPrayers: [PDPrayer]!
     
     var unansweredCount: Int!
     var answeredCount: Int!
-    //var prayersCount: Int!
+
+    var isAllPrayers: Bool = false
     
     private var selectedPrayer: PDPrayer?
 
-    @IBOutlet var navItem: UINavigationItem?
+    @IBOutlet var navItem: UINavigationItem!
     
     required init!(coder aDecoder: NSCoder!) {
         super.init(coder: aDecoder)
@@ -41,10 +35,9 @@ class PersonalPrayerViewController: UITableViewController, UITableViewDelegate, 
         super.viewDidLoad()
         // viewDidLoad function
         
-        assert(currentCategory != nil, "ERROR! CATEGORY IS NIL!")
+        //assert(currentCategory != nil, "ERROR! CATEGORY IS NIL AND ALL PRAYERS IS FALSE!")
         
-        navItem?.title = currentCategory.name
-        println("Changing Nav Title to name \(currentCategory.name)")
+        println("Changing Nav Title to name \(currentCategory?.name)")
         
         // Fetch Prayers for category
         var sortDescriptors = [NSSortDescriptor(key: "priority", ascending: false), NSSortDescriptor(key: "creationDate", ascending: false)]
@@ -54,6 +47,22 @@ class PersonalPrayerViewController: UITableViewController, UITableViewDelegate, 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleURL:", name: "HandleURLNotification", object: nil)
         
         refreshControl!.addTarget(self, action: "refreshView", forControlEvents: .ValueChanged)
+        
+        navItem.title = isAllPrayers == true ? "All Prayers" : currentCategory!.name
+        
+        let categoriesItem = UIBarButtonItem(title: "Categories", style: .Plain, target: self, action: "unwindFromPrayers:")
+        let searchItem = UIBarButtonItem(barButtonSystemItem: .Search, target: self, action: "openSearch:")
+        
+        navItem.rightBarButtonItem = searchItem
+        navItem.leftBarButtonItem = categoriesItem
+    }
+    
+    func unwindFromPrayers(sender: AnyObject) {
+        performSegueWithIdentifier(UnwindFromPrayersID, sender: self)
+    }
+    
+    func openSearch(sender: AnyObject) {
+        performSegueWithIdentifier(ShowSearchSegueID, sender: self)
     }
     
     override func didReceiveMemoryWarning() {
@@ -96,18 +105,18 @@ class PersonalPrayerViewController: UITableViewController, UITableViewDelegate, 
             let cell = tableView.dequeueReusableCellWithIdentifier(PrayerCellID, forIndexPath: indexPath) as! PrayerCell
             println("Index Path Row is = \(indexPath.row)")
         
-            configureCell(cell, prayer: prayers[indexPath.row] as? PDPrayer, indexPath: indexPath)
+            configureCell(cell, prayer: prayers[indexPath.row], indexPath: indexPath)
             cell.prayerNameLabel.textColor = UIColor.blackColor()
-            setPriorityText((prayers[indexPath.row] as! PDPrayer).priority, forCell: cell)
+            setPriorityText(prayers[indexPath.row].priority, forCell: cell)
             
             return cell
         } else {
             let cell = tableView.dequeueReusableCellWithIdentifier(PrayerCellID, forIndexPath: indexPath) as! PrayerCell
             println("Index Path Row is = \(indexPath.row)")
             
-            configureCell(cell, prayer: answeredPrayers[indexPath.row] as? PDPrayer, indexPath: indexPath)
+            configureCell(cell, prayer: answeredPrayers[indexPath.row], indexPath: indexPath)
             cell.prayerNameLabel.textColor = UIColor.darkGrayColor()
-            setPriorityText((answeredPrayers[indexPath.row] as! PDPrayer).priority, forCell: cell)
+            setPriorityText(answeredPrayers[indexPath.row].priority, forCell: cell)
             
             return cell
         }
@@ -137,12 +146,12 @@ class PersonalPrayerViewController: UITableViewController, UITableViewDelegate, 
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         switch editingStyle {
         case .Delete:
-            PrayerStore.sharedInstance.deletePrayer(indexPath.section == 1 ? prayers[indexPath.row] as! PDPrayer : answeredPrayers[indexPath.row] as! PDPrayer, inCategory: currentCategory)
+            PrayerStore.sharedInstance.deletePrayer(indexPath.section == 1 ? prayers[indexPath.row] : answeredPrayers[indexPath.row], inCategory: currentCategory)
             
             if indexPath.section == 1 {
-                prayers.removeObjectAtIndex(indexPath.row)
+                prayers.removeAtIndex(indexPath.row)
             } else {
-                answeredPrayers.removeObjectAtIndex(indexPath.row)
+                answeredPrayers.removeAtIndex(indexPath.row)
             }
             
             tableView.beginUpdates()
@@ -161,7 +170,7 @@ class PersonalPrayerViewController: UITableViewController, UITableViewDelegate, 
             return
         }
         
-        selectedPrayer = indexPath.section == 1 ? prayers[indexPath.row] as! PDPrayer : answeredPrayers[indexPath.row] as! PDPrayer
+        selectedPrayer = indexPath.section == 1 ? prayers[indexPath.row] : answeredPrayers[indexPath.row]
         let cell = tableView.cellForRowAtIndexPath(indexPath) as! PrayerCell
         
         performSegueWithIdentifier(PresentPrayerDetailsSegueID, sender: cell)
@@ -182,13 +191,13 @@ class PersonalPrayerViewController: UITableViewController, UITableViewDelegate, 
     
     override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]? {
         var deleteAction = UITableViewRowAction(style: .Normal, title: "Delete", handler: { rowAction, indexPath in
-            PrayerStore.sharedInstance.deletePrayer(indexPath.section == 1 ? self.prayers[indexPath.row] as! PDPrayer : self.answeredPrayers[indexPath.row] as! PDPrayer, inCategory: self.currentCategory)
+            PrayerStore.sharedInstance.deletePrayer(indexPath.section == 1 ? self.prayers[indexPath.row] : self.answeredPrayers[indexPath.row], inCategory: self.isAllPrayers == true ? nil : self.currentCategory)
             
             if indexPath.section == 1 {
-                self.prayers.removeObjectAtIndex(indexPath.row)
+                self.prayers.removeAtIndex(indexPath.row)
                 self.unansweredCount = self.unansweredCount - 1
             } else {
-                self.answeredPrayers.removeObjectAtIndex(indexPath.row)
+                self.answeredPrayers.removeAtIndex(indexPath.row)
                 self.answeredCount = self.answeredCount - 1
             }
             
@@ -201,7 +210,7 @@ class PersonalPrayerViewController: UITableViewController, UITableViewDelegate, 
         })
         deleteAction.backgroundColor = UIColor.redColor()
         
-        let prayer = indexPath.section == 1 ? self.prayers[indexPath.row] as! PDPrayer : self.answeredPrayers[indexPath.row] as! PDPrayer
+        let prayer = indexPath.section == 1 ? self.prayers[indexPath.row] : self.answeredPrayers[indexPath.row]
         var answeredAction = UITableViewRowAction(style: .Normal, title: prayer.answered == true ? "Answered" : "Unanswered", handler: { rowAction, indexPath in
             self.tableView.editing = false
             
@@ -210,6 +219,10 @@ class PersonalPrayerViewController: UITableViewController, UITableViewDelegate, 
             
             self.tableView.beginUpdates()
             self.tableView.moveRowAtIndexPath(indexPath, toIndexPath: NSIndexPath(forRow: 0, inSection: prayer.answered == true ? 1 : 2))
+            if prayer.answered == false {
+                PrayerStore.sharedInstance.removeDateFromPrayer(prayer) // This is because an answered prayer does not have a due date 
+            }
+            
             prayer.answered = !prayer.answered
             BaseStore.baseInstance.saveDatabase()
             
@@ -232,8 +245,9 @@ class PersonalPrayerViewController: UITableViewController, UITableViewDelegate, 
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == PresentPrayerDetailsSegueID {
-            let destinationVC = (segue.destinationViewController as! UINavigationController).topViewController as! PrayerDetailsViewController_New
+            let destinationVC = (segue.destinationViewController as! UINavigationController).topViewController as! PrayerDetailsViewController
             destinationVC.currentPrayer = selectedPrayer!
+            destinationVC.previousViewController = self
         }
     }
     
@@ -250,6 +264,18 @@ class PersonalPrayerViewController: UITableViewController, UITableViewDelegate, 
     @IBAction func prepareForUnwindFromSearch(segue: UIStoryboardSegue) {
         println("Unwinding from Searching")
         BaseStore.baseInstance.saveDatabase()
+        
+        var sortDescriptors = [NSSortDescriptor(key: "priority", ascending: false), NSSortDescriptor(key: "creationDate", ascending: false)]
+        fetchAndUpdatePrayers(sortDescriptors)
+        
+        tableView.reloadData()
+    }
+    
+    @IBAction func prepareForUnwindFromCategories(segue: UIStoryboardSegue) {
+        println("Unwinding from Categories segue")
+        
+        println("Current Category is named \(currentCategory?.name)")
+        navItem.title = isAllPrayers == true ? "All Prayers" : currentCategory!.name
         
         var sortDescriptors = [NSSortDescriptor(key: "priority", ascending: false), NSSortDescriptor(key: "creationDate", ascending: false)]
         fetchAndUpdatePrayers(sortDescriptors)
@@ -340,16 +366,21 @@ class PersonalPrayerViewController: UITableViewController, UITableViewDelegate, 
         
         tableView.beginUpdates()
         for var i = 0; i < prayers.count; i++ {
-            var newRow = prayers.indexOfObject(objectsBeforeSorting[i])
+            var newRow = find(prayers, objectsBeforeSorting[i])!
             tableView.moveRowAtIndexPath(NSIndexPath(forRow: i, inSection: 1), toIndexPath: NSIndexPath(forRow: newRow, inSection: 1))
         }
         tableView.endUpdates()
     }
     
     func fetchAndUpdatePrayers(sortDescriptors: [NSSortDescriptor]) {
-        var fetchedPrayers = PrayerStore.sharedInstance.fetchAndSortPrayersInCategory(currentCategory, sortDescriptors: sortDescriptors, batchSize: 50)
+        let category: PDCategory? = isAllPrayers == true ? nil : currentCategory!
+        var fetchedPrayers = PrayerStore.sharedInstance.fetchAndSortPrayersInCategory(category, sortDescriptors: sortDescriptors, batchSize: 50, isAllPrayers: isAllPrayers)
         prayers = fetchedPrayers.unanswered
         answeredPrayers = fetchedPrayers.answered
+        
+        for prayer in prayers {
+            println("Prayer with name \(prayer.name) has ID \(prayer.prayerID)")
+        }
         
         unansweredCount = prayers.count
         answeredCount  = answeredPrayers.count
@@ -371,15 +402,14 @@ class PersonalPrayerViewController: UITableViewController, UITableViewDelegate, 
         let command = notificationInfo["command"] as! String
         
         if command == "open-today" {
-            let prayerNavController = storyboard.instantiateViewControllerWithIdentifier(SBTodayNavControllerID) as! UINavigationController
-            
-            presentViewController(prayerNavController, animated: true, completion: nil)
+            (UIApplication.sharedApplication().delegate as! AppDelegate).switchTabBarToTab(0)
         } else if command == "open-prayer" {
             let prayerID = Int32((notificationInfo["prayerID"] as! String).toInt()!)
             
             let prayerNavController = storyboard.instantiateViewControllerWithIdentifier(SBPrayerDetailsNavControllerID) as! UINavigationController
-            let prayerDetailsController = prayerNavController.topViewController as! PrayerDetailsViewController_New
+            let prayerDetailsController = prayerNavController.topViewController as! PrayerDetailsViewController
             prayerDetailsController.currentPrayer = PrayerStore.sharedInstance.getPrayerForID(prayerID)!
+            prayerDetailsController.previousViewController = self
             
             presentViewController(prayerNavController, animated: true, completion: nil)
         }

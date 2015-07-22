@@ -13,26 +13,14 @@ import PDKit
 
 class SettingsViewController: UITableViewController, UITableViewDataSource, MFMailComposeViewControllerDelegate {
     
-    @IBOutlet weak var todayOrderLabel: UILabel!
-    
-    let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleURL:", name: "HandleURLNotification", object: nil)
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
-        let userDefaults = NSUserDefaults.standardUserDefaults()
-        
-        let todayType1 = PrayerType(rawValue: userDefaults.objectForKey("prayerTodayOrder_1") as! Int)!
-        let todayType2 = PrayerType(rawValue: userDefaults.objectForKey("prayerTodayOrder_2") as! Int)!
-        let todayType3 = PrayerType(rawValue: userDefaults.objectForKey("prayerTodayOrder_3") as! Int)!
-        
-        let todayOrderString = String(format: "%@, %@, %@", todayType1.description, todayType2.description, todayType3.description)
-        
-        todayOrderLabel.text = todayOrderString
     }
     
     override func didReceiveMemoryWarning() {
@@ -48,10 +36,6 @@ class SettingsViewController: UITableViewController, UITableViewDataSource, MFMa
     override func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {
         switch indexPath.section {
         case 0: break
-        case 1:
-            let todayOrderVC = mainStoryboard.instantiateViewControllerWithIdentifier("TodayOrderNavControllerID") as! UINavigationController
-            presentViewController(todayOrderVC, animated: true, completion: nil)
-            
         default: break
         }
     }
@@ -61,7 +45,6 @@ class SettingsViewController: UITableViewController, UITableViewDataSource, MFMa
         
         switch indexPath.section {
         case 0: createEmailMessage(emailTypes[indexPath.row])
-        case 1: break
         default: break
         }
     }
@@ -104,6 +87,28 @@ class SettingsViewController: UITableViewController, UITableViewDataSource, MFMa
         }
         
         dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    // MARK: Notifications
+    
+    func handleURL(notification: NSNotification) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        let notificationInfo = notification.userInfo!
+        let command = notificationInfo["command"] as! String
+        
+        if command == "open-today" {
+            (UIApplication.sharedApplication().delegate as! AppDelegate).switchTabBarToTab(0)
+        } else if command == "open-prayer" {
+            let prayerID = Int32((notificationInfo["prayerID"] as! String).toInt()!)
+            
+            let prayerNavController = storyboard.instantiateViewControllerWithIdentifier(SBPrayerDetailsNavControllerID) as! UINavigationController
+            let prayerDetailsController = prayerNavController.topViewController as! PrayerDetailsViewController
+            prayerDetailsController.currentPrayer = PrayerStore.sharedInstance.getPrayerForID(prayerID)!
+            prayerDetailsController.previousViewController = self
+            
+            presentViewController(prayerNavController, animated: true, completion: nil)
+        }
     }
     
 }

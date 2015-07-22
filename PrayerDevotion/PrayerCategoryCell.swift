@@ -12,11 +12,13 @@ import UIKit
 class PrayerCategoryCell: UITableViewCell {
     
     var prayerCategoryLabel: UILabel!
+    var changeCategoryButton: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
         prayerCategoryLabel = self.viewWithTag(1) as! UILabel
+        changeCategoryButton = self.viewWithTag(2) as! UIButton
     }
     
 }

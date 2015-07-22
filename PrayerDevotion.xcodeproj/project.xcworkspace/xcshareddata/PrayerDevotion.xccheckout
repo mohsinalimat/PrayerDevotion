@@ -5,16 +5,16 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>A695DC97-8015-4AC4-A47A-73232FE4ED47</string>
+	<string>B3371A9E-9746-4E80-A941-FE470D92843D</string>
 	<key>IDESourceControlProjectName</key>
-	<string>PrayerDevotion</string>
+	<string>project</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>FD4465999645FF0740C7522299AC633BF70C9E08</key>
 		<string>https://github.com/jaller200/PrayerDevotion</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>PrayerDevotion.xcodeproj</string>
+	<string>PrayerDevotion.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>FD4465999645FF0740C7522299AC633BF70C9E08</key>

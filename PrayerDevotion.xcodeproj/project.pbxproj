@@ -24,6 +24,9 @@
 		6111EE461B2290E400767914 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6111EE451B2290E400767914 /* SettingsViewController.swift */; };
 		6113B8DF1B4AF1CE006D952F /* PD-1024.png in Resources */ = {isa = PBXBuildFile; fileRef = 6113B8DE1B4AF1CE006D952F /* PD-1024.png */; };
 		6116BE211B1EA9960018BB73 /* PrayerSearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6116BE201B1EA9960018BB73 /* PrayerSearchCell.swift */; };
+		6128D9441B61690F002F97D7 /* PDKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 618359671B60398400AEA7AE /* PDKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6128D9461B61699D002F97D7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6128D9451B61699D002F97D7 /* UIKit.framework */; };
+		6128D9471B616AD9002F97D7 /* PDKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61081BEA1B55FDB8002F1BF3 /* PDKit.framework */; };
 		61293E0B1B013602005B7267 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61293E0A1B013602005B7267 /* AppDelegate.swift */; };
 		61293E0E1B013602005B7267 /* PrayerDevotion.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 61293E0C1B013602005B7267 /* PrayerDevotion.xcdatamodeld */; };
 		61293E101B013602005B7267 /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61293E0F1B013602005B7267 /* CategoriesViewController.swift */; };
@@ -142,6 +145,7 @@
 		6111EE451B2290E400767914 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		6113B8DE1B4AF1CE006D952F /* PD-1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PD-1024.png"; sourceTree = "<group>"; };
 		6116BE201B1EA9960018BB73 /* PrayerSearchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerSearchCell.swift; sourceTree = "<group>"; };
+		6128D9451B61699D002F97D7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		61293E051B013602005B7267 /* PrayerDevotion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PrayerDevotion.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		61293E091B013602005B7267 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		61293E0A1B013602005B7267 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -195,6 +199,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6128D9461B61699D002F97D7 /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,6 +230,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6128D9471B616AD9002F97D7 /* PDKit.framework in Frameworks */,
 				61C52CB11B56AFA200F3FB04 /* NotificationCenter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -373,6 +379,7 @@
 		61C52CAF1B56AFA200F3FB04 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6128D9451B61699D002F97D7 /* UIKit.framework */,
 				61C52CB01B56AFA200F3FB04 /* NotificationCenter.framework */,
 			);
 			name = Frameworks;
@@ -451,6 +458,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6128D9441B61690F002F97D7 /* PDKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

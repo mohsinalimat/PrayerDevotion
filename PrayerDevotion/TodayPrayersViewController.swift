@@ -37,6 +37,10 @@ class TodayPrayersViewController: UIViewController, UITableViewDelegate, UITable
         
         fetchTodayPrayers()
         tableView.reloadData()
+        
+        //tableView.hidden = todayCount == 0
+        noPrayersLabel.hidden = !(todayCount == 0)
+        //todayLabel.hidden = todayCount == 0
     }
     
     override func didReceiveMemoryWarning() {
@@ -118,6 +122,11 @@ class TodayPrayersViewController: UIViewController, UITableViewDelegate, UITable
             tableView.beginUpdates()
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Right)
             tableView.endUpdates()
+            
+            //tableView.hidden = self.todayCount == 0
+            self.noPrayersLabel.hidden = !(self.todayCount == 0)
+            //self.todayLabel.hidden = self.todayCount == 0
+            (tableView.headerViewForSection(1))?.textLabel.text = self.tableView(tableView, titleForHeaderInSection: 1)
         })
         deleteAction.backgroundColor = UIColor.redColor()
         
@@ -141,7 +150,7 @@ class TodayPrayersViewController: UIViewController, UITableViewDelegate, UITable
             let currentDate = NSDate()
             let dateString = dateFormatter.stringFromDate(currentDate)
             
-            return "Today, \(dateString)"
+            return todayCount == 0 ? "" : "Today, \(dateString)"
         }
         
         return ""
@@ -178,6 +187,8 @@ class TodayPrayersViewController: UIViewController, UITableViewDelegate, UITable
             CATransaction.begin()
             CATransaction.setCompletionBlock({
                 self.tableView.reloadData()
+                
+                self.noPrayersLabel.hidden = !(self.todayCount == 0)
             })
             tableView.beginUpdates()
             

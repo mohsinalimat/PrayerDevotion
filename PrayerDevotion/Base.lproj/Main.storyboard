@@ -56,7 +56,7 @@
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="sLO-Ms-GjW">
                                 <rect key="frame" x="0.0" y="147" width="600" height="404"/>
-                                <color key="backgroundColor" red="0.60000002379999995" green="0.40000000600000002" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" red="0.60000002379999995" green="0.40000000600000002" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="sectionIndexTrackingBackgroundColor" red="0.60000002379999995" green="0.40000000600000002" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
@@ -236,7 +236,7 @@
         <scene sceneID="skn-YK-nZb">
             <objects>
                 <navigationController storyboardIdentifier="SBPersonalCategoriesNavID" id="ihU-Zp-70x" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Categories" id="ywm-2N-vhF"/>
+                    <tabBarItem key="tabBarItem" title="Categories" image="personal_new" id="ywm-2N-vhF"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="AEQ-Ty-Wmz">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1242,7 +1242,7 @@
         <scene sceneID="n6x-wf-kAW">
             <objects>
                 <navigationController storyboardIdentifier="SBTodayNavControllerID" automaticallyAdjustsScrollViewInsets="NO" id="7v7-me-2eV" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Today" image="personal_new" id="mPL-x5-Af2"/>
+                    <tabBarItem key="tabBarItem" title="Today" image="today_icon" id="mPL-x5-Af2"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="DcM-vH-oy1">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1261,9 +1261,10 @@
     <resources>
         <image name="personal_new" width="21" height="25"/>
         <image name="settings_new" width="24" height="25"/>
+        <image name="today_icon" width="24" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="R2r-FO-19d"/>
-        <segue reference="YQj-yP-DjY"/>
+        <segue reference="ETJ-cZ-vTs"/>
+        <segue reference="dSi-5r-Trj"/>
     </inferredMetricsTieBreakers>
 </document>

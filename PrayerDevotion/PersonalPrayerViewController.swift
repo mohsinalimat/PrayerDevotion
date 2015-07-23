@@ -26,6 +26,7 @@ class PersonalPrayerViewController: UITableViewController, UITableViewDelegate, 
     private var selectedPrayer: PDPrayer?
 
     @IBOutlet var navItem: UINavigationItem!
+    var categoriesItem: UIBarButtonItem!
     
     required init!(coder aDecoder: NSCoder!) {
         super.init(coder: aDecoder)
@@ -50,7 +51,7 @@ class PersonalPrayerViewController: UITableViewController, UITableViewDelegate, 
         
         navItem.title = isAllPrayers == true ? "All Prayers" : currentCategory!.name
         
-        let categoriesItem = UIBarButtonItem(title: "Categories", style: .Plain, target: self, action: "unwindFromPrayers:")
+        categoriesItem = UIBarButtonItem(title: "Categories", style: .Plain, target: self, action: "unwindFromPrayers:")
         let searchItem = UIBarButtonItem(barButtonSystemItem: .Search, target: self, action: "openSearch:")
         
         navItem.rightBarButtonItem = searchItem
@@ -241,6 +242,10 @@ class PersonalPrayerViewController: UITableViewController, UITableViewDelegate, 
         return [deleteAction, answeredAction]
     }
     
+    override func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+        categoriesItem.enabled = true
+    }
+    
     // MARK: Segue
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -297,6 +302,9 @@ class PersonalPrayerViewController: UITableViewController, UITableViewDelegate, 
     
     func textFieldDidBeginEditing(textField: UITextField) {
         println("Beginning to add a prayer into the textField")
+        
+        categoriesItem.enabled = false
+        tableView.scrollEnabled = false
     }
     
     func textFieldDidEndEditing(textField: UITextField) {
@@ -309,7 +317,7 @@ class PersonalPrayerViewController: UITableViewController, UITableViewDelegate, 
             println("Entered string: \(enteredString)")
             println("Adding prayer to database...")
             
-            PrayerStore.sharedInstance.addPrayerToDatabase(enteredString, details: "", category: currentCategory, dateCreated: NSDate())
+            PrayerStore.sharedInstance.addPrayerToDatabase(enteredString, details: "", category: currentCategory!, dateCreated: NSDate())
             var sortDescriptors = [NSSortDescriptor(key: "priority", ascending: false), NSSortDescriptor(key: "creationDate", ascending: false)]
 
             CATransaction.begin()
@@ -336,6 +344,8 @@ class PersonalPrayerViewController: UITableViewController, UITableViewDelegate, 
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.endEditing(true)
+        tableView.scrollEnabled = true
+        categoriesItem.enabled = true
         return false
     }
     

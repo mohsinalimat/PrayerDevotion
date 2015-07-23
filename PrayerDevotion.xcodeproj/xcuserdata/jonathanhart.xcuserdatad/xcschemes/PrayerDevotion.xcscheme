@@ -42,9 +42,23 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "61CCE8A21B55F8BE00CDBD97"
+               BlueprintIdentifier = "61081BF31B55FDB8002F1BF3"
                BuildableName = "PDKitTests.xctest"
                BlueprintName = "PDKitTests"
+               ReferencedContainer = "container:PrayerDevotion.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "618359511B60396E00AEA7AE"
+               BuildableName = "TestTests.xctest"
+               BlueprintName = "TestTests"
                ReferencedContainer = "container:PrayerDevotion.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -70,9 +84,19 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "61CCE8A21B55F8BE00CDBD97"
+               BlueprintIdentifier = "61081BF31B55FDB8002F1BF3"
                BuildableName = "PDKitTests.xctest"
                BlueprintName = "PDKitTests"
+               ReferencedContainer = "container:PrayerDevotion.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "618359511B60396E00AEA7AE"
+               BuildableName = "TestTests.xctest"
+               BlueprintName = "TestTests"
                ReferencedContainer = "container:PrayerDevotion.xcodeproj">
             </BuildableReference>
          </TestableReference>

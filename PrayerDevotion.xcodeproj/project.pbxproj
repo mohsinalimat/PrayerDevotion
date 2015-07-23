@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		6102E38B1B093076005D3EC9 /* EditCategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6102E38A1B093076005D3EC9 /* EditCategoriesViewController.swift */; };
-		61081BEF1B55FDB8002F1BF3 /* PDKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 61081BEE1B55FDB8002F1BF3 /* PDKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		61081BF51B55FDB8002F1BF3 /* PDKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61081BEA1B55FDB8002F1BF3 /* PDKit.framework */; };
 		61081BFE1B55FDB8002F1BF3 /* PDKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61081BFD1B55FDB8002F1BF3 /* PDKitTests.swift */; };
 		61081C011B55FDB8002F1BF3 /* PDKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61081BEA1B55FDB8002F1BF3 /* PDKit.framework */; };
@@ -41,6 +40,7 @@
 		615BF62C1B1924B1002A8731 /* PrayerSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615BF62B1B1924B1002A8731 /* PrayerSearchViewController.swift */; };
 		6166A5561B5F024100C55CD3 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6166A5551B5F024100C55CD3 /* Constants.swift */; };
 		6167D6CF1B1BF41900BB8BA2 /* PrayerAlertCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6167D6CE1B1BF41900BB8BA2 /* PrayerAlertCell.swift */; };
+		618359691B6039B400AEA7AE /* Model.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 618359681B6039B400AEA7AE /* Model.xcmappingmodel */; };
 		6184764B1B5896BD00081E8B /* PrayerCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6184764A1B5896BD00081E8B /* PrayerCategoryCell.swift */; };
 		6194817C1B5CAC5D00D00AB6 /* TodayPrayersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6194817B1B5CAC5D00D00AB6 /* TodayPrayersViewController.swift */; };
 		6194817E1B5CACCE00D00AB6 /* TodayPrayerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6194817D1B5CACCE00D00AB6 /* TodayPrayerCell.swift */; };
@@ -51,7 +51,6 @@
 		61C52CBB1B56AFA200F3FB04 /* PDTodayWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 61C52CAE1B56AFA200F3FB04 /* PDTodayWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		61C52CC11B56B1F000F3FB04 /* PrayerTodayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61C52CC01B56B1F000F3FB04 /* PrayerTodayCell.swift */; };
 		61CB0F3B1B57188E00343DD4 /* PrayerDevotion.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 61CB0F391B57188E00343DD4 /* PrayerDevotion.xcdatamodeld */; };
-		61CB0F3F1B57238500343DD4 /* Model.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 61CB0F3E1B57238500343DD4 /* Model.xcmappingmodel */; };
 		61D4213B1B47242F0039BD7F /* CreatePrayerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D4213A1B47242F0039BD7F /* CreatePrayerCell.swift */; };
 		61D4213D1B4724610039BD7F /* PrayerDetailsExtendedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D4213C1B4724610039BD7F /* PrayerDetailsExtendedCell.swift */; };
 		61D421411B4724BA0039BD7F /* PrayerAnsweredCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D421401B4724BA0039BD7F /* PrayerAnsweredCell.swift */; };
@@ -128,8 +127,6 @@
 /* Begin PBXFileReference section */
 		6102E38A1B093076005D3EC9 /* EditCategoriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditCategoriesViewController.swift; sourceTree = "<group>"; };
 		61081BEA1B55FDB8002F1BF3 /* PDKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PDKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		61081BED1B55FDB8002F1BF3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		61081BEE1B55FDB8002F1BF3 /* PDKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PDKit.h; sourceTree = "<group>"; };
 		61081BF41B55FDB8002F1BF3 /* PDKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PDKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		61081BFC1B55FDB8002F1BF3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		61081BFD1B55FDB8002F1BF3 /* PDKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDKitTests.swift; sourceTree = "<group>"; };
@@ -166,6 +163,9 @@
 		615BF62B1B1924B1002A8731 /* PrayerSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerSearchViewController.swift; sourceTree = "<group>"; };
 		6166A5551B5F024100C55CD3 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		6167D6CE1B1BF41900BB8BA2 /* PrayerAlertCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerAlertCell.swift; sourceTree = "<group>"; };
+		618359411B60395800AEA7AE /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		618359671B60398400AEA7AE /* PDKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PDKit.h; sourceTree = "<group>"; };
+		618359681B6039B400AEA7AE /* Model.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = Model.xcmappingmodel; sourceTree = "<group>"; };
 		6184764A1B5896BD00081E8B /* PrayerCategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerCategoryCell.swift; sourceTree = "<group>"; };
 		6194817B1B5CAC5D00D00AB6 /* TodayPrayersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodayPrayersViewController.swift; sourceTree = "<group>"; };
 		6194817D1B5CACCE00D00AB6 /* TodayPrayerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodayPrayerCell.swift; sourceTree = "<group>"; };
@@ -179,7 +179,6 @@
 		61CB0F3A1B57188E00343DD4 /* PrayerDevotion.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PrayerDevotion.xcdatamodel; sourceTree = "<group>"; };
 		61CB0F3C1B571EAD00343DD4 /* PDTodayWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PDTodayWidget.entitlements; sourceTree = "<group>"; };
 		61CB0F3D1B571EBE00343DD4 /* PrayerDevotion.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrayerDevotion.entitlements; sourceTree = "<group>"; };
-		61CB0F3E1B57238500343DD4 /* Model.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = Model.xcmappingmodel; sourceTree = "<group>"; };
 		61CCE8BB1B55F92900CDBD97 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
 		61D4213A1B47242F0039BD7F /* CreatePrayerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePrayerCell.swift; sourceTree = "<group>"; };
 		61D4213C1B4724610039BD7F /* PrayerDetailsExtendedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerDetailsExtendedCell.swift; sourceTree = "<group>"; };
@@ -240,10 +239,10 @@
 				61081C1C1B55FDC7002F1BF3 /* Models */,
 				61081C0E1B55FDC3002F1BF3 /* CoreDataStore.swift */,
 				61081C0F1B55FDC3002F1BF3 /* Notifications.swift */,
-				61081BEE1B55FDB8002F1BF3 /* PDKit.h */,
+				618359671B60398400AEA7AE /* PDKit.h */,
 				61081BEC1B55FDB8002F1BF3 /* Supporting Files */,
 				61CB0F391B57188E00343DD4 /* PrayerDevotion.xcdatamodeld */,
-				61CB0F3E1B57238500343DD4 /* Model.xcmappingmodel */,
+				618359681B6039B400AEA7AE /* Model.xcmappingmodel */,
 			);
 			path = PDKit;
 			sourceTree = "<group>";
@@ -251,7 +250,7 @@
 		61081BEC1B55FDB8002F1BF3 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				61081BED1B55FDB8002F1BF3 /* Info.plist */,
+				618359411B60395800AEA7AE /* Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -452,7 +451,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				61081BEF1B55FDB8002F1BF3 /* PDKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -673,7 +671,7 @@
 				61081C161B55FDC3002F1BF3 /* Category.swift in Sources */,
 				61CB0F3B1B57188E00343DD4 /* PrayerDevotion.xcdatamodeld in Sources */,
 				61081C121B55FDC3002F1BF3 /* Alert.swift in Sources */,
-				61CB0F3F1B57238500343DD4 /* Model.xcmappingmodel in Sources */,
+				618359691B6039B400AEA7AE /* Model.xcmappingmodel in Sources */,
 				61081C141B55FDC3002F1BF3 /* BaseStore.swift in Sources */,
 				61081C151B55FDC3002F1BF3 /* CategoriesStore.swift in Sources */,
 			);

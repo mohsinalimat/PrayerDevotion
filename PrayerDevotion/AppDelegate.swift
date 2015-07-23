@@ -30,7 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let userPrefs = NSUserDefaults.standardUserDefaults()
         
-        let installString: String? = userPrefs.objectForKey("didInstallApp") as? String
+        let installString: String? = userPrefs.objectForKey("didInstallApp_2.0") as? String
         
         if installString == nil || installString == "" {
             userPrefs.setBool(true, forKey: "firstInstallation")
@@ -39,7 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             println("User installed app for the first time. Make sure all local notifications are deleted")
             UIApplication.sharedApplication().cancelAllLocalNotifications()
             
-            userPrefs.setObject("installed", forKey: "didInstallApp")
+            userPrefs.setObject("installed", forKey: "didInstallApp_2.0")
         }
         
         // Check for pending alerts and notifications and update them

@@ -30,7 +30,7 @@ class CategoriesViewController: UITableViewController, UITableViewDelegate, UITa
     
     var prayersViewController: PersonalPrayerViewController!
     var selectedIndex: NSIndexPath = NSIndexPath(forRow: 0, inSection: 0)
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -252,7 +252,7 @@ class CategoriesViewController: UITableViewController, UITableViewDelegate, UITa
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 { return "" }
         
-        return "User Categories"
+        return fetchedCategories.count == 0 ? "" : "User Categories"
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -263,7 +263,7 @@ class CategoriesViewController: UITableViewController, UITableViewDelegate, UITa
         if indexPath.section == 0 {
             switch indexPath.row {
             case 0:
-                prayersVC.currentCategory = nil
+                prayersVC.currentCategory = CategoryStore.sharedInstance.categoryForString("Uncategorized")
                 prayersVC.isAllPrayers = true
                 
             case 1:
@@ -327,8 +327,16 @@ class CategoriesViewController: UITableViewController, UITableViewDelegate, UITa
                 
                     self.categoryCount -= 1
                 
+                    CATransaction.begin()
+                    CATransaction.setCompletionBlock({
+                        self.tableView.reloadData()
+                    })
                     self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Left)
                     self.tableView.endUpdates()
+                    
+                    (tableView.headerViewForSection(1))?.textLabel.text = self.tableView(tableView, titleForHeaderInSection: 1)
+                    
+                    CATransaction.commit()
                 })
                 alertController.addAction(confirmAction)
                 
@@ -458,8 +466,6 @@ class CategoriesViewController: UITableViewController, UITableViewDelegate, UITa
         
         tableView.reloadData()
     }
-    
-    // MARK: Notifications
     
     // MARK: Notifications
     

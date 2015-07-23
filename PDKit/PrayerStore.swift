@@ -288,7 +288,7 @@ public class PrayerStore: BaseStore {
     // MARK: Adding Prayers
     
     // Add a prayer to the database
-    public func addPrayerToDatabase(name: String!, details: String, category: PDCategory!, dateCreated: NSDate) -> PDPrayer {
+    public func addPrayerToDatabase(name: String!, details: String, category: PDCategory, dateCreated: NSDate) -> PDPrayer {
         var prayer = NSEntityDescription.insertNewObjectForEntityForName("Prayer", inManagedObjectContext: managedContext!) as! PDPrayer
         
         // This is the method for an "order" - may use in the future
@@ -339,9 +339,9 @@ public class PrayerStore: BaseStore {
         
         prayer.alerts = NSOrderedSet()
         
-        println("Category prayer count before update is: \(category.prayerCount)")
-        category.prayerCount += 1
-        println("Category prayer count after update is: \(category.prayerCount)")
+        /*println("Category prayer count before update is: \(category?.prayerCount)")
+        category?.prayerCount += 1
+        println("Category prayer count after update is: \(category?.prayerCount)")*/
         
         saveDatabase()
         

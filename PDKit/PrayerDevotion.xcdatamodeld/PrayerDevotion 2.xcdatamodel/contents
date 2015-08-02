@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="14D136" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="15A178w" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Alert" representedClassName="PDAlert" syncable="YES">
         <attribute name="alertDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="didSchedule" optional="YES" attributeType="Boolean" syncable="YES"/>
@@ -16,6 +16,7 @@
         <attribute name="answered" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="answeredNotes" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="answeredTimestamp" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="assignedEmail" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="category" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="creationDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="details" optional="YES" attributeType="String" syncable="YES"/>
@@ -30,6 +31,6 @@
     <elements>
         <element name="Alert" positionX="-63" positionY="-18" width="128" height="105"/>
         <element name="Category" positionX="-45" positionY="126" width="128" height="90"/>
-        <element name="Prayer" positionX="-54" positionY="18" width="128" height="255"/>
+        <element name="Prayer" positionX="-54" positionY="18" width="128" height="270"/>
     </elements>
 </model>

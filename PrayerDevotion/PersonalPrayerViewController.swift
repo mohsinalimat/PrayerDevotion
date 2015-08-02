@@ -23,6 +23,8 @@ class PersonalPrayerViewController: UITableViewController, UITableViewDelegate, 
 
     var isAllPrayers: Bool = false
     
+    let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    
     private var selectedPrayer: PDPrayer?
 
     @IBOutlet var navItem: UINavigationItem!
@@ -49,13 +51,21 @@ class PersonalPrayerViewController: UITableViewController, UITableViewDelegate, 
         
         refreshControl!.addTarget(self, action: "refreshView", forControlEvents: .ValueChanged)
         
-        navItem.title = isAllPrayers == true ? "All Prayers" : currentCategory!.name
-        
         categoriesItem = UIBarButtonItem(title: "Categories", style: .Plain, target: self, action: "unwindFromPrayers:")
         let searchItem = UIBarButtonItem(barButtonSystemItem: .Search, target: self, action: "openSearch:")
         
         navItem.rightBarButtonItem = searchItem
         navItem.leftBarButtonItem = categoriesItem
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navItem.title = isAllPrayers == true ? "All Prayers" : currentCategory!.name
+        
+        navigationController!.navigationBar.tintColor = delegate.themeTintColor
+        tableView.backgroundColor = delegate.themeBackgroundColor
+        
     }
     
     func unwindFromPrayers(sender: AnyObject) {

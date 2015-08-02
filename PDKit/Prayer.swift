@@ -24,6 +24,7 @@ public class PDPrayer: NSManagedObject {
     @NSManaged public var isDateAdded: Bool // This is the boolean that determines whether or not a date was added to the prayer
     @NSManaged public var answeredTimestamp: NSDate // This is the date of the time when the prayer was answered
     @NSManaged public var priority: Int16 // This is the priority of the prayer (0 - None, 1, 2, and 3)
+    @NSManaged public var assignedEmail: String? // This is an optional email assigned to the prayer
     
     @NSManaged public var prayerID: Int32 // This is a unique prayer ID that will distinguish the prayer from all other prayers
     

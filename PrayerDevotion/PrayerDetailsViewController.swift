@@ -10,12 +10,17 @@ import Foundation
 import UIKit
 import CoreData
 import PDKit
+import MessageUI
+import AddressBook
+import AddressBookUI
 
-class PrayerDetailsViewController: UITableViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
+class PrayerDetailsViewController: UITableViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource, MFMailComposeViewControllerDelegate, ABPeoplePickerNavigationControllerDelegate {
+    
+    @IBOutlet var navItem: UINavigationItem!
     
     var previousViewController: UIViewController? = nil
     
-    var allCategories: NSMutableArray = NSMutableArray()
+    var allCategories = [String]()
     
     var currentPrayer: PDPrayer! // This is the prayer that the user is currently editing
     var prayerAlerts: NSMutableOrderedSet! // This is the mutable set of the prayer alerts that are included in the prayer
@@ -28,16 +33,22 @@ class PrayerDetailsViewController: UITableViewController, UITableViewDataSource,
     var cellForRowRefreshCount = 0
     
     var isChangingCategory: Bool = false
+    let userDefaults = NSUserDefaults.standardUserDefaults()
+    let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
-    @IBOutlet var navItem: UINavigationItem!
+    // Contacts
+    var addressBook: ABAddressBook? = ABAddressBookCreateWithOptions(nil, nil).takeRetainedValue()
+    var categoryPickerView: UIPickerView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //addressBook = ABAddressBookCreateWithOptions(nil, nil).takeRetainedValue()
+        
         CategoryStore.sharedInstance.fetchCategoriesData(NSPredicate(format: "name != %@", "Uncategorized"), sortKey: "name", ascending: true)
         
         for item in CategoryStore.sharedInstance.allCategories() {
-            allCategories.addObject(item.name)
+            allCategories.append(item.name)
         }
         
         if currentPrayer == nil {
@@ -49,6 +60,22 @@ class PrayerDetailsViewController: UITableViewController, UITableViewDataSource,
         prayerAlertsCount = prayerAlerts.count + 1
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleURL:", name: "HandleURLNotification", object: nil)
+        
+        tableView.estimatedRowHeight = 44.0
+        
+        navigationController!.toolbarHidden = false
+        
+        let shareItem = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: "openActionItems:")
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: self, action: nil)
+        toolbarItems = [shareItem]
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController!.navigationBar.tintColor = delegate.themeTintColor
+        tableView.backgroundColor = delegate.themeBackgroundColor
+        tableView.separatorColor = delegate.themeBackgroundColor
     }
     
     override func didReceiveMemoryWarning() {
@@ -97,9 +124,13 @@ class PrayerDetailsViewController: UITableViewController, UITableViewDataSource,
                 pickerView.delegate = self
                 pickerView.dataSource = self
                 pickerView.frame.size.height = 162
+                self.categoryPickerView = pickerView
                 
-                let categoryIdx = currentPrayer.category == "Uncategorized" ? 0 : allCategories.indexOfObject(currentPrayer.category) + 1
+                let categoryIdx = currentPrayer.category == "Uncategorized" ? 0 : find(allCategories, currentPrayer.category)! + 1
+                
                 pickerView.selectRow(categoryIdx, inComponent: 0, animated: false)
+                
+                (cell.viewWithTag(2) as! UIButton).addTarget(self, action: "createCategory:", forControlEvents: .TouchDown)
                 
                 return cell
             }
@@ -123,6 +154,7 @@ class PrayerDetailsViewController: UITableViewController, UITableViewDataSource,
             var cell = tableView.dequeueReusableCellWithIdentifier(AnsweredPrayerCellID, forIndexPath: indexPath) as! PrayerAnsweredCell
             cell.accessoryType = currentPrayer.answered == true ? .Checkmark : .None
             cell.answeredLabel.text = currentPrayer.answered == true ? "Prayer is Answered" : "Prayer is Unanswered"
+            cell.color = delegate.themeTintColor
             
             return cell
             
@@ -137,15 +169,17 @@ class PrayerDetailsViewController: UITableViewController, UITableViewDataSource,
         case 5:
             if indexPath.row == prayerAlerts.count {
                 var cell = tableView.dequeueReusableCellWithIdentifier(AddNewAlertCellID, forIndexPath: indexPath) as! AddPrayerAlertCell
-                cell.currentPrayer = currentPrayer
-                cell.refreshCell(false, selectedPrayer: currentPrayer)
+                
+                cell.currentPrayer = self.currentPrayer
+                cell.addNewAlertLabel.textColor = delegate.themeTintColor
+                cell.refreshCell(false, selectedPrayer: self.currentPrayer)
                 cell.saveButton.addTarget(self, action: "didSaveNewAlert", forControlEvents: .TouchDown)
                 
                 return cell
             } else {
                 var cell = tableView.dequeueReusableCellWithIdentifier(PrayerAlertCellID, forIndexPath: indexPath) as! PrayerAlertCell
                 
-                let currentAlert = prayerAlerts[indexPath.row] as! PDAlert
+                let currentAlert = self.prayerAlerts[indexPath.row] as! PDAlert
                 cell.alertLabel.text = AlertStore.sharedInstance.convertDateToString(currentAlert.alertDate)
                 
                 return cell
@@ -195,6 +229,8 @@ class PrayerDetailsViewController: UITableViewController, UITableViewDataSource,
             dateCell.refreshCell(false, selectedPrayer: currentPrayer)
             alertCell?.refreshCell(false, selectedPrayer: currentPrayer)
                         tableView.endUpdates()
+            
+            tableView.estimatedRowHeight = 44.0
         }
         
         if indexPath.section == 4 {
@@ -224,7 +260,7 @@ class PrayerDetailsViewController: UITableViewController, UITableViewDataSource,
             } else if indexPath.row == 1 {
                 return 30
             } else {
-                return 162
+                return 207
             }
             
         case 1: return UITableViewAutomaticDimension
@@ -269,12 +305,12 @@ class PrayerDetailsViewController: UITableViewController, UITableViewDataSource,
         }
     }
     
-    override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    /*override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         switch indexPath.section {
         case 1: return 130
         default: return 44
         }
-    }
+    }*/
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
@@ -429,7 +465,7 @@ class PrayerDetailsViewController: UITableViewController, UITableViewDataSource,
     
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
         if row == 0 { return "Uncategorized" }
-        else { return allCategories[row - 1] as! String }
+        else { return allCategories[row - 1] }
     }
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
@@ -437,6 +473,99 @@ class PrayerDetailsViewController: UITableViewController, UITableViewDataSource,
         
         currentPrayer.category = rowTitle
         tableView.reloadData()
+    }
+    
+    // MARK: MFMailViewController Methods
+    
+    func mailComposeController(controller: MFMailComposeViewController!, didFinishWithResult result: MFMailComposeResult, error: NSError!) {
+        switch result.value {
+        case MFMailComposeResultCancelled.value:
+            println("Mail Compose Cancelled")
+            
+        case MFMailComposeResultFailed.value:
+            println("Mail Compose Failed: \(error), \(error?.userInfo)")
+            
+        case MFMailComposeResultSaved.value:
+            println("Mail Compose Saved")
+            
+        case MFMailComposeResultSent.value:
+            println("Mail Successfully Sent!")
+            
+        default: break
+        }
+        
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    // Contacts
+    
+    func promptForAddressBookRequestAccess(sender: AnyObject) {
+        var error: Unmanaged<CFError>? = nil
+        
+        ABAddressBookRequestAccessWithCompletion(addressBook) {
+            (granted: Bool, error: CFError!) in
+            dispatch_async(dispatch_get_main_queue()) {
+                if !granted {
+                    println("Just denied")
+                    self.displayUnableToAddContactAlert()
+                } else {
+                    println("Just authorized")
+                }
+            }
+        }
+    }
+    
+    func openSettings() {
+        let settingsURL = NSURL(string: UIApplicationOpenSettingsURLString)
+        UIApplication.sharedApplication().openURL(settingsURL!)
+    }
+    
+    func displayUnableToAddContactAlert() {
+        let alert = UIAlertController(title: "Cannot Assign Contact", message: "You must give the app permission to add the contact first", preferredStyle: .Alert)
+        
+        let action = UIAlertAction(title: "Open Settings", style: .Default, handler: { alertAction in
+            self.openSettings()
+        })
+        alert.addAction(action)
+        
+        let cancelAction = UIAlertAction(title: "Close", style: .Cancel, handler: nil)
+        alert.addAction(cancelAction)
+        
+        presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    func handleContactPicker() {
+        let allContacts = ABAddressBookCopyArrayOfAllPeople(addressBook).takeRetainedValue()
+        
+        let peoplePicker = ABPeoplePickerNavigationController()
+        peoplePicker.peoplePickerDelegate = self
+        peoplePicker.displayedProperties = [NSNumber(int: kABPersonEmailProperty)]
+        
+        if peoplePicker.respondsToSelector(Selector("predicateForEnablingPerson")) {
+            peoplePicker.predicateForEnablingPerson = NSPredicate(format: "emailAddresses.@count > 0")
+        }
+        
+        presentViewController(peoplePicker, animated: true, completion: nil)
+    }
+    
+    // MARK: People Picker Methods
+    
+    func peoplePickerNavigationController(peoplePicker: ABPeoplePickerNavigationController!, didSelectPerson person: ABRecord!, property: ABPropertyID, identifier: ABMultiValueIdentifier) {
+        let multiValue: ABMultiValueRef = ABRecordCopyValue(person, property).takeRetainedValue()
+        let index = ABMultiValueGetIndexForIdentifier(multiValue, identifier)
+        let email = ABMultiValueCopyValueAtIndex(multiValue, index).takeRetainedValue() as! String
+        
+        println("email = \(email)")
+        
+        currentPrayer.assignedEmail = email
+        BaseStore.baseInstance.saveDatabase()
+        
+        peoplePicker.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func peoplePickerNavigationControllerDidCancel(peoplePicker: ABPeoplePickerNavigationController!) {
+        let p = peoplePicker.presentingViewController!
+        p.dismissViewControllerAnimated(true, completion: nil)
     }
     
     // MARK: Custom Functions
@@ -455,5 +584,154 @@ class PrayerDetailsViewController: UITableViewController, UITableViewDataSource,
         
         let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as! PrayerCategoryCell
         cell.prayerCategoryLabel.text = "Prayer in Category \(currentPrayer.category)"
+    }
+    
+    func createCategory(sender: UIButton) {
+        var alertController = UIAlertController(title: "Create New Personal Category", message: "Enter a name below and press Create to create a new personal category", preferredStyle: .Alert)
+        
+        var cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        alertController.addAction(cancelAction)
+        
+        var createAction = UIAlertAction(title: "Create", style: .Default, handler: { alertAction in
+            let textField = alertController.textFields![0] as! UITextField
+            let categoryName = textField.text
+            
+            if CategoryStore.sharedInstance.categoryExists(categoryName) == false {
+                CategoryStore.sharedInstance.addCategoryToDatabase(categoryName, dateCreated: NSDate())
+                
+                CategoryStore.sharedInstance.fetchCategoriesData(NSPredicate(format: "name != %@", "Uncategorized"), sortKey: "name", ascending: true)
+                
+                self.allCategories = [String]()
+                for item in CategoryStore.sharedInstance.allCategories() {
+                    self.allCategories.append(item.name)
+                }
+                
+                let index = find(self.allCategories, categoryName)! + 1
+                
+                self.categoryPickerView!.reloadAllComponents()
+                self.categoryPickerView!.selectRow(index, inComponent: 0, animated: true)
+                
+                self.currentPrayer.category = categoryName
+                let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as! PrayerCategoryCell
+                cell.prayerCategoryLabel.text = "Prayer in Category \(self.currentPrayer.category)"
+            } else {
+                var errorAlert = UIAlertController(title: "Unable to Create Category", message: "There is already a category with the name \"\(categoryName)\". Do you want to select this category?", preferredStyle: .Alert)
+                var yesAction = UIAlertAction(title: "Yes", style: .Default, handler: { alertAction in
+                    let index = categoryName == "Uncategorized" ? 0 : find(self.allCategories, categoryName)! + 1
+                    
+                    self.categoryPickerView!.selectRow(index, inComponent: 0, animated: true)
+                    self.currentPrayer.category = categoryName
+                    
+                    let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as! PrayerCategoryCell
+                    cell.prayerCategoryLabel.text = "Prayer in Category \(self.currentPrayer.category)"
+                })
+                var noAction = UIAlertAction(title: "No", style: .Cancel, handler: nil)
+                errorAlert.addAction(noAction)
+                errorAlert.addAction(yesAction)
+                
+                self.presentViewController(errorAlert, animated: true, completion: nil)
+            }
+        })
+        createAction.enabled = false
+        
+        alertController.addTextFieldWithConfigurationHandler({ textField in
+            textField.placeholder = "Enter Category Name..."
+            textField.autocapitalizationType = .Words
+            
+            NSNotificationCenter.defaultCenter().addObserverForName(UITextFieldTextDidChangeNotification, object: textField, queue: NSOperationQueue.mainQueue(), usingBlock: { notification in
+                createAction.enabled = textField.text != ""
+            })
+        })
+        
+        alertController.addAction(createAction)
+        
+        presentViewController(alertController, animated: true, completion: nil)
+    }
+    
+    func openActionItems(sender: AnyObject) {
+        let actionSheet = UIAlertController(title: "Other Actions", message: currentPrayer.assignedEmail == nil ? nil : "Email: \(currentPrayer.assignedEmail!)", preferredStyle: .ActionSheet)
+        
+        let title = currentPrayer.assignedEmail == nil ? "Assign Contact Email" : "Remove Contact Email"
+        
+        let assignContactAction = UIAlertAction(title: title, style: .Default, handler: { alertAction in
+            if self.currentPrayer.assignedEmail != nil {
+                self.currentPrayer.assignedEmail = nil
+            } else {
+                let alert = UIAlertController(title: "Add Email Address", message: "Type in user email address or choose email from contact", preferredStyle: .Alert)
+            
+                let addAction = UIAlertAction(title: "Add Email", style: .Default, handler: { alertAction in
+                    let textField = alert.textFields!.first as! UITextField
+                
+                    let email = textField.text
+                    
+                    self.currentPrayer.assignedEmail = email
+                    BaseStore.baseInstance.saveDatabase()
+                })
+                
+                alert.addAction(addAction)
+                addAction.enabled = false
+            
+                alert.addTextFieldWithConfigurationHandler({ textField in
+                    textField.placeholder = "Enter Email..."
+                
+                    NSNotificationCenter.defaultCenter().addObserverForName(UITextFieldTextDidChangeNotification, object: textField, queue: NSOperationQueue.mainQueue(), usingBlock: { (notification) in
+                        addAction.enabled = self.checkEmail(textField.text) == true
+                    })
+                })
+                
+                let chooseContactAction = UIAlertAction(title: "Use Contact", style: .Default, handler: { alertAction in
+                    let authorization = ABAddressBookGetAuthorizationStatus()
+                    
+                    switch authorization {
+                    case .Denied, .Restricted:
+                        println("User has denied or restricted access to contacts")
+                        self.displayUnableToAddContactAlert()
+                        
+                    case .Authorized:
+                        println("User has authorized access to contacts")
+                        self.handleContactPicker()
+                        
+                    case .NotDetermined:
+                        println("User has not chosen to authorize/not authorize access to contacts")
+                        self.promptForAddressBookRequestAccess(alertAction)
+                    }
+                    
+                })
+                alert.addAction(chooseContactAction)
+            
+                let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+                alert.addAction(cancelAction)
+            
+                self.presentViewController(alert, animated: true, completion: nil)
+            }
+        })
+        actionSheet.addAction(assignContactAction)
+        
+        let encouragementAction = UIAlertAction(title: "Send Encouraging Note", style: .Default, handler: { alertAction in
+            
+            let toEmail = self.currentPrayer.assignedEmail == nil ? "" : self.currentPrayer.assignedEmail!
+            
+            let mailController = MFMailComposeViewController()
+            mailController.mailComposeDelegate = self
+            mailController.setToRecipients([toEmail])
+            mailController.setSubject("")
+            mailController.setMessageBody("", isHTML: false)
+            
+            self.presentViewController(mailController, animated: true, completion: nil)
+        })
+        actionSheet.addAction(encouragementAction)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        actionSheet.addAction(cancelAction)
+        
+        presentViewController(actionSheet, animated: true, completion: nil)
+    }
+    
+    func checkEmail(email: String) -> Bool {
+        let regExp = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"
+        var emailTest = NSPredicate(format: "SELF MATCHES %@", regExp)
+        var result = emailTest.evaluateWithObject(email)
+        
+        return result
     }
 }

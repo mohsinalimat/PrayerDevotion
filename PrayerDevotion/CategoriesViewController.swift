@@ -26,7 +26,8 @@ class CategoriesViewController: UITableViewController, UITableViewDelegate, UITa
     private var selectedCategory: PDCategory?
     
     // This is the singleton instance of the NSUserDefaults (or the user preferences)
-    private var userPrefs = NSUserDefaults.standardUserDefaults()
+    private var userDefaults = NSUserDefaults.standardUserDefaults()
+    let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
     var prayersViewController: PersonalPrayerViewController!
     var selectedIndex: NSIndexPath = NSIndexPath(forRow: 0, inSection: 0)
@@ -34,6 +35,7 @@ class CategoriesViewController: UITableViewController, UITableViewDelegate, UITa
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .Plain, target: nil, action: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleURL:", name: "HandleURLNotification", object: nil)
     }
     
@@ -44,11 +46,11 @@ class CategoriesViewController: UITableViewController, UITableViewDelegate, UITa
         // passes that key along to the PrayerStore for the NSSortDescriptor
         // In the instance that the sort key is nil (meaning it isn't set yet - such as the first time opening the application)
         // the sort key is automatically set to "creationDate" to sort by the date the categories were created
-        var sortKey: String? = userPrefs.stringForKey("categoriesSortKey")
-        if sortKey == nil { sortKey = "creationDate"; userPrefs.setObject("creationDate", forKey: "categoriesSortKey") }
+        var sortKey: String? = userDefaults.stringForKey("categoriesSortKey")
+        if sortKey == nil { sortKey = "creationDate"; userDefaults.setObject("creationDate", forKey: "categoriesSortKey") }
         
         // Ascending or Descending
-        var ascending = userPrefs.boolForKey("categoriesAscending")
+        var ascending = userDefaults.boolForKey("categoriesAscending")
         
         // Now fetch the categories data from the SQLite Database via a CoreData request
         CategoryStore.sharedInstance.fetchCategoriesData(NSPredicate(format: "name != %@", "Uncategorized"), sortKey: sortKey!, ascending: ascending)
@@ -69,6 +71,11 @@ class CategoriesViewController: UITableViewController, UITableViewDelegate, UITa
         navigationController?.toolbarHidden = false
         
         tableView.reloadData()
+        navigationItem.backBarButtonItem?.title = ""
+        
+        navigationController!.navigationBar.tintColor = delegate.themeTintColor
+        tableView.backgroundColor = delegate.themeBackgroundColor
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -82,11 +89,11 @@ class CategoriesViewController: UITableViewController, UITableViewDelegate, UITa
         
         var objectsBeforeSorting = fetchedCategories
         
-        var sortKey = userPrefs.stringForKey("categoriesSortKey")
+        var sortKey = userDefaults.stringForKey("categoriesSortKey")
         
         var alphabeticalAction = UIAlertAction(title: "Alphabetically", style: .Default, handler: { alertAction in
-            self.userPrefs.setObject("name", forKey: "categoriesSortKey")
-            self.userPrefs.setBool(true, forKey: "categoriesAscending")
+            self.userDefaults.setObject("name", forKey: "categoriesSortKey")
+            self.userDefaults.setBool(true, forKey: "categoriesAscending")
             
             self.sortBarButton.title = "Sorting: Alphabetically"
             
@@ -96,8 +103,8 @@ class CategoriesViewController: UITableViewController, UITableViewDelegate, UITa
         alphabeticalAction.enabled = sortKey != "name"
         
         var creationDateAction = UIAlertAction(title: "By Creation Date", style: .Default, handler: { alertAction in
-            self.userPrefs.setObject("creationDate", forKey: "categoriesSortKey")
-            self.userPrefs.setBool(false, forKey: "categoriesAscending")
+            self.userDefaults.setObject("creationDate", forKey: "categoriesSortKey")
+            self.userDefaults.setBool(false, forKey: "categoriesAscending")
             
             self.sortBarButton.title = "Sorting: By Date Created"
             
@@ -148,8 +155,8 @@ class CategoriesViewController: UITableViewController, UITableViewDelegate, UITa
                 CATransaction.setCompletionBlock({
                         self.tableView.reloadData()
                         
-                    var sortKey: String! = self.userPrefs.stringForKey("categoriesSortKey")
-                    var ascending = self.userPrefs.boolForKey("categoriesAscending")
+                    var sortKey: String! = self.userDefaults.stringForKey("categoriesSortKey")
+                    var ascending = self.userDefaults.boolForKey("categoriesAscending")
                         
                     self.sortItems(sortKey: sortKey, ascending: ascending)
                 })
@@ -252,7 +259,7 @@ class CategoriesViewController: UITableViewController, UITableViewDelegate, UITa
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 { return "" }
         
-        return fetchedCategories.count == 0 ? "" : "User Categories"
+        return fetchedCategories.count == 0 ? "" : "USER CATEGORIES"
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -386,7 +393,7 @@ class CategoriesViewController: UITableViewController, UITableViewDelegate, UITa
     override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         var headerView = view as! UITableViewHeaderFooterView
         
-        headerView.textLabel.textColor = UIColor.whiteColor()
+        headerView.textLabel.textColor = delegate.themeTextColor
     }
     
     // MARK: Segues
@@ -448,8 +455,8 @@ class CategoriesViewController: UITableViewController, UITableViewDelegate, UITa
     @IBAction func prepareForUnwindFromPrayers(segue: UIStoryboardSegue) {
         println("Unwinding from Prayers")
         
-        var sortKey: String? = userPrefs.stringForKey("categoriesSortKey")
-        var ascending = userPrefs.boolForKey("categoriesAscending")
+        var sortKey: String? = userDefaults.stringForKey("categoriesSortKey")
+        var ascending = userDefaults.boolForKey("categoriesAscending")
         
         CategoryStore.sharedInstance.fetchCategoriesData(NSPredicate(format: "name != %@", "Uncategorized"), sortKey: sortKey!, ascending: ascending)
         fetchedCategories = CategoryStore.sharedInstance.allCategories()

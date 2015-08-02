@@ -16,6 +16,8 @@ class AnsweredPrayersViewController: UITableViewController, UITableViewDataSourc
     var answeredCount = 0
     var selectedIndex = 0
     
+    let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -33,6 +35,11 @@ class AnsweredPrayersViewController: UITableViewController, UITableViewDataSourc
         answeredPrayers = PrayerStore.sharedInstance.fetchAllAnsweredPrayers(sortDescriptors)
         answeredCount = answeredPrayers.count
         tableView.reloadData()
+        
+        navigationItem.title = "Categories"
+        
+        navigationController!.navigationBar.tintColor = delegate.themeTintColor
+        tableView.backgroundColor = delegate.themeBackgroundColor
     }
     
     override func didReceiveMemoryWarning() {

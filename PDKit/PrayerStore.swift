@@ -464,6 +464,28 @@ public class PrayerStore: BaseStore {
         return true
     }
     
+    public func addDailyDateToPrayers() -> Bool {
+        var fetchRequest = NSFetchRequest(entityName: "Prayer")
+        fetchRequest.predicate = NSPredicate(format: "isDateAdded == false")
+        
+        var error: NSError? = nil
+        let fetchedPrayers = managedContext!.executeFetchRequest(fetchRequest, error: &error) as? [PDPrayer]
+        
+        if let fetchError = error {
+            println("An error occurred fetching prayers to add prayer date")
+            return false
+        }
+        
+        for prayer in fetchedPrayers! {
+            prayer.prayerType = "Daily"
+            prayer.isDateAdded = true
+        }
+        
+        saveDatabase()
+        
+        return true
+    }
+    
     // MARK: Helper Methods
     
     // Returns the number of prayers that is in a specified Category

@@ -13,6 +13,14 @@ import PDKit
 
 class SettingsViewController: UITableViewController, UITableViewDataSource, MFMailComposeViewControllerDelegate {
     
+    @IBOutlet weak var colorLabel: UILabel!
+    @IBOutlet weak var colorView: UIView!
+    
+    let userDefaults = NSUserDefaults.standardUserDefaults()
+    let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    
+    var themeString: String!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -21,6 +29,20 @@ class SettingsViewController: UITableViewController, UITableViewDataSource, MFMa
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        
+        themeString = NSUserDefaults.standardUserDefaults().stringForKey("themeBackgroundColor")!
+        
+        navigationController!.navigationBar.tintColor = delegate.themeTintColor
+        tableView.backgroundColor = delegate.themeBackgroundColor
+        let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as! ThemeColorCell
+        cell.color = delegate.themeBackgroundColor
+        
+        colorLabel.text = "Theme Color: \(themeString)"
+        colorView.backgroundColor = themeString == "White" ? Color.TrueWhite : delegate.themeBackgroundColor
+        colorView.layer.borderColor = themeString == "White" ? UIColor.blackColor().CGColor : UIColor.clearColor().CGColor
+        colorView.layer.borderWidth = themeString == "White" ? 1 : 0
+        
+        tableView.reloadData()
     }
     
     override func didReceiveMemoryWarning() {
@@ -30,7 +52,7 @@ class SettingsViewController: UITableViewController, UITableViewDataSource, MFMa
     override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         var headerView = view as! UITableViewHeaderFooterView
         
-        headerView.textLabel.textColor = UIColor.whiteColor()
+        headerView.textLabel.textColor = delegate.themeTextColor
     }
     
     override func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {
@@ -45,6 +67,7 @@ class SettingsViewController: UITableViewController, UITableViewDataSource, MFMa
         
         switch indexPath.section {
         case 0: createEmailMessage(emailTypes[indexPath.row])
+        case 1: tableView.deselectRowAtIndexPath(indexPath, animated: true)
         default: break
         }
     }

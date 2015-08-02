@@ -14,7 +14,7 @@ class CreatePrayerCell: UITableViewCell {
     
     var prayerTextField: UITextField!
     var currentCategory: PDCategory?
-    
+        
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }

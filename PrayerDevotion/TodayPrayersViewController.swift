@@ -20,6 +20,8 @@ class TodayPrayersViewController: UIViewController, UITableViewDelegate, UITable
     @IBOutlet weak var todayLabel: UILabel!
     
     let dateFormatter = NSDateFormatter()
+    let userPrefs = NSUserDefaults.standardUserDefaults()
+    let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
     var selectedIndex = 0
     
@@ -30,6 +32,8 @@ class TodayPrayersViewController: UIViewController, UITableViewDelegate, UITable
         dateFormatter.timeStyle = .NoStyle
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleURL:", name: "HandleURLNotification", object: nil)
+        
+        navigationController!.navigationBar.translucent = true
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -38,9 +42,13 @@ class TodayPrayersViewController: UIViewController, UITableViewDelegate, UITable
         fetchTodayPrayers()
         tableView.reloadData()
         
-        //tableView.hidden = todayCount == 0
         noPrayersLabel.hidden = !(todayCount == 0)
-        //todayLabel.hidden = todayCount == 0
+        
+        view.backgroundColor = delegate.themeBackgroundColor
+        
+        todayLabel.textColor = delegate.themeTextColor
+        noPrayersLabel.textColor = delegate.themeTextColor
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -123,9 +131,7 @@ class TodayPrayersViewController: UIViewController, UITableViewDelegate, UITable
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Right)
             tableView.endUpdates()
             
-            //tableView.hidden = self.todayCount == 0
             self.noPrayersLabel.hidden = !(self.todayCount == 0)
-            //self.todayLabel.hidden = self.todayCount == 0
             (tableView.headerViewForSection(1))?.textLabel.text = self.tableView(tableView, titleForHeaderInSection: 1)
         })
         deleteAction.backgroundColor = UIColor.redColor()
@@ -142,7 +148,7 @@ class TodayPrayersViewController: UIViewController, UITableViewDelegate, UITable
     func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         var headerView = view as! UITableViewHeaderFooterView
         
-        headerView.textLabel.textColor = UIColor.whiteColor()
+        headerView.textLabel.textColor = delegate.themeTextColor
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

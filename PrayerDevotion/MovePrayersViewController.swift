@@ -16,13 +16,38 @@ class MovePrayersViewController: UIViewController, UITableViewDataSource, UITabl
     var fromCategory: PDCategory!
     var deletingCategory: Bool = false
     
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var moveLabel: UILabel!
+    
     private var fetchedCategories: NSArray!
+    
+    let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
         println("View Did Load")
         
         fetchedCategories = CategoryStore.sharedInstance.fetchCategoriesForMove(fromCategory.name)
+        
+        let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
+        tableView.backgroundView = blurView
+        tableView.backgroundColor = UIColor.clearColor()
+        
+        moveLabel.layer.shadowColor = UIColor.blackColor().CGColor
+        moveLabel.layer.shadowRadius = 5
+        moveLabel.layer.shadowOpacity = 0.5
+        moveLabel.layer.shadowOffset = CGSizeMake(0, -0.5)
+        
+        tableView.tableFooterView = UIView(frame: CGRectZero)
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController!.navigationBar.tintColor = delegate.themeTintColor
+        view.backgroundColor = delegate.themeBackgroundColor
+        moveLabel.backgroundColor = delegate.themeBackgroundColor
+        moveLabel.textColor = delegate.themeTextColor
     }
     
     // MARK: TableView Methods

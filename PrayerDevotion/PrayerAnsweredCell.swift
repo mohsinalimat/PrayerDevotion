@@ -12,6 +12,16 @@ import UIKit
 class PrayerAnsweredCell: UITableViewCell {
     
     var answeredLabel: UILabel!
+    var color: UIColor {
+        get {
+            return answeredLabel.textColor
+        }
+        
+        set(color) {
+            answeredLabel.textColor = color
+            answeredLabel.highlightedTextColor = color
+        }
+    }
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -21,5 +31,15 @@ class PrayerAnsweredCell: UITableViewCell {
         super.awakeFromNib()
         
         answeredLabel = self.viewWithTag(1) as! UILabel
+    }
+    
+    override func setSelected(selected: Bool, animated: Bool) {
+        answeredLabel.textColor = color
+        super.setSelected(selected, animated: animated)
+    }
+    
+    override func setHighlighted(highlighted: Bool, animated: Bool) {
+        answeredLabel.textColor = color
+        super.setSelected(selected, animated: animated)
     }
 }

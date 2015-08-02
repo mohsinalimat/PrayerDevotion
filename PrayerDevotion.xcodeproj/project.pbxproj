@@ -43,6 +43,8 @@
 		615BF62C1B1924B1002A8731 /* PrayerSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615BF62B1B1924B1002A8731 /* PrayerSearchViewController.swift */; };
 		6166A5561B5F024100C55CD3 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6166A5551B5F024100C55CD3 /* Constants.swift */; };
 		6167D6CF1B1BF41900BB8BA2 /* PrayerAlertCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6167D6CE1B1BF41900BB8BA2 /* PrayerAlertCell.swift */; };
+		616C80C61B658DFD00C91428 /* ShadowLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616C80C51B658DFD00C91428 /* ShadowLabel.swift */; };
+		617213F41B62C40D004B45F9 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 617213F31B62C40D004B45F9 /* Color.swift */; };
 		618359691B6039B400AEA7AE /* Model.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 618359681B6039B400AEA7AE /* Model.xcmappingmodel */; };
 		6184764B1B5896BD00081E8B /* PrayerCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6184764A1B5896BD00081E8B /* PrayerCategoryCell.swift */; };
 		6194817C1B5CAC5D00D00AB6 /* TodayPrayersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6194817B1B5CAC5D00D00AB6 /* TodayPrayersViewController.swift */; };
@@ -53,6 +55,8 @@
 		61C52CB81B56AFA200F3FB04 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 61C52CB71B56AFA200F3FB04 /* MainInterface.storyboard */; };
 		61C52CBB1B56AFA200F3FB04 /* PDTodayWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 61C52CAE1B56AFA200F3FB04 /* PDTodayWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		61C52CC11B56B1F000F3FB04 /* PrayerTodayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61C52CC01B56B1F000F3FB04 /* PrayerTodayCell.swift */; };
+		61C612B21B641C050051F686 /* ThemeColorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61C612B11B641C050051F686 /* ThemeColorViewController.swift */; };
+		61C612B51B641D310051F686 /* ThemeColorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61C612B41B641D310051F686 /* ThemeColorCell.swift */; };
 		61CB0F3B1B57188E00343DD4 /* PrayerDevotion.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 61CB0F391B57188E00343DD4 /* PrayerDevotion.xcdatamodeld */; };
 		61D4213B1B47242F0039BD7F /* CreatePrayerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D4213A1B47242F0039BD7F /* CreatePrayerCell.swift */; };
 		61D4213D1B4724610039BD7F /* PrayerDetailsExtendedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D4213C1B4724610039BD7F /* PrayerDetailsExtendedCell.swift */; };
@@ -167,6 +171,8 @@
 		615BF62B1B1924B1002A8731 /* PrayerSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerSearchViewController.swift; sourceTree = "<group>"; };
 		6166A5551B5F024100C55CD3 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		6167D6CE1B1BF41900BB8BA2 /* PrayerAlertCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerAlertCell.swift; sourceTree = "<group>"; };
+		616C80C51B658DFD00C91428 /* ShadowLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShadowLabel.swift; sourceTree = "<group>"; };
+		617213F31B62C40D004B45F9 /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		618359411B60395800AEA7AE /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		618359671B60398400AEA7AE /* PDKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PDKit.h; sourceTree = "<group>"; };
 		618359681B6039B400AEA7AE /* Model.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = Model.xcmappingmodel; sourceTree = "<group>"; };
@@ -180,6 +186,8 @@
 		61C52CB51B56AFA200F3FB04 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
 		61C52CB71B56AFA200F3FB04 /* MainInterface.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MainInterface.storyboard; sourceTree = "<group>"; };
 		61C52CC01B56B1F000F3FB04 /* PrayerTodayCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerTodayCell.swift; sourceTree = "<group>"; };
+		61C612B11B641C050051F686 /* ThemeColorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeColorViewController.swift; sourceTree = "<group>"; };
+		61C612B41B641D310051F686 /* ThemeColorCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeColorCell.swift; sourceTree = "<group>"; };
 		61CB0F3A1B57188E00343DD4 /* PrayerDevotion.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PrayerDevotion.xcdatamodel; sourceTree = "<group>"; };
 		61CB0F3C1B571EAD00343DD4 /* PDTodayWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PDTodayWidget.entitlements; sourceTree = "<group>"; };
 		61CB0F3D1B571EBE00343DD4 /* PrayerDevotion.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrayerDevotion.entitlements; sourceTree = "<group>"; };
@@ -328,18 +336,9 @@
 		61293E071B013602005B7267 /* PrayerDevotion */ = {
 			isa = PBXGroup;
 			children = (
-				61CB0F3D1B571EBE00343DD4 /* PrayerDevotion.entitlements */,
-				6166A5551B5F024100C55CD3 /* Constants.swift */,
 				61293E0A1B013602005B7267 /* AppDelegate.swift */,
-				6194817B1B5CAC5D00D00AB6 /* TodayPrayersViewController.swift */,
-				61293E0F1B013602005B7267 /* CategoriesViewController.swift */,
-				6102E38A1B093076005D3EC9 /* EditCategoriesViewController.swift */,
-				612DD0751B1D1E950086765C /* MovePrayersViewController.swift */,
-				61F540B01B03CFDF0072BA6F /* PersonalPrayerViewController.swift */,
-				61379DED1B5D8BFB006AC0FF /* AnsweredPrayersViewController.swift */,
-				615BF62B1B1924B1002A8731 /* PrayerSearchViewController.swift */,
-				61FB19931B4C7C5C0068A71C /* PrayerDetailsViewController.swift */,
-				6111EE451B2290E400767914 /* SettingsViewController.swift */,
+				617213F61B62C421004B45F9 /* Additional Files */,
+				617213F51B62C40F004B45F9 /* View Controllers */,
 				61F540B21B03DC620072BA6F /* Views */,
 				61293E111B013602005B7267 /* Main.storyboard */,
 				614442BB1B23BE0700727245 /* Images.xcassets */,
@@ -353,6 +352,7 @@
 		61293E081B013602005B7267 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				61CB0F3D1B571EBE00343DD4 /* PrayerDevotion.entitlements */,
 				6113B8DE1B4AF1CE006D952F /* PD-1024.png */,
 				61293E091B013602005B7267 /* Info.plist */,
 			);
@@ -374,6 +374,40 @@
 				61293E221B013602005B7267 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		616C80C41B658DEE00C91428 /* Labels */ = {
+			isa = PBXGroup;
+			children = (
+				616C80C51B658DFD00C91428 /* ShadowLabel.swift */,
+			);
+			name = Labels;
+			sourceTree = "<group>";
+		};
+		617213F51B62C40F004B45F9 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				6194817B1B5CAC5D00D00AB6 /* TodayPrayersViewController.swift */,
+				61293E0F1B013602005B7267 /* CategoriesViewController.swift */,
+				6102E38A1B093076005D3EC9 /* EditCategoriesViewController.swift */,
+				612DD0751B1D1E950086765C /* MovePrayersViewController.swift */,
+				61F540B01B03CFDF0072BA6F /* PersonalPrayerViewController.swift */,
+				61379DED1B5D8BFB006AC0FF /* AnsweredPrayersViewController.swift */,
+				615BF62B1B1924B1002A8731 /* PrayerSearchViewController.swift */,
+				61FB19931B4C7C5C0068A71C /* PrayerDetailsViewController.swift */,
+				6111EE451B2290E400767914 /* SettingsViewController.swift */,
+				61C612B11B641C050051F686 /* ThemeColorViewController.swift */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		617213F61B62C421004B45F9 /* Additional Files */ = {
+			isa = PBXGroup;
+			children = (
+				6166A5551B5F024100C55CD3 /* Constants.swift */,
+				617213F31B62C40D004B45F9 /* Color.swift */,
+			);
+			name = "Additional Files";
 			sourceTree = "<group>";
 		};
 		61C52CAF1B56AFA200F3FB04 /* Frameworks */ = {
@@ -403,6 +437,14 @@
 				61C52CB41B56AFA200F3FB04 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		61C612B31B641D1B0051F686 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				61C612B41B641D310051F686 /* ThemeColorCell.swift */,
+			);
+			name = Settings;
 			sourceTree = "<group>";
 		};
 		61D4213E1B47247A0039BD7F /* Categories */ = {
@@ -437,6 +479,7 @@
 		61F540B21B03DC620072BA6F /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				616C80C41B658DEE00C91428 /* Labels */,
 				61F540B31B03DC680072BA6F /* Cells */,
 			);
 			name = Views;
@@ -445,6 +488,7 @@
 		61F540B31B03DC680072BA6F /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				61C612B31B641D1B0051F686 /* Settings */,
 				61D4213E1B47247A0039BD7F /* Categories */,
 				61D4213F1B47247F0039BD7F /* Prayers */,
 			);
@@ -564,6 +608,7 @@
 		61293DFD1B013602005B7267 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = "Jonathan Hart";
 				TargetAttributes = {
@@ -584,6 +629,9 @@
 							com.apple.BackgroundModes = {
 								enabled = 0;
 							};
+							com.apple.iCloud = {
+								enabled = 0;
+							};
 						};
 					};
 					61293E1C1B013602005B7267 = {
@@ -596,6 +644,9 @@
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
+							};
+							com.apple.iCloud = {
+								enabled = 0;
 							};
 						};
 					};
@@ -702,6 +753,7 @@
 				615922F51B5210A60088BB5F /* PrayerNameCell.swift in Sources */,
 				61293E0E1B013602005B7267 /* PrayerDevotion.xcdatamodeld in Sources */,
 				6102E38B1B093076005D3EC9 /* EditCategoriesViewController.swift in Sources */,
+				61C612B51B641D310051F686 /* ThemeColorCell.swift in Sources */,
 				6166A5561B5F024100C55CD3 /* Constants.swift in Sources */,
 				61379DEE1B5D8BFB006AC0FF /* AnsweredPrayersViewController.swift in Sources */,
 				61D421431B4724D50039BD7F /* PrayerAnsweredNotesCell.swift in Sources */,
@@ -709,6 +761,7 @@
 				6167D6CF1B1BF41900BB8BA2 /* PrayerAlertCell.swift in Sources */,
 				615BF62C1B1924B1002A8731 /* PrayerSearchViewController.swift in Sources */,
 				6111EE461B2290E400767914 /* SettingsViewController.swift in Sources */,
+				617213F41B62C40D004B45F9 /* Color.swift in Sources */,
 				61D421411B4724BA0039BD7F /* PrayerAnsweredCell.swift in Sources */,
 				6184764B1B5896BD00081E8B /* PrayerCategoryCell.swift in Sources */,
 				61F540B51B03DC730072BA6F /* CategoryCell.swift in Sources */,
@@ -716,6 +769,7 @@
 				614442BE1B23DB8C00727245 /* AddPrayerDateCell.swift in Sources */,
 				612DD0761B1D1E950086765C /* MovePrayersViewController.swift in Sources */,
 				6194817C1B5CAC5D00D00AB6 /* TodayPrayersViewController.swift in Sources */,
+				61C612B21B641C050051F686 /* ThemeColorViewController.swift in Sources */,
 				61293E0B1B013602005B7267 /* AppDelegate.swift in Sources */,
 				61D4213D1B4724610039BD7F /* PrayerDetailsExtendedCell.swift in Sources */,
 				6153FCD91B1CD06400BF8105 /* PrayerCell.swift in Sources */,
@@ -724,6 +778,7 @@
 				6194817E1B5CACCE00D00AB6 /* TodayPrayerCell.swift in Sources */,
 				6116BE211B1EA9960018BB73 /* PrayerSearchCell.swift in Sources */,
 				61D4213B1B47242F0039BD7F /* CreatePrayerCell.swift in Sources */,
+				616C80C61B658DFD00C91428 /* ShadowLabel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -797,6 +852,7 @@
 		61081C041B55FDB8002F1BF3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Edward Hart (2699J5KRKE)";
 				CURRENT_PROJECT_VERSION = 1;
@@ -824,6 +880,7 @@
 		61081C051B55FDB8002F1BF3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Edward Hart (2699J5KRKE)";
 				CURRENT_PROJECT_VERSION = 1;
@@ -963,11 +1020,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = PrayerDevotion/PrayerDevotion.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Edward Hart (2699J5KRKE)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = PrayerDevotion/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -977,11 +1036,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = PrayerDevotion/PrayerDevotion.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Edward Hart (2699J5KRKE)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = PrayerDevotion/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 			};
 			name = Release;

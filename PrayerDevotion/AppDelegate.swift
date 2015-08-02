@@ -15,15 +15,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     
+    var themeBackgroundColor: UIColor = Color.Brown
+    var themeTintColor: UIColor = Color.Brown
+    var themeTextColor: UIColor = Color.TrueWhite
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         //window!.tintColor = UIColor(red: 39/255.0, green: 20/255.0, blue: 1/255.0, alpha: 1)
         
-        window!.tintColor = UIColor(red: 194/255.0, green: 153/255.0, blue: 89/255.0, alpha: 1)
+        //window!.tintColor = UIColor(red: 194/255.0, green: 153/255.0, blue: 89/255.0, alpha: 1)
         
         // Migrate the data from the first release of the application
         migrateData()
         PrayerStore.sharedInstance.checkIDs()
+        migrateToDaily()
         
         let userNotifications = UIUserNotificationSettings(forTypes: .Alert | .Badge | .Sound, categories: nil)
         UIApplication.sharedApplication().registerUserNotificationSettings(userNotifications)
@@ -42,10 +47,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             userPrefs.setObject("installed", forKey: "didInstallApp_2.0")
         }
         
+        var tintColor = userPrefs.stringForKey("themeBackgroundColor")
+        if tintColor == nil {
+            tintColor = "Brown"
+            userPrefs.setObject("Brown", forKey: "themeBackgroundColor")
+            userPrefs.setObject("Brown", forKey: "themeTintColor")
+            userPrefs.setObject("TrueWhite", forKey: "themeTextColor")
+            
+            themeBackgroundColor = Color.stringToColor("Brown")
+            themeTintColor = Color.stringToColor("Brown")
+            themeTextColor = Color.stringToColor("TrueWhite")
+        } else {
+            themeBackgroundColor = Color.stringToColor(userPrefs.stringForKey("themeBackgroundColor")!)
+            themeTintColor = Color.stringToColor(userPrefs.stringForKey("themeTintColor")!)
+            themeTextColor = Color.stringToColor(userPrefs.stringForKey("themeTextColor")!)
+        }
+        
+        window!.tintColor = tintColor! != "White" ? Color.stringToColor(tintColor!) : Color.Brown
+        
+        //UIApplication.sharedApplication().setStatusBarStyle(tintColor != "Black" ? .LightContent : .Default, animated: false)
+        
         // Check for pending alerts and notifications and update them
         Notifications.sharedNotifications.updateNotificationQueue()
         AlertStore.sharedInstance.deletePastAlerts()
-                                
+        
         return true
     }
     
@@ -213,6 +238,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             println("Adding Prayer IDs to prayers")
             PrayerStore.sharedInstance.addPrayerIDDuringMigration()
         }
+    }
+    
+    func migrateToDaily() {
+        PrayerStore.sharedInstance.addDailyDateToPrayers()
     }
     
     // This takes a URL that I make and returns the prayer ID sent

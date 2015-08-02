@@ -21,6 +21,8 @@ class EditCategoriesViewController: UITableViewController, UITextFieldDelegate, 
     var oldCategoryName: String?
     var isEditingName: Bool = false
     
+    let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -36,6 +38,13 @@ class EditCategoriesViewController: UITableViewController, UITextFieldDelegate, 
         dateCreatedLabel.text = "Created On \(creationDate)"
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController!.navigationBar.tintColor = delegate.themeTintColor
+        tableView.backgroundColor = delegate.themeBackgroundColor
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -45,7 +54,7 @@ class EditCategoriesViewController: UITableViewController, UITextFieldDelegate, 
     override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         var headerView = view as! UITableViewHeaderFooterView
         
-        headerView.textLabel.textColor = UIColor.whiteColor()
+        headerView.textLabel.textColor = delegate.themeTextColor
     }
     
     // MARK: IBActions
@@ -59,10 +68,10 @@ class EditCategoriesViewController: UITableViewController, UITextFieldDelegate, 
         alertController.addAction(cancelAction)
         
         var confirmAction = UIAlertAction(title: "Confirm", style: .Destructive, handler: { alertAction in
-            let userPrefs = NSUserDefaults.standardUserDefaults()
+            let userDefaults = NSUserDefaults.standardUserDefaults()
             
-            var sortKey: String! = userPrefs.stringForKey("categoriesSortKey")
-            var ascending = userPrefs.boolForKey("categoriesAscending")
+            var sortKey: String! = userDefaults.stringForKey("categoriesSortKey")
+            var ascending = userDefaults.boolForKey("categoriesAscending")
             
             CategoryStore.sharedInstance.deleteCategory(self.currentCategory!)
             CategoryStore.sharedInstance.fetchCategoriesData(nil, sortKey: sortKey, ascending: ascending)

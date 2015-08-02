@@ -10,76 +10,62 @@ import Foundation
 import UIKit
 import PDKit
 
-class SearchViewController: UITableViewController, UITableViewDataSource, UISearchControllerDelegate, UISearchResultsUpdating {
+class SearchViewController: UITableViewController, UITableViewDataSource, UISearchControllerDelegate, UISearchResultsUpdating, UISearchBarDelegate {
     
     var previousViewController: UIViewController? = nil
     
-    var searchController: CustomSearchController!
-    var searchBar: CustomSearchBar!
+    var newSearchBar: UISearchBar!
+    var newSearchController: UISearchController!
     
     var selectedPrayer: PDPrayer?
     
     var filteredPrayers = [PDPrayer]()
+    var searchText: String = ""
+    
+    let userDefaults = NSUserDefaults.standardUserDefaults()
+    let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Because our SearchViewController is setup to display search results,
-        // we simply need to pass "self" along as the searchResultsController
-        searchController = CustomSearchController(searchResultsController: nil)
-        searchBar = searchController.searchBar as! CustomSearchBar
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadFromEditingPrayer:", name: "ReloadSearchPrayers", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleURL:", name: "HandleURLNotification", object: nil)
         
-        searchController.delegate = searchController // Set the searchController delegate to self
-        searchController.searchResultsUpdater = self
-        
-        searchController.hidesNavigationBarDuringPresentation = false // Do not hid Nav Bar during presentation
-        searchController.dimsBackgroundDuringPresentation = true // Dim the background while searching
+        newSearchController = UISearchController(searchResultsController: nil)
+        newSearchController.searchResultsUpdater = self
+        newSearchController.dimsBackgroundDuringPresentation = false
+        newSearchController.hidesNavigationBarDuringPresentation = false
+        newSearchController.searchBar.delegate = self
+        newSearchController.searchBar.sizeToFit()
         
         definesPresentationContext = true
         
-        navigationItem.titleView = searchController.searchBar // Now set the naviation item's titleView to the searchBar
-        
+        navigationItem.titleView = newSearchController.searchBar
+        navigationItem.backBarButtonItem?.title = ""
         tableView.tableFooterView = UIView(frame: CGRectZero)
         
-        navigationItem.hidesBackButton = true
-        
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadFromEditingPrayer:", name: "ReloadSearchPrayers", object: nil)
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
+        
+        navigationController!.navigationBar.tintColor = delegate.themeTintColor
+        tableView.backgroundColor = delegate.themeBackgroundColor
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-    @IBAction func didCancel(sender: AnyObject) {
-        println("Did Cancel")
-        searchController.searchBar.endEditing(true)
-        //navigationController?.popViewControllerAnimated(true)
-        
-        if let navController = navigationController {
-            navController.popViewControllerAnimated(true)
-        }
-        //dismissViewControllerAnimated(true, completion: nil)
-    }
-    
     func updateSearchResultsForSearchController(searchController: UISearchController) {
-        var searchString = (searchController as! CustomSearchController).currentSearchText
+        var searchString = searchController.searchBar.text
+        searchText = searchString
         
-        var prayers = PrayerStore.sharedInstance.filterPrayers(searchText: searchString, sortDescriptors: [NSSortDescriptor(key: "name", ascending: true)], batchSize: 50)
+        var prayers = PrayerStore.sharedInstance.filterPrayers(searchText: searchText, sortDescriptors: [NSSortDescriptor(key: "name", ascending: true)], batchSize: 50)
         
         filteredPrayers = prayers
         tableView.reloadData()
-    }
-    
-    func didPresentSearchController(searchController: UISearchController) {
-        searchController.searchBar.becomeFirstResponder()
     }
     
     override func scrollViewWillBeginDragging(scrollView: UIScrollView) {
@@ -138,7 +124,7 @@ class SearchViewController: UITableViewController, UITableViewDataSource, UISear
     override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         var headerView = view as! UITableViewHeaderFooterView
         
-        headerView.textLabel.textColor = UIColor.whiteColor()
+        headerView.textLabel.textColor = delegate.themeTextColor
     }
     
     // MARK: Segues
@@ -155,16 +141,38 @@ class SearchViewController: UITableViewController, UITableViewDataSource, UISear
         println("Unwinding from Editing Prayer")
         BaseStore.baseInstance.saveDatabase()
         
-        var searchString = searchController.currentSearchText
+        var searchString = newSearchController.searchBar.text
         
         var prayers = PrayerStore.sharedInstance.filterPrayers(searchText: searchString, sortDescriptors: [NSSortDescriptor(key: "name", ascending: true)], batchSize: 50)
         
         filteredPrayers = prayers
         tableView.reloadData()
     }
+    
+    // MARK: Notifications
+    
+    func handleURL(notification: NSNotification) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        let notificationInfo = notification.userInfo!
+        let command = notificationInfo["command"] as! String
+        
+        if command == "open-today" {
+            (UIApplication.sharedApplication().delegate as! AppDelegate).switchTabBarToTab(0)
+        } else if command == "open-prayer" {
+            let prayerID = Int32((notificationInfo["prayerID"] as! String).toInt()!)
+            
+            let prayerNavController = storyboard.instantiateViewControllerWithIdentifier(SBPrayerDetailsNavControllerID) as! UINavigationController
+            let prayerDetailsController = prayerNavController.topViewController as! PrayerDetailsViewController
+            prayerDetailsController.currentPrayer = PrayerStore.sharedInstance.getPrayerForID(prayerID)!
+            prayerDetailsController.previousViewController = self
+            
+            presentViewController(prayerNavController, animated: true, completion: nil)
+        }
+    }
  }
 
-class CustomSearchBar: UISearchBar {
+/*class CustomSearchBar: UISearchBar {
     
     override func setShowsCancelButton(showsCancelButton: Bool, animated: Bool) {
         
@@ -191,10 +199,14 @@ class CustomSearchController: UISearchController, UISearchBarDelegate, UISearchC
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //navigationController!.navigationItem.titleView = searchBar
+        //navigationItem.titleView = searchBar
     }
     
     override func viewDidAppear(animated: Bool) {
         active = true
+        searchBar.becomeFirstResponder()
     }
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
@@ -216,7 +228,7 @@ class CustomSearchController: UISearchController, UISearchBarDelegate, UISearchC
     func didPresentSearchController(searchController: UISearchController) {
         searchController.searchBar.becomeFirstResponder()
     }
-}
+}*/
 
 class PrayerSearchViewController: UITableViewController, UITableViewDataSource, UITableViewDelegate {
     

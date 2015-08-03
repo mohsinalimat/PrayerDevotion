@@ -34,6 +34,8 @@ class TodayPrayersViewController: UIViewController, UITableViewDelegate, UITable
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleURL:", name: "HandleURLNotification", object: nil)
         
         navigationController!.navigationBar.translucent = true
+        
+        PrayerStore.sharedInstance.checkIDs()
     }
     
     override func viewWillAppear(animated: Bool) {

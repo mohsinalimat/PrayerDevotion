@@ -166,6 +166,7 @@
 		614442BD1B23DB8C00727245 /* AddPrayerDateCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPrayerDateCell.swift; sourceTree = "<group>"; };
 		614769C21B51AD9C000EE6C8 /* PrayerPriorityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerPriorityCell.swift; sourceTree = "<group>"; };
 		61478CC21B582A6A00F0775F /* PrayerDevotion 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "PrayerDevotion 2.xcdatamodel"; sourceTree = "<group>"; };
+		614C98801B6FF1D600667C64 /* PrayerDevotion 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "PrayerDevotion 3.xcdatamodel"; sourceTree = "<group>"; };
 		6153FCD81B1CD06400BF8105 /* PrayerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerCell.swift; sourceTree = "<group>"; };
 		615922F41B5210A60088BB5F /* PrayerNameCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerNameCell.swift; sourceTree = "<group>"; };
 		615BF62B1B1924B1002A8731 /* PrayerSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerSearchViewController.swift; sourceTree = "<group>"; };
@@ -1192,10 +1193,11 @@
 		61CB0F391B57188E00343DD4 /* PrayerDevotion.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				614C98801B6FF1D600667C64 /* PrayerDevotion 3.xcdatamodel */,
 				61478CC21B582A6A00F0775F /* PrayerDevotion 2.xcdatamodel */,
 				61CB0F3A1B57188E00343DD4 /* PrayerDevotion.xcdatamodel */,
 			);
-			currentVersion = 61478CC21B582A6A00F0775F /* PrayerDevotion 2.xcdatamodel */;
+			currentVersion = 614C98801B6FF1D600667C64 /* PrayerDevotion 3.xcdatamodel */;
 			path = PrayerDevotion.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

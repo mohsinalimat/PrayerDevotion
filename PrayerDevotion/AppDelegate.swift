@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Migrate the data from the first release of the application
         migrateData()
-        PrayerStore.sharedInstance.checkIDs()
+        //PrayerStore.sharedInstance.checkIDs()
         migrateToDaily()
         
         let userNotifications = UIUserNotificationSettings(forTypes: .Alert | .Badge | .Sound, categories: nil)

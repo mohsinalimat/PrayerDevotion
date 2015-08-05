@@ -93,7 +93,7 @@ class PrayerDetailsViewController: UITableViewController, UITableViewDataSource,
         case 0: return isChangingCategory == true ? 3 : 2
         case 1: return 1
         case 2: return 1
-        case 3: return 1
+        case 3: return currentPrayer.answered == true ? 2 : 1
         case 4: return 1
         case 5: return prayerAlertsCount
         default: return 0
@@ -103,12 +103,24 @@ class PrayerDetailsViewController: UITableViewController, UITableViewDataSource,
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         cellForRowRefreshCount += 1
         
+        var doneToolbar = UIToolbar()
+        doneToolbar.barStyle = .Default
+        
+        var doneAction = UIBarButtonItem(title: "Done", style: .Plain, target: self, action: "textEndEditing:")
+        doneAction.tintColor = UIColor.blackColor()
+        var flexSpace = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: nil, action: nil)
+        
+        doneToolbar.items = [flexSpace, doneAction]
+        
+        doneToolbar.sizeToFit()
+        
         switch indexPath.section {
         case 0:
             if indexPath.row == 0 {
                 var cell = tableView.dequeueReusableCellWithIdentifier(EnterPrayerNameCellID, forIndexPath: indexPath) as! PrayerNameCell
                 cell.nameField.delegate = self
                 cell.nameField.text = currentPrayer.name
+                cell.nameField.inputAccessoryView = doneToolbar
             
                 return cell
             } else if indexPath.row == 1 {
@@ -138,6 +150,7 @@ class PrayerDetailsViewController: UITableViewController, UITableViewDataSource,
         case 1:
             var cell = tableView.dequeueReusableCellWithIdentifier(DetailsExtendedCellID, forIndexPath: indexPath) as! PrayerDetailsExtendedCell
             cell.currentPrayer = currentPrayer
+            cell.detailsTextView.inputAccessoryView = doneToolbar
             cell.refreshCell()
             
             return cell
@@ -151,12 +164,21 @@ class PrayerDetailsViewController: UITableViewController, UITableViewDataSource,
             return cell
             
         case 3:
-            var cell = tableView.dequeueReusableCellWithIdentifier(AnsweredPrayerCellID, forIndexPath: indexPath) as! PrayerAnsweredCell
-            cell.accessoryType = currentPrayer.answered == true ? .Checkmark : .None
-            cell.answeredLabel.text = currentPrayer.answered == true ? "Prayer is Answered" : "Prayer is Unanswered"
-            cell.color = delegate.themeTintColor
+            if indexPath.row == 0 {
+                var cell = tableView.dequeueReusableCellWithIdentifier(AnsweredPrayerCellID, forIndexPath: indexPath) as! PrayerAnsweredCell
+                cell.accessoryType = currentPrayer.answered == true ? .Checkmark : .None
+                cell.answeredLabel.text = currentPrayer.answered == true ? "Prayer is Answered" : "Prayer is Unanswered"
+                cell.color = delegate.themeTintColor
             
-            return cell
+                return cell
+            } else {
+                var cell = tableView.dequeueReusableCellWithIdentifier(AnsweredPrayerNotesCellID, forIndexPath: indexPath) as! PrayerAnsweredNoteCell
+                cell.currentPrayer = currentPrayer
+                cell.answeredNotesView.inputAccessoryView = doneToolbar
+                cell.refreshCell()
+                
+                return cell
+            }
             
         case 4:
             var cell = tableView.dequeueReusableCellWithIdentifier(SetPrayerDateCellID, forIndexPath: indexPath) as! AddPrayerDateCell
@@ -190,8 +212,12 @@ class PrayerDetailsViewController: UITableViewController, UITableViewDataSource,
         }
     }
     
+    func textEndEditing(sender: AnyObject) {
+        view.endEditing(true)
+    }
+    
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.section == 1 || indexPath.section == 2 || indexPath.section == 5 && indexPath.row < prayerAlerts.count { return }
+        if indexPath.section == 1 || indexPath.section == 2 || (indexPath.section == 3 && indexPath.row == 1) || indexPath.section == 5 && indexPath.row < prayerAlerts.count { return }
         
         if indexPath.section == 0 && indexPath.row == 0 {
             let cell = tableView.cellForRowAtIndexPath(indexPath) as! PrayerNameCell
@@ -206,27 +232,34 @@ class PrayerDetailsViewController: UITableViewController, UITableViewDataSource,
             
             tableView.deselectRowAtIndexPath(indexPath, animated: true)
             
+            CATransaction.begin()
+            CATransaction.setCompletionBlock({
+                tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: self.currentPrayer.answered == true ? 1 : 0, inSection: 3), atScrollPosition: .Bottom, animated: true)
+            })
             tableView.beginUpdates()
             
             if currentPrayer.answered == true {
                 currentPrayer.prayerType = "None"
                 currentPrayer.isDateAdded = false
                 tableView.deleteSections(NSIndexSet(index: 5), withRowAnimation: .Fade)
+                tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: 1, inSection: 3)], withRowAnimation: .Fade)
+                
                 AlertStore.sharedInstance.deleteAllAlertsForPrayer(currentPrayer)
             } else {
                 currentPrayer.prayerType = "Daily"
                 currentPrayer.isDateAdded = true
                 tableView.insertSections(NSIndexSet(index: 5), withRowAnimation: .Fade)
-                
+                tableView.deleteRowsAtIndexPaths([NSIndexPath(forRow: 1, inSection: 3)], withRowAnimation: .Fade)
+                currentPrayer.answeredNotes = ""
             }
             
             prayerAlerts = currentPrayer.alerts.mutableCopy() as! NSMutableOrderedSet
             prayerAlertsCount = prayerAlerts.count + 1
             
-            var dateCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 4)) as! AddPrayerDateCell
+            var dateCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 4)) as? AddPrayerDateCell
             var alertCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: prayerAlerts.count, inSection: 5)) as? AddPrayerAlertCell // This must be optional because it may not have been created yet
             
-            dateCell.refreshCell(false, selectedPrayer: currentPrayer)
+            dateCell?.refreshCell(false, selectedPrayer: currentPrayer)
             alertCell?.refreshCell(false, selectedPrayer: currentPrayer)
                         tableView.endUpdates()
             
@@ -265,7 +298,7 @@ class PrayerDetailsViewController: UITableViewController, UITableViewDataSource,
             
         case 1: return UITableViewAutomaticDimension
         case 2: return 30
-        case 3: return 44
+        case 3: return indexPath.row == 0 ? 44 : UITableViewAutomaticDimension
             
         case 4:
             let cell = tableView.cellForRowAtIndexPath(indexPath) as? AddPrayerDateCell
@@ -356,9 +389,11 @@ class PrayerDetailsViewController: UITableViewController, UITableViewDataSource,
     // MARK: Scroll View Methods
     
     override func scrollViewWillBeginDragging(scrollView: UIScrollView) {
-        let detailsCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as! PrayerDetailsExtendedCell
+        let detailsCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as? PrayerDetailsExtendedCell
+        let answeredDetailsCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 3)) as? PrayerAnsweredNoteCell
         
-        detailsCell.detailsTextView.endEditing(true)
+        detailsCell?.detailsTextView.endEditing(true)
+        answeredDetailsCell?.answeredNotesView.endEditing(true)
     }
     
     // MARK: Cell Saving Methods

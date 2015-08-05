@@ -64,9 +64,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         window!.tintColor = tintColor! != "White" ? Color.stringToColor(tintColor!) : Color.Brown
-        
-        //UIApplication.sharedApplication().setStatusBarStyle(tintColor != "Black" ? .LightContent : .Default, animated: false)
-        
+                
         // Check for pending alerts and notifications and update them
         Notifications.sharedNotifications.updateNotificationQueue()
         AlertStore.sharedInstance.deletePastAlerts()

@@ -16,6 +16,8 @@ class SettingsViewController: UITableViewController, UITableViewDataSource, MFMa
     @IBOutlet weak var colorLabel: UILabel!
     @IBOutlet weak var colorView: UIView!
     
+    @IBOutlet weak var verseView: UITextView!
+    
     let userDefaults = NSUserDefaults.standardUserDefaults()
     let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
@@ -34,13 +36,17 @@ class SettingsViewController: UITableViewController, UITableViewDataSource, MFMa
         
         navigationController!.navigationBar.tintColor = delegate.themeTintColor
         tableView.backgroundColor = delegate.themeBackgroundColor
-        let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as! ThemeColorCell
+        let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 2)) as! ThemeColorCell
         cell.color = delegate.themeBackgroundColor
         
         colorLabel.text = "Theme Color: \(themeString)"
         colorView.backgroundColor = themeString == "White" ? Color.TrueWhite : delegate.themeBackgroundColor
         colorView.layer.borderColor = themeString == "White" ? UIColor.blackColor().CGColor : UIColor.clearColor().CGColor
         colorView.layer.borderWidth = themeString == "White" ? 1 : 0
+        
+        verseView.textColor = delegate.themeTextColor
+        
+        tableView.separatorColor = delegate.themeBackgroundColor
         
         tableView.reloadData()
     }
@@ -67,7 +73,12 @@ class SettingsViewController: UITableViewController, UITableViewDataSource, MFMa
         
         switch indexPath.section {
         case 0: createEmailMessage(emailTypes[indexPath.row])
-        case 1: tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        case 1:
+            if indexPath.row == 0 { UIApplication.sharedApplication().openURL(NSURL(string: "https://jonhartdevelopments.wordpress.com/prayerdevotion/prayerdevotion-support/")!) }
+            
+            tableView.deselectRowAtIndexPath(indexPath, animated: true)
+            
+        case 2: tableView.deselectRowAtIndexPath(indexPath, animated: true)
         default: break
         }
     }

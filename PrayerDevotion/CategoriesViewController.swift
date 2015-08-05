@@ -66,6 +66,7 @@ class CategoriesViewController: UITableViewController, UITableViewDelegate, UITa
         // Create the toolbar and its buttons
         sortBarButton = UIBarButtonItem(title: "Sorting: \(sortBy)", style: .Plain, target: self, action: "sortTable")
         var toolbarSpace = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: self, action: nil)
+        //var actionButton = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: "showActions:")
         
         toolbarItems = [toolbarSpace, sortBarButton, toolbarSpace]
         navigationController?.toolbarHidden = false

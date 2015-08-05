@@ -638,7 +638,13 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "205"
+<<<<<<< HEAD
             endingLineNumber = "205">
+=======
+            endingLineNumber = "205"
+            landmarkName = "migrateData()"
+            landmarkType = "5">
+>>>>>>> master
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -668,7 +674,13 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "104"
+<<<<<<< HEAD
             endingLineNumber = "104">
+=======
+            endingLineNumber = "104"
+            landmarkName = "applicationDidEnterBackground(_:)"
+            landmarkType = "5">
+>>>>>>> master
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -826,7 +838,9 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "40"
-            endingLineNumber = "40">
+            endingLineNumber = "40"
+            landmarkName = "application(_:didFinishLaunchingWithOptions:)"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

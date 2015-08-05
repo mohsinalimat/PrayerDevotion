@@ -62,7 +62,7 @@ class PrayerDetailsExtendedCell: UITableViewCell, UITextViewDelegate {
         let prayerDetailsTrimmed = currentPrayer.details.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
         
         if prayerDetailsTrimmed == "" {
-            textView.textColor = UIColor.grayColor()
+            textView.textColor = UIColor.blackColor()
             textView.text = ""
         }
     }
@@ -91,8 +91,11 @@ class PrayerDetailsExtendedCell: UITableViewCell, UITextViewDelegate {
             textView.textColor = UIColor.lightGrayColor()
             textView.text = "Enter Addition Prayer Details..."
         } else {
+            textView.textColor = UIColor.blackColor()
             currentPrayer.details = textView.text
         }
+        
+        BaseStore.baseInstance.saveDatabase()
         
         return true
     }

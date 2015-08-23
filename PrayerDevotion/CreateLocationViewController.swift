@@ -298,14 +298,7 @@ class CreateLocationViewController: UIViewController, UISearchResultsUpdating, U
         return true
     }
     
-    func searchBarShouldEndEditing(searchBar: UISearchBar) -> Bool {
-        //navigationItem.rightBarButtonItem = saveButton
-        //searchBar.setShowsCancelButton(false, animated: true)
-        return true
-    }
-    
-    func searchBarTextDidEndEditing(searchBar: UISearchBar) {
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
         navigationItem.rightBarButtonItem = saveButton
-        searchBar.setShowsCancelButton(false, animated: true)
     }
 }

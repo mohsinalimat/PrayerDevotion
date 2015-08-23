@@ -37,6 +37,7 @@ class SearchViewController: UITableViewController, UITableViewDataSource, UISear
         newSearchController.hidesNavigationBarDuringPresentation = false
         newSearchController.searchBar.delegate = self
         newSearchController.searchBar.sizeToFit()
+        newSearchController.searchBar.placeholder = "Search Prayers"
         
         definesPresentationContext = true
         

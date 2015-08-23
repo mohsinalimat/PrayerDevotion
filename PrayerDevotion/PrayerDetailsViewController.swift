@@ -103,9 +103,7 @@ class PrayerDetailsViewController: UITableViewController, UITableViewDataSource,
         }
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        cellForRowRefreshCount += 1
-        
+    func createKeyboardToolbar() -> UIToolbar {
         var doneToolbar = UIToolbar()
         doneToolbar.barStyle = .Default
         
@@ -117,112 +115,115 @@ class PrayerDetailsViewController: UITableViewController, UITableViewDataSource,
         
         doneToolbar.sizeToFit()
         
-        switch indexPath.section {
-        case 0:
-            if indexPath.row == 0 {
-                var cell = tableView.dequeueReusableCellWithIdentifier(EnterPrayerNameCellID, forIndexPath: indexPath) as! PrayerNameCell
-                cell.nameField.delegate = self
-                cell.nameField.text = currentPrayer.name
-                cell.nameField.inputAccessoryView = doneToolbar
+        return doneToolbar
+    }
+    
+    func configureCell(cell: UITableViewCell, forIndexPath indexPath: NSIndexPath) {
+        if cell is PrayerNameCell {
+            let nameCell = cell as! PrayerNameCell
             
-                return cell
-            } else if indexPath.row == 1 {
-                var cell = tableView.dequeueReusableCellWithIdentifier(PrayerCategoryCellID, forIndexPath: indexPath) as! PrayerCategoryCell
-                cell.prayerCategoryLabel.text = "Prayer in Category \(currentPrayer.category)"
-                cell.changeCategoryButton.addTarget(self, action: "changeCategory:", forControlEvents: .TouchDown)
-                
-                return cell
-            } else {
-                var cell = tableView.dequeueReusableCellWithIdentifier(ChangeCategoryCellID, forIndexPath: indexPath) as! UITableViewCell
-                
-                let pickerView = cell.viewWithTag(1) as! UIPickerView
-                pickerView.delegate = self
-                pickerView.dataSource = self
-                pickerView.frame.size.height = 162
-                self.categoryPickerView = pickerView
-                
-                let categoryIdx = currentPrayer.category == "Uncategorized" ? 0 : find(allCategories, currentPrayer.category)! + 1
-                
-                pickerView.selectRow(categoryIdx, inComponent: 0, animated: false)
-                
-                (cell.viewWithTag(2) as! UIButton).addTarget(self, action: "createCategory:", forControlEvents: .TouchDown)
-                
-                return cell
-            }
+            nameCell.nameField.delegate = self
+            nameCell.nameField.text = currentPrayer.name
+            nameCell.nameField.inputAccessoryView = createKeyboardToolbar()
             
-        case 1:
-            var cell = tableView.dequeueReusableCellWithIdentifier(DetailsExtendedCellID, forIndexPath: indexPath) as! PrayerDetailsExtendedCell
-            cell.currentPrayer = currentPrayer
-            cell.detailsTextView.inputAccessoryView = doneToolbar
-            cell.refreshCell()
+            return
+        }
+        
+        if cell is PrayerCategoryCell {
+            let categoryCell = cell as! PrayerCategoryCell
             
-            return cell
+            categoryCell.prayerCategoryLabel.text = "Prayer in Category \(currentPrayer.category)"
+            categoryCell.changeCategoryButton.addTarget(self, action: "changeCategory:", forControlEvents: .TouchDown)
             
-        case 2:
-            var cell = tableView.dequeueReusableCellWithIdentifier(PriorityCellID, forIndexPath: indexPath) as! PrayerPriorityCell
-            cell.selectionStyle = .None
-            cell.currentPrayer = currentPrayer
-            cell.segmentedControl.selectedSegmentIndex = Int(currentPrayer.priority)
+            return
+        }
+        
+        if cell is PrayerDetailsExtendedCell {
+            let detailsExtCell = cell as! PrayerDetailsExtendedCell
             
-            return cell
+            detailsExtCell.currentPrayer = currentPrayer
+            detailsExtCell.detailsTextView.inputAccessoryView = createKeyboardToolbar()
+            detailsExtCell.refreshCell()
             
-        case 3:
-            if indexPath.row == 0 {
-                var cell = tableView.dequeueReusableCellWithIdentifier(AnsweredPrayerCellID, forIndexPath: indexPath) as! PrayerAnsweredCell
-                cell.accessoryType = currentPrayer.answered == true ? .Checkmark : .None
-                cell.answeredLabel.text = currentPrayer.answered == true ? "Prayer is Answered" : "Prayer is Unanswered"
-                cell.color = delegate.themeTintColor
+            return
+        }
+        
+        if cell is PrayerPriorityCell {
+            let priorityCell = cell as! PrayerPriorityCell
             
-                return cell
-            } else {
-                var cell = tableView.dequeueReusableCellWithIdentifier(AnsweredPrayerNotesCellID, forIndexPath: indexPath) as! PrayerAnsweredNoteCell
-                cell.currentPrayer = currentPrayer
-                cell.answeredNotesView.inputAccessoryView = doneToolbar
-                cell.refreshCell()
-                
-                return cell
-            }
+            priorityCell.selectionStyle = .None
+            priorityCell.currentPrayer = currentPrayer
+            priorityCell.segmentedControl.selectedSegmentIndex = Int(currentPrayer.priority)
             
-        case 4:
-            var cell = tableView.dequeueReusableCellWithIdentifier(SetPrayerDateCellID, forIndexPath: indexPath) as! AddPrayerDateCell
+            return
+        }
+        
+        if cell is PrayerAnsweredCell {
+            let answeredCell = cell as! PrayerAnsweredCell
             
-            cell.currentPrayer = currentPrayer
-            cell.addDateLabel.textColor = delegate.themeTintColor
-            cell.refreshCell(false, selectedPrayer: cell.currentPrayer)
+            answeredCell.accessoryType = currentPrayer.answered == true ? .Checkmark : .None
+            answeredCell.answeredLabel.text = currentPrayer.answered == true ? "Prayer is Answered" : "Prayer is Unanswered"
+            answeredCell.color = delegate.themeTintColor
             
-            return cell
+            return
+        }
+        
+        if cell is PrayerAnsweredNoteCell {
+            let answeredNoteCell = cell as! PrayerAnsweredNoteCell
             
-        case 5:
-            if currentPrayer.answered == false {
-                if indexPath.row == prayerAlerts.count {
-                    var cell = tableView.dequeueReusableCellWithIdentifier(AddNewAlertCellID, forIndexPath: indexPath) as! AddPrayerAlertCell
-                
-                    cell.currentPrayer = self.currentPrayer
-                    cell.addNewAlertLabel.textColor = delegate.themeTintColor
-                    cell.refreshCell(false, selectedPrayer: self.currentPrayer)
-                    cell.saveButton.addTarget(self, action: "didSaveNewAlert", forControlEvents: .TouchDown)
-                
-                    return cell
-                } else {
-                    var cell = tableView.dequeueReusableCellWithIdentifier(PrayerAlertCellID, forIndexPath: indexPath) as! PrayerAlertCell
-                
-                    let currentAlert = self.prayerAlerts[indexPath.row] as! PDAlert
-                    cell.alertLabel.text = AlertStore.sharedInstance.convertDateToString(currentAlert.alertDate)
-                
-                    return cell
-                }
-            } else {
-                var cell = tableView.dequeueReusableCellWithIdentifier(PrayerLocationCellID, forIndexPath: indexPath) as! UITableViewCell
-                
-                var locationLabel = cell.viewWithTag(1) as! UILabel
-                locationLabel.text = "Assign Location"
-                
-                return cell
-            }
+            answeredNoteCell.currentPrayer = currentPrayer
+            answeredNoteCell.answeredNotesView.inputAccessoryView = createKeyboardToolbar()
+            answeredNoteCell.refreshCell()
             
-        case 6:
-            var cell = tableView.dequeueReusableCellWithIdentifier(PrayerLocationCellID, forIndexPath: indexPath) as! UITableViewCell
+            return
+        }
+        
+        if cell is AddPrayerDateCell {
+            let addDateCell = cell as! AddPrayerDateCell
             
+            addDateCell.currentPrayer = currentPrayer
+            addDateCell.addDateLabel.textColor = delegate.themeTintColor
+            addDateCell.refreshCell(false, selectedPrayer: addDateCell.currentPrayer)
+            
+            return
+        }
+        
+        if cell is AddPrayerAlertCell {
+            let addAlertCell = cell as! AddPrayerAlertCell
+            
+            addAlertCell.currentPrayer = self.currentPrayer
+            addAlertCell.addNewAlertLabel.textColor = delegate.themeTintColor
+            addAlertCell.refreshCell(false, selectedPrayer: self.currentPrayer)
+            addAlertCell.saveButton.addTarget(self, action: "didSaveNewAlert", forControlEvents: .TouchDown)
+            
+            return
+        }
+        
+        if cell is PrayerAlertCell {
+            let alertCell = cell as! PrayerAlertCell
+        
+            let currentAlert = self.prayerAlerts[indexPath.row] as! PDAlert
+            alertCell.alertLabel.text = AlertStore.sharedInstance.convertDateToString(currentAlert.alertDate)
+            
+            return
+        }
+        
+        if cell.reuseIdentifier == ChangeCategoryCellID {
+            let pickerView = cell.viewWithTag(1) as! UIPickerView
+            pickerView.delegate = self
+            pickerView.dataSource = self
+            pickerView.frame.size.height = 162
+            self.categoryPickerView = pickerView
+            
+            let categoryIdx = currentPrayer.category == "Uncategorized" ? 0 : find(allCategories, currentPrayer.category)! + 1
+            pickerView.selectRow(categoryIdx, inComponent: 0, animated: false)
+        
+            (cell.viewWithTag(2) as! UIButton).addTarget(self, action: "createCategory:", forControlEvents: .TouchDown)
+            
+            return
+        }
+        
+        if cell.reuseIdentifier == PrayerLocationCellID {
             var locationLabel = cell.viewWithTag(1) as! UILabel
             
             if let previousVC = previousViewController {
@@ -241,11 +242,53 @@ class PrayerDetailsViewController: UITableViewController, UITableViewDataSource,
                 locationLabel.text = "Assign Location"
             }
             
-            return cell
-            
-        default:
-            return UITableViewCell()
+            return
         }
+            
+        println("Cell is of generic type UITableViewCell but does not fit into any special cell types for prayer details...")
+    }
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        cellForRowRefreshCount += 1
+        
+        var cell: UITableViewCell!
+        
+        switch indexPath.section {
+        case 0:
+            if indexPath.row == 0 {
+                cell = tableView.dequeueReusableCellWithIdentifier(EnterPrayerNameCellID, forIndexPath: indexPath) as! PrayerNameCell
+            } else if indexPath.row == 1 {
+                cell = tableView.dequeueReusableCellWithIdentifier(PrayerCategoryCellID, forIndexPath: indexPath) as! PrayerCategoryCell
+            } else {
+                cell = tableView.dequeueReusableCellWithIdentifier(ChangeCategoryCellID, forIndexPath: indexPath) as! UITableViewCell
+            }
+            
+        case 1: cell = tableView.dequeueReusableCellWithIdentifier(DetailsExtendedCellID, forIndexPath: indexPath) as! PrayerDetailsExtendedCell
+        case 4: cell = tableView.dequeueReusableCellWithIdentifier(PriorityCellID, forIndexPath: indexPath) as! PrayerPriorityCell
+        case 3:
+            if indexPath.row == 0 {
+                cell = tableView.dequeueReusableCellWithIdentifier(AnsweredPrayerCellID, forIndexPath: indexPath) as! PrayerAnsweredCell
+            } else {
+                cell = tableView.dequeueReusableCellWithIdentifier(AnsweredPrayerNotesCellID, forIndexPath: indexPath) as! PrayerAnsweredNoteCell
+            }
+        case 2: cell = tableView.dequeueReusableCellWithIdentifier(SetPrayerDateCellID, forIndexPath: indexPath) as! AddPrayerDateCell
+        case 5:
+            if currentPrayer.answered == false {
+                if indexPath.row == prayerAlerts.count {
+                    cell = tableView.dequeueReusableCellWithIdentifier(AddNewAlertCellID, forIndexPath: indexPath) as! AddPrayerAlertCell
+                } else {
+                    cell = tableView.dequeueReusableCellWithIdentifier(PrayerAlertCellID, forIndexPath: indexPath) as! PrayerAlertCell
+                }
+            } else {
+                cell = tableView.dequeueReusableCellWithIdentifier(PrayerLocationCellID, forIndexPath: indexPath) as! UITableViewCell
+            }
+        case 6: cell = tableView.dequeueReusableCellWithIdentifier(PrayerLocationCellID, forIndexPath: indexPath) as! UITableViewCell
+        default: cell = UITableViewCell()
+        }
+        
+        configureCell(cell, forIndexPath: indexPath)
+        
+        return cell
     }
     
     func textEndEditing(sender: AnyObject) {
@@ -253,7 +296,7 @@ class PrayerDetailsViewController: UITableViewController, UITableViewDataSource,
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.section == 1 || indexPath.section == 2 || (indexPath.section == 3 && indexPath.row == 1) || indexPath.section == 5 && indexPath.row < prayerAlerts.count { return }
+        if indexPath.section == 1 || indexPath.section == 4 || (indexPath.section == 3 && indexPath.row == 1) || indexPath.section == 5 && indexPath.row < prayerAlerts.count { return }
         
         if indexPath.section == 0 && indexPath.row == 0 {
             let cell = tableView.cellForRowAtIndexPath(indexPath) as! PrayerNameCell
@@ -302,7 +345,7 @@ class PrayerDetailsViewController: UITableViewController, UITableViewDataSource,
             tableView.estimatedRowHeight = 44.0
         }
         
-        if indexPath.section == 4 {
+        if indexPath.section == 2 {
             let cell = tableView.cellForRowAtIndexPath(indexPath) as! AddPrayerDateCell
             tableView.beginUpdates()
             cell.refreshCell(true, selectedPrayer: currentPrayer)
@@ -310,15 +353,13 @@ class PrayerDetailsViewController: UITableViewController, UITableViewDataSource,
             tableView.endUpdates()
         }
         
-        if indexPath.section == 5 && indexPath.row == prayerAlerts.count {
+        if indexPath.section == 5 && indexPath.row == prayerAlerts.count && currentPrayer.answered == false {
             let cell = tableView.cellForRowAtIndexPath(indexPath) as! AddPrayerAlertCell
             tableView.beginUpdates()
             cell.refreshCell(true, selectedPrayer: currentPrayer)
             tableView.deselectRowAtIndexPath(indexPath, animated: true)
             tableView.endUpdates()
-        }
-        
-        if indexPath.section == 6 {
+        } else if (indexPath.section == 5 && currentPrayer.answered == true) || indexPath.section == 6 {
             if let previousVC = previousViewController {
                 if previousVC is LocationPrayersViewController {
                     println("Cannot change location while viewing from location")
@@ -348,10 +389,10 @@ class PrayerDetailsViewController: UITableViewController, UITableViewDataSource,
             }
             
         case 1: return UITableViewAutomaticDimension
-        case 2: return 30
+        case 4: return 30
         case 3: return indexPath.row == 0 ? 44 : UITableViewAutomaticDimension
             
-        case 4:
+        case 2:
             let cell = tableView.cellForRowAtIndexPath(indexPath) as? AddPrayerDateCell
             
             if let thisCell = cell {

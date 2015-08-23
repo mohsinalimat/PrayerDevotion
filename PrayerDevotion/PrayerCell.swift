@@ -41,4 +41,14 @@ class PrayerCell: UITableViewCell {
         priorityLabel = self.viewWithTag(3) as! UILabel
     }
     
+    func setPriorityText(priority: Int16) {
+        switch priority {
+        case 0: priorityLabel.text = ""
+        case 1: priorityLabel.text = "!"
+        case 2: priorityLabel.text = "!!"
+        case 3: priorityLabel.text = "!!!"
+        default: priorityLabel.text = ""
+        }
+    }
+    
 }

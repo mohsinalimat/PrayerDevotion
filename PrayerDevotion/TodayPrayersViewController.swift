@@ -183,6 +183,9 @@ class TodayPrayersViewController: UIViewController, UITableViewDelegate, UITable
     func textFieldDidEndEditing(textField: UITextField) {
         println("Ending textField editing...")
         
+        var addedPrayerIndex: NSIndexPath? = nil
+        let autoOpen = userPrefs.boolForKey("openPrayerDetailsAuto")
+        
         let enteredString = textField.text
         let modifiedString = enteredString.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
         
@@ -203,6 +206,7 @@ class TodayPrayersViewController: UIViewController, UITableViewDelegate, UITable
             fetchTodayPrayers()
             
             tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: find(todayPrayers, addedPrayer)!, inSection: 1)], withRowAnimation: .Right)
+            addedPrayerIndex = NSIndexPath(forRow: find(todayPrayers, addedPrayer)!, inSection: 1)
             
             tableView.endUpdates()
             
@@ -212,6 +216,12 @@ class TodayPrayersViewController: UIViewController, UITableViewDelegate, UITable
         }
         
         textField.text = ""
+        
+        if let index = addedPrayerIndex {
+            if autoOpen == true {
+                performSegueWithIdentifier(PresentPrayerDetailsSegueID, sender: self)
+            }
+        }
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {

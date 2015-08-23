@@ -85,7 +85,7 @@ class AddPrayerDateCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewData
             saveButton.hidden = true
         } else {
             selectionStyle = didSelect == true ? .None : .Default
-            addDateLabel.textColor = UIColor.blackColor()
+            addDateLabel.textColor = (UIApplication.sharedApplication().delegate as! AppDelegate).themeTintColor
         
             let type = selectedPrayer.prayerType!
         

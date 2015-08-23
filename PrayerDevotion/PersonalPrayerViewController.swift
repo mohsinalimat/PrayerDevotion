@@ -95,7 +95,6 @@ class PersonalPrayerViewController: UITableViewController, UITableViewDelegate, 
             
         case 1:
             return unansweredCount
-            //return PrayerStore.sharedInstance.prayerCountForCategory(currentCategory)
             
         case 2:
             return answeredCount
@@ -103,6 +102,11 @@ class PersonalPrayerViewController: UITableViewController, UITableViewDelegate, 
         default:
             return 0
         }
+    }
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if indexPath.section == 0 { return 44 }
+        else { return 55 }
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -118,7 +122,7 @@ class PersonalPrayerViewController: UITableViewController, UITableViewDelegate, 
         
             configureCell(cell, prayer: prayers[indexPath.row], indexPath: indexPath)
             cell.prayerNameLabel.textColor = UIColor.blackColor()
-            setPriorityText(prayers[indexPath.row].priority, forCell: cell)
+            cell.setPriorityText(prayers[indexPath.row].priority)
             
             return cell
         } else {

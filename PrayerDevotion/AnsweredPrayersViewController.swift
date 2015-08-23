@@ -94,7 +94,10 @@ class AnsweredPrayersViewController: UITableViewController, UITableViewDataSourc
             cell.dateCreatedLabel.text = dateFormatter.stringFromDate(selectedPrayer.creationDate)
             setPriorityText(selectedPrayer.priority, forCell: cell)
         }
-
+    }
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 55
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="15A204h" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="XWa-Bt-kfA" customClass="LocationInfoView" customModule="PrayerDevotion" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="291" height="58"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GPr-4h-yKQ">
+                    <rect key="frame" x="8" y="8" width="275" height="21"/>
+                    <animations/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="AoU-Gl-by4"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="thin" pointSize="19"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Qy-4k-Ulp">
+                    <rect key="frame" x="8" y="29" width="275" height="21"/>
+                    <animations/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="Te7-x2-soo"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="thin" pointSize="15"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <animations/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="GPr-4h-yKQ" firstAttribute="leading" secondItem="XWa-Bt-kfA" secondAttribute="leadingMargin" id="5Hs-RW-kYA"/>
+                <constraint firstItem="GPr-4h-yKQ" firstAttribute="top" secondItem="XWa-Bt-kfA" secondAttribute="topMargin" id="6Cz-EX-2Vj"/>
+                <constraint firstItem="4Qy-4k-Ulp" firstAttribute="top" secondItem="GPr-4h-yKQ" secondAttribute="bottom" id="O6y-QX-ifK"/>
+                <constraint firstAttribute="trailing" secondItem="GPr-4h-yKQ" secondAttribute="trailing" constant="8" id="U5g-si-zmJ"/>
+                <constraint firstAttribute="trailing" secondItem="4Qy-4k-Ulp" secondAttribute="trailing" constant="8" id="je2-eL-5FK"/>
+                <constraint firstItem="4Qy-4k-Ulp" firstAttribute="bottom" secondItem="XWa-Bt-kfA" secondAttribute="bottomMargin" id="p0b-Jd-ABm"/>
+                <constraint firstItem="4Qy-4k-Ulp" firstAttribute="leading" secondItem="XWa-Bt-kfA" secondAttribute="leadingMargin" id="wnP-zc-qcf"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="locationNameLabel" destination="GPr-4h-yKQ" id="G7x-rx-9Q2"/>
+                <outlet property="prayerCountLabel" destination="4Qy-4k-Ulp" id="kTb-zm-Urr"/>
+            </connections>
+            <point key="canvasLocation" x="339.5" y="89"/>
+        </view>
+    </objects>
+</document>

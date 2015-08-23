@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		40CE016C9E7BD3990DBEE698 /* Pods_PrayerDevotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CF2A953CFD48961431FB11F /* Pods_PrayerDevotion.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		6102E38B1B093076005D3EC9 /* EditCategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6102E38A1B093076005D3EC9 /* EditCategoriesViewController.swift */; };
 		61081BF51B55FDB8002F1BF3 /* PDKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61081BEA1B55FDB8002F1BF3 /* PDKit.framework */; };
 		61081BFE1B55FDB8002F1BF3 /* PDKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61081BFD1B55FDB8002F1BF3 /* PDKitTests.swift */; };
@@ -21,7 +22,9 @@
 		61081C181B55FDC3002F1BF3 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61081C0F1B55FDC3002F1BF3 /* Notifications.swift */; };
 		61081C191B55FDC3002F1BF3 /* Prayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61081C101B55FDC3002F1BF3 /* Prayer.swift */; };
 		61081C1A1B55FDC3002F1BF3 /* PrayerStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61081C111B55FDC3002F1BF3 /* PrayerStore.swift */; };
+		6110BFB01B8023B800C8A656 /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6110BFAF1B8023B800C8A656 /* GoogleMaps.framework */; };
 		6111EE461B2290E400767914 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6111EE451B2290E400767914 /* SettingsViewController.swift */; };
+		61139D451B8426F8009FED38 /* PrayerLocationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61139D441B8426F8009FED38 /* PrayerLocationsViewController.swift */; };
 		6113B8DF1B4AF1CE006D952F /* PD-1024.png in Resources */ = {isa = PBXBuildFile; fileRef = 6113B8DE1B4AF1CE006D952F /* PD-1024.png */; };
 		6116BE211B1EA9960018BB73 /* PrayerSearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6116BE201B1EA9960018BB73 /* PrayerSearchCell.swift */; };
 		6128D9441B61690F002F97D7 /* PDKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 618359671B60398400AEA7AE /* PDKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -35,18 +38,28 @@
 		61293E241B013602005B7267 /* PrayerDevotionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61293E231B013602005B7267 /* PrayerDevotionTests.swift */; };
 		612DD0761B1D1E950086765C /* MovePrayersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 612DD0751B1D1E950086765C /* MovePrayersViewController.swift */; };
 		61379DEE1B5D8BFB006AC0FF /* AnsweredPrayersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61379DED1B5D8BFB006AC0FF /* AnsweredPrayersViewController.swift */; };
+		6140204B1B729697001E837A /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6140204A1B729697001E837A /* MapKit.framework */; };
+		6140204D1B72994F001E837A /* PrayerLocationsViewController_old.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6140204C1B72994F001E837A /* PrayerLocationsViewController_old.swift */; };
 		614442BC1B23BE0700727245 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 614442BB1B23BE0700727245 /* Images.xcassets */; };
 		614442BE1B23DB8C00727245 /* AddPrayerDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614442BD1B23DB8C00727245 /* AddPrayerDateCell.swift */; };
 		614769C31B51AD9C000EE6C8 /* PrayerPriorityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614769C21B51AD9C000EE6C8 /* PrayerPriorityCell.swift */; };
+		614D375B1B73EB28002C4E43 /* CreateLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614D375A1B73EB28002C4E43 /* CreateLocationViewController.swift */; };
 		6153FCD91B1CD06400BF8105 /* PrayerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6153FCD81B1CD06400BF8105 /* PrayerCell.swift */; };
+		6156FDB11B82DBE000A3A66E /* LocationMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6156FDB01B82DBE000A3A66E /* LocationMarker.swift */; };
 		615922F51B5210A60088BB5F /* PrayerNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615922F41B5210A60088BB5F /* PrayerNameCell.swift */; };
+		615A175F1B896718009F7D62 /* LocationPrayersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615A175E1B896718009F7D62 /* LocationPrayersViewController.swift */; };
 		615BF62C1B1924B1002A8731 /* PrayerSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615BF62B1B1924B1002A8731 /* PrayerSearchViewController.swift */; };
 		6166A5561B5F024100C55CD3 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6166A5551B5F024100C55CD3 /* Constants.swift */; };
 		6167D6CF1B1BF41900BB8BA2 /* PrayerAlertCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6167D6CE1B1BF41900BB8BA2 /* PrayerAlertCell.swift */; };
 		616C80C61B658DFD00C91428 /* ShadowLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616C80C51B658DFD00C91428 /* ShadowLabel.swift */; };
 		617213F41B62C40D004B45F9 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 617213F31B62C40D004B45F9 /* Color.swift */; };
+		61750D4B1B855C9F00E7F7B2 /* LocationInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61750D4A1B855C9F00E7F7B2 /* LocationInfoView.swift */; };
+		61750D4D1B855CC300E7F7B2 /* LocationInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 61750D4C1B855CC300E7F7B2 /* LocationInfoView.xib */; };
+		6182BCCE1B74690700630C6F /* LocationSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6182BCCD1B74690700630C6F /* LocationSearchViewController.swift */; };
 		618359691B6039B400AEA7AE /* Model.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 618359681B6039B400AEA7AE /* Model.xcmappingmodel */; };
 		6184764B1B5896BD00081E8B /* PrayerCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6184764A1B5896BD00081E8B /* PrayerCategoryCell.swift */; };
+		618977341B729DD200619663 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 618977331B729DD200619663 /* Location.swift */; };
+		618977361B72A27100619663 /* LocationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 618977351B72A27100619663 /* LocationStore.swift */; };
 		6194817C1B5CAC5D00D00AB6 /* TodayPrayersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6194817B1B5CAC5D00D00AB6 /* TodayPrayersViewController.swift */; };
 		6194817E1B5CACCE00D00AB6 /* TodayPrayerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6194817D1B5CACCE00D00AB6 /* TodayPrayerCell.swift */; };
 		61994DB01B520135005220E6 /* TodayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61994DAF1B520135005220E6 /* TodayCell.swift */; };
@@ -62,6 +75,18 @@
 		61D4213D1B4724610039BD7F /* PrayerDetailsExtendedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D4213C1B4724610039BD7F /* PrayerDetailsExtendedCell.swift */; };
 		61D421411B4724BA0039BD7F /* PrayerAnsweredCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D421401B4724BA0039BD7F /* PrayerAnsweredCell.swift */; };
 		61D421431B4724D50039BD7F /* PrayerAnsweredNotesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D421421B4724D50039BD7F /* PrayerAnsweredNotesCell.swift */; };
+		61E049601B801ACE00A5CB9A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61E0495F1B801ACE00A5CB9A /* AVFoundation.framework */; };
+		61E049621B801AD600A5CB9A /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61E049611B801AD600A5CB9A /* CoreData.framework */; };
+		61E049641B801ADA00A5CB9A /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61E049631B801ADA00A5CB9A /* CoreText.framework */; };
+		61E049661B801ADE00A5CB9A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61E049651B801ADE00A5CB9A /* CoreLocation.framework */; };
+		61E049681B801AE300A5CB9A /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61E049671B801AE300A5CB9A /* GLKit.framework */; };
+		61E0496A1B801AE800A5CB9A /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61E049691B801AE800A5CB9A /* ImageIO.framework */; };
+		61E0496C1B801AEF00A5CB9A /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 61E0496B1B801AEF00A5CB9A /* libc++.dylib */; };
+		61E0496E1B801AF700A5CB9A /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 61E0496D1B801AF700A5CB9A /* libicucore.dylib */; };
+		61E049701B801AFB00A5CB9A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 61E0496F1B801AFB00A5CB9A /* libz.dylib */; };
+		61E049721B801B0100A5CB9A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61E049711B801B0100A5CB9A /* OpenGLES.framework */; };
+		61E049741B801B0500A5CB9A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61E049731B801B0500A5CB9A /* QuartzCore.framework */; };
+		61E049761B801B0B00A5CB9A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61E049751B801B0B00A5CB9A /* SystemConfiguration.framework */; };
 		61F0C4B71B1D560E00E4C40A /* AddPrayerAlertCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F0C4B61B1D560E00E4C40A /* AddPrayerAlertCell.swift */; };
 		61F540B11B03CFDF0072BA6F /* PersonalPrayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F540B01B03CFDF0072BA6F /* PersonalPrayerViewController.swift */; };
 		61F540B51B03DC730072BA6F /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F540B41B03DC730072BA6F /* CategoryCell.swift */; };
@@ -132,6 +157,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2CF2A953CFD48961431FB11F /* Pods_PrayerDevotion.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PrayerDevotion.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		52CFB41BE422DA819ABB7E0A /* Pods-PrayerDevotion.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrayerDevotion.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PrayerDevotion/Pods-PrayerDevotion.debug.xcconfig"; sourceTree = "<group>"; };
 		6102E38A1B093076005D3EC9 /* EditCategoriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditCategoriesViewController.swift; sourceTree = "<group>"; };
 		61081BEA1B55FDB8002F1BF3 /* PDKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PDKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		61081BF41B55FDB8002F1BF3 /* PDKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PDKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -146,9 +173,13 @@
 		61081C0F1B55FDC3002F1BF3 /* Notifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		61081C101B55FDC3002F1BF3 /* Prayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Prayer.swift; sourceTree = "<group>"; };
 		61081C111B55FDC3002F1BF3 /* PrayerStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerStore.swift; sourceTree = "<group>"; };
+		6110BFAF1B8023B800C8A656 /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMaps.framework; path = Pods/GoogleMaps/Frameworks/GoogleMaps.framework; sourceTree = "<group>"; };
+		6110BFB11B8023D100C8A656 /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = Pods/GoogleMaps/Frameworks/GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle; sourceTree = "<group>"; };
 		6111EE451B2290E400767914 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		61139D441B8426F8009FED38 /* PrayerLocationsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerLocationsViewController.swift; sourceTree = "<group>"; };
 		6113B8DE1B4AF1CE006D952F /* PD-1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PD-1024.png"; sourceTree = "<group>"; };
 		6116BE201B1EA9960018BB73 /* PrayerSearchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerSearchCell.swift; sourceTree = "<group>"; };
+		6122CB181B729C7D007C2F81 /* PrayerDevotion 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "PrayerDevotion 4.xcdatamodel"; sourceTree = "<group>"; };
 		6128D9451B61699D002F97D7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		61293E051B013602005B7267 /* PrayerDevotion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PrayerDevotion.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		61293E091B013602005B7267 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -162,22 +193,32 @@
 		61293E231B013602005B7267 /* PrayerDevotionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayerDevotionTests.swift; sourceTree = "<group>"; };
 		612DD0751B1D1E950086765C /* MovePrayersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovePrayersViewController.swift; sourceTree = "<group>"; };
 		61379DED1B5D8BFB006AC0FF /* AnsweredPrayersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnsweredPrayersViewController.swift; sourceTree = "<group>"; };
+		6140204A1B729697001E837A /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		6140204C1B72994F001E837A /* PrayerLocationsViewController_old.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerLocationsViewController_old.swift; sourceTree = "<group>"; };
 		614442BB1B23BE0700727245 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		614442BD1B23DB8C00727245 /* AddPrayerDateCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPrayerDateCell.swift; sourceTree = "<group>"; };
 		614769C21B51AD9C000EE6C8 /* PrayerPriorityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerPriorityCell.swift; sourceTree = "<group>"; };
 		61478CC21B582A6A00F0775F /* PrayerDevotion 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "PrayerDevotion 2.xcdatamodel"; sourceTree = "<group>"; };
 		614C98801B6FF1D600667C64 /* PrayerDevotion 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "PrayerDevotion 3.xcdatamodel"; sourceTree = "<group>"; };
+		614D375A1B73EB28002C4E43 /* CreateLocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateLocationViewController.swift; sourceTree = "<group>"; };
 		6153FCD81B1CD06400BF8105 /* PrayerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerCell.swift; sourceTree = "<group>"; };
+		6156FDB01B82DBE000A3A66E /* LocationMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationMarker.swift; sourceTree = "<group>"; };
 		615922F41B5210A60088BB5F /* PrayerNameCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerNameCell.swift; sourceTree = "<group>"; };
+		615A175E1B896718009F7D62 /* LocationPrayersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationPrayersViewController.swift; sourceTree = "<group>"; };
 		615BF62B1B1924B1002A8731 /* PrayerSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerSearchViewController.swift; sourceTree = "<group>"; };
 		6166A5551B5F024100C55CD3 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		6167D6CE1B1BF41900BB8BA2 /* PrayerAlertCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerAlertCell.swift; sourceTree = "<group>"; };
 		616C80C51B658DFD00C91428 /* ShadowLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShadowLabel.swift; sourceTree = "<group>"; };
 		617213F31B62C40D004B45F9 /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		61750D4A1B855C9F00E7F7B2 /* LocationInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationInfoView.swift; sourceTree = "<group>"; };
+		61750D4C1B855CC300E7F7B2 /* LocationInfoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocationInfoView.xib; sourceTree = "<group>"; };
+		6182BCCD1B74690700630C6F /* LocationSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationSearchViewController.swift; sourceTree = "<group>"; };
 		618359411B60395800AEA7AE /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		618359671B60398400AEA7AE /* PDKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PDKit.h; sourceTree = "<group>"; };
 		618359681B6039B400AEA7AE /* Model.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = Model.xcmappingmodel; sourceTree = "<group>"; };
 		6184764A1B5896BD00081E8B /* PrayerCategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerCategoryCell.swift; sourceTree = "<group>"; };
+		618977331B729DD200619663 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		618977351B72A27100619663 /* LocationStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationStore.swift; sourceTree = "<group>"; };
 		6194817B1B5CAC5D00D00AB6 /* TodayPrayersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodayPrayersViewController.swift; sourceTree = "<group>"; };
 		6194817D1B5CACCE00D00AB6 /* TodayPrayerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodayPrayerCell.swift; sourceTree = "<group>"; };
 		61994DAF1B520135005220E6 /* TodayCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodayCell.swift; sourceTree = "<group>"; };
@@ -197,10 +238,24 @@
 		61D4213C1B4724610039BD7F /* PrayerDetailsExtendedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerDetailsExtendedCell.swift; sourceTree = "<group>"; };
 		61D421401B4724BA0039BD7F /* PrayerAnsweredCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerAnsweredCell.swift; sourceTree = "<group>"; };
 		61D421421B4724D50039BD7F /* PrayerAnsweredNotesCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerAnsweredNotesCell.swift; sourceTree = "<group>"; };
+		61DDA5481B7942E2002E6590 /* PrayerDevotion-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PrayerDevotion-Bridging-Header.h"; sourceTree = "<group>"; };
+		61E0495F1B801ACE00A5CB9A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		61E049611B801AD600A5CB9A /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		61E049631B801ADA00A5CB9A /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		61E049651B801ADE00A5CB9A /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		61E049671B801AE300A5CB9A /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		61E049691B801AE800A5CB9A /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		61E0496B1B801AEF00A5CB9A /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
+		61E0496D1B801AF700A5CB9A /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
+		61E0496F1B801AFB00A5CB9A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		61E049711B801B0100A5CB9A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		61E049731B801B0500A5CB9A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		61E049751B801B0B00A5CB9A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		61F0C4B61B1D560E00E4C40A /* AddPrayerAlertCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPrayerAlertCell.swift; sourceTree = "<group>"; };
 		61F540B01B03CFDF0072BA6F /* PersonalPrayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalPrayerViewController.swift; sourceTree = "<group>"; };
 		61F540B41B03DC730072BA6F /* CategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		61FB19931B4C7C5C0068A71C /* PrayerDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerDetailsViewController.swift; sourceTree = "<group>"; };
+		DBCAED8E24CFB0EF747FCBDD /* Pods-PrayerDevotion.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrayerDevotion.release.xcconfig"; path = "Pods/Target Support Files/Pods-PrayerDevotion/Pods-PrayerDevotion.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -224,7 +279,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6110BFB01B8023B800C8A656 /* GoogleMaps.framework in Frameworks */,
+				61E049761B801B0B00A5CB9A /* SystemConfiguration.framework in Frameworks */,
+				61E049741B801B0500A5CB9A /* QuartzCore.framework in Frameworks */,
+				61E049721B801B0100A5CB9A /* OpenGLES.framework in Frameworks */,
+				61E049701B801AFB00A5CB9A /* libz.dylib in Frameworks */,
+				61E0496E1B801AF700A5CB9A /* libicucore.dylib in Frameworks */,
+				61E0496C1B801AEF00A5CB9A /* libc++.dylib in Frameworks */,
+				61E0496A1B801AE800A5CB9A /* ImageIO.framework in Frameworks */,
+				61E049681B801AE300A5CB9A /* GLKit.framework in Frameworks */,
+				61E049661B801ADE00A5CB9A /* CoreLocation.framework in Frameworks */,
+				61E049641B801ADA00A5CB9A /* CoreText.framework in Frameworks */,
+				61E049621B801AD600A5CB9A /* CoreData.framework in Frameworks */,
+				61E049601B801ACE00A5CB9A /* AVFoundation.framework in Frameworks */,
+				6140204B1B729697001E837A /* MapKit.framework in Frameworks */,
 				61081C011B55FDB8002F1BF3 /* PDKit.framework in Frameworks */,
+				40CE016C9E7BD3990DBEE698 /* Pods_PrayerDevotion.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -294,6 +364,7 @@
 				61081C0A1B55FDC3002F1BF3 /* AlertStore.swift */,
 				61081C0C1B55FDC3002F1BF3 /* CategoriesStore.swift */,
 				61081C111B55FDC3002F1BF3 /* PrayerStore.swift */,
+				618977351B72A27100619663 /* LocationStore.swift */,
 			);
 			name = Stores;
 			sourceTree = "<group>";
@@ -304,6 +375,7 @@
 				61081C091B55FDC3002F1BF3 /* Alert.swift */,
 				61081C0D1B55FDC3002F1BF3 /* Category.swift */,
 				61081C101B55FDC3002F1BF3 /* Prayer.swift */,
+				618977331B729DD200619663 /* Location.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -319,6 +391,7 @@
 				61C52CB21B56AFA200F3FB04 /* PDTodayWidget */,
 				61C52CAF1B56AFA200F3FB04 /* Frameworks */,
 				61293E061B013602005B7267 /* Products */,
+				EDF8A81F4A134FA29180E9FE /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -353,6 +426,7 @@
 		61293E081B013602005B7267 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				61DDA5481B7942E2002E6590 /* PrayerDevotion-Bridging-Header.h */,
 				61CB0F3D1B571EBE00343DD4 /* PrayerDevotion.entitlements */,
 				6113B8DE1B4AF1CE006D952F /* PD-1024.png */,
 				61293E091B013602005B7267 /* Info.plist */,
@@ -377,6 +451,16 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		6156FDAF1B82DBC300A3A66E /* Google Markers */ = {
+			isa = PBXGroup;
+			children = (
+				6156FDB01B82DBE000A3A66E /* LocationMarker.swift */,
+				61750D4A1B855C9F00E7F7B2 /* LocationInfoView.swift */,
+				61750D4C1B855CC300E7F7B2 /* LocationInfoView.xib */,
+			);
+			name = "Google Markers";
+			sourceTree = "<group>";
+		};
 		616C80C41B658DEE00C91428 /* Labels */ = {
 			isa = PBXGroup;
 			children = (
@@ -398,6 +482,11 @@
 				61FB19931B4C7C5C0068A71C /* PrayerDetailsViewController.swift */,
 				6111EE451B2290E400767914 /* SettingsViewController.swift */,
 				61C612B11B641C050051F686 /* ThemeColorViewController.swift */,
+				6140204C1B72994F001E837A /* PrayerLocationsViewController_old.swift */,
+				61139D441B8426F8009FED38 /* PrayerLocationsViewController.swift */,
+				614D375A1B73EB28002C4E43 /* CreateLocationViewController.swift */,
+				6182BCCD1B74690700630C6F /* LocationSearchViewController.swift */,
+				615A175E1B896718009F7D62 /* LocationPrayersViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -414,8 +503,24 @@
 		61C52CAF1B56AFA200F3FB04 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6110BFB11B8023D100C8A656 /* GoogleMaps.bundle */,
+				6110BFAF1B8023B800C8A656 /* GoogleMaps.framework */,
+				61E049751B801B0B00A5CB9A /* SystemConfiguration.framework */,
+				61E049731B801B0500A5CB9A /* QuartzCore.framework */,
+				61E049711B801B0100A5CB9A /* OpenGLES.framework */,
+				61E0496F1B801AFB00A5CB9A /* libz.dylib */,
+				61E0496D1B801AF700A5CB9A /* libicucore.dylib */,
+				61E0496B1B801AEF00A5CB9A /* libc++.dylib */,
+				61E049691B801AE800A5CB9A /* ImageIO.framework */,
+				61E049671B801AE300A5CB9A /* GLKit.framework */,
+				61E049651B801ADE00A5CB9A /* CoreLocation.framework */,
+				61E049631B801ADA00A5CB9A /* CoreText.framework */,
+				61E049611B801AD600A5CB9A /* CoreData.framework */,
+				61E0495F1B801ACE00A5CB9A /* AVFoundation.framework */,
+				6140204A1B729697001E837A /* MapKit.framework */,
 				6128D9451B61699D002F97D7 /* UIKit.framework */,
 				61C52CB01B56AFA200F3FB04 /* NotificationCenter.framework */,
+				2CF2A953CFD48961431FB11F /* Pods_PrayerDevotion.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -480,6 +585,7 @@
 		61F540B21B03DC620072BA6F /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				6156FDAF1B82DBC300A3A66E /* Google Markers */,
 				616C80C41B658DEE00C91428 /* Labels */,
 				61F540B31B03DC680072BA6F /* Cells */,
 			);
@@ -494,6 +600,15 @@
 				61D4213F1B47247F0039BD7F /* Prayers */,
 			);
 			name = Cells;
+			sourceTree = "<group>";
+		};
+		EDF8A81F4A134FA29180E9FE /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				52CFB41BE422DA819ABB7E0A /* Pods-PrayerDevotion.debug.xcconfig */,
+				DBCAED8E24CFB0EF747FCBDD /* Pods-PrayerDevotion.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -551,11 +666,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 61293E271B013602005B7267 /* Build configuration list for PBXNativeTarget "PrayerDevotion" */;
 			buildPhases = (
+				7009F5AB97673B9F926B77F0 /* Check Pods Manifest.lock */,
 				61293E011B013602005B7267 /* Sources */,
 				61293E021B013602005B7267 /* Frameworks */,
 				61293E031B013602005B7267 /* Resources */,
 				61CCE8B71B55F8BF00CDBD97 /* Embed Frameworks */,
 				61C52CBF1B56AFA200F3FB04 /* Embed App Extensions */,
+				6303FE018D2876252225A285 /* Embed Pods Frameworks */,
+				F0AF8C0FE9A8AE66C02470C7 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -630,6 +748,9 @@
 							com.apple.BackgroundModes = {
 								enabled = 0;
 							};
+							com.apple.Maps.iOS = {
+								enabled = 1;
+							};
 							com.apple.iCloud = {
 								enabled = 0;
 							};
@@ -694,6 +815,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				61750D4D1B855CC300E7F7B2 /* LocationInfoView.xib in Resources */,
 				614442BC1B23BE0700727245 /* Images.xcassets in Resources */,
 				61293E131B013602005B7267 /* Main.storyboard in Resources */,
 				6113B8DF1B4AF1CE006D952F /* PD-1024.png in Resources */,
@@ -718,17 +840,67 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		6303FE018D2876252225A285 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PrayerDevotion/Pods-PrayerDevotion-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7009F5AB97673B9F926B77F0 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		F0AF8C0FE9A8AE66C02470C7 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PrayerDevotion/Pods-PrayerDevotion-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		61081BE51B55FDB8002F1BF3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				61081C1A1B55FDC3002F1BF3 /* PrayerStore.swift in Sources */,
+				618977361B72A27100619663 /* LocationStore.swift in Sources */,
 				61081C171B55FDC3002F1BF3 /* CoreDataStore.swift in Sources */,
 				61081C181B55FDC3002F1BF3 /* Notifications.swift in Sources */,
 				61081C191B55FDC3002F1BF3 /* Prayer.swift in Sources */,
 				61081C131B55FDC3002F1BF3 /* AlertStore.swift in Sources */,
 				61081C161B55FDC3002F1BF3 /* Category.swift in Sources */,
+				618977341B729DD200619663 /* Location.swift in Sources */,
 				61CB0F3B1B57188E00343DD4 /* PrayerDevotion.xcdatamodeld in Sources */,
 				61081C121B55FDC3002F1BF3 /* Alert.swift in Sources */,
 				618359691B6039B400AEA7AE /* Model.xcmappingmodel in Sources */,
@@ -757,6 +929,7 @@
 				61C612B51B641D310051F686 /* ThemeColorCell.swift in Sources */,
 				6166A5561B5F024100C55CD3 /* Constants.swift in Sources */,
 				61379DEE1B5D8BFB006AC0FF /* AnsweredPrayersViewController.swift in Sources */,
+				6140204D1B72994F001E837A /* PrayerLocationsViewController_old.swift in Sources */,
 				61D421431B4724D50039BD7F /* PrayerAnsweredNotesCell.swift in Sources */,
 				61FB19941B4C7C5C0068A71C /* PrayerDetailsViewController.swift in Sources */,
 				6167D6CF1B1BF41900BB8BA2 /* PrayerAlertCell.swift in Sources */,
@@ -765,8 +938,12 @@
 				617213F41B62C40D004B45F9 /* Color.swift in Sources */,
 				61D421411B4724BA0039BD7F /* PrayerAnsweredCell.swift in Sources */,
 				6184764B1B5896BD00081E8B /* PrayerCategoryCell.swift in Sources */,
+				614D375B1B73EB28002C4E43 /* CreateLocationViewController.swift in Sources */,
 				61F540B51B03DC730072BA6F /* CategoryCell.swift in Sources */,
+				6156FDB11B82DBE000A3A66E /* LocationMarker.swift in Sources */,
+				61139D451B8426F8009FED38 /* PrayerLocationsViewController.swift in Sources */,
 				61F0C4B71B1D560E00E4C40A /* AddPrayerAlertCell.swift in Sources */,
+				615A175F1B896718009F7D62 /* LocationPrayersViewController.swift in Sources */,
 				614442BE1B23DB8C00727245 /* AddPrayerDateCell.swift in Sources */,
 				612DD0761B1D1E950086765C /* MovePrayersViewController.swift in Sources */,
 				6194817C1B5CAC5D00D00AB6 /* TodayPrayersViewController.swift in Sources */,
@@ -778,7 +955,9 @@
 				61F540B11B03CFDF0072BA6F /* PersonalPrayerViewController.swift in Sources */,
 				6194817E1B5CACCE00D00AB6 /* TodayPrayerCell.swift in Sources */,
 				6116BE211B1EA9960018BB73 /* PrayerSearchCell.swift in Sources */,
+				6182BCCE1B74690700630C6F /* LocationSearchViewController.swift in Sources */,
 				61D4213B1B47242F0039BD7F /* CreatePrayerCell.swift in Sources */,
+				61750D4B1B855C9F00E7F7B2 /* LocationInfoView.swift in Sources */,
 				616C80C61B658DFD00C91428 /* ShadowLabel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1018,33 +1197,56 @@
 		};
 		61293E281B013602005B7267 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 52CFB41BE422DA819ABB7E0A /* Pods-PrayerDevotion.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = PrayerDevotion/PrayerDevotion.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/GoogleMaps/Frameworks",
+				);
 				INFOPLIST_FILE = PrayerDevotion/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "PrayerDevotion/PrayerDevotion-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		61293E291B013602005B7267 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DBCAED8E24CFB0EF747FCBDD /* Pods-PrayerDevotion.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = PrayerDevotion/PrayerDevotion.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/GoogleMaps/Frameworks",
+				);
 				INFOPLIST_FILE = PrayerDevotion/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "PrayerDevotion/PrayerDevotion-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -1193,11 +1395,12 @@
 		61CB0F391B57188E00343DD4 /* PrayerDevotion.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				6122CB181B729C7D007C2F81 /* PrayerDevotion 4.xcdatamodel */,
 				614C98801B6FF1D600667C64 /* PrayerDevotion 3.xcdatamodel */,
 				61478CC21B582A6A00F0775F /* PrayerDevotion 2.xcdatamodel */,
 				61CB0F3A1B57188E00343DD4 /* PrayerDevotion.xcdatamodel */,
 			);
-			currentVersion = 614C98801B6FF1D600667C64 /* PrayerDevotion 3.xcdatamodel */;
+			currentVersion = 6122CB181B729C7D007C2F81 /* PrayerDevotion 4.xcdatamodel */;
 			path = PrayerDevotion.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

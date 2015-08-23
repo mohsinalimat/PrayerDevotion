@@ -8,6 +8,10 @@
 
 import Foundation
 
+// Google API Keys
+let googleWebAPIKey = "AIzaSyBbxdJLV4JIJrjyhyh1eQYsSSMNQUB5xGA"
+let googleiOSAPIKey = "AIzaSyChvyQ8acq-GZ4bIo8UIweL-Q4xGJcGpW8"
+
 // Segue IDs
 let PresentPrayersSegueID = "PresentPrayersSegueID" // This is the ID of the segue that used to present the PersonalPrayersViewController (unused)
 let EditCategorySegueID = "EditCategorySegueID" // This is the ID of the segue that presents EditCategoriesViewController
@@ -42,6 +46,7 @@ let SetPrayerDateCellID = "SetPrayerDateCellID" // This is the cell ID of the ce
 let PriorityCellID = "PriorityCellID" // This is the cell ID of the cell that holds the UISegmentedController for prayer priority
 let PrayerCategoryCellID = "PrayerCategoryCellID" // This is the cell ID of the cell that holds the prayer category
 let ChangeCategoryCellID = "ChangeCategoryCellID" // This is the cell ID of the cell that holds the pickerView to change prayer category
+let PrayerLocationCellID = "PrayerLocationCellID" // This is the cell ID of the cell that holds the assigned location
 
 // -- TodayPrayersViewController
 let TodayCellID = "TodayPrayerCellID" // This is the cell ID of the cell that is used in TodayPrayersViewController to display the prayer
@@ -54,3 +59,6 @@ let SBPrayersViewControllerID = "SBPrayersViewControllerID" // This is the story
 let SBAnsweredPrayersViewControllerID = "SBAnsweredPrayersViewControllerID" // This is the storyboard ID of the AnsweredPrayersViewController
 let SBTodayNavControllerID = "SBTodayNavControllerID" // This is the storyboard ID of the TodayPrayersViewController's NavigationController
 let SBPrayerDetailsNavControllerID = "SBPrayerDetailsNavControllerID" // This is the storyboard ID of the PrayerDetailsViewController's NavigationController
+let SBPrayerLocationsViewControllerID = "SBPrayerLocationsViewControllerID" // This the is storyboard ID of the PrayerLocationsViewContoller
+let SBCreateLocationViewControllerID = "SBCreateLocationViewControllerID" // This is the storyboard ID of the CreateLocationViewController's NavigationController
+let SBLocationPrayersViewControllerID = "SBLocationPrayersViewControllerID" // This is the storyboard ID of the LocationPrayersViewController

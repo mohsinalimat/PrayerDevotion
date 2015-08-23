@@ -8,8 +8,9 @@
 
 import UIKit
 import PDKit
+import CoreLocation
 
-class CategoriesViewController: UITableViewController, UITableViewDelegate, UITableViewDataSource {
+class CategoriesViewController: UITableViewController, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate {
     
     // Button to click to sort categories
     private var sortBarButton: UIBarButtonItem!
@@ -129,7 +130,7 @@ class CategoriesViewController: UITableViewController, UITableViewDelegate, UITa
         tableView.beginUpdates()
         for var i = 0; i < fetchedCategories.count; i++ {
             var newRow = find(fetchedCategories, objectsBeforeSorting[i])! //fetchedCategories.indexOfObject(objectsBeforeSorting[i])
-            tableView.moveRowAtIndexPath(NSIndexPath(forRow: i, inSection: 1), toIndexPath: NSIndexPath(forRow: newRow, inSection: 1))
+            tableView.moveRowAtIndexPath(NSIndexPath(forRow: i, inSection: 2), toIndexPath: NSIndexPath(forRow: newRow, inSection: 2))
         }
         tableView.endUpdates()
     }
@@ -167,7 +168,7 @@ class CategoriesViewController: UITableViewController, UITableViewDelegate, UITa
                 self.fetchedCategories = CategoryStore.sharedInstance.allCategories()
                 self.categoryCount += 1
                     
-                self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 1)], withRowAnimation: .Right)
+                self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 2)], withRowAnimation: .Right)
                 
                 self.tableView.endUpdates()
                     
@@ -201,11 +202,12 @@ class CategoriesViewController: UITableViewController, UITableViewDelegate, UITa
     // MARK: TableView Methods
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 { return 3 }
+        if section == 1 { return 1 }
         return categoryCount
     }
     
@@ -231,6 +233,16 @@ class CategoriesViewController: UITableViewController, UITableViewDelegate, UITa
             default: break
             }
             
+            cell.categoryImageView.image = nil
+            
+            return cell
+        } else if indexPath.section == 1 {
+            let cell = tableView.dequeueReusableCellWithIdentifier("CategoryCellID", forIndexPath: indexPath) as! CategoryCell
+            
+            cell.categoryNameLabel.text = "Prayer Locations"
+            cell.prayerCountLabel.text = "\(LocationStore.sharedInstance.locationCount())"
+            cell.categoryImageView.image = UIImage(named: "CurrentLocation")
+            
             return cell
         } else {
             let cell = tableView.dequeueReusableCellWithIdentifier("CategoryCellID", forIndexPath: indexPath) as! CategoryCell
@@ -243,13 +255,14 @@ class CategoriesViewController: UITableViewController, UITableViewDelegate, UITa
             
             cell.categoryNameLabel.text = currentCategory.name
             cell.prayerCountLabel.text = "\(PrayerStore.sharedInstance.prayerCountForCategory(currentCategory))"
+            cell.categoryImageView.image = nil
             
             return cell
         }
     }
     
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        if indexPath.section == 0 { return false }
+        if indexPath.section == 0 || indexPath.section == 1 { return false }
         else { return true }
     }
     
@@ -258,7 +271,7 @@ class CategoriesViewController: UITableViewController, UITableViewDelegate, UITa
     }
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 0 { return "" }
+        if section == 0 || section == 1 { return "" }
         
         return fetchedCategories.count == 0 ? "" : "USER CATEGORIES"
     }
@@ -286,6 +299,10 @@ class CategoriesViewController: UITableViewController, UITableViewDelegate, UITa
                 
             default: break
             }
+        } else if indexPath.section == 1 {
+            let prayerLocationsVC = storyboard.instantiateViewControllerWithIdentifier(SBPrayerLocationsViewControllerID) as! PrayerLocationsViewController
+            navigationController?.pushViewController(prayerLocationsVC, animated: true)
+            return
         } else {
             prayersVC.currentCategory = fetchedCategories[indexPath.row]
         }
@@ -298,7 +315,7 @@ class CategoriesViewController: UITableViewController, UITableViewDelegate, UITa
     }
     
     override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]? {
-        if indexPath.section == 1 {
+        if indexPath.section == 2 {
             var editAction = UITableViewRowAction(style: .Normal, title: "Edit", handler: { rowAction, indexPath in
                 println("Editing category")
             
@@ -342,7 +359,7 @@ class CategoriesViewController: UITableViewController, UITableViewDelegate, UITa
                     self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Left)
                     self.tableView.endUpdates()
                     
-                    (tableView.headerViewForSection(1))?.textLabel.text = self.tableView(tableView, titleForHeaderInSection: 1)
+                    (tableView.headerViewForSection(2))?.textLabel.text = self.tableView(tableView, titleForHeaderInSection: 2)
                     
                     CATransaction.commit()
                 })
@@ -416,8 +433,10 @@ class CategoriesViewController: UITableViewController, UITableViewDelegate, UITa
                 case 2: break
                 default: break
                 }
-            } else {
+            } else if selectedIndex.section == 2 {
                 toVC.currentCategory = fetchedCategories[selectedIndex.row]
+            } else {
+                return
             }
             
         case EditCategorySegueID:

@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 import PDKit
+import GoogleMaps
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -29,6 +30,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         migrateData()
         //PrayerStore.sharedInstance.checkIDs()
         migrateToDaily()
+        
+        GMSServices.provideAPIKey(googleiOSAPIKey)
         
         let userNotifications = UIUserNotificationSettings(forTypes: .Alert | .Badge | .Sound, categories: nil)
         UIApplication.sharedApplication().registerUserNotificationSettings(userNotifications)
@@ -61,6 +64,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             themeBackgroundColor = Color.stringToColor(userPrefs.stringForKey("themeBackgroundColor")!)
             themeTintColor = Color.stringToColor(userPrefs.stringForKey("themeTintColor")!)
             themeTextColor = Color.stringToColor(userPrefs.stringForKey("themeTextColor")!)
+        }
+        
+        let autoOpenState = userPrefs.boolForKey("openPrayerDetailsAutoAdded")
+        
+        if autoOpenState == false {
+            userPrefs.setBool(true, forKey: "openPrayerDetailsAuto")
+            userPrefs.setBool(true, forKey: "openPrayerDetailsAutoAdded")
         }
         
         window!.tintColor = tintColor! != "White" ? Color.stringToColor(tintColor!) : Color.Brown

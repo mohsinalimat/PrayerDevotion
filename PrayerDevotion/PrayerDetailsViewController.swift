@@ -76,6 +76,8 @@ class PrayerDetailsViewController: UITableViewController, UITableViewDataSource,
         navigationController!.navigationBar.tintColor = delegate.themeTintColor
         tableView.backgroundColor = delegate.themeBackgroundColor
         tableView.separatorColor = delegate.themeBackgroundColor
+        
+        tableView.reloadData()
     }
     
     override func didReceiveMemoryWarning() {
@@ -85,7 +87,7 @@ class PrayerDetailsViewController: UITableViewController, UITableViewDataSource,
     // MARK: UITableView Methods
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return currentPrayer.answered == true ? 5 : 6
+        return currentPrayer.answered == true ? 6 : 7
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -96,6 +98,7 @@ class PrayerDetailsViewController: UITableViewController, UITableViewDataSource,
         case 3: return currentPrayer.answered == true ? 2 : 1
         case 4: return 1
         case 5: return prayerAlertsCount
+        case 6: return 1
         default: return 0
         }
     }
@@ -184,28 +187,61 @@ class PrayerDetailsViewController: UITableViewController, UITableViewDataSource,
             var cell = tableView.dequeueReusableCellWithIdentifier(SetPrayerDateCellID, forIndexPath: indexPath) as! AddPrayerDateCell
             
             cell.currentPrayer = currentPrayer
+            cell.addDateLabel.textColor = delegate.themeTintColor
             cell.refreshCell(false, selectedPrayer: cell.currentPrayer)
             
             return cell
             
         case 5:
-            if indexPath.row == prayerAlerts.count {
-                var cell = tableView.dequeueReusableCellWithIdentifier(AddNewAlertCellID, forIndexPath: indexPath) as! AddPrayerAlertCell
+            if currentPrayer.answered == false {
+                if indexPath.row == prayerAlerts.count {
+                    var cell = tableView.dequeueReusableCellWithIdentifier(AddNewAlertCellID, forIndexPath: indexPath) as! AddPrayerAlertCell
                 
-                cell.currentPrayer = self.currentPrayer
-                cell.addNewAlertLabel.textColor = delegate.themeTintColor
-                cell.refreshCell(false, selectedPrayer: self.currentPrayer)
-                cell.saveButton.addTarget(self, action: "didSaveNewAlert", forControlEvents: .TouchDown)
+                    cell.currentPrayer = self.currentPrayer
+                    cell.addNewAlertLabel.textColor = delegate.themeTintColor
+                    cell.refreshCell(false, selectedPrayer: self.currentPrayer)
+                    cell.saveButton.addTarget(self, action: "didSaveNewAlert", forControlEvents: .TouchDown)
                 
-                return cell
+                    return cell
+                } else {
+                    var cell = tableView.dequeueReusableCellWithIdentifier(PrayerAlertCellID, forIndexPath: indexPath) as! PrayerAlertCell
+                
+                    let currentAlert = self.prayerAlerts[indexPath.row] as! PDAlert
+                    cell.alertLabel.text = AlertStore.sharedInstance.convertDateToString(currentAlert.alertDate)
+                
+                    return cell
+                }
             } else {
-                var cell = tableView.dequeueReusableCellWithIdentifier(PrayerAlertCellID, forIndexPath: indexPath) as! PrayerAlertCell
+                var cell = tableView.dequeueReusableCellWithIdentifier(PrayerLocationCellID, forIndexPath: indexPath) as! UITableViewCell
                 
-                let currentAlert = self.prayerAlerts[indexPath.row] as! PDAlert
-                cell.alertLabel.text = AlertStore.sharedInstance.convertDateToString(currentAlert.alertDate)
+                var locationLabel = cell.viewWithTag(1) as! UILabel
+                locationLabel.text = "Assign Location"
                 
                 return cell
             }
+            
+        case 6:
+            var cell = tableView.dequeueReusableCellWithIdentifier(PrayerLocationCellID, forIndexPath: indexPath) as! UITableViewCell
+            
+            var locationLabel = cell.viewWithTag(1) as! UILabel
+            
+            if let previousVC = previousViewController {
+                if previousVC is LocationPrayersViewController {
+                    locationLabel.textColor = UIColor.lightGrayColor()
+                    cell.selectionStyle = .None
+                } else {
+                    locationLabel.textColor = delegate.themeTintColor
+                    cell.selectionStyle = .Default
+                }
+            }
+            
+            if let location = currentPrayer.location {
+                locationLabel.text = "\(location.locationName)"
+            } else {
+                locationLabel.text = "Assign Location"
+            }
+            
+            return cell
             
         default:
             return UITableViewCell()
@@ -282,6 +318,21 @@ class PrayerDetailsViewController: UITableViewController, UITableViewDataSource,
             tableView.endUpdates()
         }
         
+        if indexPath.section == 6 {
+            if let previousVC = previousViewController {
+                if previousVC is LocationPrayersViewController {
+                    println("Cannot change location while viewing from location")
+                    return
+                }
+            }
+            
+            println("Assigning location - does not require auth to user location")
+            
+            let createLocationVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier(SBCreateLocationViewControllerID) as! UINavigationController
+            (createLocationVC.topViewController as! CreateLocationViewController).selectedPrayer = self.currentPrayer
+            presentViewController(createLocationVC, animated: true, completion: nil)
+        }
+        
         tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Bottom, animated: true)
     }
     
@@ -338,21 +389,13 @@ class PrayerDetailsViewController: UITableViewController, UITableViewDataSource,
         }
     }
     
-    /*override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        switch indexPath.section {
-        case 1: return 130
-        default: return 44
-        }
-    }*/
-    
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0: return "Prayer Name"
         case 1: return "Extended Details"
-        //case 2: return "Priority"
         case 3: return ""
-        //case 4: return "Prayer Date"
         case 5: return "Alerts"
+        case 6: return "Location"
         default: return ""
         }
     }
@@ -383,7 +426,7 @@ class PrayerDetailsViewController: UITableViewController, UITableViewDataSource,
     override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         var headerView = view as! UITableViewHeaderFooterView
         
-        headerView.textLabel.textColor = UIColor.whiteColor()
+        headerView.textLabel.textColor = delegate.themeTextColor
     }
         
     // MARK: Scroll View Methods

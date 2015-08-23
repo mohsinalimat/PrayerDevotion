@@ -29,4 +29,5 @@ public class PDPrayer: NSManagedObject {
     @NSManaged public var prayerID: Int32 // This is a unique prayer ID that will distinguish the prayer from all other prayers
     
     @NSManaged public var alerts: NSOrderedSet // This is the ordered set of the alerts for the selected prayer
+    @NSManaged public var location: PDLocation? // This is the location parent of the prayer instance. It can be nil.
 }

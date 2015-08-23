@@ -18,6 +18,8 @@ class SettingsViewController: UITableViewController, UITableViewDataSource, MFMa
     
     @IBOutlet weak var verseView: UITextView!
     
+    @IBOutlet weak var prayerDetailsAutoSwitch: UISwitch!
+    
     let userDefaults = NSUserDefaults.standardUserDefaults()
     let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
@@ -36,7 +38,7 @@ class SettingsViewController: UITableViewController, UITableViewDataSource, MFMa
         
         navigationController!.navigationBar.tintColor = delegate.themeTintColor
         tableView.backgroundColor = delegate.themeBackgroundColor
-        let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 2)) as! ThemeColorCell
+        let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 3)) as! ThemeColorCell
         cell.color = delegate.themeBackgroundColor
         
         colorLabel.text = "Theme Color: \(themeString)"
@@ -99,6 +101,14 @@ class SettingsViewController: UITableViewController, UITableViewDataSource, MFMa
         mailController.setMessageBody("", isHTML: false)
         
         presentViewController(mailController, animated: true, completion: nil)
+    }
+    
+    // MARK: IBActions
+    
+    @IBAction func changeOpenDetailsAuto(sender: UISwitch) {
+        let switchState = sender.on
+        
+        userDefaults.setBool(switchState, forKey: "openPrayerDetailsAuto")
     }
     
     // MARK: MailController Delegate Methods

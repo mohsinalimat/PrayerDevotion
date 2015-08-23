@@ -211,6 +211,23 @@ public class PrayerStore: BaseStore {
         return results!
     }
     
+    public func fetchPrayersForLocationID(locationID: String) -> [PDPrayer] {
+        var fetchRequest = NSFetchRequest(entityName: "Prayer")
+        fetchRequest.predicate = NSPredicate(format: "location.locationID == %@", locationID)
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
+        fetchRequest.fetchBatchSize = 50
+        
+        var error: NSError? = nil
+        var fetchResults = managedContext!.executeFetchRequest(fetchRequest, error: &error) as? [PDPrayer]
+        
+        if let fetchError = error {
+            println("An error occurred while fetching prayers for location with ID \(locationID): \(fetchError), \(fetchError.localizedDescription)")
+            return [PDPrayer]()
+        }
+        
+        return fetchResults!
+    }
+    
     // Returns the prayer count for a specified category
     public func prayerCountForCategory(category: PDCategory) -> Int {
         var fetchRequest = NSFetchRequest(entityName: "Prayer")
@@ -268,6 +285,16 @@ public class PrayerStore: BaseStore {
         for alert in prayer.alerts {
             let currentAlert = alert as! PDAlert
             Notifications.sharedNotifications.deleteLocalNotification(currentAlert.notificationID)
+        }
+        
+        if let prayerLocation = prayer.location {
+            var mutablePrayers = prayerLocation.prayers.mutableCopy() as! NSMutableSet
+            mutablePrayers.removeObject(prayer)
+            
+            prayerLocation.prayers = mutablePrayers.copy() as! NSSet
+            
+            BaseStore.baseInstance.saveDatabase()
+            LocationStore.sharedInstance.checkLocationCountForDeletion(prayerLocation)
         }
         
         managedContext!.deleteObject(prayer)

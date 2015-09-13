@@ -52,8 +52,8 @@ code_sign_if_enabled() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
-  install_framework 'Pods-PrayerDevotion/Alamofire.framework'
+  install_framework 'Pods-PrayerDevotion/RMStore.framework'
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_framework 'Pods-PrayerDevotion/Alamofire.framework'
+  install_framework 'Pods-PrayerDevotion/RMStore.framework'
 fi

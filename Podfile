@@ -6,8 +6,8 @@ target 'PrayerDevotion' do
 source 'http://github.com/CocoaPods/Specs.git'
 use_frameworks!
 
-pod 'Alamofire', '~> 1.3'
 pod 'GoogleMaps'
+pod 'RMStore', '~> 0.7'
 
 end
 

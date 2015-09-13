@@ -20,23 +20,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var themeTintColor: UIColor = Color.Brown
     var themeTextColor: UIColor = Color.TrueWhite
     
+    var themeColorString: String = "Brown"
+    
+    var didBuyAdditionalFeatures = false
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-        //window!.tintColor = UIColor(red: 39/255.0, green: 20/255.0, blue: 1/255.0, alpha: 1)
-        
-        //window!.tintColor = UIColor(red: 194/255.0, green: 153/255.0, blue: 89/255.0, alpha: 1)
         
         // Migrate the data from the first release of the application
         migrateData()
-        //PrayerStore.sharedInstance.checkIDs()
         migrateToDaily()
         
-        GMSServices.provideAPIKey(googleiOSAPIKey)
+        GMSServices.provideAPIKey(googleiOSAPIKey) // Provide Google Maps with API Key
         
+        // Ask for notifications
         let userNotifications = UIUserNotificationSettings(forTypes: .Alert | .Badge | .Sound, categories: nil)
         UIApplication.sharedApplication().registerUserNotificationSettings(userNotifications)
         
-        let userPrefs = NSUserDefaults.standardUserDefaults()
+        let userPrefs = NSUserDefaults.standardUserDefaults() // Get users prefs
         
         let installString: String? = userPrefs.objectForKey("didInstallApp_2.0") as? String
         
@@ -50,21 +51,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             userPrefs.setObject("installed", forKey: "didInstallApp_2.0")
         }
         
-        var tintColor = userPrefs.stringForKey("themeBackgroundColor")
-        if tintColor == nil {
-            tintColor = "Brown"
-            userPrefs.setObject("Brown", forKey: "themeBackgroundColor")
-            userPrefs.setObject("Brown", forKey: "themeTintColor")
-            userPrefs.setObject("TrueWhite", forKey: "themeTextColor")
-            
-            themeBackgroundColor = Color.stringToColor("Brown")
-            themeTintColor = Color.stringToColor("Brown")
-            themeTextColor = Color.stringToColor("TrueWhite")
-        } else {
-            themeBackgroundColor = Color.stringToColor(userPrefs.stringForKey("themeBackgroundColor")!)
-            themeTintColor = Color.stringToColor(userPrefs.stringForKey("themeTintColor")!)
-            themeTextColor = Color.stringToColor(userPrefs.stringForKey("themeTextColor")!)
-        }
+        Color.setThemeColors(&themeBackgroundColor, tintColor: &themeTintColor, textColor: &themeTextColor, colorString: &themeColorString)
+        var tintColor = userPrefs.stringForKey("themeBackgroundColor")!
         
         let autoOpenState = userPrefs.boolForKey("openPrayerDetailsAutoAdded")
         
@@ -73,15 +61,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             userPrefs.setBool(true, forKey: "openPrayerDetailsAutoAdded")
         }
         
-        window!.tintColor = tintColor! != "White" ? Color.stringToColor(tintColor!) : Color.Brown
+        window!.tintColor = tintColor != "White" ? Color.stringToColor(tintColor) : Color.Brown
                 
         // Check for pending alerts and notifications and update them
         Notifications.sharedNotifications.updateNotificationQueue()
         AlertStore.sharedInstance.deletePastAlerts()
         
+        validatePurchase() // Validate In-App Purchase
+        
         return true
     }
     
+    // This handles the application open scheme
     func application(application: UIApplication, handleOpenURL url: NSURL) -> Bool {
         println("URL was \(url.host)")
         
@@ -269,6 +260,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func switchTabBarToTab(tab: Int) {
         (window?.rootViewController as! UITabBarController).selectedIndex = tab
+    }
+    
+    func validatePurchase() {
+        let purchased = NSUserDefaults.standardUserDefaults().boolForKey(AdditionalFeaturesKey)
+        
+        if purchased {
+            didBuyAdditionalFeatures = true
+            println("Purchased In-App Additional Features")
+        } else {
+            println("User has not yet purchased the in app additional features")
+        }
     }
 
 }

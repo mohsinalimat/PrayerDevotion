@@ -29,6 +29,7 @@ class CategoriesViewController: UITableViewController, UITableViewDelegate, UITa
     // This is the singleton instance of the NSUserDefaults (or the user preferences)
     private var userDefaults = NSUserDefaults.standardUserDefaults()
     let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    let prayerStore = PrayerDevotionStore()
     
     var prayersViewController: PersonalPrayerViewController!
     var selectedIndex: NSIndexPath = NSIndexPath(forRow: 0, inSection: 0)
@@ -38,6 +39,8 @@ class CategoriesViewController: UITableViewController, UITableViewDelegate, UITa
         
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .Plain, target: nil, action: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleURL:", name: "HandleURLNotification", object: nil)
+        
+        prayerStore.requestProductInfo()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -66,6 +69,7 @@ class CategoriesViewController: UITableViewController, UITableViewDelegate, UITa
         
         // Create the toolbar and its buttons
         sortBarButton = UIBarButtonItem(title: "Sorting: \(sortBy)", style: .Plain, target: self, action: "sortTable")
+        sortBarButton.tintColor = delegate.themeTintColor
         var toolbarSpace = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: self, action: nil)
         //var actionButton = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: "showActions:")
         
@@ -77,7 +81,6 @@ class CategoriesViewController: UITableViewController, UITableViewDelegate, UITa
         
         navigationController!.navigationBar.tintColor = delegate.themeTintColor
         tableView.backgroundColor = delegate.themeBackgroundColor
-        
     }
 
     override func didReceiveMemoryWarning() {
@@ -134,10 +137,29 @@ class CategoriesViewController: UITableViewController, UITableViewDelegate, UITa
         }
         tableView.endUpdates()
     }
+    
+    func determinePurchasedStatus() -> Bool {
+        let purchased = delegate.didBuyAdditionalFeatures
+        
+        if categoryCount == 5 {
+            if !purchased {
+                prayerStore.askForAdditionalFeatures(true, completion: { successful in
+                    if successful {
+                        self.createNewCategory(self)
+                    }
+                })
+                return false
+            }
+        }
+        
+        return true
+    }
 
     // MARK: IBActions
     @IBAction func createNewCategory(sender: AnyObject) {
         println("Adding new category to the database")
+        
+        determinePurchasedStatus()
         
         tableView.editing = false
         

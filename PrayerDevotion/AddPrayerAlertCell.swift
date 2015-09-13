@@ -48,21 +48,16 @@ class AddPrayerAlertCell: UITableViewCell {
     }
     
     func refreshCell(didSelect: Bool, selectedPrayer: PDPrayer!) {
-        //dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-            self.selectionStyle = didSelect == true ? .None : .Default
-            
-            self.saveButton.hidden = !didSelect
-            self.cancelButton.hidden = !didSelect
-            self.addNewAlertLabel.hidden = didSelect
-            
-            self.isAddingAlert = didSelect
-            
-            self.dateLabel.text = AlertStore.sharedInstance.convertDateToString(self.datePicker.date)
-            
-            //println("AddPrayerAlertCell: Cell Refreshed")
-            
-            self.tableView?.scrollEnabled = !didSelect
-        //})
+        self.selectionStyle = didSelect == true ? .None : .Default
+        self.isAddingAlert = didSelect
+        
+        self.saveButton.hidden = !didSelect
+        self.cancelButton.hidden = !didSelect
+        self.addNewAlertLabel.hidden = didSelect
+        
+        self.dateLabel.text = AlertStore.sharedInstance.convertDateToString(self.datePicker.date)
+        
+        //self.tableView?.scrollEnabled = !didSelect
     }
 
     func didCancelNewAlert() {

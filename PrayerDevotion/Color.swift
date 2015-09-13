@@ -21,6 +21,7 @@
 
 import Foundation
 import UIKit
+import CoreGraphics
 
 // MARK:
 extension UIColor {
@@ -29,11 +30,66 @@ extension UIColor {
         let green = CGFloat((hex & 0xFF00) >> 8) / 255.0
         let blue = CGFloat((hex & 0xFF)) / 255.0
         self.init(red:red, green:green, blue:blue, alpha:alpha)
+        
     }
+    
+    ////////// END LICENSE ///////////
+
+    
+    //
+    //  UIColor-MJGAdditions.m
+    //  MJGFoundation
+    //
+    //  Created by Matt Galloway on 24/12/2011.
+    //  Copyright (c) 2011 Matt Galloway. All rights reserved.
+    //
+    
+    var luminosity: CGFloat {
+        var red: CGFloat = 0.0
+        var green: CGFloat = 0.0
+        var blue: CGFloat = 0.0
+        var alpha: CGFloat = 0.0
+        
+        var success = self.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+        
+        if success { return 0.2126 * pow(red, 2.2) + 0.7152 * pow(green, 2.2) + 0.0722 * pow(blue, 2.2) }
+        
+        var white: CGFloat = 1.0
+        
+        success = self.getWhite(&white, alpha: &alpha)
+        
+        if success { return pow(white, 2.2) }
+        
+        return -1
+    }
+    
+    func luminosityDifference(otherColor: UIColor) -> CGFloat {
+        var l1: CGFloat = self.luminosity
+        var l2: CGFloat = otherColor.luminosity
+        
+        if l1 >= 0 && l2 >= 0 {
+            if l1 > l2 {
+                return (l1 + 0.05) / (l2 + 0.05)
+            } else {
+                return (l2 + 0.05) / (l1 + 0.05)
+            }
+        }
+        
+        return 0.0
+    }
+    
+    func blackOrWhiteContrastingColor() -> UIColor {
+        var black = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
+        var white = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        
+        var blackDiff = self.luminosityDifference(black)
+        var whiteDiff = self.luminosityDifference(white)
+        
+        return blackDiff > whiteDiff ? black : white
+    }
+    
+    ////////// END LICENSE ///////////
 }
-
-////////// END LICENSE ///////////
-
 ////////// BEGIN COLOR SCHEME ////
 // Created by Jonathan Hart, 07/24/2015
 
@@ -45,7 +101,9 @@ extension UINavigationBar {
 }
 
 
-struct Color {
+class Color {
+    
+    static let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
     // Base Colors - 500s
     static let Red = UIColor(hex: 0xF44336, alpha: 1.0)
@@ -70,6 +128,12 @@ struct Color {
     static let White = UIColor(white: 0.93, alpha: 1.0)
     static let TrueWhite = UIColor(hex: 0xFFFFFF, alpha: 1.0)
     static let Black = UIColor(hex: 0x000000, alpha: 1.0)
+    
+    static var CustomColor: UIColor {
+        if delegate.themeColorString == "Custom" { return delegate.themeBackgroundColor }
+        
+        return Color.TrueWhite
+    }
     
     // Background Colors
     static let RedBack = UIColor(hex: 0xFFEBEE, alpha: 1.0)
@@ -100,6 +164,7 @@ struct Color {
             case "White": return White
             case "Black": return Black
             case "TrueWhite": return TrueWhite
+            case "Custom": return CustomColor
             default: return UIColor(white: 1.0, alpha: 1.0)
         }
     }
@@ -110,6 +175,45 @@ struct Color {
             return "Black"
             
         default: return "TrueWhite"
+        }
+    }
+    
+    static func setThemeColors(inout backgroundColor: UIColor, inout tintColor: UIColor, inout textColor: UIColor, inout colorString: String) {
+        let userPrefs = NSUserDefaults.standardUserDefaults()
+        
+        let userBackgroundColor = userPrefs.stringForKey("themeBackgroundColor")
+        
+        if let userBackgroundColor = userBackgroundColor {
+            if userBackgroundColor == "Custom" {
+                let red = CGFloat(userPrefs.floatForKey("customThemeColor_Red"))
+                let green = CGFloat(userPrefs.floatForKey("customThemeColor_Green"))
+                let blue = CGFloat(userPrefs.floatForKey("customThemeColor_Blue"))
+                
+                let customColor = UIColor(red: red, green: green, blue: blue, alpha: 1.0)
+                
+                var white: CGFloat = 0.0
+                customColor.getWhite(&white, alpha: nil)
+                
+                backgroundColor = customColor
+                tintColor = white > 0.8 ? Color.Brown : backgroundColor
+                textColor = backgroundColor.blackOrWhiteContrastingColor()
+                colorString = "Custom"
+                
+                return
+            }
+            
+            backgroundColor = Color.stringToColor(userPrefs.stringForKey("themeBackgroundColor")!)
+            tintColor = Color.stringToColor(userPrefs.stringForKey("themeTintColor")!)
+            textColor = backgroundColor.blackOrWhiteContrastingColor()
+            colorString = userPrefs.stringForKey("themeBackgroundColor")!
+        } else {
+            backgroundColor = Color.Brown
+            tintColor = Color.Brown
+            textColor = (Color.Brown).blackOrWhiteContrastingColor()
+            
+            userPrefs.setObject("Brown", forKey: "themeBackgroundColor")
+            userPrefs.setObject("Brown", forKey: "themeTintColor")
+            colorString = userPrefs.stringForKey("themeBackgroundColor")!
         }
     }
 }

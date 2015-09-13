@@ -19,11 +19,18 @@ class TodayPrayersViewController: UIViewController, UITableViewDelegate, UITable
     @IBOutlet weak var noPrayersLabel: UILabel!
     @IBOutlet weak var todayLabel: UILabel!
     
+    @IBOutlet weak var prevDayButton: UIButton!
+    @IBOutlet weak var nextDayButton: UIButton!
+    
+    var todayBarButton: UIBarButtonItem!
+    
     let dateFormatter = NSDateFormatter()
     let userPrefs = NSUserDefaults.standardUserDefaults()
     let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
     var selectedIndex = 0
+    
+    var date = NSDate()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +41,8 @@ class TodayPrayersViewController: UIViewController, UITableViewDelegate, UITable
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleURL:", name: "HandleURLNotification", object: nil)
         
         navigationController!.navigationBar.translucent = true
+        
+        todayBarButton = UIBarButtonItem(title: "Today", style: UIBarButtonItemStyle.Plain, target: self, action: "backToToday")
         
         PrayerStore.sharedInstance.checkIDs()
     }
@@ -50,6 +59,8 @@ class TodayPrayersViewController: UIViewController, UITableViewDelegate, UITable
         
         todayLabel.textColor = delegate.themeTextColor
         noPrayersLabel.textColor = delegate.themeTextColor
+        prevDayButton.tintColor = delegate.themeTextColor
+        nextDayButton.tintColor = delegate.themeTextColor
         
     }
     
@@ -69,11 +80,60 @@ class TodayPrayersViewController: UIViewController, UITableViewDelegate, UITable
     
     func fetchTodayPrayers() {
         todayPrayers = [PDPrayer]()
-        todayPrayers += PrayerStore.sharedInstance.fetchTodayPrayers(.OnDate, forWidget: false)
-        todayPrayers += PrayerStore.sharedInstance.fetchTodayPrayers(.Daily, forWidget: false)
-        todayPrayers += PrayerStore.sharedInstance.fetchTodayPrayers(.Weekly, forWidget: false)
+        
+        println("Date is \(date)")
+        
+        todayPrayers += PrayerStore.sharedInstance.fetchPrayersOnDate(.OnDate, prayerDate: date);
+        todayPrayers += PrayerStore.sharedInstance.fetchPrayersOnDate(.Daily, prayerDate: date);
+        todayPrayers += PrayerStore.sharedInstance.fetchPrayersOnDate(.Weekly, prayerDate: date);
         
         todayCount = todayPrayers.count
+    }
+    
+    // MARK: IBActions
+    
+    @IBAction func nextDay() {
+        let currentDay = date
+        let newDate = currentDay.dateByAddingTimeInterval(60*60*24*1)
+        
+        changeDate(newDate)
+    }
+    
+    @IBAction func prevDay() {
+        let currentDay = date
+        let newDate = currentDay.dateByAddingTimeInterval(-60*60*24*1)
+        
+        changeDate(newDate)
+    }
+    
+    // Change the current date of the today view
+    func changeDate(newDate: NSDate) {
+        date = newDate
+        
+        fetchTodayPrayers()
+        tableView.reloadData()
+        
+        noPrayersLabel.hidden = !(todayCount == 0)
+        
+        let dateForm = NSDateFormatter()
+        dateForm.dateStyle = .ShortStyle
+        dateForm.timeStyle = .NoStyle
+        
+        let dateString = dateForm.stringFromDate(date)
+        let todayString = dateForm.stringFromDate(NSDate())
+        todayLabel.text = dateString == todayString ? "Today List" : "\(dateString) List"
+        
+        var tomorrowDateString = dateForm.stringFromDate(NSDate().dateByAddingTimeInterval(60*60*24))
+        var yesterdayDateString = dateForm.stringFromDate(NSDate().dateByAddingTimeInterval(-60*60*24))
+        
+        if dateString == tomorrowDateString { todayLabel.text = "Tomorrow's List" }
+        if dateString == yesterdayDateString { todayLabel.text = "Yesterday's List" }
+        
+        navigationItem.rightBarButtonItem = dateString == todayString ? nil : todayBarButton
+    }
+    
+    func backToToday() {
+        changeDate(NSDate())
     }
     
     // MARK: UITableView Methods
@@ -138,7 +198,23 @@ class TodayPrayersViewController: UIViewController, UITableViewDelegate, UITable
         })
         deleteAction.backgroundColor = UIColor.redColor()
         
-        return [deleteAction]
+        var answeredAction = UITableViewRowAction(style: .Normal, title: "Answered", handler: { rowAction, indexPath in
+            let prayer = self.todayPrayers[indexPath.row]
+            prayer.answered = true
+            
+            BaseStore.baseInstance.saveDatabase()
+            
+            self.fetchTodayPrayers()
+            tableView.beginUpdates()
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            tableView.endUpdates()
+            
+            self.noPrayersLabel.hidden = !(self.todayCount == 0)
+            (tableView.headerViewForSection(1))?.textLabel.text = self.tableView(tableView, titleForHeaderInSection: 1)
+        })
+        answeredAction.backgroundColor = UIColor.darkGrayColor()
+        
+        return [deleteAction, answeredAction]
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -156,9 +232,18 @@ class TodayPrayersViewController: UIViewController, UITableViewDelegate, UITable
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 1 {
             let currentDate = NSDate()
-            let dateString = dateFormatter.stringFromDate(currentDate)
+            let dateString = dateFormatter.stringFromDate(date)
+            let thisDayString = dateFormatter.stringFromDate(NSDate())
             
-            return todayCount == 0 ? "" : "Today, \(dateString)"
+            var tomorrowDateString = dateFormatter.stringFromDate(NSDate().dateByAddingTimeInterval(60*60*24))
+            var yesterdayDateString = dateFormatter.stringFromDate(NSDate().dateByAddingTimeInterval(-60*60*24))
+            
+            var headerText = todayCount == 0 ? "" : (dateString == thisDayString ? "Today, \(dateString)" : "\(dateString)")
+            
+            if (dateString == tomorrowDateString && todayCount != 0) { headerText = "Tomorrow, \(dateString)" }
+            if (dateString == yesterdayDateString && todayCount != 0) { headerText = "Yesterday, \(dateString)" }
+            
+            return headerText
         }
         
         return ""

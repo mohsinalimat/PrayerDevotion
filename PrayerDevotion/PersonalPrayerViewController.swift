@@ -142,13 +142,13 @@ class PersonalPrayerViewController: UITableViewController, UITableViewDelegate, 
         
         //let prayer = prayers[indexPath.row] as! Prayer
 
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateStyle = .LongStyle
-        dateFormatter.timeStyle = .NoStyle
+        //let dateFormatter = NSDateFormatter()
+        //dateFormatter.dateStyle = .LongStyle
+        //dateFormatter.timeStyle = .NoStyle
         
         if let selectedPrayer = prayer {
             cell.prayerNameLabel.text = selectedPrayer.name
-            cell.dateCreatedLabel.text = dateFormatter.stringFromDate(selectedPrayer.creationDate)
+            cell.dateCreatedLabel.text = selectedPrayer.prayerType//dateFormatter.stringFromDate(selectedPrayer.creationDate)
         }
     }
     

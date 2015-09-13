@@ -13,8 +13,9 @@ import PDKit
 import MessageUI
 import AddressBook
 import AddressBookUI
+import GoogleMaps.GMSPlace
 
-class PrayerDetailsViewController: UITableViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource, MFMailComposeViewControllerDelegate, ABPeoplePickerNavigationControllerDelegate {
+class PrayerDetailsViewController: UITableViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource, MFMailComposeViewControllerDelegate, ABPeoplePickerNavigationControllerDelegate, AddPrayerDateCellDelegate_New, CreateLocationViewControllerDelegate {
     
     @IBOutlet var navItem: UINavigationItem!
     
@@ -42,9 +43,7 @@ class PrayerDetailsViewController: UITableViewController, UITableViewDataSource,
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //addressBook = ABAddressBookCreateWithOptions(nil, nil).takeRetainedValue()
-        
+                
         CategoryStore.sharedInstance.fetchCategoriesData(NSPredicate(format: "name != %@", "Uncategorized"), sortKey: "name", ascending: true)
         
         for item in CategoryStore.sharedInstance.allCategories() {
@@ -76,8 +75,6 @@ class PrayerDetailsViewController: UITableViewController, UITableViewDataSource,
         navigationController!.navigationBar.tintColor = delegate.themeTintColor
         tableView.backgroundColor = delegate.themeBackgroundColor
         tableView.separatorColor = delegate.themeBackgroundColor
-        
-        tableView.reloadData()
     }
     
     override func didReceiveMemoryWarning() {
@@ -92,7 +89,7 @@ class PrayerDetailsViewController: UITableViewController, UITableViewDataSource,
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
-        case 0: return isChangingCategory == true ? 3 : 2
+        case 0: return 2 //isChangingCategory == true ? 3 : 2
         case 1: return 1
         case 2: return 1
         case 3: return currentPrayer.answered == true ? 2 : 1
@@ -134,6 +131,16 @@ class PrayerDetailsViewController: UITableViewController, UITableViewDataSource,
             
             categoryCell.prayerCategoryLabel.text = "Prayer in Category \(currentPrayer.category)"
             categoryCell.changeCategoryButton.addTarget(self, action: "changeCategory:", forControlEvents: .TouchDown)
+            
+            categoryCell.pickerView.delegate = self
+            categoryCell.pickerView.dataSource = self
+            categoryCell.pickerView.frame.size.height = 162
+            categoryPickerView = categoryCell.pickerView // Need to look into this variable
+            
+            let categoryIdx = currentPrayer.category == "Uncategorized" ? 0 : find(allCategories, currentPrayer.category)! + 1
+            categoryCell.pickerView.selectRow(categoryIdx, inComponent: 0, animated: false)
+            
+            categoryCell.newCategoryButton.addTarget(self, action: "createCategory:", forControlEvents: .TouchDown)
             
             return
         }
@@ -178,12 +185,13 @@ class PrayerDetailsViewController: UITableViewController, UITableViewDataSource,
             return
         }
         
-        if cell is AddPrayerDateCell {
-            let addDateCell = cell as! AddPrayerDateCell
+        if cell is AddPrayerDateCell_New {
+            let addDateCell = cell as! AddPrayerDateCell_New
             
             addDateCell.currentPrayer = currentPrayer
-            addDateCell.addDateLabel.textColor = delegate.themeTintColor
-            addDateCell.refreshCell(false, selectedPrayer: addDateCell.currentPrayer)
+            //addDateCell.addDateLabel.textColor = delegate.themeTintColor
+            addDateCell.refreshCell(false)
+            addDateCell.delegate = self
             
             return
         }
@@ -208,7 +216,8 @@ class PrayerDetailsViewController: UITableViewController, UITableViewDataSource,
             return
         }
         
-        if cell.reuseIdentifier == ChangeCategoryCellID {
+        // NOTE: No longer relevant... Code to be removed later
+        /*if cell.reuseIdentifier == ChangeCategoryCellID {
             let pickerView = cell.viewWithTag(1) as! UIPickerView
             pickerView.delegate = self
             pickerView.dataSource = self
@@ -221,7 +230,7 @@ class PrayerDetailsViewController: UITableViewController, UITableViewDataSource,
             (cell.viewWithTag(2) as! UIButton).addTarget(self, action: "createCategory:", forControlEvents: .TouchDown)
             
             return
-        }
+        }*/
         
         if cell.reuseIdentifier == PrayerLocationCellID {
             var locationLabel = cell.viewWithTag(1) as! UILabel
@@ -259,8 +268,6 @@ class PrayerDetailsViewController: UITableViewController, UITableViewDataSource,
                 cell = tableView.dequeueReusableCellWithIdentifier(EnterPrayerNameCellID, forIndexPath: indexPath) as! PrayerNameCell
             } else if indexPath.row == 1 {
                 cell = tableView.dequeueReusableCellWithIdentifier(PrayerCategoryCellID, forIndexPath: indexPath) as! PrayerCategoryCell
-            } else {
-                cell = tableView.dequeueReusableCellWithIdentifier(ChangeCategoryCellID, forIndexPath: indexPath) as! UITableViewCell
             }
             
         case 1: cell = tableView.dequeueReusableCellWithIdentifier(DetailsExtendedCellID, forIndexPath: indexPath) as! PrayerDetailsExtendedCell
@@ -271,7 +278,7 @@ class PrayerDetailsViewController: UITableViewController, UITableViewDataSource,
             } else {
                 cell = tableView.dequeueReusableCellWithIdentifier(AnsweredPrayerNotesCellID, forIndexPath: indexPath) as! PrayerAnsweredNoteCell
             }
-        case 2: cell = tableView.dequeueReusableCellWithIdentifier(SetPrayerDateCellID, forIndexPath: indexPath) as! AddPrayerDateCell
+        case 2: cell = tableView.dequeueReusableCellWithIdentifier(SetPrayerDateCellID, forIndexPath: indexPath) as! AddPrayerDateCell_New
         case 5:
             if currentPrayer.answered == false {
                 if indexPath.row == prayerAlerts.count {
@@ -303,6 +310,19 @@ class PrayerDetailsViewController: UITableViewController, UITableViewDataSource,
             cell.nameField.becomeFirstResponder()
         }
         
+        if indexPath.section == 2 {
+            let cell = tableView.cellForRowAtIndexPath(indexPath) as! AddPrayerDateCell_New
+            
+            cell.refreshCell(true)
+            //tableView.scrollEnabled = !cell.isAddingDate
+            
+            tableView.beginUpdates()
+            tableView.deselectRowAtIndexPath(indexPath, animated: true)
+            tableView.endUpdates()
+            
+            if cell.isAddingDate { tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Bottom, animated: true) }
+        }
+        
         if indexPath.section == 3 {
             let cell = tableView.cellForRowAtIndexPath(indexPath) as! PrayerAnsweredCell
             currentPrayer.answered = !currentPrayer.answered
@@ -313,7 +333,8 @@ class PrayerDetailsViewController: UITableViewController, UITableViewDataSource,
             
             CATransaction.begin()
             CATransaction.setCompletionBlock({
-                tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: self.currentPrayer.answered == true ? 1 : 0, inSection: 3), atScrollPosition: .Bottom, animated: true)
+                if self.currentPrayer.answered { tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 3), atScrollPosition: .Bottom, animated: true) }
+                //tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: self.currentPrayer.answered == true ? 1 : 0, inSection: 3), atScrollPosition: .Bottom, animated: true)
             })
             tableView.beginUpdates()
             
@@ -335,22 +356,14 @@ class PrayerDetailsViewController: UITableViewController, UITableViewDataSource,
             prayerAlerts = currentPrayer.alerts.mutableCopy() as! NSMutableOrderedSet
             prayerAlertsCount = prayerAlerts.count + 1
             
-            var dateCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 4)) as? AddPrayerDateCell
+            var dateCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 4)) as? AddPrayerDateCell_New
             var alertCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: prayerAlerts.count, inSection: 5)) as? AddPrayerAlertCell // This must be optional because it may not have been created yet
             
-            dateCell?.refreshCell(false, selectedPrayer: currentPrayer)
+            dateCell?.refreshCell(false)
             alertCell?.refreshCell(false, selectedPrayer: currentPrayer)
                         tableView.endUpdates()
             
             tableView.estimatedRowHeight = 44.0
-        }
-        
-        if indexPath.section == 2 {
-            let cell = tableView.cellForRowAtIndexPath(indexPath) as! AddPrayerDateCell
-            tableView.beginUpdates()
-            cell.refreshCell(true, selectedPrayer: currentPrayer)
-            tableView.deselectRowAtIndexPath(indexPath, animated: true)
-            tableView.endUpdates()
         }
         
         if indexPath.section == 5 && indexPath.row == prayerAlerts.count && currentPrayer.answered == false {
@@ -359,6 +372,8 @@ class PrayerDetailsViewController: UITableViewController, UITableViewDataSource,
             cell.refreshCell(true, selectedPrayer: currentPrayer)
             tableView.deselectRowAtIndexPath(indexPath, animated: true)
             tableView.endUpdates()
+            
+            if cell.isAddingAlert { tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Bottom, animated: true) }
         } else if (indexPath.section == 5 && currentPrayer.answered == true) || indexPath.section == 6 {
             if let previousVC = previousViewController {
                 if previousVC is LocationPrayersViewController {
@@ -371,10 +386,9 @@ class PrayerDetailsViewController: UITableViewController, UITableViewDataSource,
             
             let createLocationVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier(SBCreateLocationViewControllerID) as! UINavigationController
             (createLocationVC.topViewController as! CreateLocationViewController).selectedPrayer = self.currentPrayer
+            (createLocationVC.topViewController as! CreateLocationViewController).delegate = self
             presentViewController(createLocationVC, animated: true, completion: nil)
         }
-        
-        tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Bottom, animated: true)
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -383,7 +397,7 @@ class PrayerDetailsViewController: UITableViewController, UITableViewDataSource,
             if indexPath.row == 0 {
                 return 44
             } else if indexPath.row == 1 {
-                return 30
+                return isChangingCategory ? 250 : 30
             } else {
                 return 207
             }
@@ -393,7 +407,7 @@ class PrayerDetailsViewController: UITableViewController, UITableViewDataSource,
         case 3: return indexPath.row == 0 ? 44 : UITableViewAutomaticDimension
             
         case 2:
-            let cell = tableView.cellForRowAtIndexPath(indexPath) as? AddPrayerDateCell
+            let cell = tableView.cellForRowAtIndexPath(indexPath) as? AddPrayerDateCell_New
             
             if let thisCell = cell {
                 let isAdding = thisCell.isAddingDate
@@ -471,6 +485,7 @@ class PrayerDetailsViewController: UITableViewController, UITableViewDataSource,
     }
         
     // MARK: Scroll View Methods
+    // NOTE: Not relevant as tableView scrolling is disabled on editing
     
     override func scrollViewWillBeginDragging(scrollView: UIScrollView) {
         let detailsCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as? PrayerDetailsExtendedCell
@@ -483,6 +498,7 @@ class PrayerDetailsViewController: UITableViewController, UITableViewDataSource,
     // MARK: Cell Saving Methods
     
     func didSaveNewAlert() {
+        tableView.beginUpdates()
         let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: prayerAlerts.count, inSection: 5)) as! AddPrayerAlertCell
         
         let dateToAdd = cell.datePicker.date
@@ -490,13 +506,13 @@ class PrayerDetailsViewController: UITableViewController, UITableViewDataSource,
         prayerAlerts = currentPrayer.alerts.mutableCopy() as! NSMutableOrderedSet
         prayerAlertsCount = prayerAlertsCount + 1
         
-        tableView.beginUpdates()
         tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: currentPrayer.alerts.count - 1, inSection: 5)], withRowAnimation: .Right)
         cell.selectionStyle = .Default
+        tableView.endUpdates()
         
+        tableView.beginUpdates()
         cell.refreshCell(false, selectedPrayer: currentPrayer)
         tableView.endUpdates()
-        tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: prayerAlerts.count, inSection: 5), atScrollPosition: .Bottom, animated: true)
     }
     
     // MARK: Prayers
@@ -513,6 +529,9 @@ class PrayerDetailsViewController: UITableViewController, UITableViewDataSource,
         if currentPrayer.isDateAdded == false {
             currentPrayer.prayerType = "None"
         }
+        
+        tableView.endEditing(true)
+        
         BaseStore.baseInstance.saveDatabase()
         dismissViewControllerAnimated(true, completion: nil)
     }
@@ -687,6 +706,48 @@ class PrayerDetailsViewController: UITableViewController, UITableViewDataSource,
         p.dismissViewControllerAnimated(true, completion: nil)
     }
     
+    // CreateLocationPrayerViewController Delegate Methods
+    
+    func didFinishPickingLocation() {
+        let cell: UITableViewCell? = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: currentPrayer.answered == true ? 5 : 6))
+        
+        if let cell = cell {
+            let label = cell.viewWithTag(1) as! UILabel
+            
+            if let previousVC = previousViewController {
+                if previousVC is LocationPrayersViewController {
+                    label.textColor = UIColor.lightGrayColor()
+                    cell.selectionStyle = .None
+                } else {
+                    label.textColor = delegate.themeTintColor
+                    cell.selectionStyle = .Default
+                }
+            }
+            
+            if let location = currentPrayer.location {
+                label.text = "\(location.locationName)"
+            } else {
+                label.text = "Assign Location"
+            }
+        }
+    }
+    
+    // MARK: AddPrayerDateCell_New Delegate Methods
+    
+    func didAddPrayerDate(cell: AddPrayerDateCell_New) {
+        tableView.beginUpdates()
+        tableView.endUpdates()
+        
+        tableView.scrollEnabled = true
+    }
+    
+    func didCancelAddingPrayerDate(cell: AddPrayerDateCell_New) {
+        tableView.beginUpdates()
+        tableView.endUpdates()
+        
+        tableView.scrollEnabled = true
+    }
+    
     // MARK: Custom Functions
     
     func changeCategory(sender: UIButton) {
@@ -694,11 +755,11 @@ class PrayerDetailsViewController: UITableViewController, UITableViewDataSource,
         sender.setTitle(isChangingCategory == true ? "Done" : "Change", forState: .Normal)
         
         tableView.beginUpdates()
-        if isChangingCategory {
-            tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: 2, inSection: 0)], withRowAnimation: .Top)
+        /*if isChangingCategory {
+            tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: 2, inSection: 0)], withRowAnimation: .Automatic)
         } else {
-            tableView.deleteRowsAtIndexPaths([NSIndexPath(forRow: 2, inSection: 0)], withRowAnimation: .Top)
-        }
+            tableView.deleteRowsAtIndexPaths([NSIndexPath(forRow: 2, inSection: 0)], withRowAnimation: .Automatic)
+        }*/
         tableView.endUpdates()
         
         let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as! PrayerCategoryCell

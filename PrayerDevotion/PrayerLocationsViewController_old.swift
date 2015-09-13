@@ -63,52 +63,6 @@ class PrayerLocationsViewController_old: UIViewController, CLLocationManagerDele
         super.didReceiveMemoryWarning()
     }
     
-    // MARK: BEGIN MAPKIT METHODS
-    
-    /*func showUserLocation(sender: AnyObject) {
-        if let coordinate = mapView.userLocation.location?.coordinate {
-            let region = MKCoordinateRegionMakeWithDistance(coordinate, 10000, 10000)
-            mapView.setRegion(region, animated: true)
-        }
-    }
-    
-    func segmentChanged(sender: AnyObject) {
-        let segmentedControl = sender as! UISegmentedControl
-        let selectedSegment = segmentedControl.selectedSegmentIndex
-        
-        if selectedSegment == 0 {
-            userLocationButton.enabled = false
-            mapView.showsUserLocation = false
-        } else {
-            userLocationButton.enabled = true
-            
-            if CLLocationManager.authorizationStatus() == .AuthorizedAlways {
-                println("Authorized")
-                mapView.showsUserLocation = true
-            } else {
-                if CLLocationManager.authorizationStatus() == .NotDetermined {
-                    var alert = UIAlertController(title: "Request Location Services", message: "This application includes location-based prayer alerts for users that like to be reminded of their prayers on the go. However, in order to use this, you must grant the application access to your location even when you are not using this app. Don't worry - your location will still remain on your own phone.", preferredStyle: .Alert)
-                    
-                    var notNowAction = UIAlertAction(title: "Not Now", style: .Default, handler: { alertAction in
-                        self.segmentedControl.selectedSegmentIndex = 0
-                    })
-                    alert.addAction(notNowAction)
-                    
-                    var authorizeAction = UIAlertAction(title: "Authorize", style: .Default, handler: { alertAction in
-                        self.locationManager.requestAlwaysAuthorization()
-                    })
-                    alert.addAction(authorizeAction)
-                    
-                    presentViewController(alert, animated: true, completion: nil)
-                } else {
-                    presentUnauthorizedAlert()
-                }
-            }
-        }
-    }*/
-    
-    // MARK: END MAPKIT METHODS
-    
     // MARK: Custom Methods
     
     func presentUnauthorizedAlert() {

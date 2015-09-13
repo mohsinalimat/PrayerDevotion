@@ -14,6 +14,10 @@ import CoreLocation
 import AddressBook
 import GoogleMaps
 
+protocol CreateLocationViewControllerDelegate {
+    func didFinishPickingLocation()
+}
+
 class CreateLocationViewController: UIViewController, UISearchResultsUpdating, UISearchBarDelegate, LocationSearchViewControllerDelegate, GMSMapViewDelegate {
     
     @IBOutlet weak var mapView: GMSMapView!
@@ -26,6 +30,8 @@ class CreateLocationViewController: UIViewController, UISearchResultsUpdating, U
     var selectedPrayer: PDPrayer!
     
     var searchResults = [CLPlacemark]()
+    
+    var previousSelectedPlace: PDLocation?
     var selectedPlace: GMSPlace?
     var existingLocations = [LocationMarker]()
     
@@ -35,7 +41,8 @@ class CreateLocationViewController: UIViewController, UISearchResultsUpdating, U
     let geocoder = CLGeocoder()
     let placesClient = GMSPlacesClient.sharedClient()
     
-    let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    var delegate: CreateLocationViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,7 +53,9 @@ class CreateLocationViewController: UIViewController, UISearchResultsUpdating, U
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        navigationController?.navigationBar.tintColor = delegate.themeTintColor
+        previousSelectedPlace = selectedPrayer.location
+        
+        navigationController?.navigationBar.tintColor = appDelegate.themeTintColor
         
         locationSearchVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("SBLocationSearchViewControllerID") as! LocationSearchViewController
         locationSearchVC.delegate = self
@@ -150,6 +159,19 @@ class CreateLocationViewController: UIViewController, UISearchResultsUpdating, U
             println("Unable to create location")
         }
         
+        if let prevPlace = previousSelectedPlace, let location = selectedPrayer.location {
+            if location != prevPlace {
+                let prayers = prevPlace.prayers.mutableCopy() as! NSMutableSet
+                prayers.removeObject(selectedPrayer)
+                prevPlace.prayers = prayers.copy() as! NSSet
+                
+                BaseStore.baseInstance.saveDatabase()
+                LocationStore.sharedInstance.checkLocationCountForDeletion(prevPlace)
+            }
+        }
+        
+        delegate?.didFinishPickingLocation()
+        
         dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -171,6 +193,8 @@ class CreateLocationViewController: UIViewController, UISearchResultsUpdating, U
             LocationStore.sharedInstance.checkLocationCountForDeletion(prayerLocation)
             
             selectedMarker?.map = nil
+            
+            LocationStore.sharedInstance.checkLocationCountForDeletion(prayerLocation)
         }
         
         selectedLocationLabel.hidden = true
@@ -288,6 +312,8 @@ class CreateLocationViewController: UIViewController, UISearchResultsUpdating, U
         
         var locationCam = GMSCameraPosition(target: selectedPlace!.coordinate, zoom: 9, bearing: 0, viewingAngle: 0)
         mapView.camera = locationCam
+        
+        navigationItem.rightBarButtonItem = saveButton
     }
     
     // MARK: Search Bar Delegate Methods

@@ -10,47 +10,71 @@ import Foundation
 import UIKit
 import MessageUI
 import PDKit
+import StoreKit
 
-class SettingsViewController: UITableViewController, UITableViewDataSource, MFMailComposeViewControllerDelegate {
+class SettingsViewController: UITableViewController, UITableViewDataSource, MFMailComposeViewControllerDelegate, PrayerDevotionStoreDelegate {
     
     @IBOutlet weak var colorLabel: UILabel!
-    @IBOutlet weak var colorView: UIView!
+    @IBOutlet weak var purchaseButton: UIButton!
     
+    @IBOutlet weak var colorView: UIView!
     @IBOutlet weak var verseView: UITextView!
     
     @IBOutlet weak var prayerDetailsAutoSwitch: UISwitch!
     
+    @IBOutlet weak var cell: ThemeColorCell_New!
+    
     let userDefaults = NSUserDefaults.standardUserDefaults()
     let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    let prayerStore = PrayerDevotionStore()
     
     var themeString: String!
+    
+    // MARK: StoreKit Variables
+    var transactionInProgress = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.rowHeight = 44.0
+        tableView.estimatedRowHeight = 44.0
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleURL:", name: "HandleURLNotification", object: nil)
+        prayerStore.requestProductInfo()
+        prayerStore.delegate = self
+        
+        purchaseButton.enabled = !delegate.didBuyAdditionalFeatures
+        let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 3))
+        
+        if delegate.didBuyAdditionalFeatures {
+            tableView.beginUpdates()
+            tableView.deleteRowsAtIndexPaths([NSIndexPath(forRow: 2, inSection: 3)], withRowAnimation: .None)
+            tableView.endUpdates()
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        themeString = NSUserDefaults.standardUserDefaults().stringForKey("themeBackgroundColor")!
-        
         navigationController!.navigationBar.tintColor = delegate.themeTintColor
         tableView.backgroundColor = delegate.themeBackgroundColor
-        let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 3)) as! ThemeColorCell
-        cell.color = delegate.themeBackgroundColor
+        tableView.separatorColor = delegate.themeBackgroundColor
         
-        colorLabel.text = "Theme Color: \(themeString)"
-        colorView.backgroundColor = themeString == "White" ? Color.TrueWhite : delegate.themeBackgroundColor
-        colorView.layer.borderColor = themeString == "White" ? UIColor.blackColor().CGColor : UIColor.clearColor().CGColor
-        colorView.layer.borderWidth = themeString == "White" ? 1 : 0
+        colorLabel.text = "Theme Color: \(delegate.themeColorString)"
+        
+        // Because TableView is static, not much memory should be used by retaining one cell in memory
+        cell.setThemeColor(delegate.themeBackgroundColor)
         
         verseView.textColor = delegate.themeTextColor
         
-        tableView.separatorColor = delegate.themeBackgroundColor
-        
         tableView.reloadData()
+
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        cell.setThemeColor(delegate.themeBackgroundColor)
     }
     
     override func didReceiveMemoryWarning() {
@@ -85,6 +109,14 @@ class SettingsViewController: UITableViewController, UITableViewDataSource, MFMa
         }
     }
     
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if delegate.didBuyAdditionalFeatures && indexPath.section == 3 && indexPath.row == 2 {
+            return 0
+        }
+        
+        return super.tableView(tableView, heightForRowAtIndexPath: indexPath)
+    }
+    
     // MARK: Custom Functions
     func createEmailMessage(type: String) {
         var emailTitle = ""
@@ -111,6 +143,14 @@ class SettingsViewController: UITableViewController, UITableViewDataSource, MFMa
         userDefaults.setBool(switchState, forKey: "openPrayerDetailsAuto")
     }
     
+    @IBAction func purchaseAdditionalFeatures(sender: AnyObject) {
+        prayerStore.askForAdditionalFeatures(false, completion: nil)
+    }
+    
+    @IBAction func restoreAdditionalFeatures(sender: AnyObject) {
+        prayerStore.restoreAdditionalFeatures()
+    }
+    
     // MARK: MailController Delegate Methods
     func mailComposeController(controller: MFMailComposeViewController!, didFinishWithResult result: MFMailComposeResult, error: NSError!) {
         switch result.value {
@@ -131,6 +171,16 @@ class SettingsViewController: UITableViewController, UITableViewDataSource, MFMa
         }
         
         dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    // MARK: PrayerDevotionStoreDelegate Methods
+    
+    func didPurchaseAdditionalFeatures() {
+        tableView.beginUpdates()
+        purchaseButton.enabled = !delegate.didBuyAdditionalFeatures
+        let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 3))
+        
+        tableView.endUpdates()
     }
     
     // MARK: Notifications

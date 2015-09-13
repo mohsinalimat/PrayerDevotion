@@ -27,6 +27,8 @@ class LocationPrayersViewController: UIViewController, UITableViewDelegate, UITa
     let dateFormatter = NSDateFormatter()
     let userPrefs = NSUserDefaults.standardUserDefaults()
     
+    var backViewController: PrayerLocationsViewController!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -55,6 +57,10 @@ class LocationPrayersViewController: UIViewController, UITableViewDelegate, UITa
         locationLabel.backgroundColor = delegate.themeBackgroundColor
         view.backgroundColor = delegate.themeBackgroundColor
         
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        navigationController?.popToViewController(backViewController, animated: true)
     }
     
     override func didReceiveMemoryWarning() {

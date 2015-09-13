@@ -72,10 +72,6 @@ class PrayerAnsweredNoteCell: UITableViewCell, UITextViewDelegate {
             tableView?.beginUpdates()
             tableView?.endUpdates()
             UIView.setAnimationsEnabled(true)
-            
-            if let thisIndexPath = tableView?.indexPathForCell(self) {
-                tableView?.scrollToRowAtIndexPath(thisIndexPath, atScrollPosition: .Bottom, animated: false)
-            }
         }
     }
     

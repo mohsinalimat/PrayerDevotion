@@ -11,7 +11,14 @@ import UIKit
 import QuartzCore
 import PDKit
 
+protocol AddPrayerDateCellDelegate {
+    func didAddPrayerDate(cell: AddPrayerDateCell)
+    func didCancelAddingPrayerDate(cell: AddPrayerDateCell)
+}
+
 class AddPrayerDateCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    var delegate: AddPrayerDateCellDelegate?
     
     var addDateLabel: UILabel!
     var dateLabel: UILabel!
@@ -23,7 +30,6 @@ class AddPrayerDateCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewData
     var weeklyButton: UIButton!
     
     var saveButton: UIButton!
-    //var cancelButton: UIButton!
     
     var currentPrayer: PDPrayer!
     
@@ -32,7 +38,7 @@ class AddPrayerDateCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewData
     var didAddDate: Bool = false
     var weekday: String?
     var dateToAdd: NSDate = NSDate()
-    
+
     let weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
     
     required init(coder aDecoder: NSCoder) {
@@ -60,7 +66,6 @@ class AddPrayerDateCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewData
         weeklyButton.addTarget(self, action: "didClickButton:", forControlEvents: .TouchDown)
         
         saveButton.addTarget(self, action: "didAddPrayerDate:", forControlEvents: .TouchDown)
-        //cancelButton.addTarget(self, action: "didCancelAddingDate:", forControlEvents: .TouchDown)
         
         datePicker.addTarget(self, action: "dateChanged:", forControlEvents: .ValueChanged)
         
@@ -84,19 +89,18 @@ class AddPrayerDateCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewData
             selectionStyle = .None
             saveButton.hidden = true
         } else {
+            // Set properties
             selectionStyle = didSelect == true ? .None : .Default
-            addDateLabel.textColor = (UIApplication.sharedApplication().delegate as! AppDelegate).themeTintColor
-        
-            let type = selectedPrayer.prayerType!
-        
+            isAddingDate = didSelect
+            
             // Format prayer type
-            var prayerType: PrayerType = PrayerStore.sharedInstance.stringToPrayerType(type)
-            selectedType = prayerType
+            selectedType = PrayerStore.sharedInstance.stringToPrayerType(selectedPrayer.prayerType!)
+            if selectedType == nil { selectedType = .None }
         
-            if selectedType == nil {
-                selectedType = .None
-            }
-        
+            // Formate date label
+            addDateLabel.textColor = (UIApplication.sharedApplication().delegate as! AppDelegate).themeTintColor
+            
+            // Format date
             switch selectedType! {
             case .OnDate:
                 let dateFormatter = NSDateFormatter()
@@ -112,73 +116,69 @@ class AddPrayerDateCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewData
                 didAddDate = selectedPrayer.isDateAdded
             
             case .Weekly:
+                // Get date components
                 let today = NSDate()
                 let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
                 let comps = calendar!.components(.CalendarUnitDay | .CalendarUnitWeekday, fromDate: today)
                 let day = comps.weekday
             
+                // Get pickerView row
                 let row = selectedPrayer.weekday == nil ? day - 1 : find(weekdays, selectedPrayer.weekday!)!
             
+                // Set pickerView row
                 weekdayPicker.selectRow(row, inComponent: 0, animated: false)
                 weekday = pickerView(weekdayPicker, titleForRow: row, forComponent: 0)
             
-                if let selectedWeekday = selectedPrayer.weekday {
-                    addDateLabel.text = "Prayer Repeating Every \(selectedWeekday)"
-                }
+                // Set properties
+                if let selectedWeekday = selectedPrayer.weekday { addDateLabel.text = "Prayer Repeating Every \(selectedWeekday)" }
                 didAddDate = selectedPrayer.isDateAdded
             
             default:
                 didAddDate = false
             }
         
-            if didAddDate == false {
-                addDateLabel.text = "Set Prayer Date"
-            }
-        
-            isAddingDate = didSelect
-        
+            if didAddDate == false { addDateLabel.text = "Set Prayer Date" }
+            
             // Now hide/show buttons as selected
             weekdayPicker.hidden = !(selectedType == .Weekly)
             datePicker.hidden = !(selectedType == .OnDate)
         
-            addDateLabel.hidden = didSelect
-            saveButton.hidden = !didSelect
-            /*if didSelect == true {
-                cancelButton.hidden = false
-                cancelButton.setTitle(didAddDate == true ? "Remove" : "Cancel", forState: .Normal)
-                cancelButton.addTarget(self, action: didAddDate == true ? "didRemoveDate:" : "didCancelAddingDate:", forControlEvents: .TouchDown)
-            } else {
-                cancelButton.hidden = true
-            }*/
+            // addDateLabel.hidden = didSelect
+            saveButton.hidden = true
         
             // Format buttons
             formatButton(onDateButton, didSelect: selectedType == .OnDate)
             formatButton(dailyButton, didSelect: selectedType == .Daily)
             formatButton(weeklyButton, didSelect: selectedType == .Weekly)
+            
+            savePrayerDate(!didSelect, shouldRefreshCell: false)
         
-            tableView?.scrollEnabled = !didSelect
+            // NOTE: I do not like calling tableView methods from within the cell itself...
+            // Set scroll enabled if user is not editing
+            //tableView?.scrollEnabled = !didSelect
         }
     }
     
     func didClickButton(sender: AnyObject) {
         tableView?.beginUpdates()
-        
         let button = sender as! UIButton
         let buttonTitle = button.titleLabel!.text
+        
+        refreshCell(true, selectedPrayer: currentPrayer)
         
         selectedType = PrayerStore.sharedInstance.stringToPrayerType(buttonTitle!)
         currentPrayer.prayerType = selectedType!.description
         
         if selectedType == .OnDate {
             datePicker.minimumDate = NSDate()
+            dateToAdd = datePicker.date
+        } else if selectedType == .Weekly {
+            
         }
         
-        //configureView()
-        refreshCell(true, selectedPrayer: currentPrayer)
-        
         tableView?.endUpdates()
-        
-        tableView?.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 4), atScrollPosition: .Bottom, animated: true)
+    
+        tableView?.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 2), atScrollPosition: .Bottom, animated: true)
     }
     
     func formatButton(button: UIButton, didSelect selected: Bool) {
@@ -192,8 +192,6 @@ class AddPrayerDateCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewData
     
     func didAddPrayerDate(sender: AnyObject) {
         if let type = selectedType {
-            tableView?.beginUpdates()
-            
             switch type {
             case .OnDate: PrayerStore.sharedInstance.addDateToPrayer(currentPrayer, prayerType: "On Date", date: dateToAdd, weekday: nil)
             case .Daily: PrayerStore.sharedInstance.addDateToPrayer(currentPrayer, prayerType: "Daily", date: nil, weekday: nil)
@@ -208,9 +206,32 @@ class AddPrayerDateCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewData
             selectionStyle = .Default
             
             refreshCell(false, selectedPrayer: currentPrayer)
-            tableView?.endUpdates()
             
-            tableView?.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 4), atScrollPosition: .Bottom, animated: true)
+            delegate?.didAddPrayerDate(self)
+        } else {
+            println("Error! Selected Type is nil!")
+        }
+    }
+    
+    func savePrayerDate(doneEditing: Bool, shouldRefreshCell: Bool) {
+        if let type = selectedType {
+            switch type {
+            case .OnDate: PrayerStore.sharedInstance.addDateToPrayer(currentPrayer, prayerType: "On Date", date: dateToAdd, weekday: nil)
+            case .Daily: PrayerStore.sharedInstance.addDateToPrayer(currentPrayer, prayerType: "Daily", date: nil, weekday: nil)
+            case .Weekly: if let weekday = weekday { PrayerStore.sharedInstance.addDateToPrayer(currentPrayer, prayerType: "Weekly", date: nil, weekday: weekday) }
+            default: break
+            }
+            
+            println("Current Prayer Type is: \(currentPrayer.prayerType)")
+            println("Current Prayer Date is: \(currentPrayer.addedDate)")
+            println("Current Prayer Weekday is \(currentPrayer.weekday)")
+            
+            selectionStyle = .Default
+            
+            // This is a safeguard to prevent a function-call loop
+            if shouldRefreshCell { refreshCell(!doneEditing, selectedPrayer: currentPrayer) }
+            
+            delegate?.didAddPrayerDate(self)
         } else {
             println("Error! Selected Type is nil!")
         }
@@ -222,17 +243,16 @@ class AddPrayerDateCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewData
         selectedType = .None
         addDateLabel.text = "Set Prayer Date"
         
-        tableView?.beginUpdates()
         refreshCell(false, selectedPrayer: currentPrayer)
-        tableView?.endUpdates()
+        delegate?.didCancelAddingPrayerDate(self)
     }
     
     func didCancelAddingDate(sender: AnyObject) {
         isAddingDate = false
         
-        tableView?.beginUpdates()
         refreshCell(false, selectedPrayer: currentPrayer)
-        tableView?.endUpdates()
+        
+        delegate?.didCancelAddingPrayerDate(self)
     }
     
     // MARK: UIPickerView Functions
@@ -251,6 +271,7 @@ class AddPrayerDateCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewData
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         weekday = weekdays[row]
+        //savePrayerDate(false)
     }
     
     // MARK: Dates
@@ -264,6 +285,8 @@ class AddPrayerDateCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewData
         dateToAdd = date
         
         println("Adding date: \(dateToAdd)")
+        
+        //savePrayerDate(false)
     }
     
 }

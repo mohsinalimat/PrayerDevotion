@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="15A204h" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -11,8 +11,9 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PD-1024.png" translatesAutoresizingMaskIntoConstraints="NO" id="I56-Vo-4rA">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PD_1024" translatesAutoresizingMaskIntoConstraints="NO" id="I56-Vo-4rA">
                     <rect key="frame" x="103" y="102" width="275" height="275"/>
+                    <animations/>
                     <constraints>
                         <constraint firstAttribute="height" constant="275" id="10g-5l-FEr"/>
                         <constraint firstAttribute="height" constant="275" id="KWs-GJ-tge"/>
@@ -28,6 +29,7 @@
                 </imageView>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PrayerDevotion" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="8ie-xW-0ye">
                     <rect key="frame" x="112" y="436" width="257" height="36"/>
+                    <animations/>
                     <constraints>
                         <constraint firstAttribute="height" constant="34" id="kNN-ui-BSd"/>
                         <constraint firstAttribute="width" constant="257" id="loZ-GD-Y7n"/>
@@ -41,7 +43,8 @@
                     </variation>
                 </label>
             </subviews>
-            <color key="backgroundColor" red="0.60000002379999995" green="0.40000000600000002" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
+            <animations/>
+            <color key="backgroundColor" red="0.47450980392156861" green="0.33333333333333331" blue="0.28235294117647058" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="8ie-xW-0ye" firstAttribute="top" secondItem="I56-Vo-4rA" secondAttribute="bottom" constant="59" id="1jz-Ft-GMK"/>
                 <constraint firstItem="8ie-xW-0ye" firstAttribute="centerX" secondItem="I56-Vo-4rA" secondAttribute="centerX" id="28U-6g-Aw5"/>
@@ -73,6 +76,6 @@
         </view>
     </objects>
     <resources>
-        <image name="PD-1024.png" width="1024" height="1024"/>
+        <image name="PD_1024" width="1024" height="1024"/>
     </resources>
 </document>

@@ -25,8 +25,10 @@
 		6110BFB01B8023B800C8A656 /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6110BFAF1B8023B800C8A656 /* GoogleMaps.framework */; };
 		6111EE461B2290E400767914 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6111EE451B2290E400767914 /* SettingsViewController.swift */; };
 		61139D451B8426F8009FED38 /* PrayerLocationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61139D441B8426F8009FED38 /* PrayerLocationsViewController.swift */; };
-		6113B8DF1B4AF1CE006D952F /* PD-1024.png in Resources */ = {isa = PBXBuildFile; fileRef = 6113B8DE1B4AF1CE006D952F /* PD-1024.png */; };
 		6116BE211B1EA9960018BB73 /* PrayerSearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6116BE201B1EA9960018BB73 /* PrayerSearchCell.swift */; };
+		611929DD1B8A79890024D343 /* ThemeColorCustomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 611929DC1B8A79890024D343 /* ThemeColorCustomViewController.swift */; };
+		6126F4121B9157E200C1661E /* PrayerDevotionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6126F4111B9157E200C1661E /* PrayerDevotionStore.swift */; };
+		6126F4141B9157F800C1661E /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6126F4131B9157F800C1661E /* StoreKit.framework */; };
 		6128D9441B61690F002F97D7 /* PDKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 618359671B60398400AEA7AE /* PDKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6128D9461B61699D002F97D7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6128D9451B61699D002F97D7 /* UIKit.framework */; };
 		6128D9471B616AD9002F97D7 /* PDKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61081BEA1B55FDB8002F1BF3 /* PDKit.framework */; };
@@ -40,10 +42,10 @@
 		61379DEE1B5D8BFB006AC0FF /* AnsweredPrayersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61379DED1B5D8BFB006AC0FF /* AnsweredPrayersViewController.swift */; };
 		6140204B1B729697001E837A /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6140204A1B729697001E837A /* MapKit.framework */; };
 		6140204D1B72994F001E837A /* PrayerLocationsViewController_old.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6140204C1B72994F001E837A /* PrayerLocationsViewController_old.swift */; };
-		614442BC1B23BE0700727245 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 614442BB1B23BE0700727245 /* Images.xcassets */; };
 		614442BE1B23DB8C00727245 /* AddPrayerDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614442BD1B23DB8C00727245 /* AddPrayerDateCell.swift */; };
 		614769C31B51AD9C000EE6C8 /* PrayerPriorityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614769C21B51AD9C000EE6C8 /* PrayerPriorityCell.swift */; };
 		614D375B1B73EB28002C4E43 /* CreateLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614D375A1B73EB28002C4E43 /* CreateLocationViewController.swift */; };
+		615343BA1B8EC246007C3E25 /* ThemeColorCell_New.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615343B91B8EC246007C3E25 /* ThemeColorCell_New.swift */; };
 		6153FCD91B1CD06400BF8105 /* PrayerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6153FCD81B1CD06400BF8105 /* PrayerCell.swift */; };
 		6156FDB11B82DBE000A3A66E /* LocationMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6156FDB01B82DBE000A3A66E /* LocationMarker.swift */; };
 		615922F51B5210A60088BB5F /* PrayerNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615922F41B5210A60088BB5F /* PrayerNameCell.swift */; };
@@ -63,6 +65,25 @@
 		6194817C1B5CAC5D00D00AB6 /* TodayPrayersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6194817B1B5CAC5D00D00AB6 /* TodayPrayersViewController.swift */; };
 		6194817E1B5CACCE00D00AB6 /* TodayPrayerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6194817D1B5CACCE00D00AB6 /* TodayPrayerCell.swift */; };
 		61994DB01B520135005220E6 /* TodayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61994DAF1B520135005220E6 /* TodayCell.swift */; };
+		61A62B3A1BA51DC500A05525 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 61A62B391BA51DC500A05525 /* Settings.bundle */; };
+		61C10D0D1B8AA4E20099F059 /* ANImageBitmapRep.m in Sources */ = {isa = PBXBuildFile; fileRef = 61C10CE71B8AA4E20099F059 /* ANImageBitmapRep.m */; };
+		61C10D0E1B8AA4E20099F059 /* BitmapContextRep.m in Sources */ = {isa = PBXBuildFile; fileRef = 61C10CE91B8AA4E20099F059 /* BitmapContextRep.m */; };
+		61C10D0F1B8AA4E20099F059 /* NSImage+ANImageBitmapRep.m in Sources */ = {isa = PBXBuildFile; fileRef = 61C10CEC1B8AA4E20099F059 /* NSImage+ANImageBitmapRep.m */; };
+		61C10D101B8AA4E20099F059 /* OSCommonImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 61C10CEE1B8AA4E20099F059 /* OSCommonImage.m */; };
+		61C10D111B8AA4E20099F059 /* UIImage+ANImageBitmapRep.m in Sources */ = {isa = PBXBuildFile; fileRef = 61C10CF01B8AA4E20099F059 /* UIImage+ANImageBitmapRep.m */; };
+		61C10D121B8AA4E20099F059 /* CGContextCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 61C10CF31B8AA4E20099F059 /* CGContextCreator.m */; };
+		61C10D131B8AA4E20099F059 /* CGImageContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 61C10CF51B8AA4E20099F059 /* CGImageContainer.m */; };
+		61C10D141B8AA4E20099F059 /* BitmapContextManipulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 61C10CF81B8AA4E20099F059 /* BitmapContextManipulator.m */; };
+		61C10D151B8AA4E20099F059 /* BitmapCropManipulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 61C10CFA1B8AA4E20099F059 /* BitmapCropManipulator.m */; };
+		61C10D161B8AA4E20099F059 /* BitmapDrawManipulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 61C10CFC1B8AA4E20099F059 /* BitmapDrawManipulator.m */; };
+		61C10D171B8AA4E20099F059 /* BitmapRotationManipulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 61C10CFE1B8AA4E20099F059 /* BitmapRotationManipulator.m */; };
+		61C10D181B8AA4E20099F059 /* BitmapScaleManipulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 61C10D001B8AA4E20099F059 /* BitmapScaleManipulator.m */; };
+		61C10D191B8AA4E20099F059 /* BGRSLoupeLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 61C10D021B8AA4E20099F059 /* BGRSLoupeLayer.m */; };
+		61C10D1A1B8AA4E20099F059 /* RSColorFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 61C10D041B8AA4E20099F059 /* RSColorFunctions.m */; };
+		61C10D1B1B8AA4E20099F059 /* RSColorPickerState.m in Sources */ = {isa = PBXBuildFile; fileRef = 61C10D061B8AA4E20099F059 /* RSColorPickerState.m */; };
+		61C10D1C1B8AA4E20099F059 /* RSColorPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 61C10D081B8AA4E20099F059 /* RSColorPickerView.m */; };
+		61C10D1D1B8AA4E20099F059 /* RSGenerateOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 61C10D0A1B8AA4E20099F059 /* RSGenerateOperation.m */; };
+		61C10D1E1B8AA4E20099F059 /* RSSelectionLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 61C10D0C1B8AA4E20099F059 /* RSSelectionLayer.m */; };
 		61C52CB11B56AFA200F3FB04 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61C52CB01B56AFA200F3FB04 /* NotificationCenter.framework */; };
 		61C52CB61B56AFA200F3FB04 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61C52CB51B56AFA200F3FB04 /* TodayViewController.swift */; };
 		61C52CB81B56AFA200F3FB04 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 61C52CB71B56AFA200F3FB04 /* MainInterface.storyboard */; };
@@ -71,6 +92,8 @@
 		61C612B21B641C050051F686 /* ThemeColorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61C612B11B641C050051F686 /* ThemeColorViewController.swift */; };
 		61C612B51B641D310051F686 /* ThemeColorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61C612B41B641D310051F686 /* ThemeColorCell.swift */; };
 		61CB0F3B1B57188E00343DD4 /* PrayerDevotion.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 61CB0F391B57188E00343DD4 /* PrayerDevotion.xcdatamodeld */; };
+		61D1D4231BA3970B00837A47 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 61D1D4221BA3970B00837A47 /* Images.xcassets */; };
+		61D1D4251BA39C3400837A47 /* AddPrayerDateCell_New.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D1D4241BA39C3400837A47 /* AddPrayerDateCell_New.swift */; };
 		61D4213B1B47242F0039BD7F /* CreatePrayerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D4213A1B47242F0039BD7F /* CreatePrayerCell.swift */; };
 		61D4213D1B4724610039BD7F /* PrayerDetailsExtendedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D4213C1B4724610039BD7F /* PrayerDetailsExtendedCell.swift */; };
 		61D421411B4724BA0039BD7F /* PrayerAnsweredCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D421401B4724BA0039BD7F /* PrayerAnsweredCell.swift */; };
@@ -87,7 +110,10 @@
 		61E049721B801B0100A5CB9A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61E049711B801B0100A5CB9A /* OpenGLES.framework */; };
 		61E049741B801B0500A5CB9A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61E049731B801B0500A5CB9A /* QuartzCore.framework */; };
 		61E049761B801B0B00A5CB9A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61E049751B801B0B00A5CB9A /* SystemConfiguration.framework */; };
+		61F099DE1BA52AB40062EB6A /* license_script.pl in Resources */ = {isa = PBXBuildFile; fileRef = 61F099DC1BA52AB40062EB6A /* license_script.pl */; };
+		61F099DF1BA52AB40062EB6A /* RMStore.license in Resources */ = {isa = PBXBuildFile; fileRef = 61F099DD1BA52AB40062EB6A /* RMStore.license */; };
 		61F0C4B71B1D560E00E4C40A /* AddPrayerAlertCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F0C4B61B1D560E00E4C40A /* AddPrayerAlertCell.swift */; };
+		61F36D831B8C1C8800B51B9A /* RSBrightnessSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 61F36D821B8C1C8800B51B9A /* RSBrightnessSlider.m */; };
 		61F540B11B03CFDF0072BA6F /* PersonalPrayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F540B01B03CFDF0072BA6F /* PersonalPrayerViewController.swift */; };
 		61F540B51B03DC730072BA6F /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F540B41B03DC730072BA6F /* CategoryCell.swift */; };
 		61FB19941B4C7C5C0068A71C /* PrayerDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FB19931B4C7C5C0068A71C /* PrayerDetailsViewController.swift */; };
@@ -179,7 +205,10 @@
 		61139D441B8426F8009FED38 /* PrayerLocationsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerLocationsViewController.swift; sourceTree = "<group>"; };
 		6113B8DE1B4AF1CE006D952F /* PD-1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PD-1024.png"; sourceTree = "<group>"; };
 		6116BE201B1EA9960018BB73 /* PrayerSearchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerSearchCell.swift; sourceTree = "<group>"; };
+		611929DC1B8A79890024D343 /* ThemeColorCustomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeColorCustomViewController.swift; sourceTree = "<group>"; };
 		6122CB181B729C7D007C2F81 /* PrayerDevotion 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "PrayerDevotion 4.xcdatamodel"; sourceTree = "<group>"; };
+		6126F4111B9157E200C1661E /* PrayerDevotionStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerDevotionStore.swift; sourceTree = "<group>"; };
+		6126F4131B9157F800C1661E /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		6128D9451B61699D002F97D7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		61293E051B013602005B7267 /* PrayerDevotion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PrayerDevotion.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		61293E091B013602005B7267 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -195,12 +224,12 @@
 		61379DED1B5D8BFB006AC0FF /* AnsweredPrayersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnsweredPrayersViewController.swift; sourceTree = "<group>"; };
 		6140204A1B729697001E837A /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		6140204C1B72994F001E837A /* PrayerLocationsViewController_old.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerLocationsViewController_old.swift; sourceTree = "<group>"; };
-		614442BB1B23BE0700727245 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		614442BD1B23DB8C00727245 /* AddPrayerDateCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPrayerDateCell.swift; sourceTree = "<group>"; };
 		614769C21B51AD9C000EE6C8 /* PrayerPriorityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerPriorityCell.swift; sourceTree = "<group>"; };
 		61478CC21B582A6A00F0775F /* PrayerDevotion 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "PrayerDevotion 2.xcdatamodel"; sourceTree = "<group>"; };
 		614C98801B6FF1D600667C64 /* PrayerDevotion 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "PrayerDevotion 3.xcdatamodel"; sourceTree = "<group>"; };
 		614D375A1B73EB28002C4E43 /* CreateLocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateLocationViewController.swift; sourceTree = "<group>"; };
+		615343B91B8EC246007C3E25 /* ThemeColorCell_New.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeColorCell_New.swift; sourceTree = "<group>"; };
 		6153FCD81B1CD06400BF8105 /* PrayerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerCell.swift; sourceTree = "<group>"; };
 		6156FDB01B82DBE000A3A66E /* LocationMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationMarker.swift; sourceTree = "<group>"; };
 		615922F41B5210A60088BB5F /* PrayerNameCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerNameCell.swift; sourceTree = "<group>"; };
@@ -222,6 +251,43 @@
 		6194817B1B5CAC5D00D00AB6 /* TodayPrayersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodayPrayersViewController.swift; sourceTree = "<group>"; };
 		6194817D1B5CACCE00D00AB6 /* TodayPrayerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodayPrayerCell.swift; sourceTree = "<group>"; };
 		61994DAF1B520135005220E6 /* TodayCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodayCell.swift; sourceTree = "<group>"; };
+		61A62B391BA51DC500A05525 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		61C10CE61B8AA4E20099F059 /* ANImageBitmapRep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANImageBitmapRep.h; sourceTree = "<group>"; };
+		61C10CE71B8AA4E20099F059 /* ANImageBitmapRep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANImageBitmapRep.m; sourceTree = "<group>"; };
+		61C10CE81B8AA4E20099F059 /* BitmapContextRep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BitmapContextRep.h; sourceTree = "<group>"; };
+		61C10CE91B8AA4E20099F059 /* BitmapContextRep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BitmapContextRep.m; sourceTree = "<group>"; };
+		61C10CEB1B8AA4E20099F059 /* NSImage+ANImageBitmapRep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSImage+ANImageBitmapRep.h"; sourceTree = "<group>"; };
+		61C10CEC1B8AA4E20099F059 /* NSImage+ANImageBitmapRep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSImage+ANImageBitmapRep.m"; sourceTree = "<group>"; };
+		61C10CED1B8AA4E20099F059 /* OSCommonImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSCommonImage.h; sourceTree = "<group>"; };
+		61C10CEE1B8AA4E20099F059 /* OSCommonImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSCommonImage.m; sourceTree = "<group>"; };
+		61C10CEF1B8AA4E20099F059 /* UIImage+ANImageBitmapRep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ANImageBitmapRep.h"; sourceTree = "<group>"; };
+		61C10CF01B8AA4E20099F059 /* UIImage+ANImageBitmapRep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ANImageBitmapRep.m"; sourceTree = "<group>"; };
+		61C10CF21B8AA4E20099F059 /* CGContextCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGContextCreator.h; sourceTree = "<group>"; };
+		61C10CF31B8AA4E20099F059 /* CGContextCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGContextCreator.m; sourceTree = "<group>"; };
+		61C10CF41B8AA4E20099F059 /* CGImageContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGImageContainer.h; sourceTree = "<group>"; };
+		61C10CF51B8AA4E20099F059 /* CGImageContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGImageContainer.m; sourceTree = "<group>"; };
+		61C10CF71B8AA4E20099F059 /* BitmapContextManipulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BitmapContextManipulator.h; sourceTree = "<group>"; };
+		61C10CF81B8AA4E20099F059 /* BitmapContextManipulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BitmapContextManipulator.m; sourceTree = "<group>"; };
+		61C10CF91B8AA4E20099F059 /* BitmapCropManipulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BitmapCropManipulator.h; sourceTree = "<group>"; };
+		61C10CFA1B8AA4E20099F059 /* BitmapCropManipulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BitmapCropManipulator.m; sourceTree = "<group>"; };
+		61C10CFB1B8AA4E20099F059 /* BitmapDrawManipulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BitmapDrawManipulator.h; sourceTree = "<group>"; };
+		61C10CFC1B8AA4E20099F059 /* BitmapDrawManipulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BitmapDrawManipulator.m; sourceTree = "<group>"; };
+		61C10CFD1B8AA4E20099F059 /* BitmapRotationManipulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BitmapRotationManipulator.h; sourceTree = "<group>"; };
+		61C10CFE1B8AA4E20099F059 /* BitmapRotationManipulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BitmapRotationManipulator.m; sourceTree = "<group>"; };
+		61C10CFF1B8AA4E20099F059 /* BitmapScaleManipulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BitmapScaleManipulator.h; sourceTree = "<group>"; };
+		61C10D001B8AA4E20099F059 /* BitmapScaleManipulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BitmapScaleManipulator.m; sourceTree = "<group>"; };
+		61C10D011B8AA4E20099F059 /* BGRSLoupeLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BGRSLoupeLayer.h; sourceTree = "<group>"; };
+		61C10D021B8AA4E20099F059 /* BGRSLoupeLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BGRSLoupeLayer.m; sourceTree = "<group>"; };
+		61C10D031B8AA4E20099F059 /* RSColorFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSColorFunctions.h; sourceTree = "<group>"; };
+		61C10D041B8AA4E20099F059 /* RSColorFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSColorFunctions.m; sourceTree = "<group>"; };
+		61C10D051B8AA4E20099F059 /* RSColorPickerState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSColorPickerState.h; sourceTree = "<group>"; };
+		61C10D061B8AA4E20099F059 /* RSColorPickerState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSColorPickerState.m; sourceTree = "<group>"; };
+		61C10D071B8AA4E20099F059 /* RSColorPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSColorPickerView.h; sourceTree = "<group>"; };
+		61C10D081B8AA4E20099F059 /* RSColorPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSColorPickerView.m; sourceTree = "<group>"; };
+		61C10D091B8AA4E20099F059 /* RSGenerateOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSGenerateOperation.h; sourceTree = "<group>"; };
+		61C10D0A1B8AA4E20099F059 /* RSGenerateOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSGenerateOperation.m; sourceTree = "<group>"; };
+		61C10D0B1B8AA4E20099F059 /* RSSelectionLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSSelectionLayer.h; sourceTree = "<group>"; };
+		61C10D0C1B8AA4E20099F059 /* RSSelectionLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSSelectionLayer.m; sourceTree = "<group>"; };
 		61C52CAE1B56AFA200F3FB04 /* PDTodayWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PDTodayWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		61C52CB01B56AFA200F3FB04 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		61C52CB41B56AFA200F3FB04 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -234,6 +300,8 @@
 		61CB0F3C1B571EAD00343DD4 /* PDTodayWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PDTodayWidget.entitlements; sourceTree = "<group>"; };
 		61CB0F3D1B571EBE00343DD4 /* PrayerDevotion.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrayerDevotion.entitlements; sourceTree = "<group>"; };
 		61CCE8BB1B55F92900CDBD97 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
+		61D1D4221BA3970B00837A47 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		61D1D4241BA39C3400837A47 /* AddPrayerDateCell_New.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPrayerDateCell_New.swift; sourceTree = "<group>"; };
 		61D4213A1B47242F0039BD7F /* CreatePrayerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePrayerCell.swift; sourceTree = "<group>"; };
 		61D4213C1B4724610039BD7F /* PrayerDetailsExtendedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerDetailsExtendedCell.swift; sourceTree = "<group>"; };
 		61D421401B4724BA0039BD7F /* PrayerAnsweredCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerAnsweredCell.swift; sourceTree = "<group>"; };
@@ -251,7 +319,11 @@
 		61E049711B801B0100A5CB9A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		61E049731B801B0500A5CB9A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		61E049751B801B0B00A5CB9A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		61F099DC1BA52AB40062EB6A /* license_script.pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; name = license_script.pl; path = Resources/Licenses/license_script.pl; sourceTree = "<group>"; };
+		61F099DD1BA52AB40062EB6A /* RMStore.license */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = RMStore.license; path = Resources/Licenses/RMStore.license; sourceTree = "<group>"; };
 		61F0C4B61B1D560E00E4C40A /* AddPrayerAlertCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPrayerAlertCell.swift; sourceTree = "<group>"; };
+		61F36D811B8C1C8800B51B9A /* RSBrightnessSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSBrightnessSlider.h; sourceTree = "<group>"; };
+		61F36D821B8C1C8800B51B9A /* RSBrightnessSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSBrightnessSlider.m; sourceTree = "<group>"; };
 		61F540B01B03CFDF0072BA6F /* PersonalPrayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalPrayerViewController.swift; sourceTree = "<group>"; };
 		61F540B41B03DC730072BA6F /* CategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		61FB19931B4C7C5C0068A71C /* PrayerDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerDetailsViewController.swift; sourceTree = "<group>"; };
@@ -293,6 +365,7 @@
 				61E049621B801AD600A5CB9A /* CoreData.framework in Frameworks */,
 				61E049601B801ACE00A5CB9A /* AVFoundation.framework in Frameworks */,
 				6140204B1B729697001E837A /* MapKit.framework in Frameworks */,
+				6126F4141B9157F800C1661E /* StoreKit.framework in Frameworks */,
 				61081C011B55FDB8002F1BF3 /* PDKit.framework in Frameworks */,
 				40CE016C9E7BD3990DBEE698 /* Pods_PrayerDevotion.framework in Frameworks */,
 			);
@@ -414,8 +487,9 @@
 				617213F61B62C421004B45F9 /* Additional Files */,
 				617213F51B62C40F004B45F9 /* View Controllers */,
 				61F540B21B03DC620072BA6F /* Views */,
+				61C10CE41B8AA4E20099F059 /* ColorPickerClasses */,
 				61293E111B013602005B7267 /* Main.storyboard */,
-				614442BB1B23BE0700727245 /* Images.xcassets */,
+				61D1D4221BA3970B00837A47 /* Images.xcassets */,
 				61293E161B013602005B7267 /* LaunchScreen.xib */,
 				61293E0C1B013602005B7267 /* PrayerDevotion.xcdatamodeld */,
 				61293E081B013602005B7267 /* Supporting Files */,
@@ -426,6 +500,8 @@
 		61293E081B013602005B7267 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				61A62B3B1BA51EA200A05525 /* Licenses */,
+				61A62B391BA51DC500A05525 /* Settings.bundle */,
 				61DDA5481B7942E2002E6590 /* PrayerDevotion-Bridging-Header.h */,
 				61CB0F3D1B571EBE00343DD4 /* PrayerDevotion.entitlements */,
 				6113B8DE1B4AF1CE006D952F /* PD-1024.png */,
@@ -451,6 +527,66 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		613227D81BA21EEE00C82ACB /* Today Prayers */ = {
+			isa = PBXGroup;
+			children = (
+				6194817B1B5CAC5D00D00AB6 /* TodayPrayersViewController.swift */,
+			);
+			name = "Today Prayers";
+			sourceTree = "<group>";
+		};
+		613227D91BA21EF300C82ACB /* Categories & Prayers */ = {
+			isa = PBXGroup;
+			children = (
+				613227DB1BA21F0400C82ACB /* Categories */,
+				613227DC1BA21F0B00C82ACB /* Prayers */,
+			);
+			name = "Categories & Prayers";
+			sourceTree = "<group>";
+		};
+		613227DA1BA21EF800C82ACB /* Locations */ = {
+			isa = PBXGroup;
+			children = (
+				6140204C1B72994F001E837A /* PrayerLocationsViewController_old.swift */,
+				61139D441B8426F8009FED38 /* PrayerLocationsViewController.swift */,
+				614D375A1B73EB28002C4E43 /* CreateLocationViewController.swift */,
+				6182BCCD1B74690700630C6F /* LocationSearchViewController.swift */,
+				615A175E1B896718009F7D62 /* LocationPrayersViewController.swift */,
+			);
+			name = Locations;
+			sourceTree = "<group>";
+		};
+		613227DB1BA21F0400C82ACB /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				61293E0F1B013602005B7267 /* CategoriesViewController.swift */,
+				6102E38A1B093076005D3EC9 /* EditCategoriesViewController.swift */,
+				612DD0751B1D1E950086765C /* MovePrayersViewController.swift */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
+		613227DC1BA21F0B00C82ACB /* Prayers */ = {
+			isa = PBXGroup;
+			children = (
+				61F540B01B03CFDF0072BA6F /* PersonalPrayerViewController.swift */,
+				61379DED1B5D8BFB006AC0FF /* AnsweredPrayersViewController.swift */,
+				615BF62B1B1924B1002A8731 /* PrayerSearchViewController.swift */,
+				61FB19931B4C7C5C0068A71C /* PrayerDetailsViewController.swift */,
+			);
+			name = Prayers;
+			sourceTree = "<group>";
+		};
+		613227DD1BA21F1800C82ACB /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				6111EE451B2290E400767914 /* SettingsViewController.swift */,
+				61C612B11B641C050051F686 /* ThemeColorViewController.swift */,
+				611929DC1B8A79890024D343 /* ThemeColorCustomViewController.swift */,
+			);
+			name = Settings;
+			sourceTree = "<group>";
+		};
 		6156FDAF1B82DBC300A3A66E /* Google Markers */ = {
 			isa = PBXGroup;
 			children = (
@@ -472,21 +608,10 @@
 		617213F51B62C40F004B45F9 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				6194817B1B5CAC5D00D00AB6 /* TodayPrayersViewController.swift */,
-				61293E0F1B013602005B7267 /* CategoriesViewController.swift */,
-				6102E38A1B093076005D3EC9 /* EditCategoriesViewController.swift */,
-				612DD0751B1D1E950086765C /* MovePrayersViewController.swift */,
-				61F540B01B03CFDF0072BA6F /* PersonalPrayerViewController.swift */,
-				61379DED1B5D8BFB006AC0FF /* AnsweredPrayersViewController.swift */,
-				615BF62B1B1924B1002A8731 /* PrayerSearchViewController.swift */,
-				61FB19931B4C7C5C0068A71C /* PrayerDetailsViewController.swift */,
-				6111EE451B2290E400767914 /* SettingsViewController.swift */,
-				61C612B11B641C050051F686 /* ThemeColorViewController.swift */,
-				6140204C1B72994F001E837A /* PrayerLocationsViewController_old.swift */,
-				61139D441B8426F8009FED38 /* PrayerLocationsViewController.swift */,
-				614D375A1B73EB28002C4E43 /* CreateLocationViewController.swift */,
-				6182BCCD1B74690700630C6F /* LocationSearchViewController.swift */,
-				615A175E1B896718009F7D62 /* LocationPrayersViewController.swift */,
+				613227D81BA21EEE00C82ACB /* Today Prayers */,
+				613227D91BA21EF300C82ACB /* Categories & Prayers */,
+				613227DA1BA21EF800C82ACB /* Locations */,
+				613227DD1BA21F1800C82ACB /* Settings */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -496,13 +621,101 @@
 			children = (
 				6166A5551B5F024100C55CD3 /* Constants.swift */,
 				617213F31B62C40D004B45F9 /* Color.swift */,
+				6126F4111B9157E200C1661E /* PrayerDevotionStore.swift */,
 			);
 			name = "Additional Files";
+			sourceTree = "<group>";
+		};
+		61A62B3B1BA51EA200A05525 /* Licenses */ = {
+			isa = PBXGroup;
+			children = (
+				61F099DC1BA52AB40062EB6A /* license_script.pl */,
+				61F099DD1BA52AB40062EB6A /* RMStore.license */,
+			);
+			name = Licenses;
+			sourceTree = "<group>";
+		};
+		61C10CE41B8AA4E20099F059 /* ColorPickerClasses */ = {
+			isa = PBXGroup;
+			children = (
+				61C10CE51B8AA4E20099F059 /* ANImageBitmapRep */,
+				61C10D011B8AA4E20099F059 /* BGRSLoupeLayer.h */,
+				61C10D021B8AA4E20099F059 /* BGRSLoupeLayer.m */,
+				61F36D811B8C1C8800B51B9A /* RSBrightnessSlider.h */,
+				61F36D821B8C1C8800B51B9A /* RSBrightnessSlider.m */,
+				61C10D031B8AA4E20099F059 /* RSColorFunctions.h */,
+				61C10D041B8AA4E20099F059 /* RSColorFunctions.m */,
+				61C10D051B8AA4E20099F059 /* RSColorPickerState.h */,
+				61C10D061B8AA4E20099F059 /* RSColorPickerState.m */,
+				61C10D071B8AA4E20099F059 /* RSColorPickerView.h */,
+				61C10D081B8AA4E20099F059 /* RSColorPickerView.m */,
+				61C10D091B8AA4E20099F059 /* RSGenerateOperation.h */,
+				61C10D0A1B8AA4E20099F059 /* RSGenerateOperation.m */,
+				61C10D0B1B8AA4E20099F059 /* RSSelectionLayer.h */,
+				61C10D0C1B8AA4E20099F059 /* RSSelectionLayer.m */,
+			);
+			path = ColorPickerClasses;
+			sourceTree = "<group>";
+		};
+		61C10CE51B8AA4E20099F059 /* ANImageBitmapRep */ = {
+			isa = PBXGroup;
+			children = (
+				61C10CE61B8AA4E20099F059 /* ANImageBitmapRep.h */,
+				61C10CE71B8AA4E20099F059 /* ANImageBitmapRep.m */,
+				61C10CE81B8AA4E20099F059 /* BitmapContextRep.h */,
+				61C10CE91B8AA4E20099F059 /* BitmapContextRep.m */,
+				61C10CEA1B8AA4E20099F059 /* Compatibility */,
+				61C10CF11B8AA4E20099F059 /* CoreGraphics */,
+				61C10CF61B8AA4E20099F059 /* Manipulators */,
+			);
+			path = ANImageBitmapRep;
+			sourceTree = "<group>";
+		};
+		61C10CEA1B8AA4E20099F059 /* Compatibility */ = {
+			isa = PBXGroup;
+			children = (
+				61C10CEB1B8AA4E20099F059 /* NSImage+ANImageBitmapRep.h */,
+				61C10CEC1B8AA4E20099F059 /* NSImage+ANImageBitmapRep.m */,
+				61C10CED1B8AA4E20099F059 /* OSCommonImage.h */,
+				61C10CEE1B8AA4E20099F059 /* OSCommonImage.m */,
+				61C10CEF1B8AA4E20099F059 /* UIImage+ANImageBitmapRep.h */,
+				61C10CF01B8AA4E20099F059 /* UIImage+ANImageBitmapRep.m */,
+			);
+			path = Compatibility;
+			sourceTree = "<group>";
+		};
+		61C10CF11B8AA4E20099F059 /* CoreGraphics */ = {
+			isa = PBXGroup;
+			children = (
+				61C10CF21B8AA4E20099F059 /* CGContextCreator.h */,
+				61C10CF31B8AA4E20099F059 /* CGContextCreator.m */,
+				61C10CF41B8AA4E20099F059 /* CGImageContainer.h */,
+				61C10CF51B8AA4E20099F059 /* CGImageContainer.m */,
+			);
+			path = CoreGraphics;
+			sourceTree = "<group>";
+		};
+		61C10CF61B8AA4E20099F059 /* Manipulators */ = {
+			isa = PBXGroup;
+			children = (
+				61C10CF71B8AA4E20099F059 /* BitmapContextManipulator.h */,
+				61C10CF81B8AA4E20099F059 /* BitmapContextManipulator.m */,
+				61C10CF91B8AA4E20099F059 /* BitmapCropManipulator.h */,
+				61C10CFA1B8AA4E20099F059 /* BitmapCropManipulator.m */,
+				61C10CFB1B8AA4E20099F059 /* BitmapDrawManipulator.h */,
+				61C10CFC1B8AA4E20099F059 /* BitmapDrawManipulator.m */,
+				61C10CFD1B8AA4E20099F059 /* BitmapRotationManipulator.h */,
+				61C10CFE1B8AA4E20099F059 /* BitmapRotationManipulator.m */,
+				61C10CFF1B8AA4E20099F059 /* BitmapScaleManipulator.h */,
+				61C10D001B8AA4E20099F059 /* BitmapScaleManipulator.m */,
+			);
+			path = Manipulators;
 			sourceTree = "<group>";
 		};
 		61C52CAF1B56AFA200F3FB04 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6126F4131B9157F800C1661E /* StoreKit.framework */,
 				6110BFB11B8023D100C8A656 /* GoogleMaps.bundle */,
 				6110BFAF1B8023B800C8A656 /* GoogleMaps.framework */,
 				61E049751B801B0B00A5CB9A /* SystemConfiguration.framework */,
@@ -549,6 +762,7 @@
 			isa = PBXGroup;
 			children = (
 				61C612B41B641D310051F686 /* ThemeColorCell.swift */,
+				615343B91B8EC246007C3E25 /* ThemeColorCell_New.swift */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -566,6 +780,7 @@
 			children = (
 				61F0C4B61B1D560E00E4C40A /* AddPrayerAlertCell.swift */,
 				614442BD1B23DB8C00727245 /* AddPrayerDateCell.swift */,
+				61D1D4241BA39C3400837A47 /* AddPrayerDateCell_New.swift */,
 				61D4213A1B47242F0039BD7F /* CreatePrayerCell.swift */,
 				6167D6CE1B1BF41900BB8BA2 /* PrayerAlertCell.swift */,
 				61D421401B4724BA0039BD7F /* PrayerAnsweredCell.swift */,
@@ -667,9 +882,10 @@
 			buildConfigurationList = 61293E271B013602005B7267 /* Build configuration list for PBXNativeTarget "PrayerDevotion" */;
 			buildPhases = (
 				7009F5AB97673B9F926B77F0 /* Check Pods Manifest.lock */,
+				61A62B3D1BA5219500A05525 /* Add Licenses */,
 				61293E011B013602005B7267 /* Sources */,
-				61293E021B013602005B7267 /* Frameworks */,
 				61293E031B013602005B7267 /* Resources */,
+				61293E021B013602005B7267 /* Frameworks */,
 				61CCE8B71B55F8BF00CDBD97 /* Embed Frameworks */,
 				61C52CBF1B56AFA200F3FB04 /* Embed App Extensions */,
 				6303FE018D2876252225A285 /* Embed Pods Frameworks */,
@@ -748,6 +964,9 @@
 							com.apple.BackgroundModes = {
 								enabled = 0;
 							};
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
 							com.apple.Maps.iOS = {
 								enabled = 1;
 							};
@@ -815,10 +1034,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				61F099DF1BA52AB40062EB6A /* RMStore.license in Resources */,
 				61750D4D1B855CC300E7F7B2 /* LocationInfoView.xib in Resources */,
-				614442BC1B23BE0700727245 /* Images.xcassets in Resources */,
 				61293E131B013602005B7267 /* Main.storyboard in Resources */,
-				6113B8DF1B4AF1CE006D952F /* PD-1024.png in Resources */,
+				61F099DE1BA52AB40062EB6A /* license_script.pl in Resources */,
+				61A62B3A1BA51DC500A05525 /* Settings.bundle in Resources */,
+				61D1D4231BA3970B00837A47 /* Images.xcassets in Resources */,
 				61293E181B013602005B7267 /* LaunchScreen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -841,6 +1062,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		61A62B3D1BA5219500A05525 /* Add Licenses */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Add Licenses";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd /Users/jonathanhart/iOS\\ Applications/PrayerDevotion/PrayerDevotion/PrayerDevotion/Resources/Licenses/\n/usr/bin/perl -w license_script.pl";
+		};
 		6303FE018D2876252225A285 /* Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -933,32 +1168,55 @@
 				61D421431B4724D50039BD7F /* PrayerAnsweredNotesCell.swift in Sources */,
 				61FB19941B4C7C5C0068A71C /* PrayerDetailsViewController.swift in Sources */,
 				6167D6CF1B1BF41900BB8BA2 /* PrayerAlertCell.swift in Sources */,
+				61C10D101B8AA4E20099F059 /* OSCommonImage.m in Sources */,
 				615BF62C1B1924B1002A8731 /* PrayerSearchViewController.swift in Sources */,
 				6111EE461B2290E400767914 /* SettingsViewController.swift in Sources */,
+				61C10D0F1B8AA4E20099F059 /* NSImage+ANImageBitmapRep.m in Sources */,
 				617213F41B62C40D004B45F9 /* Color.swift in Sources */,
+				61C10D1C1B8AA4E20099F059 /* RSColorPickerView.m in Sources */,
 				61D421411B4724BA0039BD7F /* PrayerAnsweredCell.swift in Sources */,
+				61C10D161B8AA4E20099F059 /* BitmapDrawManipulator.m in Sources */,
+				61F36D831B8C1C8800B51B9A /* RSBrightnessSlider.m in Sources */,
 				6184764B1B5896BD00081E8B /* PrayerCategoryCell.swift in Sources */,
 				614D375B1B73EB28002C4E43 /* CreateLocationViewController.swift in Sources */,
 				61F540B51B03DC730072BA6F /* CategoryCell.swift in Sources */,
 				6156FDB11B82DBE000A3A66E /* LocationMarker.swift in Sources */,
+				61C10D171B8AA4E20099F059 /* BitmapRotationManipulator.m in Sources */,
 				61139D451B8426F8009FED38 /* PrayerLocationsViewController.swift in Sources */,
+				61C10D131B8AA4E20099F059 /* CGImageContainer.m in Sources */,
 				61F0C4B71B1D560E00E4C40A /* AddPrayerAlertCell.swift in Sources */,
 				615A175F1B896718009F7D62 /* LocationPrayersViewController.swift in Sources */,
+				61C10D1B1B8AA4E20099F059 /* RSColorPickerState.m in Sources */,
 				614442BE1B23DB8C00727245 /* AddPrayerDateCell.swift in Sources */,
+				61C10D141B8AA4E20099F059 /* BitmapContextManipulator.m in Sources */,
 				612DD0761B1D1E950086765C /* MovePrayersViewController.swift in Sources */,
+				615343BA1B8EC246007C3E25 /* ThemeColorCell_New.swift in Sources */,
+				61C10D1D1B8AA4E20099F059 /* RSGenerateOperation.m in Sources */,
 				6194817C1B5CAC5D00D00AB6 /* TodayPrayersViewController.swift in Sources */,
+				61C10D181B8AA4E20099F059 /* BitmapScaleManipulator.m in Sources */,
 				61C612B21B641C050051F686 /* ThemeColorViewController.swift in Sources */,
+				61C10D151B8AA4E20099F059 /* BitmapCropManipulator.m in Sources */,
+				61C10D0D1B8AA4E20099F059 /* ANImageBitmapRep.m in Sources */,
 				61293E0B1B013602005B7267 /* AppDelegate.swift in Sources */,
 				61D4213D1B4724610039BD7F /* PrayerDetailsExtendedCell.swift in Sources */,
 				6153FCD91B1CD06400BF8105 /* PrayerCell.swift in Sources */,
 				61994DB01B520135005220E6 /* TodayCell.swift in Sources */,
+				61C10D121B8AA4E20099F059 /* CGContextCreator.m in Sources */,
 				61F540B11B03CFDF0072BA6F /* PersonalPrayerViewController.swift in Sources */,
 				6194817E1B5CACCE00D00AB6 /* TodayPrayerCell.swift in Sources */,
 				6116BE211B1EA9960018BB73 /* PrayerSearchCell.swift in Sources */,
+				61C10D1E1B8AA4E20099F059 /* RSSelectionLayer.m in Sources */,
+				611929DD1B8A79890024D343 /* ThemeColorCustomViewController.swift in Sources */,
 				6182BCCE1B74690700630C6F /* LocationSearchViewController.swift in Sources */,
+				6126F4121B9157E200C1661E /* PrayerDevotionStore.swift in Sources */,
+				61C10D111B8AA4E20099F059 /* UIImage+ANImageBitmapRep.m in Sources */,
+				61C10D1A1B8AA4E20099F059 /* RSColorFunctions.m in Sources */,
+				61C10D0E1B8AA4E20099F059 /* BitmapContextRep.m in Sources */,
+				61D1D4251BA39C3400837A47 /* AddPrayerDateCell_New.swift in Sources */,
 				61D4213B1B47242F0039BD7F /* CreatePrayerCell.swift in Sources */,
 				61750D4B1B855C9F00E7F7B2 /* LocationInfoView.swift in Sources */,
 				616C80C61B658DFD00C91428 /* ShadowLabel.swift in Sources */,
+				61C10D191B8AA4E20099F059 /* BGRSLoupeLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

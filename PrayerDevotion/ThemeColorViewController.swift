@@ -9,16 +9,27 @@
 import Foundation
 import UIKit
 
-class ThemeColorViewController: UITableViewController, UITableViewDataSource, UITableViewDelegate {
+class ThemeColorViewController: UITableViewController, UITableViewDataSource, UITableViewDelegate, PrayerDevotionStoreDelegate {
     
     let colorArray = ["White", "Black", "Red", "Pink", "Purple", "Deep Purple", "Indigo", "Blue", "Light Blue", "Cyan", "Teal", "Green", "Light Green", "Lime", "Yellow", "Amber", "Orange", "Deep Orange", "Brown", "Grey", "Blue Grey"]
+    
     let userDefaults = NSUserDefaults.standardUserDefaults()
     let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    let prayerStore = PrayerDevotionStore()
+
+    var selectedCell: ThemeColorCell_New?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationItem.title = "Theme Color"
+        
+        // TODO: Add Recents Item
+        //let recentsItem = UIBarButtonItem(barButtonSystemItem: .Bookmarks, target: self, action: "openRecents:")
+        //navigationItem.rightBarButtonItem = recentsItem
+        
+        prayerStore.delegate = self
+        prayerStore.requestProductInfo()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -26,6 +37,10 @@ class ThemeColorViewController: UITableViewController, UITableViewDataSource, UI
         
         navigationController!.navigationBar.tintColor = delegate.themeTintColor
         tableView.backgroundColor = delegate.themeBackgroundColor
+        
+        tableView.beginUpdates()
+        tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 1)], withRowAnimation: .None)
+        tableView.endUpdates()
     }
     
     override func didReceiveMemoryWarning() {
@@ -35,42 +50,114 @@ class ThemeColorViewController: UITableViewController, UITableViewDataSource, UI
     // MARK: TableView Methods
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return colorArray.count
+        if section == 0 { return colorArray.count }
+        else { return 1 }
+    }
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 44
+    }
+    
+    override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 44
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("ThemeColorCellID", forIndexPath: indexPath) as! ThemeColorCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("ThemeColorCellID", forIndexPath: indexPath) as! ThemeColorCell_New
         
-        cell.setThemeColor(Color.stringToColor(colorArray[indexPath.row]), isWhite: indexPath.row == 0)
-        cell.colorLabel.text = colorArray[indexPath.row]
-        
-        cell.colorView.layer.borderWidth = indexPath.row == 0 ? 1 : 0
-        cell.colorView.layer.borderColor = indexPath.row == 0 ? UIColor.blackColor().CGColor : UIColor.clearColor().CGColor
+        if indexPath.section == 0 {
+            cell.setThemeColor(Color.stringToColor(colorArray[indexPath.row]))
+            cell.colorLabel.text = colorArray[indexPath.row]
+            
+            if delegate.themeColorString != "Custom" && Color.stringToColor(delegate.themeColorString) == Color.stringToColor(colorArray[indexPath.row]) {
+                cell.accessoryType = .Checkmark
+                selectedCell = cell
+            } else {
+                cell.accessoryType = .None
+            }
+        } else {
+            cell.setThemeColor(Color.stringToColor("Custom"))
+            cell.colorLabel.text = "Custom"
+            
+            cell.colorView.layer.borderWidth = 1
+            cell.colorView.layer.borderColor = UIColor.blackColor().CGColor
+            
+            if delegate.themeColorString == "Custom" {
+                cell.accessoryType = .Checkmark
+                selectedCell = cell
+            } else {
+                cell.accessoryType = .None
+            }
+        }
         
         return cell
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        (UIApplication.sharedApplication().delegate as! AppDelegate).window!.tintColor = indexPath.row == 0 ? Color.Brown : Color.stringToColor(colorArray[indexPath.row])
+        if indexPath.section == 0 {
+            (UIApplication.sharedApplication().delegate as! AppDelegate).window!.tintColor = indexPath.row == 0 ? Color.Brown : Color.stringToColor(colorArray[indexPath.row])
+            
+            navigationController!.navigationBar.tintColor = indexPath.row != 0 ? Color.stringToColor(colorArray[indexPath.row]) : Color.Brown
+            tableView.backgroundColor = Color.stringToColor(colorArray[indexPath.row])
+            
+            var textColor = Color.determineTextColor(Color.stringToColor(colorArray[indexPath.row]))
+            
+            userDefaults.setObject(colorArray[indexPath.row], forKey: "themeBackgroundColor")
+            userDefaults.setObject(colorArray[indexPath.row] != "White" ? colorArray[indexPath.row] : "Brown", forKey: "themeTintColor")
+            userDefaults.setObject(textColor, forKey: "themeTextColor")
+            
+            tableView.deselectRowAtIndexPath(indexPath, animated: true)
+            
+            Color.setThemeColors(&delegate.themeBackgroundColor, tintColor: &delegate.themeTintColor, textColor: &delegate.themeTextColor, colorString: &delegate.themeColorString)
+            
+            delegate.themeColorString = userDefaults.stringForKey("themeBackgroundColor")!
+            
+            selectedCell?.accessoryType = .None
+            let cell = tableView.cellForRowAtIndexPath(indexPath) as! ThemeColorCell_New
+            cell.accessoryType = .Checkmark
+            selectedCell = cell
+        } else {
+            determinePurchasedStatus()
+        }
+    }
+    
+    func determinePurchasedStatus() {
+        let purchased = delegate.didBuyAdditionalFeatures
         
-        navigationController!.navigationBar.tintColor = indexPath.row != 0 ? Color.stringToColor(colorArray[indexPath.row]) : Color.Brown
-        tableView.backgroundColor = Color.stringToColor(colorArray[indexPath.row])
+        if purchased {
+            var themeColorCustomVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("SBThemeColorCustomViewControllerID") as! ThemeColorCustomViewController
+            navigationController!.pushViewController(themeColorCustomVC, animated: true)
+            themeColorCustomVC.themeColorVC = self
+            
+            delegate.themeColorString = userDefaults.stringForKey("themeBackgroundColor")!
+            
+            selectedCell?.accessoryType = .None
+            let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as! ThemeColorCell_New
+            cell.accessoryType = .Checkmark
+            selectedCell = cell
+        } else {
+            tableView.deselectRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1), animated: true)
+            prayerStore.askForAdditionalFeatures(false, completion: nil)
+        }
+    }
+    
+    // MARK: PrayerDevotionStore Delegate Methods
+    
+    func didPurchaseAdditionalFeatures() {
+        var themeColorCustomVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("SBThemeColorCustomViewControllerID") as! ThemeColorCustomViewController
+        navigationController!.pushViewController(themeColorCustomVC, animated: true)
+        themeColorCustomVC.themeColorVC = self
         
-        var textColor = Color.determineTextColor(Color.stringToColor(colorArray[indexPath.row]))
+        delegate.themeColorString = userDefaults.stringForKey("themeBackgroundColor")!
         
-        userDefaults.setObject(colorArray[indexPath.row], forKey: "themeBackgroundColor")
-        userDefaults.setObject(colorArray[indexPath.row] != "White" ? colorArray[indexPath.row] : "Brown", forKey: "themeTintColor")
-        userDefaults.setObject(textColor, forKey: "themeTextColor")
-        
-        delegate.themeBackgroundColor = Color.stringToColor(colorArray[indexPath.row])
-        delegate.themeTintColor = Color.stringToColor(colorArray[indexPath.row] != "White" ? colorArray[indexPath.row] : "Brown")
-        delegate.themeTextColor = Color.stringToColor(textColor)
-        
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        selectedCell?.accessoryType = .None
+        let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as! ThemeColorCell_New
+        cell.accessoryType = .Checkmark
+        selectedCell = cell
     }
     
 }

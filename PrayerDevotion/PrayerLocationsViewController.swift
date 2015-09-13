@@ -26,8 +26,14 @@ class PrayerLocationsViewController: UIViewController, GMSMapViewDelegate {
         navigationItem.title = "Prayer Locations"
         
         navigationController!.toolbarHidden = true
+        navigationController!.interactivePopGestureRecognizer.enabled = false
         
         mapView.delegate = self
+        mapView.camera = GMSCameraPosition.cameraWithLatitude(30.069094, longitude: -44.121094, zoom: 1)
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         
         LocationStore.sharedInstance.fetchLocations()
         allLocations = LocationStore.sharedInstance.locations()
@@ -48,12 +54,6 @@ class PrayerLocationsViewController: UIViewController, GMSMapViewDelegate {
                 }
             })
         }
-        
-        mapView.camera = GMSCameraPosition.cameraWithLatitude(30.069094, longitude: -44.121094, zoom: 1)
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
     }
     
     override func didReceiveMemoryWarning() {
@@ -91,6 +91,7 @@ class PrayerLocationsViewController: UIViewController, GMSMapViewDelegate {
         
         let locationPrayersVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("SBLocationPrayersViewControllerID") as! LocationPrayersViewController
         locationPrayersVC.location = placeMarker.place
+        locationPrayersVC.backViewController = self
         
         println("Address is \(placeMarker.place.formattedAddress)")
         

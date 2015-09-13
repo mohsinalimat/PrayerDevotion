@@ -8,6 +8,9 @@
 
 import Foundation
 
+// In-App Purchase Keys
+let AdditionalFeaturesKey = "PD_AddFeatures_1_2015"
+
 // Google API Keys
 let googleWebAPIKey = "AIzaSyBbxdJLV4JIJrjyhyh1eQYsSSMNQUB5xGA"
 let googleiOSAPIKey = "AIzaSyChvyQ8acq-GZ4bIo8UIweL-Q4xGJcGpW8"
@@ -45,7 +48,6 @@ let AnsweredPrayerNotesCellID = "AnsweredPrayerNotesCellID" // This is the cell 
 let SetPrayerDateCellID = "SetPrayerDateCellID" // This is the cell ID of the cell that allows you to set the prayer date
 let PriorityCellID = "PriorityCellID" // This is the cell ID of the cell that holds the UISegmentedController for prayer priority
 let PrayerCategoryCellID = "PrayerCategoryCellID" // This is the cell ID of the cell that holds the prayer category
-let ChangeCategoryCellID = "ChangeCategoryCellID" // This is the cell ID of the cell that holds the pickerView to change prayer category
 let PrayerLocationCellID = "PrayerLocationCellID" // This is the cell ID of the cell that holds the assigned location
 
 // -- TodayPrayersViewController

@@ -243,7 +243,7 @@ class AddPrayerDateCell_New: UITableViewCell, UIPickerViewDelegate, UIPickerView
     
     func buttonClicked(sender: UIButton) {
         tableView?.beginUpdates()
-        refreshCell(!isAddingDate)
+        refreshCell(!isAddingDate)        
         tableView?.endUpdates()
     }
 }

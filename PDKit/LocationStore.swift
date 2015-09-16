@@ -35,7 +35,7 @@ public class LocationStore: BaseStore {
     // These methods create locations
     
     public func createLocation(latitude: Double, longitude: Double, name: String, locationID: String) -> PDLocation {
-        var location = NSEntityDescription.insertNewObjectForEntityForName("Location", inManagedObjectContext: managedContext!) as! PDLocation
+        let location = NSEntityDescription.insertNewObjectForEntityForName("Location", inManagedObjectContext: managedContext!) as! PDLocation
         
         location.locationName = name
         location.locationID = locationID
@@ -66,13 +66,13 @@ public class LocationStore: BaseStore {
     }
     
     public func fetchLocations() {
-        var fetchRequest = NSFetchRequest(entityName: "Location")
+        let fetchRequest = NSFetchRequest(entityName: "Location")
         
-        var error: NSError? = nil
-        let fetchedResults = managedContext!.executeFetchRequest(fetchRequest, error: &error) as? [PDLocation]
+        let error: NSError? = nil
+        let fetchedResults = try! managedContext!.executeFetchRequest(fetchRequest) as? [PDLocation]
         
         if let fetchError = error {
-            println("An error occurred while fetching all locations: \(fetchError), \(fetchError.localizedDescription)")
+            print("An error occurred while fetching all locations: \(fetchError), \(fetchError.localizedDescription)")
             return
         }
         
@@ -81,35 +81,35 @@ public class LocationStore: BaseStore {
     
     public func checkLocationCountForDeletion(location: PDLocation) {
         if location.prayers.count == 0 {
-            println("Location Prayer Count has dropped to 0. Deleting location...")
+            print("Location Prayer Count has dropped to 0. Deleting location...")
             
             managedContext!.deleteObject(location)
             saveDatabase()
             
             fetchLocations()
         } else {
-            println("Location Prayer Count is greater than 0. Keeping.")
+            print("Location Prayer Count is greater than 0. Keeping.")
         }
     }
     
     // MARK: Location-Return Methods
     
     public func locationExists(forID: String) -> Bool {
-        var fetchRequest = NSFetchRequest(entityName: "Location")
+        let fetchRequest = NSFetchRequest(entityName: "Location")
         fetchRequest.resultType = .CountResultType
         fetchRequest.predicate = NSPredicate(format: "locationID == %@", forID)
         
-        println("Looking up location with ID: \(forID)")
+        print("Looking up location with ID: \(forID)")
         
-        var error: NSError? = nil
-        var fetchResults = managedContext!.executeFetchRequest(fetchRequest, error: &error) as? [NSNumber]
+        let error: NSError? = nil
+        var fetchResults = try! managedContext!.executeFetchRequest(fetchRequest) as? [NSNumber]
         
         if let fetchError = error {
-            println("An error occurred while looking up location with ID \(forID): \(fetchError), \(fetchError.localizedDescription)")
+            print("An error occurred while looking up location with ID \(forID): \(fetchError), \(fetchError.localizedDescription)")
             return false
         }
         
-        println("Fetch results count == \(fetchResults![0].integerValue)")
+        print("Fetch results count == \(fetchResults![0].integerValue)")
         return fetchResults![0].integerValue > 0
     }
     
@@ -118,11 +118,11 @@ public class LocationStore: BaseStore {
         fetchRequest.fetchLimit = 1
         fetchRequest.predicate = NSPredicate(format: "locationID == %@", locationID)
         
-        var error: NSError? = nil
-        var fetchResults = managedContext!.executeFetchRequest(fetchRequest, error: &error) as? [PDLocation]
+        let error: NSError? = nil
+        let fetchResults = try! managedContext!.executeFetchRequest(fetchRequest) as? [PDLocation]
         
         if let fetchError = error {
-            println("An error occurred while fetching prayer for ID \(locationID): \(fetchError), \(fetchError.localizedDescription)")
+            print("An error occurred while fetching prayer for ID \(locationID): \(fetchError), \(fetchError.localizedDescription)")
         }
         
         if let results = fetchResults {
@@ -135,14 +135,14 @@ public class LocationStore: BaseStore {
     // MARK: Counting Methods
     
     public func locationCount() -> Int {
-        var fetchRequest = NSFetchRequest(entityName: "Location")
+        let fetchRequest = NSFetchRequest(entityName: "Location")
         fetchRequest.resultType = .CountResultType
         
-        var error: NSError? = nil
-        var fetchResults = managedContext!.executeFetchRequest(fetchRequest, error: &error) as? [NSNumber]
+        let error: NSError? = nil
+        var fetchResults = try! managedContext!.executeFetchRequest(fetchRequest) as? [NSNumber]
         
         if let fetchError = error {
-            println("An error occurred while fetching location count: \(fetchError), \(fetchError.localizedDescription)")
+            print("An error occurred while fetching location count: \(fetchError), \(fetchError.localizedDescription)")
             return 0
         }
         

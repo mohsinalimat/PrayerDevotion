@@ -39,10 +39,10 @@ public class CategoryStore: BaseStore {
     
     // Fetch the categoreis only from the database
     public func fetchCategoriesData(predicate: NSPredicate?, sortKey: String = "creationDate", ascending: Bool = false) {
-        var fetchReq = NSFetchRequest(entityName: "Category")
+        let fetchReq = NSFetchRequest(entityName: "Category")
         
-        println("fetchCategoriesData key is \(sortKey)")
-        println("fetchCategoriesData ascending is \(ascending)")
+        print("fetchCategoriesData key is \(sortKey)")
+        print("fetchCategoriesData ascending is \(ascending)")
         
         let sortDesc = [NSSortDescriptor(key: sortKey, ascending: ascending)]
         fetchReq.sortDescriptors = sortDesc
@@ -51,34 +51,34 @@ public class CategoryStore: BaseStore {
             fetchReq.predicate = fetchPredicate
         }
         
-        var error: NSError?
-        var fetchedArray = managedContext!.executeFetchRequest(fetchReq, error: &error) as? [PDCategory]
+        let error: NSError? = nil
+        let fetchedArray = try! managedContext!.executeFetchRequest(fetchReq) as? [PDCategory]
         
         if let array = fetchedArray {
             for var i = 0; i < array.count; i++ {
-                println("--> Fetched Item at index \(i) is \(array[i].name)")
+                print("--> Fetched Item at index \(i) is \(array[i].name)")
             }
             
             categories = array
         } else {
-            println("An error occurred while fetching categories from the database: \(error!.localizedDescription)")
+            print("An error occurred while fetching categories from the database: \(error!.localizedDescription)")
             categories = [PDCategory]()
         }
     }
     
     public func fetchCategoriesForMove(excludedCategory: String) -> [PDCategory] {
-        var fetchRequest = NSFetchRequest(entityName: "Category")
+        let fetchRequest = NSFetchRequest(entityName: "Category")
         
         let predicate = NSPredicate(format: "name != %@", excludedCategory)
         fetchRequest.predicate = predicate
         
-        var error: NSError?
-        var results = managedContext!.executeFetchRequest(fetchRequest, error: &error) as? [PDCategory]
+        let error: NSError? = nil
+        let results = try! managedContext!.executeFetchRequest(fetchRequest) as? [PDCategory]
         
         if let fetchedCategories = results {
             return fetchedCategories
         } else {
-            println("An error occurred while fetching categories for move: \(error), \(error!.userInfo)")
+            print("An error occurred while fetching categories for move: \(error), \(error!.userInfo)")
             return [PDCategory]()
         }
     }
@@ -91,16 +91,15 @@ public class CategoryStore: BaseStore {
     // Delete a category from the database
     // Takes a "Category" argument
     public func deleteCategory(category: PDCategory) {
-        println("Deleting category")
+        print("Deleting category")
         
-        var fetchRequest = NSFetchRequest(entityName: "Prayer")
+        let fetchRequest = NSFetchRequest(entityName: "Prayer")
         fetchRequest.includesPropertyValues = false
         
         let predicate = NSPredicate(format: "category == %@", category.name)
         fetchRequest.predicate = predicate
         
-        var error: NSError?
-        var results = managedContext!.executeFetchRequest(fetchRequest, error: &error) as! [PDPrayer]?
+        let results = try! managedContext!.executeFetchRequest(fetchRequest) as? [PDPrayer]
         
         if let prayersToDelete = results {
             for prayer in prayersToDelete {
@@ -131,7 +130,7 @@ public class CategoryStore: BaseStore {
     // Add a category to the database
     // Takes a String argument and an NSDate argument
     public func addCategoryToDatabase(name: String, dateCreated: NSDate) {
-        var category = NSEntityDescription.insertNewObjectForEntityForName("Category", inManagedObjectContext: managedContext!) as! PDCategory
+        let category = NSEntityDescription.insertNewObjectForEntityForName("Category", inManagedObjectContext: managedContext!) as! PDCategory
         
         // This is the method for an "order" - may use in the future
         /*var order = 1.0
@@ -167,20 +166,19 @@ public class CategoryStore: BaseStore {
         inCategory.prayerCount = Int32(fromCategoryCount)
         category.prayerCount = Int32(toCategoryCount)
         
-        var batchRequest = NSBatchUpdateRequest(entityName: "Prayer")
+        let batchRequest = NSBatchUpdateRequest(entityName: "Prayer")
         
         let predicate = NSPredicate(format: "category == %@", inCategory.name)
         batchRequest.predicate = predicate
         batchRequest.propertiesToUpdate = ["category" : category.name]
         batchRequest.resultType = .UpdatedObjectsCountResultType
         
-        var error: NSError?
-        var batchResult = managedContext!.executeRequest(batchRequest, error: &error) as! NSBatchUpdateResult?
+        let batchResult = try! managedContext!.executeRequest(batchRequest) as? NSBatchUpdateResult
         
         if let result = batchResult {
-            println("Updated \(result.result!) prayers")
+            print("Updated \(result.result!) prayers")
         } else {
-            println("An error occurred while updating records!")
+            print("An error occurred while updating records!")
         }
         
         saveDatabase()
@@ -200,11 +198,11 @@ public class CategoryStore: BaseStore {
         fetchRequest.predicate = NSPredicate(format: "name == %@", categoryName)
         fetchRequest.fetchLimit = 1
         
-        var error: NSError? = nil
-        var category = managedContext!.executeFetchRequest(fetchRequest, error: &error) as? [PDCategory]
+        let category = try! managedContext!.executeFetchRequest(fetchRequest) as? [PDCategory]
+
         
-        if let fetchedCategory = category {
-            return fetchedCategory[0]
+        if let category = category {
+            return category[0]
         }
         
         /*for category in categories {
@@ -218,13 +216,13 @@ public class CategoryStore: BaseStore {
     
     // This checks to see if a category exists (Dunno what to use this for... yet)
     public func categoryExists(categoryName: String) -> Bool {
-        var fetchReq = NSFetchRequest(entityName: "Category")
+        let fetchReq = NSFetchRequest(entityName: "Category")
         fetchReq.predicate = NSPredicate(format: "name == %@", categoryName)
         fetchReq.fetchLimit = 1
         
         var error: NSError? = nil
         if (managedContext!.countForFetchRequest(fetchReq, error: &error) == 0) {
-            println("Category \(categoryName) does not exist")
+            print("Category \(categoryName) does not exist")
             
             return false
         }

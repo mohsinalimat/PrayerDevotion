@@ -41,10 +41,14 @@ public class BaseStore {
     // Save the database
     public func saveDatabase() {
         var error: NSError?
-        managedContext!.save(&error)
+        do {
+            try managedContext!.save()
+        } catch let error1 as NSError {
+            error = error1
+        }
         
         if let saveError = error {
-            println("An error occurred while saving the database: \(saveError.localizedDescription)")
+            print("An error occurred while saving the database: \(saveError.localizedDescription)")
         }
     }
     

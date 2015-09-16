@@ -20,7 +20,7 @@ public class PDLocation: NSManagedObject, MKAnnotation {
     
     @NSManaged public var prayers: NSSet // This is a set of the prayers that are contained under the location.
     
-    public var title: String {
+    public var title: String? {
         if locationName.isEmpty {
             return "No Name"
         }
@@ -28,7 +28,7 @@ public class PDLocation: NSManagedObject, MKAnnotation {
         return locationName
     }
     
-    public var subtitle: String {
+    public var subtitle: String? {
         return "0 Prayers"
     }
     

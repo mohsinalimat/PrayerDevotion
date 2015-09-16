@@ -34,7 +34,7 @@ public class AlertStore: BaseStore {
     // This methods creates an alert for a specific prayer and stores it in the database
     // The Category is included for now, although it does nothing (yet)
     public func createAlert(prayer: PDPrayer, inCategory category: String, withDate date: NSDate) {
-        var alert = NSEntityDescription.insertNewObjectForEntityForName("Alert", inManagedObjectContext: managedContext!) as! PDAlert
+        let alert = NSEntityDescription.insertNewObjectForEntityForName("Alert", inManagedObjectContext: managedContext!) as! PDAlert
         
         alert.alertDate = date
         
@@ -43,15 +43,21 @@ public class AlertStore: BaseStore {
         while true {
             generatedID = Int(UInt32(arc4random()) % UInt32(1000))
             
-            var fetchRequest = NSFetchRequest(entityName: "Alert")
+            let fetchRequest = NSFetchRequest(entityName: "Alert")
             fetchRequest.predicate = NSPredicate(format: "notificationID == %d", generatedID)
             fetchRequest.fetchLimit = 1
             
             var error: NSError?
-            let result = managedContext!.executeFetchRequest(fetchRequest, error: &error)
+            let result: [AnyObject]?
+            do {
+                result = try managedContext!.executeFetchRequest(fetchRequest)
+            } catch let error1 as NSError {
+                error = error1
+                result = nil
+            }
             
             if let fetchError = error {
-                println("Error: \(fetchError)")
+                print("Error: \(fetchError)")
             } else {
                 if result!.count > 0 {
                     continue
@@ -64,7 +70,7 @@ public class AlertStore: BaseStore {
         alert.notificationID = UInt32(generatedID)
         alert.didSchedule = false
         
-        var alerts = prayer.alerts.mutableCopy() as! NSMutableOrderedSet
+        let alerts = prayer.alerts.mutableCopy() as! NSMutableOrderedSet
         alerts.addObject(alert)
         
         prayer.alerts = alerts.copy() as! NSOrderedSet
@@ -73,7 +79,7 @@ public class AlertStore: BaseStore {
     }
     
     public func deleteAlert(alert: PDAlert, inPrayer prayer: PDPrayer) {
-        var prayerAlerts = prayer.alerts.mutableCopy() as! NSMutableOrderedSet
+        let prayerAlerts = prayer.alerts.mutableCopy() as! NSMutableOrderedSet
         
         Notifications.sharedNotifications.deleteLocalNotification(alert.notificationID)
         
@@ -86,7 +92,7 @@ public class AlertStore: BaseStore {
     }
     
     public func deleteAllAlertsForPrayer(prayer: PDPrayer) {
-        var alerts = prayer.alerts.mutableCopy() as! NSMutableOrderedSet
+        let alerts = prayer.alerts.mutableCopy() as! NSMutableOrderedSet
         
         for alert in alerts {
             Notifications.sharedNotifications.deleteLocalNotification(alert.notificationID)
@@ -103,10 +109,16 @@ public class AlertStore: BaseStore {
     // Delete all past alerts
     
     public func deletePastAlerts() {
-        var fetchRequest = NSFetchRequest(entityName: "Alert")
+        let fetchRequest = NSFetchRequest(entityName: "Alert")
         
         var error: NSError?
-        var results = managedContext!.executeFetchRequest(fetchRequest, error: &error)
+        var results: [AnyObject]?
+        do {
+            results = try managedContext!.executeFetchRequest(fetchRequest)
+        } catch let error1 as NSError {
+            error = error1
+            results = nil
+        }
         
         if let fetchedAlerts = results {
             for fetchedAlert in fetchedAlerts {
@@ -118,11 +130,11 @@ public class AlertStore: BaseStore {
                 if now.compare(alertDate) == .OrderedDescending && alert.didSchedule {
                     deleteAlert(alert, inPrayer: alert.prayer)
                 } else {
-                    println("Alert is either in the future or has not been scheduled yet.")
+                    print("Alert is either in the future or has not been scheduled yet.")
                 }
             }
         } else {
-            println("Error deleting all past alerts: \(error), \(error!.userInfo)")
+            print("Error deleting all past alerts: \(error), \(error!.userInfo)")
         }
     }
     
@@ -152,15 +164,15 @@ public class AlertStore: BaseStore {
     // This function will search the database for all dates that are related to
     // the specified prayer
     public func allDates(forPrayer: PDPrayer) -> [PDAlert] {
-        var fetchReq = NSFetchRequest(entityName: "Dates")
+        let fetchReq = NSFetchRequest(entityName: "Dates")
         fetchReq.predicate = NSPredicate(format: "prayer == %@", forPrayer)
         fetchReq.sortDescriptors = nil
         
-        var error: NSError?
-        let fetchedDates = managedContext!.executeFetchRequest(fetchReq, error: &error) as? [PDAlert]
+        let error: NSError? = nil
+        let fetchedDates = try! managedContext!.executeFetchRequest(fetchReq) as? [PDAlert]
         
-        if let fetchError = error {
-            println("An error occurred while fetching data for prayer \(forPrayer)")
+        if let error = error {
+            print("An error occurred while fetching data for prayer \(forPrayer): \(error), \(error.localizedDescription)")
             return [PDAlert]()
         }
         
@@ -171,7 +183,7 @@ public class AlertStore: BaseStore {
     // NOTE: DO NOT USE THIS METHOD!!!!! It uses the value "dates" which I have removed for now - a one-many relationship
     // in the database (may use it later)
     public func insertDate(forPrayer: PDPrayer, date: NSDate) {
-        var addedDate: NSManagedObject = NSEntityDescription.insertNewObjectForEntityForName("Dates", inManagedObjectContext: managedContext!) as! NSManagedObject
+        let addedDate: NSManagedObject = NSEntityDescription.insertNewObjectForEntityForName("Dates", inManagedObjectContext: managedContext!) 
         addedDate.setValue(date, forKey: "date")
         
         addedDate.setValue(forPrayer, forKey: "prayer")

@@ -48,7 +48,7 @@ class TodayViewController: UIViewController, NCWidgetProviding, UITableViewDataS
         return UIEdgeInsetsMake(0, 0, 20, 0)
     }
     
-    func widgetPerformUpdateWithCompletionHandler(completionHandler: ((NCUpdateResult) -> Void)!) {
+    func widgetPerformUpdateWithCompletionHandler(completionHandler: ((NCUpdateResult) -> Void)) {
         // Perform any setup necessary in order to update the view.
 
         // If an error is encountered, use NCUpdateResult.Failed
@@ -86,7 +86,7 @@ class TodayViewController: UIViewController, NCWidgetProviding, UITableViewDataS
     }
     
     func calculateTableViewHeight() {
-        var contentSize = tableView.sizeThatFits(tableView.contentSize)
+        let contentSize = tableView.sizeThatFits(tableView.contentSize)
         
         tableViewHeight.constant = contentSize.height
     }
@@ -135,7 +135,7 @@ class TodayViewController: UIViewController, NCWidgetProviding, UITableViewDataS
             return cell
             
         case 3:
-            let cell = tableView.dequeueReusableCellWithIdentifier(AllTodayCellID, forIndexPath: indexPath) as! UITableViewCell
+            let cell = tableView.dequeueReusableCellWithIdentifier(AllTodayCellID, forIndexPath: indexPath) 
             return cell
             
             
@@ -146,7 +146,7 @@ class TodayViewController: UIViewController, NCWidgetProviding, UITableViewDataS
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        println("Selected row at indexPath \(indexPath)")
+        print("Selected row at indexPath \(indexPath)")
         
         var path: String = "prayerdevotion://"
         

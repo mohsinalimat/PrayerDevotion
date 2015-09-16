@@ -34,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GMSServices.provideAPIKey(googleiOSAPIKey) // Provide Google Maps with API Key
         
         // Ask for notifications
-        let userNotifications = UIUserNotificationSettings(forTypes: .Alert | .Badge | .Sound, categories: nil)
+        let userNotifications = UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil)
         UIApplication.sharedApplication().registerUserNotificationSettings(userNotifications)
         
         let userPrefs = NSUserDefaults.standardUserDefaults() // Get users prefs
@@ -45,14 +45,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             userPrefs.setBool(true, forKey: "firstInstallation")
             CategoryStore.sharedInstance.addCategoryToDatabase("Uncategorized", dateCreated: NSDate())
             
-            println("User installed app for the first time. Make sure all local notifications are deleted")
+            print("User installed app for the first time. Make sure all local notifications are deleted")
             UIApplication.sharedApplication().cancelAllLocalNotifications()
             
             userPrefs.setObject("installed", forKey: "didInstallApp_2.0")
         }
         
         Color.setThemeColors(&themeBackgroundColor, tintColor: &themeTintColor, textColor: &themeTextColor, colorString: &themeColorString)
-        var tintColor = userPrefs.stringForKey("themeBackgroundColor")!
+        let tintColor = userPrefs.stringForKey("themeBackgroundColor")!
         
         let autoOpenState = userPrefs.boolForKey("openPrayerDetailsAutoAdded")
         
@@ -74,16 +74,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // This handles the application open scheme
     func application(application: UIApplication, handleOpenURL url: NSURL) -> Bool {
-        println("URL was \(url.host)")
+        print("URL was \(url.host)")
         
         if let host = url.host {
             if host == "open-today" {
-                println("URL with scheme \(url.scheme!) and host \(host) opened today view")
+                print("URL with scheme \(url.scheme) and host \(host) opened today view")
                 
                 let userInfo: [NSObject: AnyObject] = ["command": "open-today"]
                 NSNotificationCenter.defaultCenter().postNotificationName("HandleURLNotification", object: nil, userInfo: userInfo)
             } else if host == "open-prayer" {
-                println("URL with scheme \(url.scheme!) and host \(host) passed query \(url.query!) to open prayer")
+                print("URL with scheme \(url.scheme) and host \(host) passed query \(url.query!) to open prayer")
                 
                 let userInfo: [NSObject: AnyObject] = ["command": "open-prayer", "prayerID": "\(getURLPrayerID(url.query!)!)"]
                 NSNotificationCenter.defaultCenter().postNotificationName("HandleURLNotification", object: nil, userInfo: userInfo)
@@ -132,7 +132,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     lazy var applicationDocumentsDirectory: NSURL = {
         // The directory the application uses to store the Core Data store file. This code uses a directory named "com.shadowsystems.PrayerDevotion" in the application's documents Application Support directory.
         let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
-        return urls[urls.count-1] as! NSURL
+        return urls[urls.count-1] 
     }()
 
     lazy var managedObjectModel: NSManagedObjectModel = {
@@ -148,7 +148,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("PrayerDevotion.sqlite")
         var error: NSError? = nil
         var failureReason = "There was an error creating or loading the application's saved data."
-        if coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: [NSMigratePersistentStoresAutomaticallyOption: true, NSInferMappingModelAutomaticallyOption: true], error: &error) == nil {
+        do {
+            try coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: [NSMigratePersistentStoresAutomaticallyOption: true, NSInferMappingModelAutomaticallyOption: true])
+        } catch var error1 as NSError {
+            error = error1
             coordinator = nil
             // Report any error we got.
             var dict = [String: AnyObject]()
@@ -160,6 +163,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
             NSLog("Unresolved error \(error), \(error!.userInfo)")
             abort()
+        } catch {
+            fatalError()
         }
         
         return coordinator
@@ -181,11 +186,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func saveContext () {
         if let moc = self.managedObjectContext {
             var error: NSError? = nil
-            if moc.hasChanges && !moc.save(&error) {
-                // Replace this implementation with code to handle the error appropriately.
-                // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                NSLog("Unresolved error \(error), \(error!.userInfo)")
-                abort()
+            if moc.hasChanges {
+                do {
+                    try moc.save()
+                } catch let error1 as NSError {
+                    error = error1
+                    // Replace this implementation with code to handle the error appropriately.
+                    // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                    NSLog("Unresolved error \(error), \(error!.userInfo)")
+                    abort()
+                }
             }
         }
     }
@@ -198,27 +208,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let userDefaults = NSUserDefaults.standardUserDefaults()
         
         if userDefaults.boolForKey("didMigratePrayerToBeta2.0") == false {
-            var groupURL = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier("group.shadowsystems.prayerdevotion")
-            var oldStoreURL = applicationDocumentsDirectory.URLByAppendingPathComponent("PrayerDevotion.sqlite")
-            var newStoreURL = groupURL!.URLByAppendingPathComponent("PrayerDevotion.sqlite")
+            let groupURL = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier("group.shadowsystems.prayerdevotion")
+            let oldStoreURL = applicationDocumentsDirectory.URLByAppendingPathComponent("PrayerDevotion.sqlite")
+            let newStoreURL = groupURL!.URLByAppendingPathComponent("PrayerDevotion.sqlite")
         
             var sourceStore: NSPersistentStore? = nil
             var destinationStore: NSPersistentStore? = nil
             var error: NSError? = nil
         
             sourceStore = persistentStoreCoordinator!.persistentStoreForURL(oldStoreURL)
-            var newError: NSError? = nil
+            //let newError: NSError? = nil
             if sourceStore != nil {
-                destinationStore = persistentStoreCoordinator!.migratePersistentStore(sourceStore!, toURL: newStoreURL, options: [NSMigratePersistentStoresAutomaticallyOption: true, NSInferMappingModelAutomaticallyOption: true], withType: NSSQLiteStoreType, error: &error)
+                do {
+                    destinationStore = try persistentStoreCoordinator!.migratePersistentStore(sourceStore!, toURL: newStoreURL, options: [NSMigratePersistentStoresAutomaticallyOption: true, NSInferMappingModelAutomaticallyOption: true], withType: NSSQLiteStoreType)
+                } catch let error1 as NSError {
+                    error = error1
+                    destinationStore = nil
+                }
                 if destinationStore == nil {
-                    println("Error migrating store")
+                    print("Error migrating store")
                 } else {
-                    println("Migration successful!")
+                    print("Migration successful!")
                 
-                    if NSFileManager.defaultManager().removeItemAtPath(oldStoreURL.path!, error: &newError) == false {
-                        println("An error occurred while deleting old store")
-                    } else {
-                        println("Removed old store")
+                    do {
+                        try NSFileManager.defaultManager().removeItemAtPath(oldStoreURL.path!)
+                    } catch {
+                        print("Error migrating old store")
                     }
                     
                     migrateToPrayerID()
@@ -226,6 +241,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     userDefaults.setBool(true, forKey: "didMigratePrayerToBeta2.0")
                 }
             }
+
         }
     }
     
@@ -234,7 +250,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let userDefaults = NSUserDefaults.standardUserDefaults()
         
         if userDefaults.boolForKey("didAddPrayerIDs") == false {
-            println("Adding Prayer IDs to prayers")
+            print("Adding Prayer IDs to prayers")
             PrayerStore.sharedInstance.addPrayerIDDuringMigration()
         }
     }
@@ -245,12 +261,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // This takes a URL that I make and returns the prayer ID sent
     func getURLPrayerID(query: String) -> Int32? {
-        var dict = [String: Int32]()
+        // var dict = [String: Int32]()
         
         let comps: [String] = query.componentsSeparatedByString("=")
         
         if comps.count == 2 {
-            return Int32(comps[1].toInt()!)
+            return Int32(Int(comps[1])!)
         }
         
         return nil
@@ -267,9 +283,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if purchased {
             didBuyAdditionalFeatures = true
-            println("Purchased In-App Additional Features")
+            print("Purchased In-App Additional Features")
         } else {
-            println("User has not yet purchased the in app additional features")
+            print("User has not yet purchased the in app additional features")
         }
     }
 

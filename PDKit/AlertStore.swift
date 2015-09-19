@@ -47,23 +47,17 @@ public class AlertStore: BaseStore {
             fetchRequest.predicate = NSPredicate(format: "notificationID == %d", generatedID)
             fetchRequest.fetchLimit = 1
             
-            var error: NSError?
-            let result: [AnyObject]?
             do {
-                result = try managedContext!.executeFetchRequest(fetchRequest)
-            } catch let error1 as NSError {
-                error = error1
-                result = nil
-            }
-            
-            if let fetchError = error {
-                print("Error: \(fetchError)")
-            } else {
+                let result = try managedContext!.executeFetchRequest(fetchRequest) as? [PDAlert]
+                
                 if result!.count > 0 {
                     continue
                 } else {
                     break
                 }
+            } catch let error as NSError {
+                print("Error fetching alerts to compare IDs from database: \(error), \(error.localizedDescription)")
+                return
             }
         }
         
@@ -111,30 +105,25 @@ public class AlertStore: BaseStore {
     public func deletePastAlerts() {
         let fetchRequest = NSFetchRequest(entityName: "Alert")
         
-        var error: NSError?
-        var results: [AnyObject]?
         do {
-            results = try managedContext!.executeFetchRequest(fetchRequest)
-        } catch let error1 as NSError {
-            error = error1
-            results = nil
-        }
-        
-        if let fetchedAlerts = results {
-            for fetchedAlert in fetchedAlerts {
-                let alert = fetchedAlert as! PDAlert
-                
-                let now = NSDate()
-                let alertDate = alert.alertDate
-                
-                if now.compare(alertDate) == .OrderedDescending && alert.didSchedule {
-                    deleteAlert(alert, inPrayer: alert.prayer)
-                } else {
-                    print("Alert is either in the future or has not been scheduled yet.")
+            let results = try managedContext!.executeFetchRequest(fetchRequest) as? [PDAlert]
+            
+            if let fetchedAlerts = results {
+                for fetchedAlert in fetchedAlerts {
+                    let alert = fetchedAlert
+                    
+                    let now = NSDate()
+                    let alertDate = alert.alertDate
+                    
+                    if now.compare(alertDate) == .OrderedDescending && alert.didSchedule {
+                        deleteAlert(alert, inPrayer: alert.prayer)
+                    } else {
+                        print("Alert is either in the future or has not been scheduled yet.")
+                    }
                 }
             }
-        } else {
-            print("Error deleting all past alerts: \(error), \(error!.userInfo)")
+        } catch let error as NSError {
+            print("Error deleting all past alerts: \(error), \(error.userInfo)")
         }
     }
     

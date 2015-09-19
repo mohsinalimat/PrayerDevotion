@@ -68,15 +68,15 @@ public class LocationStore: BaseStore {
     public func fetchLocations() {
         let fetchRequest = NSFetchRequest(entityName: "Location")
         
-        let error: NSError? = nil
-        let fetchedResults = try! managedContext!.executeFetchRequest(fetchRequest) as? [PDLocation]
-        
-        if let fetchError = error {
-            print("An error occurred while fetching all locations: \(fetchError), \(fetchError.localizedDescription)")
+        do {
+            let fetchedResults = try managedContext!.executeFetchRequest(fetchRequest) as! [PDLocation]
+            
+            allLocations = fetchedResults
+            return
+        } catch let error as NSError {
+            print("An error occurred while fetching all locations: \(error), \(error.localizedDescription)")
             return
         }
-        
-        allLocations = fetchedResults!
     }
     
     public func checkLocationCountForDeletion(location: PDLocation) {
@@ -101,16 +101,15 @@ public class LocationStore: BaseStore {
         
         print("Looking up location with ID: \(forID)")
         
-        let error: NSError? = nil
-        var fetchResults = try! managedContext!.executeFetchRequest(fetchRequest) as? [NSNumber]
-        
-        if let fetchError = error {
-            print("An error occurred while looking up location with ID \(forID): \(fetchError), \(fetchError.localizedDescription)")
+        do {
+            let fetchResults = try managedContext!.executeFetchRequest(fetchRequest) as! [NSNumber]
+            
+            print("Fetch results count == \(fetchResults[0].integerValue)")
+            return fetchResults[0].integerValue > 0
+        } catch let error as NSError {
+            print("An error occurred while looking up location with ID \(forID): \(error), \(error.localizedDescription)")
             return false
         }
-        
-        print("Fetch results count == \(fetchResults![0].integerValue)")
-        return fetchResults![0].integerValue > 0
     }
     
     public func getLocationForID(locationID: String) -> PDLocation? {
@@ -118,18 +117,14 @@ public class LocationStore: BaseStore {
         fetchRequest.fetchLimit = 1
         fetchRequest.predicate = NSPredicate(format: "locationID == %@", locationID)
         
-        let error: NSError? = nil
-        let fetchResults = try! managedContext!.executeFetchRequest(fetchRequest) as? [PDLocation]
-        
-        if let fetchError = error {
-            print("An error occurred while fetching prayer for ID \(locationID): \(fetchError), \(fetchError.localizedDescription)")
+        do {
+            let fetchResults = try managedContext!.executeFetchRequest(fetchRequest) as! [PDLocation]
+            
+            return fetchResults.first
+        } catch let error as NSError {
+            print("An error occurred while fetching prayer for ID \(locationID): \(error), \(error.localizedDescription)")
+            return nil
         }
-        
-        if let results = fetchResults {
-            return results.first
-        }
-        
-        return nil
     }
     
     // MARK: Counting Methods
@@ -138,15 +133,14 @@ public class LocationStore: BaseStore {
         let fetchRequest = NSFetchRequest(entityName: "Location")
         fetchRequest.resultType = .CountResultType
         
-        let error: NSError? = nil
-        var fetchResults = try! managedContext!.executeFetchRequest(fetchRequest) as? [NSNumber]
-        
-        if let fetchError = error {
-            print("An error occurred while fetching location count: \(fetchError), \(fetchError.localizedDescription)")
+        do {
+            let fetchResults = try managedContext!.executeFetchRequest(fetchRequest) as! [NSNumber]
+            
+            return fetchResults[0].integerValue
+        } catch let error as NSError {
+            print("An error occurred while fetching location count: \(error), \(error.localizedDescription)")
             return 0
         }
-        
-        return fetchResults![0].integerValue
     }
     
     public func locationPrayersCount(forLocation: PDLocation) -> Int {

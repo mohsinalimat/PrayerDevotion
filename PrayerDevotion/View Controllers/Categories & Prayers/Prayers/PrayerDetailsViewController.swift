@@ -64,8 +64,8 @@ class PrayerDetailsViewController: UITableViewController, UITextFieldDelegate, U
         
         navigationController!.toolbarHidden = false
         
-        let shareItem = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: "openActionItems:")
-        //let flexSpace = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: self, action: nil)
+        
+        let shareItem = UIBarButtonItem(title: "Contact...", style: .Plain, target: self, action: "openActionItems:")
         toolbarItems = [shareItem]
     }
     
@@ -89,7 +89,7 @@ class PrayerDetailsViewController: UITableViewController, UITextFieldDelegate, U
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
-        case 0: return 2 //isChangingCategory == true ? 3 : 2
+        case 0: return 2
         case 1: return 1
         case 2: return 1
         case 3: return currentPrayer.answered == true ? 2 : 1
@@ -314,7 +314,6 @@ class PrayerDetailsViewController: UITableViewController, UITextFieldDelegate, U
             let cell = tableView.cellForRowAtIndexPath(indexPath) as! AddPrayerDateCell_New
             
             cell.refreshCell(true)
-            //tableView.scrollEnabled = !cell.isAddingDate
             
             tableView.beginUpdates()
             tableView.deselectRowAtIndexPath(indexPath, animated: true)
@@ -334,7 +333,6 @@ class PrayerDetailsViewController: UITableViewController, UITextFieldDelegate, U
             CATransaction.begin()
             CATransaction.setCompletionBlock({
                 if self.currentPrayer.answered { tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 3), atScrollPosition: .Bottom, animated: true) }
-                //tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: self.currentPrayer.answered == true ? 1 : 0, inSection: 3), atScrollPosition: .Bottom, animated: true)
             })
             tableView.beginUpdates()
             

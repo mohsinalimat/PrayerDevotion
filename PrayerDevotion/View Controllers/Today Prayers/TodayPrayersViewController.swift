@@ -189,6 +189,8 @@ class TodayPrayersViewController: UIViewController, UITableViewDelegate, UITable
             self.todayPrayers.removeAtIndex(indexPath.row)
             self.todayCount = self.todayCount - 1
             
+            self.selectedIndex = 0
+            
             tableView.beginUpdates()
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Right)
             tableView.endUpdates()

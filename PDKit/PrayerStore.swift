@@ -78,15 +78,14 @@ public class PrayerStore: BaseStore {
         fetchRequest.sortDescriptors = sortDescriptors
         fetchRequest.fetchBatchSize = 50
         
-        let error: NSError? = nil
-        let fetchedArray = try! managedContext!.executeFetchRequest(fetchRequest) as? [PDPrayer]
-        
-        if let error = error {
-            print("ALERT! Error Occurred fetching prayer data by category! Error: \(error.localizedDescription)")
+        do {
+            let fetchedArray = try managedContext!.executeFetchRequest(fetchRequest) as! [PDPrayer]
+            
+            return fetchedArray
+        } catch let error as NSError {
+            print("ALERT! Error Occurred fetching prayer data by category: \(error), \(error.localizedDescription)")
             return [PDPrayer]()
         }
-        
-        return fetchedArray!
     }
     
     // This method fetches all answered prayers in all categories
@@ -96,16 +95,15 @@ public class PrayerStore: BaseStore {
         fetchRequest.predicate = NSPredicate(format: "answered == %@", true)
         fetchRequest.sortDescriptors = sortDescriptors
         fetchRequest.fetchBatchSize = 50
-        
-        let error: NSError? = nil
-        let fetchedArray = try! managedContext!.executeFetchRequest(fetchRequest) as? [PDPrayer]
-        
-        if let errorMsg = error {
-            print("ALERT! Error Occurred fetching answered prayer data! Error: \(errorMsg.localizedDescription)")
+                
+        do {
+            let fetchedArray = try managedContext!.executeFetchRequest(fetchRequest) as! [PDPrayer]
+            
+            return fetchedArray
+        } catch let error as NSError {
+            print("ALERT! Error Occurred fetching answered prayer data! \(error), \(error.localizedDescription)")
             return [PDPrayer]()
         }
-        
-        return fetchedArray!
     }
     
     // Returns a tuple of two NSMutableArrays
@@ -122,15 +120,12 @@ public class PrayerStore: BaseStore {
         unansweredRequest.sortDescriptors = sortDescriptors
         unansweredRequest.fetchBatchSize = batchSize
         
-        let error: NSError? = nil
-        let unansweredFetched = try! managedContext!.executeFetchRequest(unansweredRequest) as? [PDPrayer]
-        
-        if let fetched = unansweredFetched {
-            unansweredPrayers = fetched
-        } else {
-            if let error = error {
-                print("ALERT! Error Occurred fetching answered prayer data by category! Error: \(error.localizedDescription)")
-            }
+        do {
+            let unansweredFetched = try managedContext!.executeFetchRequest(unansweredRequest) as! [PDPrayer]
+            unansweredPrayers = unansweredFetched
+        } catch let error1 as NSError {
+            print("ALERT! Error Occurred fetching answered prayer data by category! Error: \(error1.localizedDescription)")
+
         }
         
         let answeredRequest = NSFetchRequest(entityName: "Prayer")
@@ -138,13 +133,11 @@ public class PrayerStore: BaseStore {
         answeredRequest.predicate = matchPredicate
         answeredRequest.sortDescriptors = [NSSortDescriptor(key: "answeredTimestamp", ascending: false)]
         
-        let error2: NSError? = nil
-        let answeredFetched = try! managedContext!.executeFetchRequest(answeredRequest) as? [PDPrayer]
-        
-        if let fetched = answeredFetched {
-            answeredPrayers = fetched
-        } else {
-            print("ALERT! Error Occurred fetching answered prayer data by category! Error: \(error2!.localizedDescription)")
+        do {
+            let answeredFetched = try managedContext!.executeFetchRequest(answeredRequest) as! [PDPrayer]
+            answeredPrayers = answeredFetched
+        } catch let error2 as NSError {
+            print("ALERT! Error Occurred fetching answered prayer data by category! Error: \(error2.localizedDescription)")
         }
         
         return (unansweredPrayers, answeredPrayers)
@@ -158,15 +151,14 @@ public class PrayerStore: BaseStore {
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
         fetchRequest.fetchBatchSize = 50
         
-        let error: NSError? = nil
-        let fetchResults = try! managedContext!.executeFetchRequest(fetchRequest) as? [PDPrayer]
-        
-        if let fetchError = error {
-            print("An error occurred while fetching prayers for location with ID \(locationID): \(fetchError), \(fetchError.localizedDescription)")
+        do {
+            let fetchResults = try managedContext!.executeFetchRequest(fetchRequest) as! [PDPrayer]
+            
+            return fetchResults
+        } catch let error as NSError {
+            print("An error occurred while fetching prayers for location with ID \(locationID): \(error), \(error.localizedDescription)")
             return [PDPrayer]()
         }
-        
-        return fetchResults!
     }
     
     // This fetchs all prayers on a certain date for the specified PrayerType
@@ -198,15 +190,14 @@ public class PrayerStore: BaseStore {
         
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "priority", ascending: false), NSSortDescriptor(key: "creationDate", ascending: false)]
         
-        let error: NSError? = nil
-        let results = try! managedContext!.executeFetchRequest(fetchRequest) as? [PDPrayer]
-        
-        if let fetchError = error {
-            print("An error occured while fetching today prayers: \(fetchError), \(fetchError.userInfo)")
+        do {
+            let results = try managedContext!.executeFetchRequest(fetchRequest) as! [PDPrayer]
+            
+            return results
+        } catch let error as NSError {
+            print("An error occured while fetching today prayers: \(error), \(error.userInfo)")
             return [PDPrayer]()
         }
-        
-        return results!
     }
     
     // Fetches the "Today" Prayers from the database
@@ -244,15 +235,14 @@ public class PrayerStore: BaseStore {
         
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "priority", ascending: false), NSSortDescriptor(key: "creationDate", ascending: false)]
         
-        let error: NSError? = nil
-        let results = try! managedContext!.executeFetchRequest(fetchRequest) as? [PDPrayer]
-        
-        if let error = error {
-            print("An error occurred while fetching today prayers: \(error), \(error.userInfo)")
+        do {
+            let results = try managedContext!.executeFetchRequest(fetchRequest) as! [PDPrayer]
+            
+            return results
+        } catch let error as NSError {
+            print("An error occurred while fetching today prayers: \(error), \(error.localizedDescription)")
             return [PDPrayer]()
         }
-        
-        return results!
     }
     
     // MARK: Prayer Searching
@@ -270,15 +260,14 @@ public class PrayerStore: BaseStore {
         fetchRequest.sortDescriptors = sortDesc
         fetchRequest.fetchBatchSize = size
         
-        let error: NSError? = nil
-        let fetchedArray = try! managedContext!.executeFetchRequest(fetchRequest) as? [PDPrayer]
-        
-        if let error = error {
-            print("ALERT! Error Occurred fetching prayer data by category (filtered)! Error: \(error.userInfo), \(error.localizedDescription)")
+        do {
+            let fetchedArray = try managedContext!.executeFetchRequest(fetchRequest) as! [PDPrayer]
+            
+            return fetchedArray
+        } catch let error as NSError {
+            print("ALERT! Error Occurred fetching prayer data by category (filtered)! Error: \(error), \(error.localizedDescription)")
             return [PDPrayer]()
         }
-        
-        return fetchedArray!
     }
     
     // MARK: Prayer Counts
@@ -290,13 +279,12 @@ public class PrayerStore: BaseStore {
         fetchRequest.resultType = .CountResultType
         fetchRequest.predicate = NSPredicate(format: "category == %@", category.name)
         
-        let error: NSError? = nil
-        let result = try! managedContext!.executeFetchRequest(fetchRequest) as? [NSNumber]
-        
-        if let countArray = result {
-            return countArray[0].integerValue
-        } else {
-            print("Error occurred while fetching prayer count! \(error), \(error!.userInfo)")
+        do {
+            let result = try managedContext!.executeFetchRequest(fetchRequest) as! [NSNumber]
+            
+            return result[0].integerValue
+        } catch let error as NSError {
+            print("Error occurred while fetching prayer count! \(error), \(error.localizedDescription)")
             return 0
         }
     }
@@ -308,13 +296,12 @@ public class PrayerStore: BaseStore {
         fetchRequest.resultType = .CountResultType
         fetchRequest.predicate = NSPredicate(format: "answered == %@", true)
         
-        let error: NSError? = nil
-        let result = try! managedContext!.executeFetchRequest(fetchRequest) as? [NSNumber]
-        
-        if let countArray = result {
-            return countArray[0].integerValue
-        } else {
-            print("Error occurred while fetching answered prayers count! \(error), \(error!.userInfo)")
+        do {
+            let result = try managedContext!.executeFetchRequest(fetchRequest) as! [NSNumber]
+            
+            return result[0].integerValue
+        } catch let error as NSError {
+            print("Error occurred while fetching answered prayers count! \(error), \(error.localizedDescription)")
             return 0
         }
     }
@@ -325,13 +312,11 @@ public class PrayerStore: BaseStore {
         let fetchRequest = NSFetchRequest(entityName: "Prayer")
         fetchRequest.resultType = .CountResultType
         
-        let error: NSError? = nil
-        let result = try! managedContext!.executeFetchRequest(fetchRequest) as? [NSNumber]
-        
-        if let countArray = result {
-            return countArray[0].integerValue
-        } else {
-            print("Error occurred while fetching all prayers count! \(error), \(error!.userInfo)")
+        do {
+            let result = try managedContext!.executeFetchRequest(fetchRequest) as! [NSNumber]
+            return result[0].integerValue
+        } catch let error as NSError {
+            print("Error occurred while fetching all prayers count! \(error), \(error.localizedDescription)")
             return 0
         }
     }
@@ -411,18 +396,17 @@ public class PrayerStore: BaseStore {
             fetchRequest.predicate = NSPredicate(format: "prayerID == %d", generatedID)
             fetchRequest.fetchLimit = 1
             
-            let error: NSError? = nil
-            let fetchedResults = try! managedContext!.executeFetchRequest(fetchRequest) as? [PDPrayer]
-            
-            if let fetchError = error {
-                print("An error occurred checking the ID of prayer during creation: \(fetchError), \(fetchError.localizedDescription)")
-                continue
-            } else {
-                if fetchedResults?.count > 0 { continue }
+            do {
+                let fetchedResults = try managedContext!.executeFetchRequest(fetchRequest) as! [PDPrayer]
+                
+                if fetchedResults.count > 0 { continue }
                 else {
                     prayer.prayerID = generatedID
                     break
                 }
+            } catch let error as NSError {
+                print("An error occurred checking the ID of prayer during creation: \(error), \(error.localizedDescription)")
+                continue
             }
         }
         
@@ -484,7 +468,6 @@ public class PrayerStore: BaseStore {
         if prayer.prayerType == "On Date" { return .OnDate }
         if prayer.prayerType == "Daily" { return .Daily }
         if prayer.prayerType == "Weekly" { return .Weekly }
-        
         return .None
     }
     
@@ -504,46 +487,39 @@ public class PrayerStore: BaseStore {
     public func addPrayerIDDuringMigration() -> Bool {
         let fetchReqest = NSFetchRequest(entityName: "Prayer")
         
-        var error: NSError? = nil
-        let fetchedPrayers = try! managedContext!.executeFetchRequest(fetchReqest) as? [PDPrayer]
         
-        if let error = error {
+        do {
+            let fetchedPrayers = try managedContext!.executeFetchRequest(fetchReqest) as! [PDPrayer]
+            
+            for prayer in fetchedPrayers {
+                while true {
+                    let generatedID = generateID()
+                    
+                    let newFetchRequest = NSFetchRequest(entityName: "Prayer")
+                    newFetchRequest.fetchLimit = 1
+                    newFetchRequest.predicate = NSPredicate(format: "prayerID == %d", generatedID)
+                    
+                    do {
+                        let fetchedPrayer = try managedContext!.executeFetchRequest(newFetchRequest) as! [PDPrayer]
+                        
+                        if fetchedPrayer.count > 0 {
+                            continue
+                        } else {
+                            prayer.prayerID = generatedID
+                            break
+                        }
+                    } catch let error as NSError {
+                        print("Error checking database for prayer with ID \(generatedID): \(error), \(error.localizedDescription)")
+                    }
+                }
+                
+                print("Prayer ID for prayer \(prayer.name) before save is \(prayer.prayerID)")
+                saveDatabase()
+                print("Prayer ID for prayer \(prayer.name) after save is \(prayer.prayerID)")
+            }
+        } catch let error as NSError {
             print("An error occurred fetching prayers for migration: \(error), \(error.localizedDescription)")
             return false
-        }
-        
-        for prayer in fetchedPrayers! {
-            // var id: Int32 = 0
-            
-            while true {
-                let generatedID = generateID()
-            
-                let newFetchRequest = NSFetchRequest(entityName: "Prayer")
-                newFetchRequest.fetchLimit = 1
-                newFetchRequest.predicate = NSPredicate(format: "prayerID == %d", generatedID)
-            
-                let fetchedPrayer: [AnyObject]?
-                do {
-                    fetchedPrayer = try managedContext!.executeFetchRequest(newFetchRequest)
-                } catch let error1 as NSError {
-                    error = error1
-                    fetchedPrayer = nil
-                }
-            
-                if let error = error {
-                    print("Error checking database for prayer with ID \(generatedID): \(error), \(error.localizedDescription)")
-                } else if fetchedPrayer!.count > 0 {
-                    continue
-                } else {
-                    // id = generatedID
-                    prayer.prayerID = generatedID
-                    break
-                }
-            }
-            
-            print("Prayer ID for prayer \(prayer.name) before save is \(prayer.prayerID)")
-            saveDatabase()
-            print("Prayer ID for prayer \(prayer.name) after save is \(prayer.prayerID)")
         }
         
         let userDefaults = NSUserDefaults.standardUserDefaults()
@@ -558,17 +534,16 @@ public class PrayerStore: BaseStore {
         let fetchRequest = NSFetchRequest(entityName: "Prayer")
         fetchRequest.predicate = NSPredicate(format: "isDateAdded == false")
         
-        let error: NSError? = nil
-        let fetchedPrayers = try! managedContext!.executeFetchRequest(fetchRequest) as? [PDPrayer]
-        
-        if let error = error {
+        do {
+            let fetchedPrayers = try managedContext!.executeFetchRequest(fetchRequest) as! [PDPrayer]
+            
+            for prayer in fetchedPrayers {
+                prayer.prayerType = "Daily"
+                prayer.isDateAdded = true
+            }
+        } catch let error as NSError {
             print("An error occurred fetching prayers to add prayer date: \(error), \(error.localizedDescription)")
             return false
-        }
-        
-        for prayer in fetchedPrayers! {
-            prayer.prayerType = "Daily"
-            prayer.isDateAdded = true
         }
         
         saveDatabase()
@@ -594,18 +569,19 @@ public class PrayerStore: BaseStore {
         fetchRequest.fetchLimit = 1
         fetchRequest.predicate = NSPredicate(format: "prayerID == %d", id)
         
-        let error: NSError? = nil
-        let fetchedPrayer = try! managedContext!.executeFetchRequest(fetchRequest) as? [PDPrayer]
-        
-        if fetchedPrayer?.count == 0 {
-            print("Could not find prayer for ID \(id)")
-            return nil
-        } else if error != nil {
-            print("An error occurred while fetching prayer for ID \(id)")
+        do {
+            let fetchedPrayer = try managedContext!.executeFetchRequest(fetchRequest) as! [PDPrayer]
+            
+            if fetchedPrayer.count == 0 {
+                print("Could not find prayer for ID \(id)")
+                return nil
+            }
+            
+            return fetchedPrayer[0]
+        } catch let error as NSError {
+            print("An error occurred while fetching prayer for ID \(id): \(error), \(error.localizedDescription)")
             return nil
         }
-        
-        return fetchedPrayer![0]
     }
     
     // This method generates a unique identifier for each prayer
@@ -620,15 +596,14 @@ public class PrayerStore: BaseStore {
     public func checkIDs() {
         let fetchReqest = NSFetchRequest(entityName: "Prayer")
         
-        let error: NSError? = nil
-        let fetchedPrayers = try! managedContext!.executeFetchRequest(fetchReqest) as? [PDPrayer]
-        
-        if let error = error {
+        do {
+            let fetchedPrayers = try managedContext!.executeFetchRequest(fetchReqest) as! [PDPrayer]
+            
+            for prayer in fetchedPrayers {
+                print("Prayer ID for prayer \(prayer.name) is \(prayer.prayerID)")
+            }
+        } catch let error as NSError {
             print("An error occurred fetching prayers for check: \(error), \(error.localizedDescription)")
-        }
-        
-        for prayer in fetchedPrayers! {
-            print("Prayer ID for prayer \(prayer.name) is \(prayer.prayerID)")
         }
     }
 }

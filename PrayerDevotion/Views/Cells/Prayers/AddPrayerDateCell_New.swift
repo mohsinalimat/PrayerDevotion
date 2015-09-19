@@ -153,17 +153,27 @@ class AddPrayerDateCell_New: UITableViewCell, UIPickerViewDelegate, UIPickerView
         let newType = PrayerStore.sharedInstance.stringToPrayerType(buttonTitle)
         
         print("\(selectedType.description)")
-        if let currentPrayer = currentPrayer {
-            currentPrayer.prayerType = newType.description
-        }
-        BaseStore.baseInstance.saveDatabase()
+        print("\(newType.description)")
         
-        selectedType = getSelectedType()
+        selectedType = newType
         
         if selectedType == .OnDate {
             datePicker.minimumDate = NSDate()
             dateToAdd = datePicker.date
+        } else if selectedType == .Weekly {
+            let today = NSDate()
+            let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
+            let comps = calendar!.components([.Day, .Weekday], fromDate: today)
+            let day = comps.weekday
+            
+            // Get pickerView row
+            let row = currentPrayer!.weekday == nil ? day - 1 : weekdays.indexOf((currentPrayer!.weekday!))!
+            weekday = self.pickerView(weekdayPicker, titleForRow: row, forComponent: 0)
         }
+        
+        savePrayerDate()
+        
+        print("\(currentPrayer!.prayerType!)")
         
         tableView?.endUpdates()
         

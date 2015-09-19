@@ -51,17 +51,16 @@ public class CategoryStore: BaseStore {
             fetchReq.predicate = fetchPredicate
         }
         
-        let error: NSError? = nil
-        let fetchedArray = try! managedContext!.executeFetchRequest(fetchReq) as? [PDCategory]
-        
-        if let array = fetchedArray {
-            for var i = 0; i < array.count; i++ {
-                print("--> Fetched Item at index \(i) is \(array[i].name)")
+        do {
+            let fetchedArray = try managedContext!.executeFetchRequest(fetchReq) as! [PDCategory]
+            
+            for var i = 0; i < fetchedArray.count; i++ {
+                print("--> Fetched Item at index \(i) is \(fetchedArray[i].name)")
             }
             
-            categories = array
-        } else {
-            print("An error occurred while fetching categories from the database: \(error!.localizedDescription)")
+            categories = fetchedArray
+        } catch let error as NSError {
+            print("An error occurred while fetching categories from the database: \(error.localizedDescription)")
             categories = [PDCategory]()
         }
     }
@@ -72,13 +71,12 @@ public class CategoryStore: BaseStore {
         let predicate = NSPredicate(format: "name != %@", excludedCategory)
         fetchRequest.predicate = predicate
         
-        let error: NSError? = nil
-        let results = try! managedContext!.executeFetchRequest(fetchRequest) as? [PDCategory]
-        
-        if let fetchedCategories = results {
-            return fetchedCategories
-        } else {
-            print("An error occurred while fetching categories for move: \(error), \(error!.userInfo)")
+        do {
+            let results = try managedContext!.executeFetchRequest(fetchRequest) as! [PDCategory]
+            
+            return results
+        } catch let error as NSError {
+            print("An error occurred while fetching categories for move: \(error), \(error.userInfo)")
             return [PDCategory]()
         }
     }
@@ -99,12 +97,20 @@ public class CategoryStore: BaseStore {
         let predicate = NSPredicate(format: "category == %@", category.name)
         fetchRequest.predicate = predicate
         
-        let results = try! managedContext!.executeFetchRequest(fetchRequest) as? [PDPrayer]
-        
-        if let prayersToDelete = results {
-            for prayer in prayersToDelete {
+        do {
+            let results = try managedContext!.executeFetchRequest(fetchRequest) as! [PDPrayer]
+            
+            for prayer in results {
                 PrayerStore.sharedInstance.deletePrayer(prayer, inCategory: category)
             }
+            
+            managedContext!.deleteObject(category)
+            categories.removeObject(category)
+            
+            saveDatabase()
+            fetchCategoriesData(nil)
+        } catch let error as NSError {
+            print("ERROR: Unable to delete category: \(error), \(error.localizedDescription)")
         }
         
         // This is the method for an "order" - may use in the future
@@ -114,12 +120,6 @@ public class CategoryStore: BaseStore {
         println("Category with name \((oldCategory as! Category).shortName) changed order to new order \((oldCategory as! Category).order)")
         }
         }*/
-        
-        managedContext!.deleteObject(category)
-        categories.removeObject(category)
-        
-        saveDatabase()
-        fetchCategoriesData(nil)
     }
     
     // Changes a prayer's order with another prayer
@@ -148,7 +148,6 @@ public class CategoryStore: BaseStore {
         category.prayerCount = 0
         
         categories.insert(category, atIndex: 0)
-        //categories.insertObject(categories, atIndex: 0)
         
         saveDatabase()
     }
@@ -173,16 +172,14 @@ public class CategoryStore: BaseStore {
         batchRequest.propertiesToUpdate = ["category" : category.name]
         batchRequest.resultType = .UpdatedObjectsCountResultType
         
-        let batchResult = try! managedContext!.executeRequest(batchRequest) as? NSBatchUpdateResult
-        
-        if let result = batchResult {
-            print("Updated \(result.result!) prayers")
-        } else {
-            print("An error occurred while updating records!")
+        do {
+            let batchResult = try managedContext!.executeRequest(batchRequest) as! NSBatchUpdateResult
+            
+            print("Updated \(batchResult.result!) prayers")
+            saveDatabase()
+        } catch let error as NSError {
+            print("An error occurred while updating records: \(error), \(error.localizedDescription)")
         }
-        
-        saveDatabase()
-        
     }
     
     // MARK: Helper methods
@@ -198,20 +195,15 @@ public class CategoryStore: BaseStore {
         fetchRequest.predicate = NSPredicate(format: "name == %@", categoryName)
         fetchRequest.fetchLimit = 1
         
-        let category = try! managedContext!.executeFetchRequest(fetchRequest) as? [PDCategory]
-
-        
-        if let category = category {
+        do {
+            let category = try managedContext!.executeFetchRequest(fetchRequest) as! [PDCategory]
+            
             return category[0]
+        } catch let error as NSError {
+            print("Error fetching category for string \(categoryName): \(error), \(error.localizedDescription)")
+            
+            return nil
         }
-        
-        /*for category in categories {
-            if category.name == categoryName {
-                return category as? PDCategory
-            }
-        }*/
-        
-        return nil
     }
     
     // This checks to see if a category exists (Dunno what to use this for... yet)

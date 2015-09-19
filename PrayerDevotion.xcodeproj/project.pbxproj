@@ -61,7 +61,6 @@
 		61C52CBB1B56AFA200F3FB04 /* PDTodayWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 61C52CAE1B56AFA200F3FB04 /* PDTodayWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		61C52CC11B56B1F000F3FB04 /* PrayerTodayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61C52CC01B56B1F000F3FB04 /* PrayerTodayCell.swift */; };
 		61CB0F3B1B57188E00343DD4 /* PrayerDevotion.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 61CB0F391B57188E00343DD4 /* PrayerDevotion.xcdatamodeld */; };
-		61D1D4231BA3970B00837A47 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 61D1D4221BA3970B00837A47 /* Images.xcassets */; };
 		61E049601B801ACE00A5CB9A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61E0495F1B801ACE00A5CB9A /* AVFoundation.framework */; };
 		61E049621B801AD600A5CB9A /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61E049611B801AD600A5CB9A /* CoreData.framework */; };
 		61E049641B801ADA00A5CB9A /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61E049631B801ADA00A5CB9A /* CoreText.framework */; };
@@ -118,6 +117,7 @@
 		61FBDE121BA9E1970026A0A7 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 61FBDE111BA9E1970026A0A7 /* libz.tbd */; };
 		61FBDE141BA9E1D10026A0A7 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 61FBDE131BA9E1D10026A0A7 /* libc++.tbd */; };
 		61FBDE161BA9E1DD0026A0A7 /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 61FBDE151BA9E1DD0026A0A7 /* libicucore.tbd */; };
+		61FBDE181BA9E68E0026A0A7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 61FBDE171BA9E68E0026A0A7 /* Images.xcassets */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -267,7 +267,6 @@
 		61C52CC01B56B1F000F3FB04 /* PrayerTodayCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayerTodayCell.swift; sourceTree = "<group>"; };
 		61CB0F3A1B57188E00343DD4 /* PrayerDevotion.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PrayerDevotion.xcdatamodel; sourceTree = "<group>"; };
 		61CB0F3C1B571EAD00343DD4 /* PDTodayWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PDTodayWidget.entitlements; sourceTree = "<group>"; };
-		61D1D4221BA3970B00837A47 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		61E0495F1B801ACE00A5CB9A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		61E049611B801AD600A5CB9A /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		61E049631B801ADA00A5CB9A /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
@@ -327,6 +326,7 @@
 		61FBDE111BA9E1970026A0A7 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		61FBDE131BA9E1D10026A0A7 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		61FBDE151BA9E1DD0026A0A7 /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
+		61FBDE171BA9E68E0026A0A7 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		DBCAED8E24CFB0EF747FCBDD /* Pods-PrayerDevotion.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrayerDevotion.release.xcconfig"; path = "Pods/Target Support Files/Pods-PrayerDevotion/Pods-PrayerDevotion.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -488,7 +488,7 @@
 				61F540B21B03DC620072BA6F /* Views */,
 				61C10CE41B8AA4E20099F059 /* ColorPickerClasses */,
 				61293E111B013602005B7267 /* Main.storyboard */,
-				61D1D4221BA3970B00837A47 /* Images.xcassets */,
+				61FBDE171BA9E68E0026A0A7 /* Images.xcassets */,
 				61293E161B013602005B7267 /* LaunchScreen.xib */,
 				61293E0C1B013602005B7267 /* PrayerDevotion.xcdatamodeld */,
 				61293E081B013602005B7267 /* Supporting Files */,
@@ -1034,11 +1034,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				61FBDE181BA9E68E0026A0A7 /* Images.xcassets in Resources */,
 				61FBDE0E1BA9DE650026A0A7 /* PrayerDevotion.entitlements in Resources */,
 				61FBDE061BA9DE420026A0A7 /* RMStore.license in Resources */,
 				61293E131B013602005B7267 /* Main.storyboard in Resources */,
 				61FBDE051BA9DE420026A0A7 /* license_script.pl in Resources */,
-				61D1D4231BA3970B00837A47 /* Images.xcassets in Resources */,
 				61293E181B013602005B7267 /* LaunchScreen.xib in Resources */,
 				61FBDDDB1BA9DD9D0026A0A7 /* LocationInfoView.xib in Resources */,
 				61FBDE101BA9DE650026A0A7 /* Settings.bundle in Resources */,

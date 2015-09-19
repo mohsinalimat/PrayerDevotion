@@ -20,6 +20,8 @@ class LocationPrayersViewController: UIViewController, UITableViewDelegate, UITa
     
     var location: GMSPlace!
     
+    var shouldExitScreen: Bool = true
+    
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
@@ -50,6 +52,8 @@ class LocationPrayersViewController: UIViewController, UITableViewDelegate, UITa
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        shouldExitScreen = true
+        
         locationPrayers = PrayerStore.sharedInstance.fetchPrayersForLocationID(location.placeID)
         
         locationLabel.text = location.name
@@ -60,7 +64,7 @@ class LocationPrayersViewController: UIViewController, UITableViewDelegate, UITa
     }
     
     override func viewWillDisappear(animated: Bool) {
-        navigationController?.popToViewController(backViewController, animated: true)
+        if shouldExitScreen { navigationController?.popToViewController(backViewController, animated: true) }
     }
     
     override func didReceiveMemoryWarning() {
@@ -113,6 +117,7 @@ class LocationPrayersViewController: UIViewController, UITableViewDelegate, UITa
             let prayerDetailsVC = (segue.destinationViewController as! UINavigationController).topViewController as! PrayerDetailsViewController
             prayerDetailsVC.currentPrayer = locationPrayers[selectedIndex]
             prayerDetailsVC.previousViewController = self
+            shouldExitScreen = false
         }
     }
     

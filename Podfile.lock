@@ -1,0 +1,15 @@
+PODS:
+  - GoogleMaps (1.10.2)
+  - RMStore (0.7.1):
+    - RMStore/Core (= 0.7.1)
+  - RMStore/Core (0.7.1)
+
+DEPENDENCIES:
+  - GoogleMaps
+  - RMStore (~> 0.7)
+
+SPEC CHECKSUMS:
+  GoogleMaps: 5c92e599b07b0a2a9b367c5dd128edc629bddfea
+  RMStore: 64ba13a9c040e3b7572765d169f77175cd3243e5
+
+COCOAPODS: 0.38.2

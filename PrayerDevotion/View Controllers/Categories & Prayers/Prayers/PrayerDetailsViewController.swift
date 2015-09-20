@@ -77,6 +77,18 @@ class PrayerDetailsViewController: UITableViewController, UITextFieldDelegate, U
         tableView.separatorColor = delegate.themeBackgroundColor
     }
     
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if currentPrayer.isDateAdded == false {
+            currentPrayer.prayerType = "None"
+        }
+        
+        tableView.endEditing(true)
+        
+        BaseStore.baseInstance.saveDatabase()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -523,14 +535,7 @@ class PrayerDetailsViewController: UITableViewController, UITextFieldDelegate, U
         } else {
             NSNotificationCenter.defaultCenter().postNotificationName("ReloadPrayers", object: nil)
         }
-        
-        if currentPrayer.isDateAdded == false {
-            currentPrayer.prayerType = "None"
-        }
-        
-        tableView.endEditing(true)
-        
-        BaseStore.baseInstance.saveDatabase()
+
         dismissViewControllerAnimated(true, completion: nil)
     }
     

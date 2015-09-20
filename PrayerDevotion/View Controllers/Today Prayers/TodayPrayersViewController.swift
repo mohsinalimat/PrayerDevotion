@@ -28,7 +28,7 @@ class TodayPrayersViewController: UIViewController, UITableViewDelegate, UITable
     let userPrefs = NSUserDefaults.standardUserDefaults()
     let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
-    var selectedIndex = 0
+    var selectedPrayer: PDPrayer? = nil
     
     var date = NSDate()
     
@@ -189,7 +189,7 @@ class TodayPrayersViewController: UIViewController, UITableViewDelegate, UITable
             self.todayPrayers.removeAtIndex(indexPath.row)
             self.todayCount = self.todayCount - 1
             
-            self.selectedIndex = 0
+            self.selectedPrayer = nil
             
             tableView.beginUpdates()
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Right)
@@ -220,7 +220,7 @@ class TodayPrayersViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        selectedIndex = indexPath.row
+        selectedPrayer = self.todayPrayers[indexPath.row]
         
         performSegueWithIdentifier(PresentPrayerDetailsSegueID, sender: self)
     }
@@ -256,8 +256,10 @@ class TodayPrayersViewController: UIViewController, UITableViewDelegate, UITable
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == PresentPrayerDetailsSegueID {
             let prayerDetailsVC = (segue.destinationViewController as! UINavigationController).topViewController as! PrayerDetailsViewController
-            prayerDetailsVC.currentPrayer = todayPrayers[selectedIndex]
+
+            prayerDetailsVC.currentPrayer = selectedPrayer!
             prayerDetailsVC.previousViewController = self
+            
         }
     }
     
@@ -270,7 +272,7 @@ class TodayPrayersViewController: UIViewController, UITableViewDelegate, UITable
     func textFieldDidEndEditing(textField: UITextField) {
         print("Ending textField editing...")
         
-        var addedPrayerIndex: NSIndexPath? = nil
+        //var addedPrayerIndex: NSIndexPath? = nil
         let autoOpen = userPrefs.boolForKey("openPrayerDetailsAuto")
         
         let enteredString = textField.text!
@@ -293,7 +295,7 @@ class TodayPrayersViewController: UIViewController, UITableViewDelegate, UITable
             fetchTodayPrayers()
             
             tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: todayPrayers.indexOf(addedPrayer)!, inSection: 1)], withRowAnimation: .Right)
-            addedPrayerIndex = NSIndexPath(forRow: todayPrayers.indexOf(addedPrayer)!, inSection: 1)
+            selectedPrayer = addedPrayer
             
             tableView.endUpdates()
             
@@ -304,7 +306,7 @@ class TodayPrayersViewController: UIViewController, UITableViewDelegate, UITable
         
         textField.text = ""
         
-        if addedPrayerIndex != nil {
+        if selectedPrayer != nil {
             if autoOpen == true {
                 performSegueWithIdentifier(PresentPrayerDetailsSegueID, sender: self)
             }

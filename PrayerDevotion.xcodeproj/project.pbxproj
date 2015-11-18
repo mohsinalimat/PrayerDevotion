@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		40CE016C9E7BD3990DBEE698 /* Pods_PrayerDevotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CF2A953CFD48961431FB11F /* Pods_PrayerDevotion.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		40CE016C9E7BD3990DBEE698 /* Pods_PrayerDevotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CF2A953CFD48961431FB11F /* Pods_PrayerDevotion.framework */; };
 		61081BF51B55FDB8002F1BF3 /* PDKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61081BEA1B55FDB8002F1BF3 /* PDKit.framework */; };
 		61081BFE1B55FDB8002F1BF3 /* PDKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61081BFD1B55FDB8002F1BF3 /* PDKitTests.swift */; };
 		61081C011B55FDB8002F1BF3 /* PDKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61081BEA1B55FDB8002F1BF3 /* PDKit.framework */; };
@@ -32,11 +32,17 @@
 		61293E181B013602005B7267 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 61293E161B013602005B7267 /* LaunchScreen.xib */; };
 		61293E241B013602005B7267 /* PrayerDevotionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61293E231B013602005B7267 /* PrayerDevotionTests.swift */; };
 		6140204B1B729697001E837A /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6140204A1B729697001E837A /* MapKit.framework */; };
+		61451D821BCB4BD200CA6D89 /* PrayerUpdatesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61451D811BCB4BD200CA6D89 /* PrayerUpdatesTableViewController.swift */; };
+		61451D851BCB4CF700CA6D89 /* PrayerUpdateView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 61451D841BCB4CF700CA6D89 /* PrayerUpdateView.xib */; };
+		61451D881BCB4E4B00CA6D89 /* Updates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61451D871BCB4E4B00CA6D89 /* Updates.swift */; };
 		6166A5561B5F024100C55CD3 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6166A5551B5F024100C55CD3 /* Constants.swift */; };
 		617213F41B62C40D004B45F9 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 617213F31B62C40D004B45F9 /* Color.swift */; };
 		618359691B6039B400AEA7AE /* Model.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 618359681B6039B400AEA7AE /* Model.xcmappingmodel */; };
 		618977341B729DD200619663 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 618977331B729DD200619663 /* Location.swift */; };
 		618977361B72A27100619663 /* LocationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 618977351B72A27100619663 /* LocationStore.swift */; };
+		61BC7D381BCF5167005C858A /* UpdatesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61BC7D371BCF5167005C858A /* UpdatesStore.swift */; };
+		61BC7D3A1BCF5770005C858A /* PrayerUpdateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61BC7D391BCF5770005C858A /* PrayerUpdateCell.swift */; };
+		61BC7D401BCF5F1C005C858A /* PrayerUpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61BC7D3F1BCF5F1C005C858A /* PrayerUpdateView.swift */; };
 		61C10D0D1B8AA4E20099F059 /* ANImageBitmapRep.m in Sources */ = {isa = PBXBuildFile; fileRef = 61C10CE71B8AA4E20099F059 /* ANImageBitmapRep.m */; };
 		61C10D0E1B8AA4E20099F059 /* BitmapContextRep.m in Sources */ = {isa = PBXBuildFile; fileRef = 61C10CE91B8AA4E20099F059 /* BitmapContextRep.m */; };
 		61C10D0F1B8AA4E20099F059 /* NSImage+ANImageBitmapRep.m in Sources */ = {isa = PBXBuildFile; fileRef = 61C10CEC1B8AA4E20099F059 /* NSImage+ANImageBitmapRep.m */; };
@@ -71,53 +77,53 @@
 		61E049741B801B0500A5CB9A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61E049731B801B0500A5CB9A /* QuartzCore.framework */; };
 		61E049761B801B0B00A5CB9A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61E049751B801B0B00A5CB9A /* SystemConfiguration.framework */; };
 		61F36D831B8C1C8800B51B9A /* RSBrightnessSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 61F36D821B8C1C8800B51B9A /* RSBrightnessSlider.m */; };
-		61FBDDB81BA9DCBB0026A0A7 /* TodayPrayersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDB71BA9DCBB0026A0A7 /* TodayPrayersViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		61FBDDBC1BA9DCF60026A0A7 /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDB91BA9DCF60026A0A7 /* CategoriesViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		61FBDDBD1BA9DCF60026A0A7 /* EditCategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDBA1BA9DCF60026A0A7 /* EditCategoriesViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		61FBDDBE1BA9DCF60026A0A7 /* MovePrayersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDBB1BA9DCF60026A0A7 /* MovePrayersViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		61FBDDC31BA9DD2B0026A0A7 /* AnsweredPrayersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDBF1BA9DD2B0026A0A7 /* AnsweredPrayersViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		61FBDDC41BA9DD2B0026A0A7 /* PersonalPrayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDC01BA9DD2B0026A0A7 /* PersonalPrayerViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		61FBDDC51BA9DD2B0026A0A7 /* PrayerDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDC11BA9DD2B0026A0A7 /* PrayerDetailsViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		61FBDDC61BA9DD2B0026A0A7 /* PrayerSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDC21BA9DD2B0026A0A7 /* PrayerSearchViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		61FBDDCC1BA9DD4E0026A0A7 /* CreateLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDC71BA9DD4E0026A0A7 /* CreateLocationViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		61FBDDCD1BA9DD4E0026A0A7 /* LocationPrayersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDC81BA9DD4E0026A0A7 /* LocationPrayersViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		61FBDDCE1BA9DD4E0026A0A7 /* LocationSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDC91BA9DD4E0026A0A7 /* LocationSearchViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		61FBDDCF1BA9DD4E0026A0A7 /* PrayerLocationsViewController_old.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDCA1BA9DD4E0026A0A7 /* PrayerLocationsViewController_old.swift */; settings = {ASSET_TAGS = (); }; };
-		61FBDDD01BA9DD4E0026A0A7 /* PrayerLocationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDCB1BA9DD4E0026A0A7 /* PrayerLocationsViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		61FBDDD41BA9DD660026A0A7 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDD11BA9DD660026A0A7 /* SettingsViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		61FBDDD51BA9DD660026A0A7 /* ThemeColorCustomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDD21BA9DD660026A0A7 /* ThemeColorCustomViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		61FBDDD61BA9DD660026A0A7 /* ThemeColorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDD31BA9DD660026A0A7 /* ThemeColorViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		61FBDDDA1BA9DD9D0026A0A7 /* LocationInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDD71BA9DD9D0026A0A7 /* LocationInfoView.swift */; settings = {ASSET_TAGS = (); }; };
-		61FBDDDB1BA9DD9D0026A0A7 /* LocationInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 61FBDDD81BA9DD9D0026A0A7 /* LocationInfoView.xib */; settings = {ASSET_TAGS = (); }; };
-		61FBDDDC1BA9DD9D0026A0A7 /* LocationMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDD91BA9DD9D0026A0A7 /* LocationMarker.swift */; settings = {ASSET_TAGS = (); }; };
-		61FBDDDE1BA9DDAE0026A0A7 /* ShadowLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDDD1BA9DDAE0026A0A7 /* ShadowLabel.swift */; settings = {ASSET_TAGS = (); }; };
-		61FBDDE11BA9DDC80026A0A7 /* ThemeColorCell_New.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDDF1BA9DDC80026A0A7 /* ThemeColorCell_New.swift */; settings = {ASSET_TAGS = (); }; };
-		61FBDDE21BA9DDC80026A0A7 /* ThemeColorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDE01BA9DDC80026A0A7 /* ThemeColorCell.swift */; settings = {ASSET_TAGS = (); }; };
-		61FBDDE41BA9DDDA0026A0A7 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDE31BA9DDDA0026A0A7 /* CategoryCell.swift */; settings = {ASSET_TAGS = (); }; };
-		61FBDDF41BA9DE0B0026A0A7 /* AddPrayerAlertCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDE51BA9DE0B0026A0A7 /* AddPrayerAlertCell.swift */; settings = {ASSET_TAGS = (); }; };
-		61FBDDF51BA9DE0B0026A0A7 /* AddPrayerDateCell_New.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDE61BA9DE0B0026A0A7 /* AddPrayerDateCell_New.swift */; settings = {ASSET_TAGS = (); }; };
-		61FBDDF61BA9DE0B0026A0A7 /* AddPrayerDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDE71BA9DE0B0026A0A7 /* AddPrayerDateCell.swift */; settings = {ASSET_TAGS = (); }; };
-		61FBDDF71BA9DE0B0026A0A7 /* CreatePrayerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDE81BA9DE0B0026A0A7 /* CreatePrayerCell.swift */; settings = {ASSET_TAGS = (); }; };
-		61FBDDF81BA9DE0B0026A0A7 /* PrayerAlertCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDE91BA9DE0B0026A0A7 /* PrayerAlertCell.swift */; settings = {ASSET_TAGS = (); }; };
-		61FBDDF91BA9DE0B0026A0A7 /* PrayerAnsweredCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDEA1BA9DE0B0026A0A7 /* PrayerAnsweredCell.swift */; settings = {ASSET_TAGS = (); }; };
-		61FBDDFA1BA9DE0B0026A0A7 /* PrayerAnsweredNotesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDEB1BA9DE0B0026A0A7 /* PrayerAnsweredNotesCell.swift */; settings = {ASSET_TAGS = (); }; };
-		61FBDDFB1BA9DE0B0026A0A7 /* PrayerCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDEC1BA9DE0B0026A0A7 /* PrayerCategoryCell.swift */; settings = {ASSET_TAGS = (); }; };
-		61FBDDFC1BA9DE0B0026A0A7 /* PrayerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDED1BA9DE0B0026A0A7 /* PrayerCell.swift */; settings = {ASSET_TAGS = (); }; };
-		61FBDDFD1BA9DE0B0026A0A7 /* PrayerDetailsExtendedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDEE1BA9DE0B0026A0A7 /* PrayerDetailsExtendedCell.swift */; settings = {ASSET_TAGS = (); }; };
-		61FBDDFE1BA9DE0B0026A0A7 /* PrayerNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDEF1BA9DE0B0026A0A7 /* PrayerNameCell.swift */; settings = {ASSET_TAGS = (); }; };
-		61FBDDFF1BA9DE0B0026A0A7 /* PrayerPriorityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDF01BA9DE0B0026A0A7 /* PrayerPriorityCell.swift */; settings = {ASSET_TAGS = (); }; };
-		61FBDE001BA9DE0B0026A0A7 /* PrayerSearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDF11BA9DE0B0026A0A7 /* PrayerSearchCell.swift */; settings = {ASSET_TAGS = (); }; };
-		61FBDE011BA9DE0B0026A0A7 /* TodayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDF21BA9DE0B0026A0A7 /* TodayCell.swift */; settings = {ASSET_TAGS = (); }; };
-		61FBDE021BA9DE0B0026A0A7 /* TodayPrayerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDF31BA9DE0B0026A0A7 /* TodayPrayerCell.swift */; settings = {ASSET_TAGS = (); }; };
-		61FBDE051BA9DE420026A0A7 /* license_script.pl in Resources */ = {isa = PBXBuildFile; fileRef = 61FBDE031BA9DE420026A0A7 /* license_script.pl */; settings = {ASSET_TAGS = (); }; };
-		61FBDE061BA9DE420026A0A7 /* RMStore.license in Resources */ = {isa = PBXBuildFile; fileRef = 61FBDE041BA9DE420026A0A7 /* RMStore.license */; settings = {ASSET_TAGS = (); }; };
-		61FBDE0E1BA9DE650026A0A7 /* PrayerDevotion.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 61FBDE091BA9DE650026A0A7 /* PrayerDevotion.entitlements */; settings = {ASSET_TAGS = (); }; };
-		61FBDE0F1BA9DE650026A0A7 /* PrayerDevotion.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDE0A1BA9DE650026A0A7 /* PrayerDevotion.xcdatamodeld */; settings = {ASSET_TAGS = (); }; };
-		61FBDE101BA9DE650026A0A7 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 61FBDE0C1BA9DE650026A0A7 /* Settings.bundle */; settings = {ASSET_TAGS = (); }; };
+		61FBDDB81BA9DCBB0026A0A7 /* TodayPrayersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDB71BA9DCBB0026A0A7 /* TodayPrayersViewController.swift */; };
+		61FBDDBC1BA9DCF60026A0A7 /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDB91BA9DCF60026A0A7 /* CategoriesViewController.swift */; };
+		61FBDDBD1BA9DCF60026A0A7 /* EditCategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDBA1BA9DCF60026A0A7 /* EditCategoriesViewController.swift */; };
+		61FBDDBE1BA9DCF60026A0A7 /* MovePrayersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDBB1BA9DCF60026A0A7 /* MovePrayersViewController.swift */; };
+		61FBDDC31BA9DD2B0026A0A7 /* AnsweredPrayersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDBF1BA9DD2B0026A0A7 /* AnsweredPrayersViewController.swift */; };
+		61FBDDC41BA9DD2B0026A0A7 /* PersonalPrayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDC01BA9DD2B0026A0A7 /* PersonalPrayerViewController.swift */; };
+		61FBDDC51BA9DD2B0026A0A7 /* PrayerDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDC11BA9DD2B0026A0A7 /* PrayerDetailsViewController.swift */; };
+		61FBDDC61BA9DD2B0026A0A7 /* PrayerSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDC21BA9DD2B0026A0A7 /* PrayerSearchViewController.swift */; };
+		61FBDDCC1BA9DD4E0026A0A7 /* CreateLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDC71BA9DD4E0026A0A7 /* CreateLocationViewController.swift */; };
+		61FBDDCD1BA9DD4E0026A0A7 /* LocationPrayersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDC81BA9DD4E0026A0A7 /* LocationPrayersViewController.swift */; };
+		61FBDDCE1BA9DD4E0026A0A7 /* LocationSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDC91BA9DD4E0026A0A7 /* LocationSearchViewController.swift */; };
+		61FBDDCF1BA9DD4E0026A0A7 /* PrayerLocationsViewController_old.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDCA1BA9DD4E0026A0A7 /* PrayerLocationsViewController_old.swift */; };
+		61FBDDD01BA9DD4E0026A0A7 /* PrayerLocationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDCB1BA9DD4E0026A0A7 /* PrayerLocationsViewController.swift */; };
+		61FBDDD41BA9DD660026A0A7 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDD11BA9DD660026A0A7 /* SettingsViewController.swift */; };
+		61FBDDD51BA9DD660026A0A7 /* ThemeColorCustomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDD21BA9DD660026A0A7 /* ThemeColorCustomViewController.swift */; };
+		61FBDDD61BA9DD660026A0A7 /* ThemeColorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDD31BA9DD660026A0A7 /* ThemeColorViewController.swift */; };
+		61FBDDDA1BA9DD9D0026A0A7 /* LocationInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDD71BA9DD9D0026A0A7 /* LocationInfoView.swift */; };
+		61FBDDDB1BA9DD9D0026A0A7 /* LocationInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 61FBDDD81BA9DD9D0026A0A7 /* LocationInfoView.xib */; };
+		61FBDDDC1BA9DD9D0026A0A7 /* LocationMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDD91BA9DD9D0026A0A7 /* LocationMarker.swift */; };
+		61FBDDDE1BA9DDAE0026A0A7 /* ShadowLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDDD1BA9DDAE0026A0A7 /* ShadowLabel.swift */; };
+		61FBDDE11BA9DDC80026A0A7 /* ThemeColorCell_New.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDDF1BA9DDC80026A0A7 /* ThemeColorCell_New.swift */; };
+		61FBDDE21BA9DDC80026A0A7 /* ThemeColorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDE01BA9DDC80026A0A7 /* ThemeColorCell.swift */; };
+		61FBDDE41BA9DDDA0026A0A7 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDE31BA9DDDA0026A0A7 /* CategoryCell.swift */; };
+		61FBDDF41BA9DE0B0026A0A7 /* AddPrayerAlertCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDE51BA9DE0B0026A0A7 /* AddPrayerAlertCell.swift */; };
+		61FBDDF51BA9DE0B0026A0A7 /* AddPrayerDateCell_New.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDE61BA9DE0B0026A0A7 /* AddPrayerDateCell_New.swift */; };
+		61FBDDF61BA9DE0B0026A0A7 /* AddPrayerDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDE71BA9DE0B0026A0A7 /* AddPrayerDateCell.swift */; };
+		61FBDDF71BA9DE0B0026A0A7 /* CreatePrayerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDE81BA9DE0B0026A0A7 /* CreatePrayerCell.swift */; };
+		61FBDDF81BA9DE0B0026A0A7 /* PrayerAlertCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDE91BA9DE0B0026A0A7 /* PrayerAlertCell.swift */; };
+		61FBDDF91BA9DE0B0026A0A7 /* PrayerAnsweredCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDEA1BA9DE0B0026A0A7 /* PrayerAnsweredCell.swift */; };
+		61FBDDFA1BA9DE0B0026A0A7 /* PrayerAnsweredNotesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDEB1BA9DE0B0026A0A7 /* PrayerAnsweredNotesCell.swift */; };
+		61FBDDFB1BA9DE0B0026A0A7 /* PrayerCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDEC1BA9DE0B0026A0A7 /* PrayerCategoryCell.swift */; };
+		61FBDDFC1BA9DE0B0026A0A7 /* PrayerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDED1BA9DE0B0026A0A7 /* PrayerCell.swift */; };
+		61FBDDFD1BA9DE0B0026A0A7 /* PrayerDetailsExtendedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDEE1BA9DE0B0026A0A7 /* PrayerDetailsExtendedCell.swift */; };
+		61FBDDFE1BA9DE0B0026A0A7 /* PrayerNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDEF1BA9DE0B0026A0A7 /* PrayerNameCell.swift */; };
+		61FBDDFF1BA9DE0B0026A0A7 /* PrayerPriorityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDF01BA9DE0B0026A0A7 /* PrayerPriorityCell.swift */; };
+		61FBDE001BA9DE0B0026A0A7 /* PrayerSearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDF11BA9DE0B0026A0A7 /* PrayerSearchCell.swift */; };
+		61FBDE011BA9DE0B0026A0A7 /* TodayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDF21BA9DE0B0026A0A7 /* TodayCell.swift */; };
+		61FBDE021BA9DE0B0026A0A7 /* TodayPrayerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDF31BA9DE0B0026A0A7 /* TodayPrayerCell.swift */; };
+		61FBDE051BA9DE420026A0A7 /* license_script.pl in Resources */ = {isa = PBXBuildFile; fileRef = 61FBDE031BA9DE420026A0A7 /* license_script.pl */; };
+		61FBDE061BA9DE420026A0A7 /* RMStore.license in Resources */ = {isa = PBXBuildFile; fileRef = 61FBDE041BA9DE420026A0A7 /* RMStore.license */; };
+		61FBDE0E1BA9DE650026A0A7 /* PrayerDevotion.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 61FBDE091BA9DE650026A0A7 /* PrayerDevotion.entitlements */; };
+		61FBDE0F1BA9DE650026A0A7 /* PrayerDevotion.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDE0A1BA9DE650026A0A7 /* PrayerDevotion.xcdatamodeld */; };
+		61FBDE101BA9DE650026A0A7 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 61FBDE0C1BA9DE650026A0A7 /* Settings.bundle */; };
 		61FBDE121BA9E1970026A0A7 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 61FBDE111BA9E1970026A0A7 /* libz.tbd */; };
 		61FBDE141BA9E1D10026A0A7 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 61FBDE131BA9E1D10026A0A7 /* libc++.tbd */; };
 		61FBDE161BA9E1DD0026A0A7 /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 61FBDE151BA9E1DD0026A0A7 /* libicucore.tbd */; };
-		61FBDE181BA9E68E0026A0A7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 61FBDE171BA9E68E0026A0A7 /* Images.xcassets */; settings = {ASSET_TAGS = (); }; };
+		61FBDE181BA9E68E0026A0A7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 61FBDE171BA9E68E0026A0A7 /* Images.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -214,6 +220,10 @@
 		61293E221B013602005B7267 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		61293E231B013602005B7267 /* PrayerDevotionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayerDevotionTests.swift; sourceTree = "<group>"; };
 		6140204A1B729697001E837A /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		61451D811BCB4BD200CA6D89 /* PrayerUpdatesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PrayerUpdatesTableViewController.swift; path = "View Controllers/Categories & Prayers/Prayers/PrayerUpdatesTableViewController.swift"; sourceTree = "<group>"; };
+		61451D841BCB4CF700CA6D89 /* PrayerUpdateView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PrayerUpdateView.xib; path = Views/Custom/PrayerUpdateView.xib; sourceTree = "<group>"; };
+		61451D861BCB4DAB00CA6D89 /* PrayerDevotion 5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "PrayerDevotion 5.xcdatamodel"; sourceTree = "<group>"; };
+		61451D871BCB4E4B00CA6D89 /* Updates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Updates.swift; sourceTree = "<group>"; };
 		61478CC21B582A6A00F0775F /* PrayerDevotion 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "PrayerDevotion 2.xcdatamodel"; sourceTree = "<group>"; };
 		614C98801B6FF1D600667C64 /* PrayerDevotion 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "PrayerDevotion 3.xcdatamodel"; sourceTree = "<group>"; };
 		6166A5551B5F024100C55CD3 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = "Additional Files/Constants.swift"; sourceTree = "<group>"; };
@@ -223,6 +233,9 @@
 		618359681B6039B400AEA7AE /* Model.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = Model.xcmappingmodel; sourceTree = "<group>"; };
 		618977331B729DD200619663 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		618977351B72A27100619663 /* LocationStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationStore.swift; sourceTree = "<group>"; };
+		61BC7D371BCF5167005C858A /* UpdatesStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdatesStore.swift; sourceTree = "<group>"; };
+		61BC7D391BCF5770005C858A /* PrayerUpdateCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PrayerUpdateCell.swift; path = Views/Cells/Prayers/PrayerUpdateCell.swift; sourceTree = "<group>"; };
+		61BC7D3F1BCF5F1C005C858A /* PrayerUpdateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PrayerUpdateView.swift; path = Views/Custom/PrayerUpdateView.swift; sourceTree = "<group>"; };
 		61C10CE61B8AA4E20099F059 /* ANImageBitmapRep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANImageBitmapRep.h; sourceTree = "<group>"; };
 		61C10CE71B8AA4E20099F059 /* ANImageBitmapRep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANImageBitmapRep.m; sourceTree = "<group>"; };
 		61C10CE81B8AA4E20099F059 /* BitmapContextRep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BitmapContextRep.h; sourceTree = "<group>"; };
@@ -438,6 +451,7 @@
 				61081C0C1B55FDC3002F1BF3 /* CategoriesStore.swift */,
 				61081C111B55FDC3002F1BF3 /* PrayerStore.swift */,
 				618977351B72A27100619663 /* LocationStore.swift */,
+				61BC7D371BCF5167005C858A /* UpdatesStore.swift */,
 			);
 			name = Stores;
 			sourceTree = "<group>";
@@ -449,6 +463,7 @@
 				61081C0D1B55FDC3002F1BF3 /* Category.swift */,
 				61081C101B55FDC3002F1BF3 /* Prayer.swift */,
 				618977331B729DD200619663 /* Location.swift */,
+				61451D871BCB4E4B00CA6D89 /* Updates.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -572,6 +587,7 @@
 				61FBDDC01BA9DD2B0026A0A7 /* PersonalPrayerViewController.swift */,
 				61FBDDC11BA9DD2B0026A0A7 /* PrayerDetailsViewController.swift */,
 				61FBDDC21BA9DD2B0026A0A7 /* PrayerSearchViewController.swift */,
+				61451D811BCB4BD200CA6D89 /* PrayerUpdatesTableViewController.swift */,
 			);
 			name = Prayers;
 			sourceTree = "<group>";
@@ -584,6 +600,15 @@
 				61FBDDD31BA9DD660026A0A7 /* ThemeColorViewController.swift */,
 			);
 			name = Settings;
+			sourceTree = "<group>";
+		};
+		61451D831BCB4CC900CA6D89 /* Custom */ = {
+			isa = PBXGroup;
+			children = (
+				61451D841BCB4CF700CA6D89 /* PrayerUpdateView.xib */,
+				61BC7D3F1BCF5F1C005C858A /* PrayerUpdateView.swift */,
+			);
+			name = Custom;
 			sourceTree = "<group>";
 		};
 		6156FDAF1B82DBC300A3A66E /* Google Markers */ = {
@@ -792,6 +817,7 @@
 				61FBDDF11BA9DE0B0026A0A7 /* PrayerSearchCell.swift */,
 				61FBDDF21BA9DE0B0026A0A7 /* TodayCell.swift */,
 				61FBDDF31BA9DE0B0026A0A7 /* TodayPrayerCell.swift */,
+				61BC7D391BCF5770005C858A /* PrayerUpdateCell.swift */,
 			);
 			name = Prayers;
 			sourceTree = "<group>";
@@ -799,6 +825,7 @@
 		61F540B21B03DC620072BA6F /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				61451D831BCB4CC900CA6D89 /* Custom */,
 				6156FDAF1B82DBC300A3A66E /* Google Markers */,
 				616C80C41B658DEE00C91428 /* Labels */,
 				61F540B31B03DC680072BA6F /* Cells */,
@@ -1037,6 +1064,7 @@
 				61FBDE181BA9E68E0026A0A7 /* Images.xcassets in Resources */,
 				61FBDE0E1BA9DE650026A0A7 /* PrayerDevotion.entitlements in Resources */,
 				61FBDE061BA9DE420026A0A7 /* RMStore.license in Resources */,
+				61451D851BCB4CF700CA6D89 /* PrayerUpdateView.xib in Resources */,
 				61293E131B013602005B7267 /* Main.storyboard in Resources */,
 				61FBDE051BA9DE420026A0A7 /* license_script.pl in Resources */,
 				61293E181B013602005B7267 /* LaunchScreen.xib in Resources */,
@@ -1075,7 +1103,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd /Users/jonathanhart/iOS\\ Applications/PrayerDevotion/PrayerDevotion/PrayerDevotion/Supporting\\ Files/Licenses/\n/usr/bin/perl -w license_script.pl";
+			shellScript = "cd PrayerDevotion/Supporting\\ Files/Licenses/\n/usr/bin/perl -w license_script.pl";
 		};
 		6303FE018D2876252225A285 /* Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1129,10 +1157,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				61451D881BCB4E4B00CA6D89 /* Updates.swift in Sources */,
 				61081C1A1B55FDC3002F1BF3 /* PrayerStore.swift in Sources */,
 				618977361B72A27100619663 /* LocationStore.swift in Sources */,
 				61081C171B55FDC3002F1BF3 /* CoreDataStore.swift in Sources */,
 				61081C181B55FDC3002F1BF3 /* Notifications.swift in Sources */,
+				61BC7D381BCF5167005C858A /* UpdatesStore.swift in Sources */,
 				61081C191B55FDC3002F1BF3 /* Prayer.swift in Sources */,
 				61081C131B55FDC3002F1BF3 /* AlertStore.swift in Sources */,
 				61081C161B55FDC3002F1BF3 /* Category.swift in Sources */,
@@ -1191,7 +1221,9 @@
 				61FBDDFE1BA9DE0B0026A0A7 /* PrayerNameCell.swift in Sources */,
 				61C10D1D1B8AA4E20099F059 /* RSGenerateOperation.m in Sources */,
 				61C10D181B8AA4E20099F059 /* BitmapScaleManipulator.m in Sources */,
+				61BC7D401BCF5F1C005C858A /* PrayerUpdateView.swift in Sources */,
 				61FBDDBE1BA9DCF60026A0A7 /* MovePrayersViewController.swift in Sources */,
+				61451D821BCB4BD200CA6D89 /* PrayerUpdatesTableViewController.swift in Sources */,
 				61FBDDFB1BA9DE0B0026A0A7 /* PrayerCategoryCell.swift in Sources */,
 				61FBDDDC1BA9DD9D0026A0A7 /* LocationMarker.swift in Sources */,
 				61C10D151B8AA4E20099F059 /* BitmapCropManipulator.m in Sources */,
@@ -1214,6 +1246,7 @@
 				61C10D0E1B8AA4E20099F059 /* BitmapContextRep.m in Sources */,
 				61FBDDBC1BA9DCF60026A0A7 /* CategoriesViewController.swift in Sources */,
 				61FBDDC41BA9DD2B0026A0A7 /* PersonalPrayerViewController.swift in Sources */,
+				61BC7D3A1BCF5770005C858A /* PrayerUpdateCell.swift in Sources */,
 				61FBDDDA1BA9DD9D0026A0A7 /* LocationInfoView.swift in Sources */,
 				61FBDDE11BA9DDC80026A0A7 /* ThemeColorCell_New.swift in Sources */,
 				61C10D191B8AA4E20099F059 /* BGRSLoupeLayer.m in Sources */,
@@ -1659,12 +1692,13 @@
 		61CB0F391B57188E00343DD4 /* PrayerDevotion.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				61451D861BCB4DAB00CA6D89 /* PrayerDevotion 5.xcdatamodel */,
 				6122CB181B729C7D007C2F81 /* PrayerDevotion 4.xcdatamodel */,
 				614C98801B6FF1D600667C64 /* PrayerDevotion 3.xcdatamodel */,
 				61478CC21B582A6A00F0775F /* PrayerDevotion 2.xcdatamodel */,
 				61CB0F3A1B57188E00343DD4 /* PrayerDevotion.xcdatamodel */,
 			);
-			currentVersion = 6122CB181B729C7D007C2F81 /* PrayerDevotion 4.xcdatamodel */;
+			currentVersion = 61451D861BCB4DAB00CA6D89 /* PrayerDevotion 5.xcdatamodel */;
 			path = PrayerDevotion.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

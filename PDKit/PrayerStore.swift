@@ -411,6 +411,7 @@ public class PrayerStore: BaseStore {
         }
         
         prayer.alerts = NSOrderedSet()
+        prayer.updates = NSOrderedSet()
         
         saveDatabase()
         

@@ -13,7 +13,7 @@ import PDKit
 import MessageUI
 import AddressBook
 import AddressBookUI
-import GoogleMaps.GMSPlace
+import GoogleMaps
 
 class PrayerDetailsViewController: UITableViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource, MFMailComposeViewControllerDelegate, ABPeoplePickerNavigationControllerDelegate, AddPrayerDateCellDelegate_New, CreateLocationViewControllerDelegate {
     
@@ -66,7 +66,9 @@ class PrayerDetailsViewController: UITableViewController, UITextFieldDelegate, U
         
         
         let shareItem = UIBarButtonItem(title: "Contact...", style: .Plain, target: self, action: "openActionItems:")
-        toolbarItems = [shareItem]
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: nil, action: nil)
+        let updatesItem = UIBarButtonItem(title: "Updates...", style: .Plain, target: self, action: "openUpdates:")
+        toolbarItems = [shareItem, flexSpace, updatesItem]
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -916,5 +918,12 @@ class PrayerDetailsViewController: UITableViewController, UITextFieldDelegate, U
         let result = emailTest.evaluateWithObject(email)
         
         return result
+    }
+    
+    func openUpdates(sender: AnyObject) {
+        let updatesViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier(SBPrayerUpdatesViewControllerID) as! PrayerUpdatesTableViewController
+        updatesViewController.currentPrayer = self.currentPrayer
+        
+        navigationController!.pushViewController(updatesViewController, animated: true)
     }
 }

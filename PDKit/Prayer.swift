@@ -31,4 +31,5 @@ public class PDPrayer: NSManagedObject {
     @NSManaged public var alerts: NSOrderedSet // This is the ordered set of the alerts for the selected prayer
     @NSManaged public var location: PDLocation? // This is the location parent of the prayer instance. It can be nil.
     //@NSManaged public var locationAlert: PDLocationAlert? // This is the location alert parent of the prayer instance. It can be nil.
+    @NSManaged public var updates: NSOrderedSet // This is the ordered set of the alerts for the selected prayer
 }

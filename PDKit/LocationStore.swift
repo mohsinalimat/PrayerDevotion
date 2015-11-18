@@ -28,7 +28,7 @@ public class LocationStore: BaseStore {
             Static.instance = LocationStore()
         }
         
-        return Static.instance! // Returns an instance of the PrayerStore
+        return Static.instance! // Returns an instance of the LocationStore
     }
     
     // MARK: Locations

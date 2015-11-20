@@ -178,7 +178,6 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
     func didPurchaseAdditionalFeatures() {
         tableView.beginUpdates()
         purchaseButton.enabled = !delegate.didBuyAdditionalFeatures
-        //let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 3))
         
         tableView.endUpdates()
     }

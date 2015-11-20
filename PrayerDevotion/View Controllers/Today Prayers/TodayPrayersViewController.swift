@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import PDKit
 
-class TodayPrayersViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
+class TodayPrayersViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIViewControllerPreviewingDelegate {
     
     var todayPrayers = [PDPrayer]()
     var todayCount = 0
@@ -45,6 +45,13 @@ class TodayPrayersViewController: UIViewController, UITableViewDelegate, UITable
         todayBarButton = UIBarButtonItem(title: "Today", style: UIBarButtonItemStyle.Plain, target: self, action: "backToToday")
         
         PrayerStore.sharedInstance.checkIDs()
+        
+        // Peek and Pop
+        if #available(iOS 9.0, *) {
+            if self.traitCollection.forceTouchCapability == UIForceTouchCapability.Available {
+                self.registerForPreviewingWithDelegate(self, sourceView: self.view)
+            }
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -316,6 +323,37 @@ class TodayPrayersViewController: UIViewController, UITableViewDelegate, UITable
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.endEditing(true)
         return false
+    }
+    
+    // MARK: UIViewControllerPreviewing Delegate Methods
+    
+    @available(iOS 9.0, *)
+    func previewingContext(previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        let indexPath = tableView.indexPathForRowAtPoint(location)
+        
+        if let indexPath = indexPath {
+            let prayer = todayPrayers[indexPath.row]
+            let cell = tableView.cellForRowAtIndexPath(indexPath) as? TodayPrayerCell
+            
+            if let cell = cell {
+                previewingContext.sourceRect = cell.frame
+                
+                let navController = self.storyboard!.instantiateViewControllerWithIdentifier(SBTodayNavControllerID) as! UINavigationController
+                
+                let prayerDetailsVC = navController.topViewController as! PrayerDetailsViewController
+                
+                prayerDetailsVC.currentPrayer = prayer
+                prayerDetailsVC.previousViewController = self
+                
+                return navController
+            }
+        }
+        
+        return nil
+    }
+    
+    func previewingContext(previewingContext: UIViewControllerPreviewing, commitViewController viewControllerToCommit: UIViewController) {
+        self.showDetailViewController(viewControllerToCommit, sender: self)
     }
     
     // MARK: Notifications

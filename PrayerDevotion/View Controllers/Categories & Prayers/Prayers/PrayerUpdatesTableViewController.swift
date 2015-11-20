@@ -11,7 +11,7 @@ import UIKit
 import PDKit
 import CoreData
 
-class PrayerUpdatesTableViewController : UITableViewController, UITextViewDelegate, PrayerUpdateViewDelegate, NSFetchedResultsControllerDelegate {
+class PrayerUpdatesTableViewController : UITableViewController, UITextViewDelegate, PrayerUpdateViewDelegate, NSFetchedResultsControllerDelegate, UIViewControllerPreviewingDelegate {
     
     let dateFormatter = NSDateFormatter()
     
@@ -44,6 +44,12 @@ class PrayerUpdatesTableViewController : UITableViewController, UITextViewDelega
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
+        
+        if #available(iOS 9.0, *) {
+            if self.traitCollection.forceTouchCapability == .Available {
+                self.registerForPreviewingWithDelegate(self, sourceView: self.view)
+            }
+        }
         
     }
     
@@ -367,5 +373,75 @@ class PrayerUpdatesTableViewController : UITableViewController, UITextViewDelega
         } else {
             updateView.saveButton.setTitle("Save", forState: .Normal)
         }
+    }
+    
+    // MARK: UIViewControllerPreviewing Delegate Methods
+    
+    @available(iOS 9.0, *)
+    func previewingContext(previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        let indexPath = tableView.indexPathForRowAtPoint(location)
+        
+        if let indexPath = indexPath {
+            let update = fetchedResultsController.objectAtIndexPath(indexPath) as! PDUpdate
+            let cell = tableView.cellForRowAtIndexPath(indexPath) as? PrayerUpdateCell
+            
+            if let cell = cell {
+                previewingContext.sourceRect = cell.frame
+                
+                updateView = PrayerUpdateView()
+                updateView.updateTextView.delegate = self
+                updateView.delegate = self
+                updateView.newUpdate = false
+                
+                dateFormatter.dateStyle = .ShortStyle
+                dateFormatter.timeStyle = .MediumStyle
+                
+                updateView.tag = 1002
+                updateView.alpha = 0.0
+                updateView.backgroundColor = UIColor.whiteColor()
+                
+                self.navigationController!.view.addSubview(updateView)
+                
+                updateView.frame = CGRectMake(0, 0, self.view.frame.width * 0.92, self.view.frame.height * 0.92)
+                updateView.center = CGPointMake(self.view.center.x, self.view.center.y + 10)
+                
+                updateView.layer.cornerRadius = 10
+                updateView.clipsToBounds = true
+                
+                self.newUpdateCreationTime = NSDate()
+                self.updateView.updateTitle.text = "Update \(self.dateFormatter.stringFromDate(update.timestamp))"
+                self.updateView.updateTextView.text = update.update
+                self.updateView.titleLabel.text = "Editing Update"
+                
+                if (self.updateView.updateTextView.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()) == "" || self.updateView.updateTextView.text == "Add Prayer Update...") {
+                    update.update = ""
+                    BaseStore.baseInstance.saveDatabase()
+                    self.updateView.updateTextView.text = "Add Prayer Update..."
+                    self.updateView.updateTextView.textColor = UIColor.lightGrayColor()
+                } else {
+                    self.updateView.updateTextView.textColor = UIColor.blackColor()
+                }
+                
+                self.updateView.saveButton.setTitle(self.updateView.updateTextView.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()) == "Add Prayer Update..." ? "Discard" : "Save", forState: .Normal)
+            }
+        }
+        
+        return nil
+    }
+    
+    @available(iOS 9.0, *)
+    func previewingContext(previewingContext: UIViewControllerPreviewing, commitViewController viewControllerToCommit: UIViewController) {
+        var darkenView: UIView! = nil
+        if self.view.viewWithTag(1001) == nil {
+            darkenView = UIView(frame: self.view.frame)
+            darkenView.backgroundColor = UIColor.blackColor()
+            darkenView.tag = 1001
+            darkenView.alpha = 0.0
+            self.navigationController!.view.insertSubview(darkenView, aboveSubview: updateView)
+        } else {
+            darkenView = self.view.viewWithTag(1001)!
+        }
+        
+        self.showDetailViewController(viewControllerToCommit, sender: self)
     }
 }

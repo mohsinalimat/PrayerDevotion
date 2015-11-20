@@ -13,7 +13,7 @@ import MapKit
 import CoreLocation
 import GoogleMaps
 
-class LocationPrayersViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class LocationPrayersViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIViewControllerPreviewingDelegate {
     
     var locationPrayers = [PDPrayer]()
     var selectedIndex = 0
@@ -47,6 +47,12 @@ class LocationPrayersViewController: UIViewController, UITableViewDelegate, UITa
         locationLabel.layer.shadowOffset = CGSizeMake(0, -0.5)
         
         tableView.tableFooterView = UIView(frame: CGRectZero)
+        
+        if #available(iOS 9.0, *) {
+            if self.traitCollection.forceTouchCapability == .Available {
+                self.registerForPreviewingWithDelegate(self, sourceView: self.view)
+            }
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -119,6 +125,37 @@ class LocationPrayersViewController: UIViewController, UITableViewDelegate, UITa
             prayerDetailsVC.previousViewController = self
             shouldExitScreen = false
         }
+    }
+    
+    // MARK: UIViewControllerPreviewing Delegate Methods
+    
+    @available(iOS 9.0, *)
+    func previewingContext(previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        let indexPath = self.tableView.indexPathForRowAtPoint(location)
+        
+        if let indexPath = indexPath {
+            let prayer = locationPrayers[indexPath.row]
+            let cell = tableView.cellForRowAtIndexPath(indexPath)
+            
+            if let cell = cell {
+                previewingContext.sourceRect = cell.frame
+                
+                let navController = self.storyboard!.instantiateViewControllerWithIdentifier(SBPrayerDetailsNavControllerID) as! UINavigationController
+                let prayerDetailsVC = navController.topViewController as! PrayerDetailsViewController
+                prayerDetailsVC.currentPrayer = prayer
+                prayerDetailsVC.previousViewController = self
+                shouldExitScreen = false
+                
+                return navController
+            }
+        }
+        
+        return nil
+    }
+    
+    @available(iOS 9.0, *)
+    func previewingContext(previewingContext: UIViewControllerPreviewing, commitViewController viewControllerToCommit: UIViewController) {
+        self.showDetailViewController(viewControllerToCommit, sender: self)
     }
     
 }

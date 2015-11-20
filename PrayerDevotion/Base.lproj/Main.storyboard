@@ -636,7 +636,7 @@
                         <animations/>
                         <color key="backgroundColor" red="0.60000002379999995" green="0.40000000600000002" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
                         <sections>
-                            <tableViewSection headerTitle="DEVELOPMENT" id="kuq-Tg-3pV">
+                            <tableViewSection headerTitle="FEEDBACK" id="kuq-Tg-3pV">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="2gX-vA-Ig9">
                                         <rect key="frame" x="0.0" y="113.5" width="600" height="44"/>

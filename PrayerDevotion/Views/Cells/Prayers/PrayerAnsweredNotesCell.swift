@@ -79,7 +79,7 @@ class PrayerAnsweredNoteCell: UITableViewCell, UITextViewDelegate {
         let trimmedText = textView.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
         
         if trimmedText == "" {
-            currentPrayer.answeredNotes == ""
+            currentPrayer.answeredNotes = ""
             textView.textColor = UIColor.lightGrayColor()
             textView.text = "Enter Answered Prayer Notes..."
         } else {

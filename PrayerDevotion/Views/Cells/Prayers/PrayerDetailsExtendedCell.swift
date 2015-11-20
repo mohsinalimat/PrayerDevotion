@@ -83,7 +83,7 @@ class PrayerDetailsExtendedCell: UITableViewCell, UITextViewDelegate {
         let trimmedText = textView.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
         
         if trimmedText == "" {
-            currentPrayer.details == ""
+            currentPrayer.details = ""
             textView.textColor = UIColor.lightGrayColor()
             textView.text = "Enter Addition Prayer Details..."
         } else {

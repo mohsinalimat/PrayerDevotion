@@ -82,6 +82,16 @@ public class UpdatesStore: BaseStore {
         }
     }
     
+    public func fetchedPrayerUpdatesForPrayerID(prayerID: Int32) -> NSFetchedResultsController {
+        let fetchRequest = NSFetchRequest(entityName: "Updates")
+        fetchRequest.predicate = NSPredicate(format: "prayer.prayerID == %d", prayerID)
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: false)]
+        
+        let frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: managedContext!, sectionNameKeyPath: "day", cacheName: nil)
+        
+        return frc
+    }
+    
     public func getUpdateCountForPrayerID(prayerID: Int32) -> Int {
         let fetchRequest = NSFetchRequest(entityName: "Prayer")
         fetchRequest.predicate = NSPredicate(format: "prayerID == %d", prayerID)

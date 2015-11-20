@@ -25,6 +25,9 @@
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;Title&gt;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="qqO-GQ-ELh">
                     <rect key="frame" x="8" y="31" width="431" height="38"/>
                     <animations/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="38" id="anc-1h-59e"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="25"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
@@ -39,51 +42,57 @@
                     <rect key="frame" x="7" y="8" width="63" height="21"/>
                     <animations/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="63" id="6os-ak-dPG"/>
+                        <constraint firstAttribute="width" constant="63" id="CW8-Uz-GhB"/>
                     </constraints>
                     <state key="normal" title="Cancel"/>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Adding New Update" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cI4-mT-kWG">
-                    <rect key="frame" x="146" y="8" width="154" height="21"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4vr-3G-cRL">
+                    <rect key="frame" x="376" y="8" width="63" height="21"/>
+                    <animations/>
+                    <state key="normal" title="Save"/>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Updating" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cI4-mT-kWG">
+                    <rect key="frame" x="78" y="8" width="290" height="21"/>
                     <animations/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4vr-3G-cRL">
-                    <rect key="frame" x="376" y="8" width="63" height="21"/>
-                    <animations/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="63" id="qMU-w4-3hm"/>
-                        <constraint firstAttribute="height" constant="21" id="taN-OE-iyT"/>
-                    </constraints>
-                    <state key="normal" title="Save"/>
-                </button>
             </subviews>
             <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="4vr-3G-cRL" firstAttribute="trailing" secondItem="qqO-GQ-ELh" secondAttribute="trailing" id="2Xh-li-hNI"/>
-                <constraint firstItem="wEj-I2-Hmu" firstAttribute="top" secondItem="qqO-GQ-ELh" secondAttribute="bottom" constant="8" symbolic="YES" id="8TE-fh-itL"/>
-                <constraint firstItem="cI4-mT-kWG" firstAttribute="baseline" secondItem="28Q-Jq-efp" secondAttribute="firstBaseline" constant="0.5" id="Kxm-7U-QRd"/>
-                <constraint firstItem="wEj-I2-Hmu" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" id="QrS-rW-8z5"/>
-                <constraint firstItem="qqO-GQ-ELh" firstAttribute="trailing" secondItem="iN0-l3-epB" secondAttribute="trailingMargin" id="ct8-GA-BLY"/>
-                <constraint firstItem="4vr-3G-cRL" firstAttribute="leading" secondItem="cI4-mT-kWG" secondAttribute="trailing" constant="76" id="dh2-xg-Ysh"/>
-                <constraint firstItem="cI4-mT-kWG" firstAttribute="baseline" secondItem="28Q-Jq-efp" secondAttribute="baseline" constant="0.5" id="f3a-nh-fOV"/>
-                <constraint firstItem="cI4-mT-kWG" firstAttribute="centerX" secondItem="qqO-GQ-ELh" secondAttribute="centerX" id="fle-wc-EHM"/>
-                <constraint firstItem="qqO-GQ-ELh" firstAttribute="top" secondItem="cI4-mT-kWG" secondAttribute="bottom" constant="2" id="goD-Xq-RxP"/>
-                <constraint firstItem="cI4-mT-kWG" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="topMargin" id="hXA-eI-LPX"/>
-                <constraint firstItem="qqO-GQ-ELh" firstAttribute="leading" secondItem="wEj-I2-Hmu" secondAttribute="leading" id="kuC-4a-ccI"/>
-                <constraint firstItem="28Q-Jq-efp" firstAttribute="centerY" secondItem="cI4-mT-kWG" secondAttribute="centerY" id="mWx-6P-9np"/>
-                <constraint firstItem="wEj-I2-Hmu" firstAttribute="top" secondItem="28Q-Jq-efp" secondAttribute="bottom" constant="48" id="sDR-CD-lIB"/>
-                <constraint firstItem="wEj-I2-Hmu" firstAttribute="bottom" secondItem="iN0-l3-epB" secondAttribute="bottomMargin" id="svM-Nh-qrH"/>
-                <constraint firstItem="wEj-I2-Hmu" firstAttribute="trailing" secondItem="qqO-GQ-ELh" secondAttribute="trailing" id="urd-VG-kio"/>
-                <constraint firstItem="28Q-Jq-efp" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="vUf-zz-1rA"/>
-                <constraint firstItem="4vr-3G-cRL" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="vmm-gA-rbY"/>
-                <constraint firstItem="cI4-mT-kWG" firstAttribute="leading" secondItem="28Q-Jq-efp" secondAttribute="trailing" constant="76" id="zo0-JB-hEM"/>
+                <constraint firstItem="wEj-I2-Hmu" firstAttribute="bottom" secondItem="iN0-l3-epB" secondAttribute="bottomMargin" id="3zU-FL-rZ2"/>
+                <constraint firstItem="wEj-I2-Hmu" firstAttribute="trailing" secondItem="iN0-l3-epB" secondAttribute="trailingMargin" id="6To-eS-IpH"/>
+                <constraint firstItem="28Q-Jq-efp" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="7" id="AFZ-qf-fkk"/>
+                <constraint firstItem="28Q-Jq-efp" firstAttribute="bottom" secondItem="cI4-mT-kWG" secondAttribute="bottom" id="ErK-fK-nTb"/>
+                <constraint firstItem="4vr-3G-cRL" firstAttribute="trailing" secondItem="qqO-GQ-ELh" secondAttribute="trailing" id="Mvc-QF-zbq"/>
+                <constraint firstItem="28Q-Jq-efp" firstAttribute="baseline" secondItem="4vr-3G-cRL" secondAttribute="firstBaseline" id="OkO-UP-14D"/>
+                <constraint firstItem="cI4-mT-kWG" firstAttribute="top" secondItem="28Q-Jq-efp" secondAttribute="top" id="PwW-Tn-3LX"/>
+                <constraint firstItem="28Q-Jq-efp" firstAttribute="baseline" secondItem="cI4-mT-kWG" secondAttribute="firstBaseline" id="QRO-Ma-Ln1"/>
+                <constraint firstItem="wEj-I2-Hmu" firstAttribute="leading" secondItem="qqO-GQ-ELh" secondAttribute="leading" id="QRr-6I-GUg"/>
+                <constraint firstItem="cI4-mT-kWG" firstAttribute="top" secondItem="4vr-3G-cRL" secondAttribute="top" id="RAz-2O-8VO"/>
+                <constraint firstItem="qqO-GQ-ELh" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" id="U29-pT-4vn"/>
+                <constraint firstItem="4vr-3G-cRL" firstAttribute="leading" secondItem="cI4-mT-kWG" secondAttribute="trailing" constant="8" id="VWz-AF-6Gu"/>
+                <constraint firstItem="qqO-GQ-ELh" firstAttribute="top" secondItem="28Q-Jq-efp" secondAttribute="bottom" constant="2" id="WXy-Xu-CQk"/>
+                <constraint firstItem="wEj-I2-Hmu" firstAttribute="top" secondItem="qqO-GQ-ELh" secondAttribute="bottom" constant="8" symbolic="YES" id="Wue-2k-2a8"/>
+                <constraint firstItem="28Q-Jq-efp" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="topMargin" id="ZVg-wq-ICT"/>
+                <constraint firstItem="28Q-Jq-efp" firstAttribute="baseline" secondItem="4vr-3G-cRL" secondAttribute="baseline" id="bGd-Gm-t0n"/>
+                <constraint firstItem="4vr-3G-cRL" firstAttribute="baseline" secondItem="28Q-Jq-efp" secondAttribute="firstBaseline" id="go4-mX-M9P"/>
+                <constraint firstItem="cI4-mT-kWG" firstAttribute="leading" secondItem="28Q-Jq-efp" secondAttribute="trailing" constant="8" id="i23-5W-Mhz"/>
+                <constraint firstItem="wEj-I2-Hmu" firstAttribute="trailing" secondItem="qqO-GQ-ELh" secondAttribute="trailing" id="oti-6k-ZXw"/>
+                <constraint firstItem="qqO-GQ-ELh" firstAttribute="top" secondItem="cI4-mT-kWG" secondAttribute="bottom" constant="2" id="sr2-DB-dmN"/>
+                <constraint firstItem="cI4-mT-kWG" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="tTx-ZI-Enf"/>
+                <constraint firstItem="cI4-mT-kWG" firstAttribute="centerX" secondItem="qqO-GQ-ELh" secondAttribute="centerX" id="zlT-LR-7xX"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="sr2-DB-dmN"/>
+                    <exclude reference="tTx-ZI-Enf"/>
+                </mask>
+            </variation>
             <point key="canvasLocation" x="204.5" y="36.5"/>
         </view>
     </objects>

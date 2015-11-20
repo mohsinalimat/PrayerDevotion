@@ -204,10 +204,12 @@ class PrayerUpdatesTableViewController : UITableViewController, UITextViewDelega
     func configureCell(cell: PrayerUpdateCell, atIndexPath: NSIndexPath) {
         let update = fetchedResultsController.objectAtIndexPath(atIndexPath) as! PDUpdate
         
-        dateFormatter.dateStyle = .ShortStyle
+        
+        cell.dateLabel.text = update.update
+        /*dateFormatter.dateStyle = .ShortStyle
         dateFormatter.timeStyle = .NoStyle
         
-        cell.dateLabel.text = "Update \(dateFormatter.stringFromDate(update.timestamp))"
+        cell.dateLabel.text = "Update \(dateFormatter.stringFromDate(update.timestamp))"*/
         
         dateFormatter.dateStyle = .NoStyle
         dateFormatter.timeStyle = .MediumStyle

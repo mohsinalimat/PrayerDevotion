@@ -64,5 +64,4 @@ let SBTodayNavControllerID = "SBTodayNavControllerID" // This is the storyboard 
 let SBPrayerDetailsNavControllerID = "SBPrayerDetailsNavControllerID" // This is the storyboard ID of the PrayerDetailsViewController's NavigationController
 let SBPrayerLocationsViewControllerID = "SBPrayerLocationsViewControllerID" // This the is storyboard ID of the PrayerLocationsViewContoller
 let SBCreateLocationViewControllerID = "SBCreateLocationViewControllerID" // This is the storyboard ID of the CreateLocationViewController's NavigationController
-let SBLocationPrayersViewControllerID = "SBLocationPrayersViewControllerID" // This is the storyboard ID of the LocationPrayersViewController
-let SBPrayerUpdatesViewControllerID = "SBPrayerUpdatesViewControllerID" // This is the storyboard ID of the PrayerUpdatesViewController
+let SBPrayerUpdatesViewControllerID = "SBPrayerUpdatesViewControllerID" // This is the storyboard ID of the PrayerUpdatesViewControllerlet SBLocationPrayersViewControllerID = "SBLocationPrayersViewControllerID" // This is the storyboard ID of the LocationPrayersViewController

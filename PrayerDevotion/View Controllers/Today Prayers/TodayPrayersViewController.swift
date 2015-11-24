@@ -49,7 +49,7 @@ class TodayPrayersViewController: UIViewController, UITableViewDelegate, UITable
         // Peek and Pop
         if #available(iOS 9.0, *) {
             if self.traitCollection.forceTouchCapability == UIForceTouchCapability.Available {
-                self.registerForPreviewingWithDelegate(self, sourceView: self.view)
+                self.registerForPreviewingWithDelegate(self, sourceView: self.tableView)
             }
         }
     }
@@ -338,7 +338,7 @@ class TodayPrayersViewController: UIViewController, UITableViewDelegate, UITable
             if let cell = cell {
                 previewingContext.sourceRect = cell.frame
                 
-                let navController = self.storyboard!.instantiateViewControllerWithIdentifier(SBTodayNavControllerID) as! UINavigationController
+                let navController = self.storyboard!.instantiateViewControllerWithIdentifier(SBPrayerDetailsNavControllerID) as! UINavigationController
                 
                 let prayerDetailsVC = navController.topViewController as! PrayerDetailsViewController
                 
@@ -352,6 +352,7 @@ class TodayPrayersViewController: UIViewController, UITableViewDelegate, UITable
         return nil
     }
     
+    @available(iOS 9.0, *)
     func previewingContext(previewingContext: UIViewControllerPreviewing, commitViewController viewControllerToCommit: UIViewController) {
         self.showDetailViewController(viewControllerToCommit, sender: self)
     }

@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import PDKit
 
-class AnsweredPrayersViewController: UITableViewController {
+class AnsweredPrayersViewController: UITableViewController, UIViewControllerPreviewingDelegate {
     
     var answeredPrayers = [PDPrayer]()
     var answeredCount = 0
@@ -26,6 +26,12 @@ class AnsweredPrayersViewController: UITableViewController {
         
         navigationItem.rightBarButtonItem = searchItem
         navigationItem.leftBarButtonItem = categoriesItem
+        
+        if #available(iOS 9.0, *) {
+            if self.traitCollection.forceTouchCapability == .Available {
+                self.registerForPreviewingWithDelegate(self, sourceView: self.tableView)
+            }
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -140,5 +146,35 @@ class AnsweredPrayersViewController: UITableViewController {
             let destinationVC = (segue.destinationViewController as! UINavigationController).topViewController as! PrayerDetailsViewController
             destinationVC.currentPrayer = answeredPrayers[selectedIndex]
         }
+    }
+    
+    // MARK: UIViewControllerPreviewing Delegate Methods
+    
+    @available(iOS 9.0, *)
+    func previewingContext(previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        let indexPath = tableView.indexPathForRowAtPoint(location)
+        
+        if let indexPath = indexPath {
+            let prayer = answeredPrayers[indexPath.row]
+            let cell = tableView.cellForRowAtIndexPath(indexPath)
+            
+            if let cell = cell {
+                previewingContext.sourceRect = cell.frame
+                
+                let navController = self.storyboard!.instantiateViewControllerWithIdentifier(SBPrayerDetailsNavControllerID) as! UINavigationController
+                let prayerDetailsVC = navController.topViewController as! PrayerDetailsViewController
+                prayerDetailsVC.currentPrayer = prayer
+                prayerDetailsVC.previousViewController = self
+                
+                return navController
+            }
+        }
+        
+        return nil
+    }
+    
+    @available(iOS 9.0, *)
+    func previewingContext(previewingContext: UIViewControllerPreviewing, commitViewController viewControllerToCommit: UIViewController) {
+        self.showDetailViewController(viewControllerToCommit, sender: self)
     }
 }

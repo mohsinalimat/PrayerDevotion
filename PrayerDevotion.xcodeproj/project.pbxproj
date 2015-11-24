@@ -76,6 +76,7 @@
 		61E049721B801B0100A5CB9A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61E049711B801B0100A5CB9A /* OpenGLES.framework */; };
 		61E049741B801B0500A5CB9A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61E049731B801B0500A5CB9A /* QuartzCore.framework */; };
 		61E049761B801B0B00A5CB9A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61E049751B801B0B00A5CB9A /* SystemConfiguration.framework */; };
+		61E5B7081C041D8600DAC605 /* PrayerUpdateEditingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E5B7071C041D8600DAC605 /* PrayerUpdateEditingViewController.swift */; };
 		61F36D831B8C1C8800B51B9A /* RSBrightnessSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 61F36D821B8C1C8800B51B9A /* RSBrightnessSlider.m */; };
 		61FBDDB81BA9DCBB0026A0A7 /* TodayPrayersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDB71BA9DCBB0026A0A7 /* TodayPrayersViewController.swift */; };
 		61FBDDBC1BA9DCF60026A0A7 /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDB91BA9DCF60026A0A7 /* CategoriesViewController.swift */; };
@@ -289,6 +290,7 @@
 		61E049711B801B0100A5CB9A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		61E049731B801B0500A5CB9A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		61E049751B801B0B00A5CB9A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		61E5B7071C041D8600DAC605 /* PrayerUpdateEditingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PrayerUpdateEditingViewController.swift; path = "View Controllers/Categories & Prayers/Prayers/PrayerUpdateEditingViewController.swift"; sourceTree = "<group>"; };
 		61F36D811B8C1C8800B51B9A /* RSBrightnessSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSBrightnessSlider.h; sourceTree = "<group>"; };
 		61F36D821B8C1C8800B51B9A /* RSBrightnessSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSBrightnessSlider.m; sourceTree = "<group>"; };
 		61FBDDB71BA9DCBB0026A0A7 /* TodayPrayersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TodayPrayersViewController.swift; path = "View Controllers/Today Prayers/TodayPrayersViewController.swift"; sourceTree = "<group>"; };
@@ -588,6 +590,7 @@
 				61FBDDC11BA9DD2B0026A0A7 /* PrayerDetailsViewController.swift */,
 				61FBDDC21BA9DD2B0026A0A7 /* PrayerSearchViewController.swift */,
 				61451D811BCB4BD200CA6D89 /* PrayerUpdatesTableViewController.swift */,
+				61E5B7071C041D8600DAC605 /* PrayerUpdateEditingViewController.swift */,
 			);
 			name = Prayers;
 			sourceTree = "<group>";
@@ -1210,6 +1213,7 @@
 				61FBDDBD1BA9DCF60026A0A7 /* EditCategoriesViewController.swift in Sources */,
 				61FBDDB81BA9DCBB0026A0A7 /* TodayPrayersViewController.swift in Sources */,
 				61C10D171B8AA4E20099F059 /* BitmapRotationManipulator.m in Sources */,
+				61E5B7081C041D8600DAC605 /* PrayerUpdateEditingViewController.swift in Sources */,
 				61C10D131B8AA4E20099F059 /* CGImageContainer.m in Sources */,
 				61FBDDCC1BA9DD4E0026A0A7 /* CreateLocationViewController.swift in Sources */,
 				61FBDDF41BA9DE0B0026A0A7 /* AddPrayerAlertCell.swift in Sources */,

@@ -634,11 +634,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PrayerDevotion/AppDelegate.swift"
-            timestampString = "460346975.845416"
+            timestampString = "470104272.573637"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "205"
-            endingLineNumber = "205"
+            startingLineNumber = "215"
+            endingLineNumber = "215"
             landmarkName = "AppDelegate"
             landmarkType = "3">
          </BreakpointContent>

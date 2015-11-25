@@ -66,7 +66,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Check for pending alerts and notifications and update them
         Notifications.sharedNotifications.updateNotificationQueue()
         AlertStore.sharedInstance.deletePastAlerts()
-        
+                
         validatePurchase() // Validate In-App Purchase
         
         return true
@@ -200,6 +200,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
+    // MARK: Device Orientation
+    
+    func application(application: UIApplication, supportedInterfaceOrientationsForWindow window: UIWindow?) -> UIInterfaceOrientationMask {
+        if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
+            return .Portrait
+        } else {
+            return .All
+        }
+    }
+    
     // MARK: Migration
     
     // Function for migration to later version of PrayerDevotion
@@ -214,15 +224,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
             var sourceStore: NSPersistentStore? = nil
             var destinationStore: NSPersistentStore? = nil
-            var error: NSError? = nil
         
             sourceStore = persistentStoreCoordinator!.persistentStoreForURL(oldStoreURL)
             //let newError: NSError? = nil
             if sourceStore != nil {
                 do {
                     destinationStore = try persistentStoreCoordinator!.migratePersistentStore(sourceStore!, toURL: newStoreURL, options: [NSMigratePersistentStoresAutomaticallyOption: true, NSInferMappingModelAutomaticallyOption: true], withType: NSSQLiteStoreType)
-                } catch let error1 as NSError {
-                    error = error1
+                } catch let error as NSError {
+                    print("An error occurred during migration: \(error)")
                     destinationStore = nil
                 }
                 if destinationStore == nil {

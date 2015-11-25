@@ -10,13 +10,17 @@ import UIKit
 import PDKit
 import CoreLocation
 
+protocol CategoriesViewControllerDelegate: class {
+    func categories(categoriesViewController: CategoriesViewController, didSelectCategory category: PDCategory, isAllPrayers allPrayers: Bool)
+}
+
 class CategoriesViewController: UITableViewController, CLLocationManagerDelegate {
     
     // Button to click to sort categories
     private var sortBarButton: UIBarButtonItem!
 
     // This is a private variable that holds all fetchedCategories
-    private var fetchedCategories: [PDCategory]!
+    private var fetchedCategories = [PDCategory]()
     private var categoryCount = 0 // The number of categories in the fetchedCategories array
     
     // A boolean that is passed to MovePrayersViewController telling it that the user is deleting a prayer after the move
@@ -28,11 +32,13 @@ class CategoriesViewController: UITableViewController, CLLocationManagerDelegate
     
     // This is the singleton instance of the NSUserDefaults (or the user preferences)
     private var userDefaults = NSUserDefaults.standardUserDefaults()
-    let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     let prayerStore = PrayerDevotionStore()
     
     var prayersViewController: PersonalPrayerViewController!
     var selectedIndex: NSIndexPath = NSIndexPath(forRow: 0, inSection: 0)
+    
+    weak var delegate: CategoriesViewControllerDelegate?
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +52,15 @@ class CategoriesViewController: UITableViewController, CLLocationManagerDelegate
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        refreshUI()
+        
+        navigationItem.backBarButtonItem?.title = ""
+        
+        navigationController!.navigationBar.tintColor = appDelegate.themeTintColor
+        tableView.backgroundColor = appDelegate.themeBackgroundColor
+    }
+    
+    func refreshUI() {
         // This is the sorting feature - it calls the userPrefs "categoriesSortKey" (a String) and then
         // passes that key along to the PrayerStore for the NSSortDescriptor
         // In the instance that the sort key is nil (meaning it isn't set yet - such as the first time opening the application)
@@ -68,8 +83,8 @@ class CategoriesViewController: UITableViewController, CLLocationManagerDelegate
         let sortBy = sortKey == "name" ? "Alphabetically" : "By Date Created"
         
         // Create the toolbar and its buttons
-        sortBarButton = UIBarButtonItem(title: "Sorting: \(sortBy)", style: .Plain, target: self, action: "sortTable")
-        sortBarButton.tintColor = delegate.themeTintColor
+        sortBarButton = UIBarButtonItem(title: "Sorting: \(sortBy)", style: .Plain, target: self, action: "sortTable:")
+        sortBarButton.tintColor = appDelegate.themeTintColor
         let toolbarSpace = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: self, action: nil)
         //var actionButton = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: "showActions:")
         
@@ -77,10 +92,6 @@ class CategoriesViewController: UITableViewController, CLLocationManagerDelegate
         navigationController?.toolbarHidden = false
         
         tableView.reloadData()
-        navigationItem.backBarButtonItem?.title = ""
-        
-        navigationController!.navigationBar.tintColor = delegate.themeTintColor
-        tableView.backgroundColor = delegate.themeBackgroundColor
     }
 
     override func didReceiveMemoryWarning() {
@@ -88,8 +99,12 @@ class CategoriesViewController: UITableViewController, CLLocationManagerDelegate
         // Dispose of any resources that can be recreated.
     }
     
+    override func shouldAutorotate() -> Bool {
+        return true
+    }
+    
     // MARK: Custom Functions
-    func sortTable() {
+    func sortTable(sender: UIBarButtonItem) {
         let sortMenu = UIAlertController(title: "Sort Items", message: "Sort Prayer Categories By...", preferredStyle: .ActionSheet)
         
         // let objectsBeforeSorting = fetchedCategories
@@ -121,6 +136,9 @@ class CategoriesViewController: UITableViewController, CLLocationManagerDelegate
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
         sortMenu.addAction(cancelAction)
         
+        sortMenu.popoverPresentationController?.barButtonItem = sender
+        sortMenu.popoverPresentationController?.sourceView = self.view
+        
         presentViewController(sortMenu, animated: true, completion: nil)
     }
     
@@ -139,7 +157,7 @@ class CategoriesViewController: UITableViewController, CLLocationManagerDelegate
     }
     
     func determinePurchasedStatus() -> Bool {
-        let purchased = delegate.didBuyAdditionalFeatures
+        let purchased = appDelegate.didBuyAdditionalFeatures
         
         if categoryCount == 5 {
             if !purchased {
@@ -301,16 +319,28 @@ class CategoriesViewController: UITableViewController, CLLocationManagerDelegate
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         //let cell = tableView.cellForRowAtIndexPath(indexPath)!
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let prayersVC = storyboard.instantiateViewControllerWithIdentifier(SBPrayersViewControllerID) as! PersonalPrayerViewController
+        
+        let prayersVC: PersonalPrayerViewController!
+        
+        if self.traitCollection.userInterfaceIdiom == .Pad && UIDeviceOrientationIsLandscape(UIDevice.currentDevice().orientation) == true {
+            let navController = self.splitViewController!.viewControllers.last as! UINavigationController
+            prayersVC = navController.visibleViewController as! PersonalPrayerViewController
+        } else {
+            prayersVC = storyboard.instantiateViewControllerWithIdentifier(SBPrayersViewControllerID) as! PersonalPrayerViewController
+        }
+        //let prayersVC = storyboard.instantiateViewControllerWithIdentifier(SBPrayersViewControllerID) as! PersonalPrayerViewController
         
         if indexPath.section == 0 {
             switch indexPath.row {
             case 0:
+                //prayersVC.isAllPrayers = true
                 prayersVC.currentCategory = CategoryStore.sharedInstance.categoryForString("Uncategorized")
-                prayersVC.isAllPrayers = true
+                delegate?.categories(self, didSelectCategory: CategoryStore.sharedInstance.categoryForString("Uncategorized")!, isAllPrayers: true)
                 
             case 1:
+                //prayersVC.isAllPrayers = false
                 prayersVC.currentCategory = CategoryStore.sharedInstance.categoryForString("Uncategorized")!
+                delegate?.categories(self, didSelectCategory: CategoryStore.sharedInstance.categoryForString("Uncategorized")!, isAllPrayers: false)
                 
             case 2:
                 let answeredPrayersVC = storyboard.instantiateViewControllerWithIdentifier(SBAnsweredPrayersViewControllerID) as! AnsweredPrayersViewController
@@ -326,10 +356,16 @@ class CategoriesViewController: UITableViewController, CLLocationManagerDelegate
             navigationController?.pushViewController(prayerLocationsVC, animated: true)
             return
         } else {
-            prayersVC.currentCategory = fetchedCategories[indexPath.row]
+            //prayersVC.isAllPrayers = false
+            //prayersVC.currentCategory = fetchedCategories[indexPath.row]
+            delegate?.categories(self, didSelectCategory: fetchedCategories[indexPath.row], isAllPrayers: false)
         }
         
-        navigationController?.pushViewController(prayersVC, animated: true)
+        if self.traitCollection.userInterfaceIdiom == .Phone {
+            navigationController?.pushViewController(prayersVC, animated: true)
+        }
+        
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
     override func tableView(tableView: UITableView, didHighlightRowAtIndexPath indexPath: NSIndexPath) {
@@ -433,7 +469,7 @@ class CategoriesViewController: UITableViewController, CLLocationManagerDelegate
     override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         let headerView = view as! UITableViewHeaderFooterView
         
-        headerView.textLabel!.textColor = delegate.themeTextColor
+        headerView.textLabel!.textColor = appDelegate.themeTextColor
     }
     
     // MARK: Segues
@@ -525,7 +561,7 @@ class CategoriesViewController: UITableViewController, CLLocationManagerDelegate
         let command = notificationInfo["command"] as! String
         
         if command == "open-today" {
-            (UIApplication.sharedApplication().delegate as! AppDelegate).switchTabBarToTab(0)
+            appDelegate.switchTabBarToTab(0)
         } else if command == "open-prayer" {
             let prayerID = Int32(Int((notificationInfo["prayerID"] as! String))!)
             

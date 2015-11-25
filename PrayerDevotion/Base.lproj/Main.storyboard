@@ -22,13 +22,13 @@
                     </tabBar>
                     <connections>
                         <segue destination="7v7-me-2eV" kind="relationship" relationship="viewControllers" id="iSe-d8-bjA"/>
-                        <segue destination="ihU-Zp-70x" kind="relationship" relationship="viewControllers" id="vhJ-P3-fT6"/>
+                        <segue destination="vnN-Qf-QEq" kind="relationship" relationship="viewControllers" id="EdK-Pa-nnl"/>
                         <segue destination="7DG-Ua-1d9" kind="relationship" relationship="viewControllers" id="TCw-BO-rhp"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8hW-zB-DSh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2450" y="3"/>
+            <point key="canvasLocation" x="-3154" y="3"/>
         </scene>
         <!--PrayerDevotion-->
         <scene sceneID="Teo-eN-afC">
@@ -271,6 +271,20 @@
             </objects>
             <point key="canvasLocation" x="-15" y="-733"/>
         </scene>
+        <!--Item-->
+        <scene sceneID="yqo-wc-KgJ">
+            <objects>
+                <splitViewController id="vnN-Qf-QEq" customClass="CategoriesSplitViewController" customModule="PrayerDevotion" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" image="personal_new" id="OAQ-zD-OXr"/>
+                    <connections>
+                        <segue destination="ihU-Zp-70x" kind="relationship" relationship="masterViewController" id="Pf9-tz-WzY"/>
+                        <segue destination="uAr-iM-adC" kind="relationship" relationship="detailViewController" id="TWN-Vb-rMD"/>
+                    </connections>
+                </splitViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8XN-kO-cPK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2442" y="3"/>
+        </scene>
         <!--Categories-->
         <scene sceneID="skn-YK-nZb">
             <objects>
@@ -292,6 +306,23 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ul1-cr-MQW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1598" y="3"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="6dP-sI-pNI">
+            <objects>
+                <navigationController id="uAr-iM-adC" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="EMS-pM-XTu">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="3RO-70-0sl" kind="relationship" relationship="rootViewController" id="Xdp-G3-sOS"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tAn-uQ-2dP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1598" y="745"/>
         </scene>
         <!--Edit Category-->
         <scene sceneID="FYj-MA-kIQ">
@@ -617,14 +648,14 @@
                     </tableView>
                     <connections>
                         <segue destination="xkQ-3y-Y0l" kind="unwind" identifier="UnwindFromAnsweredID" unwindAction="prepareForUnwindFromPrayers:" id="DHH-AI-hSF"/>
-                        <segue destination="Bpi-Wf-dEB" kind="presentation" identifier="PresentPrayerDetailsSegueID" id="R2r-FO-19d"/>
+                        <segue destination="Bpi-Wf-dEB" kind="presentation" identifier="PresentPrayerDetailsSegueID" modalPresentationStyle="formSheet" id="R2r-FO-19d"/>
                         <segue destination="PSC-pJ-Rww" kind="show" identifier="ShowSearchSegueID" id="YQj-yP-DjY"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zax-cW-uxq" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="xkQ-3y-Y0l" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-1611" y="745"/>
+            <point key="canvasLocation" x="-2442" y="745"/>
         </scene>
         <!--Settings and Feedback-->
         <scene sceneID="0ot-sA-n2b">
@@ -1161,7 +1192,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="Ydo-Fr-wut"/>
                     <connections>
-                        <segue destination="Bpi-Wf-dEB" kind="presentation" identifier="PresentPrayerDetailsSegueID" id="vde-Dt-tRC"/>
+                        <segue destination="Bpi-Wf-dEB" kind="presentation" identifier="PresentPrayerDetailsSegueID" modalPresentationStyle="formSheet" id="vde-Dt-tRC"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rbM-L9-cs8" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1180,7 +1211,7 @@
                         <color key="separatorColor" red="0.60000002379999995" green="0.40000000600000002" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="EnterPrayerNameCellID" id="zeE-QQ-vqF" customClass="PrayerNameCell" customModule="PrayerDevotion" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="113.5" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="93.5" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zeE-QQ-vqF" id="lon-T0-hdn">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
@@ -1204,7 +1235,7 @@
                                 <animations/>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="PrayerCategoryCellID" rowHeight="247" id="KdL-Cu-sJt" customClass="PrayerCategoryCell" customModule="PrayerDevotion" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="157.5" width="600" height="247"/>
+                                <rect key="frame" x="0.0" y="137.5" width="600" height="247"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KdL-Cu-sJt" id="yIz-az-lV5">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="246.5"/>
@@ -1266,7 +1297,7 @@
                                 <animations/>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="DetailsExtendedCellID" rowHeight="130" id="gl1-no-Agd" customClass="PrayerDetailsExtendedCell" customModule="PrayerDevotion" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="404.5" width="600" height="130"/>
+                                <rect key="frame" x="0.0" y="384.5" width="600" height="130"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gl1-no-Agd" id="73J-o5-gK5">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="129.5"/>
@@ -1294,7 +1325,7 @@
                                 <animations/>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SetPrayerDateCellID" rowHeight="309" id="Jrw-MH-8Lq" customClass="AddPrayerDateCell_New" customModule="PrayerDevotion" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="534.5" width="600" height="309"/>
+                                <rect key="frame" x="0.0" y="514.5" width="600" height="309"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Jrw-MH-8Lq" id="zow-JX-dUY">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="308.5"/>
@@ -1391,7 +1422,7 @@
                                 <animations/>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="PrayerAlertCellID" rowHeight="206" id="VLe-Yk-dE3" customClass="PrayerAlertCell" customModule="PrayerDevotion" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="843.5" width="600" height="206"/>
+                                <rect key="frame" x="0.0" y="823.5" width="600" height="206"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VLe-Yk-dE3" id="ltD-do-fHN">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="205.5"/>
@@ -1424,7 +1455,7 @@
                                 <animations/>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AddNewAlertCellID" rowHeight="309" id="u8D-EI-mqq" customClass="AddPrayerAlertCell" customModule="PrayerDevotion" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="1049.5" width="600" height="309"/>
+                                <rect key="frame" x="0.0" y="1029.5" width="600" height="309"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="u8D-EI-mqq" id="mR1-Fl-bVW">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="308.5"/>
@@ -1491,7 +1522,7 @@
                                 <animations/>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="PriorityCellID" rowHeight="30" id="uOa-hC-Y3a" customClass="PrayerPriorityCell" customModule="PrayerDevotion" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="1358.5" width="600" height="30"/>
+                                <rect key="frame" x="0.0" y="1338.5" width="600" height="30"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uOa-hC-Y3a" id="ZNL-rs-BiC">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="29.5"/>
@@ -1529,7 +1560,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AnsweredPrayerCellID" id="WDJ-Ux-hAS" customClass="PrayerAnsweredCell" customModule="PrayerDevotion" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="1388.5" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="1368.5" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WDJ-Ux-hAS" id="7V7-XU-QMn">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
@@ -1553,7 +1584,7 @@
                                 <animations/>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AnsweredPrayerNotesCellID" rowHeight="130" id="rem-j7-O3j" customClass="PrayerAnsweredNoteCell" customModule="PrayerDevotion" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="1432.5" width="600" height="130"/>
+                                <rect key="frame" x="0.0" y="1412.5" width="600" height="130"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rem-j7-O3j" id="cMo-v4-5O6">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="129.5"/>
@@ -1587,7 +1618,7 @@
                                 <animations/>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PrayerLocationCellID" id="gfr-Ej-O0r">
-                                <rect key="frame" x="0.0" y="1562.5" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="1542.5" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gfr-Ej-O0r" id="L0s-fU-xJk">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
@@ -1705,7 +1736,7 @@
                         <color key="sectionIndexTrackingBackgroundColor" red="0.60000002379999995" green="0.40000000600000002" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="CreatePrayerCellID" id="V4H-sl-CKX" customClass="CreatePrayerCell" customModule="PrayerDevotion" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="49.5" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="113.5" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="V4H-sl-CKX" id="dnu-Ek-nGL">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
@@ -1723,7 +1754,7 @@
                                 <animations/>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PrayerCellID" rowHeight="55" id="tf1-WA-6MG" customClass="PrayerCell" customModule="PrayerDevotion" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="93.5" width="600" height="55"/>
+                                <rect key="frame" x="0.0" y="157.5" width="600" height="55"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tf1-WA-6MG" id="cS5-5M-qnj">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="54.5"/>
@@ -1785,7 +1816,7 @@
                     </refreshControl>
                     <connections>
                         <outlet property="navItem" destination="qrO-nD-lGx" id="Tfe-Rn-3Sx"/>
-                        <segue destination="Bpi-Wf-dEB" kind="presentation" identifier="PresentPrayerDetailsSegueID" id="SdU-ZI-pnh"/>
+                        <segue destination="Bpi-Wf-dEB" kind="presentation" identifier="PresentPrayerDetailsSegueID" modalPresentationStyle="formSheet" id="SdU-ZI-pnh"/>
                         <segue destination="bIA-9x-cAr" kind="unwind" identifier="UnwindFromPrayersID" unwindAction="prepareForUnwindFromPrayers:" id="tlN-Iz-Ogx"/>
                         <segue destination="PSC-pJ-Rww" kind="show" identifier="ShowSearchSegueID" id="KwS-Zd-WEf"/>
                     </connections>
@@ -2155,7 +2186,7 @@
         <image name="today_icon" width="24" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="SdU-ZI-pnh"/>
-        <segue reference="KwS-Zd-WEf"/>
+        <segue reference="YQj-yP-DjY"/>
+        <segue reference="vde-Dt-tRC"/>
     </inferredMetricsTieBreakers>
 </document>

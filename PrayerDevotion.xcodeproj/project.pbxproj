@@ -76,6 +76,7 @@
 		61E049721B801B0100A5CB9A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61E049711B801B0100A5CB9A /* OpenGLES.framework */; };
 		61E049741B801B0500A5CB9A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61E049731B801B0500A5CB9A /* QuartzCore.framework */; };
 		61E049761B801B0B00A5CB9A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61E049751B801B0B00A5CB9A /* SystemConfiguration.framework */; };
+		61E435B91C054A9F002B622A /* CategoriesSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E435B81C054A9F002B622A /* CategoriesSplitViewController.swift */; };
 		61E5B7081C041D8600DAC605 /* PrayerUpdateEditingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E5B7071C041D8600DAC605 /* PrayerUpdateEditingViewController.swift */; };
 		61F36D831B8C1C8800B51B9A /* RSBrightnessSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 61F36D821B8C1C8800B51B9A /* RSBrightnessSlider.m */; };
 		61FBDDB81BA9DCBB0026A0A7 /* TodayPrayersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBDDB71BA9DCBB0026A0A7 /* TodayPrayersViewController.swift */; };
@@ -290,6 +291,7 @@
 		61E049711B801B0100A5CB9A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		61E049731B801B0500A5CB9A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		61E049751B801B0B00A5CB9A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		61E435B81C054A9F002B622A /* CategoriesSplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoriesSplitViewController.swift; path = "View Controllers/Categories & Prayers/Categories/CategoriesSplitViewController.swift"; sourceTree = "<group>"; };
 		61E5B7071C041D8600DAC605 /* PrayerUpdateEditingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PrayerUpdateEditingViewController.swift; path = "View Controllers/Categories & Prayers/Prayers/PrayerUpdateEditingViewController.swift"; sourceTree = "<group>"; };
 		61F36D811B8C1C8800B51B9A /* RSBrightnessSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSBrightnessSlider.h; sourceTree = "<group>"; };
 		61F36D821B8C1C8800B51B9A /* RSBrightnessSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSBrightnessSlider.m; sourceTree = "<group>"; };
@@ -576,6 +578,7 @@
 			isa = PBXGroup;
 			children = (
 				61FBDDB91BA9DCF60026A0A7 /* CategoriesViewController.swift */,
+				61E435B81C054A9F002B622A /* CategoriesSplitViewController.swift */,
 				61FBDDBA1BA9DCF60026A0A7 /* EditCategoriesViewController.swift */,
 				61FBDDBB1BA9DCF60026A0A7 /* MovePrayersViewController.swift */,
 			);
@@ -1207,6 +1210,7 @@
 				61C10D1C1B8AA4E20099F059 /* RSColorPickerView.m in Sources */,
 				61FBDDD51BA9DD660026A0A7 /* ThemeColorCustomViewController.swift in Sources */,
 				61FBDE001BA9DE0B0026A0A7 /* PrayerSearchCell.swift in Sources */,
+				61E435B91C054A9F002B622A /* CategoriesSplitViewController.swift in Sources */,
 				61C10D161B8AA4E20099F059 /* BitmapDrawManipulator.m in Sources */,
 				61FBDDCE1BA9DD4E0026A0A7 /* LocationSearchViewController.swift in Sources */,
 				61F36D831B8C1C8800B51B9A /* RSBrightnessSlider.m in Sources */,
@@ -1519,6 +1523,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "PrayerDevotion/Supporting Files/PrayerDevotion-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -1548,6 +1553,7 @@
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "PrayerDevotion/Supporting Files/PrayerDevotion-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

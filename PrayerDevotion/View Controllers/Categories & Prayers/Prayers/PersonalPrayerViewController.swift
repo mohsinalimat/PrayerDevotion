@@ -11,17 +11,17 @@ import UIKit
 import CoreData
 import PDKit
 
-class PersonalPrayerViewController: UITableViewController, UITextFieldDelegate, UISearchBarDelegate, UIViewControllerPreviewingDelegate {
+class PersonalPrayerViewController: UITableViewController, UITextFieldDelegate, UISearchBarDelegate, UIViewControllerPreviewingDelegate, CategoriesViewControllerDelegate {
     
     // Global variable that holds the current category
+    var isAllPrayers: Bool = true
     var currentCategory: PDCategory?
+    
     var prayers: [PDPrayer]!
     var answeredPrayers: [PDPrayer]!
     
     var unansweredCount: Int!
     var answeredCount: Int!
-
-    var isAllPrayers: Bool = false
     
     let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
@@ -51,27 +51,54 @@ class PersonalPrayerViewController: UITableViewController, UITextFieldDelegate, 
         
         refreshControl!.addTarget(self, action: "refreshView", forControlEvents: .ValueChanged)
         
-        categoriesItem = UIBarButtonItem(title: "Categories", style: .Plain, target: self, action: "unwindFromPrayers:")
         let searchItem = UIBarButtonItem(barButtonSystemItem: .Search, target: self, action: "openSearch:")
         
         navItem.rightBarButtonItem = searchItem
-        navItem.leftBarButtonItem = categoriesItem
         
         if #available(iOS 9.0, *) {
             if self.traitCollection.forceTouchCapability == .Available {
                 self.registerForPreviewingWithDelegate(self, sourceView: self.tableView)
             }
         }
+        
+        let categoriesVC = (self.splitViewController!.viewControllers.first as! UINavigationController).topViewController as! CategoriesViewController
+        categoriesVC.delegate = self
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        refreshUI()
+        tableView.backgroundColor = delegate.themeBackgroundColor
+    }
+    
+    func refreshUI() {
         navItem.title = isAllPrayers == true ? "All Prayers" : currentCategory!.name
         
-        navigationController!.navigationBar.tintColor = delegate.themeTintColor
-        tableView.backgroundColor = delegate.themeBackgroundColor
+        self.splitViewController?.navigationController?.navigationBar.backgroundColor = delegate.themeTintColor
         
+        /*if self.traitCollection.userInterfaceIdiom == .Pad {
+            if UIDeviceOrientationIsPortrait(UIDevice.currentDevice().orientation) {
+                categoriesItem = UIBarButtonItem(title: "Categories", style: .Plain, target: self.splitViewController!.displayModeButtonItem().target, action: self.splitViewController!.displayModeButtonItem().action)
+                
+                navItem.leftBarButtonItem = categoriesItem
+            } else {
+                navItem.leftBarButtonItem = nil
+            }
+        } else {
+            categoriesItem = UIBarButtonItem(title: "Categories", style: .Plain, target: self, action: "unwindFromPrayers:")
+            
+            navItem.leftBarButtonItem = categoriesItem
+        }*/
+        
+        if self.traitCollection.userInterfaceIdiom == .Phone {
+            categoriesItem = UIBarButtonItem(title: "Categories", style: .Plain, target: self, action: "unwindFromPrayers:")
+            navItem.leftBarButtonItem = categoriesItem
+        }
+    }
+    
+    override func shouldAutorotate() -> Bool {
+        return true
     }
     
     func unwindFromPrayers(sender: AnyObject) {
@@ -323,7 +350,7 @@ class PersonalPrayerViewController: UITableViewController, UITextFieldDelegate, 
     func textFieldDidBeginEditing(textField: UITextField) {
         print("Beginning to add a prayer into the textField")
         
-        categoriesItem.enabled = false
+        categoriesItem?.enabled = false
         tableView.scrollEnabled = false
     }
     
@@ -365,7 +392,7 @@ class PersonalPrayerViewController: UITableViewController, UITextFieldDelegate, 
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.endEditing(true)
         tableView.scrollEnabled = true
-        categoriesItem.enabled = true
+        categoriesItem?.enabled = true
         return false
     }
     
@@ -474,5 +501,17 @@ class PersonalPrayerViewController: UITableViewController, UITextFieldDelegate, 
     @available(iOS 9.0, *)
     func previewingContext(previewingContext: UIViewControllerPreviewing, commitViewController viewControllerToCommit: UIViewController) {
         self.showDetailViewController(viewControllerToCommit, sender: self)
+    }
+    
+    // MARK: CategoriesViewController Delegate Methods
+    
+    func categories(categoriesViewController: CategoriesViewController, didSelectCategory category: PDCategory, isAllPrayers allPrayers: Bool) {
+        self.currentCategory = category
+        self.isAllPrayers = allPrayers
+        
+        fetchAndUpdatePrayers([NSSortDescriptor(key: "priority", ascending: false), NSSortDescriptor(key: "creationDate", ascending: false)])
+        tableView.reloadData()
+        
+        refreshUI()
     }
 }

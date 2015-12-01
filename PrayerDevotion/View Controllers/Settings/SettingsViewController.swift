@@ -117,6 +117,18 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
         return super.tableView(tableView, heightForRowAtIndexPath: indexPath)
     }
     
+    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        if indexPath.section == 4 && indexPath.row == 1 {
+            cell.backgroundColor = UIColor.clearColor()
+            
+            let textView = cell.viewWithTag(1) as! UITextView
+            textView.font = UIFont.systemFontOfSize(17.0, weight: UIFontWeightLight)
+            textView.text = "Do not be anxious about anything, but in everything, by prayer and petition, with thanksgiving, present your requests to God. And the peace of God, which surpasses all understanding, will guard your hearts and minds in Christ Jesus.\nPhilippians 4:6-7"
+            textView.textColor = delegate.themeTextColor
+            textView.textAlignment = .Center
+        }
+    }
+    
     // MARK: Custom Functions
     func createEmailMessage(type: String) {
         var emailTitle = ""

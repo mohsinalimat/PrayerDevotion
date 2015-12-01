@@ -35,6 +35,9 @@ class TodayPrayersViewController: UIViewController, UITableViewDelegate, UITable
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationController?.navigationItem.backBarButtonItem = nil
+        self.navigationController?.navigationItem.hidesBackButton = true
+        
         dateFormatter.dateStyle = .MediumStyle
         dateFormatter.timeStyle = .NoStyle
         
@@ -88,11 +91,13 @@ class TodayPrayersViewController: UIViewController, UITableViewDelegate, UITable
     func fetchTodayPrayers() {
         todayPrayers = [PDPrayer]()
         
-        print("Date is \(date)")
+        let fetchDate = date.toLocalTime()
         
-        todayPrayers += PrayerStore.sharedInstance.fetchPrayersOnDate(.OnDate, prayerDate: date);
-        todayPrayers += PrayerStore.sharedInstance.fetchPrayersOnDate(.Daily, prayerDate: date);
-        todayPrayers += PrayerStore.sharedInstance.fetchPrayersOnDate(.Weekly, prayerDate: date);
+        print("Date is \(fetchDate)")
+        
+        todayPrayers += PrayerStore.sharedInstance.fetchPrayersOnDate(.OnDate, prayerDate: fetchDate);
+        todayPrayers += PrayerStore.sharedInstance.fetchPrayersOnDate(.Daily, prayerDate: fetchDate);
+        todayPrayers += PrayerStore.sharedInstance.fetchPrayersOnDate(.Weekly, prayerDate: fetchDate);
         
         todayCount = todayPrayers.count
     }
@@ -103,12 +108,16 @@ class TodayPrayersViewController: UIViewController, UITableViewDelegate, UITable
         let currentDay = date
         let newDate = currentDay.dateByAddingTimeInterval(60*60*24*1)
         
+        ((self.splitViewController!.viewControllers.first as? UINavigationController)?.topViewController as? TodayCalendarViewController)?.calendarView.selectDate(newDate.toLocalTime(), scrollToDate: true)
+        
         changeDate(newDate)
     }
     
     @IBAction func prevDay() {
         let currentDay = date
         let newDate = currentDay.dateByAddingTimeInterval(-60*60*24*1)
+        
+        ((self.splitViewController!.viewControllers.first as? UINavigationController)?.topViewController as? TodayCalendarViewController)?.calendarView.selectDate(newDate.toLocalTime(), scrollToDate: true)
         
         changeDate(newDate)
     }
@@ -122,16 +131,22 @@ class TodayPrayersViewController: UIViewController, UITableViewDelegate, UITable
         
         noPrayersLabel.hidden = !(todayCount == 0)
         
+        let currentDate = NSDate()
+        
         let dateForm = NSDateFormatter()
         dateForm.dateStyle = .ShortStyle
         dateForm.timeStyle = .NoStyle
         
-        let dateString = dateForm.stringFromDate(date)
-        let todayString = dateForm.stringFromDate(NSDate())
+        let dateString = dateForm.stringFromDate(newDate)
+        let todayString = dateForm.stringFromDate(currentDate)
         todayLabel.text = dateString == todayString ? "Today List" : "\(dateString) List"
         
-        let tomorrowDateString = dateForm.stringFromDate(NSDate().dateByAddingTimeInterval(60*60*24))
-        let yesterdayDateString = dateForm.stringFromDate(NSDate().dateByAddingTimeInterval(-60*60*24))
+        let tomorrowDateString = dateForm.stringFromDate(currentDate.dateByAddingTimeInterval(60*60*24))
+        let yesterdayDateString = dateForm.stringFromDate(currentDate.dateByAddingTimeInterval(-60*60*24))
+        
+        print("Today String: \(dateString)")
+        print("Tomorrow String: \(tomorrowDateString)")
+        print("Yesterday String:\(yesterdayDateString)")
         
         if dateString == tomorrowDateString { todayLabel.text = "Tomorrow's List" }
         if dateString == yesterdayDateString { todayLabel.text = "Yesterday's List" }
@@ -141,6 +156,8 @@ class TodayPrayersViewController: UIViewController, UITableViewDelegate, UITable
     
     func backToToday() {
         changeDate(NSDate())
+        
+        ((self.splitViewController!.viewControllers.first as? UINavigationController)?.topViewController as? TodayCalendarViewController)?.calendarView.selectDate(NSDate().toLocalTime(), scrollToDate: true)
     }
     
     // MARK: UITableView Methods
@@ -241,11 +258,12 @@ class TodayPrayersViewController: UIViewController, UITableViewDelegate, UITable
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 1 {
             //let currentDate = NSDate()
+            let currentDate = NSDate()
             let dateString = dateFormatter.stringFromDate(date)
-            let thisDayString = dateFormatter.stringFromDate(NSDate())
+            let thisDayString = dateFormatter.stringFromDate(currentDate)
             
-            let tomorrowDateString = dateFormatter.stringFromDate(NSDate().dateByAddingTimeInterval(60*60*24))
-            let yesterdayDateString = dateFormatter.stringFromDate(NSDate().dateByAddingTimeInterval(-60*60*24))
+            let tomorrowDateString = dateFormatter.stringFromDate(currentDate.dateByAddingTimeInterval(60*60*24))
+            let yesterdayDateString = dateFormatter.stringFromDate(currentDate.dateByAddingTimeInterval(-60*60*24))
             
             var headerText = todayCount == 0 ? "" : (dateString == thisDayString ? "Today, \(dateString)" : "\(dateString)")
             
@@ -356,6 +374,12 @@ class TodayPrayersViewController: UIViewController, UITableViewDelegate, UITable
     func previewingContext(previewingContext: UIViewControllerPreviewing, commitViewController viewControllerToCommit: UIViewController) {
         self.showDetailViewController(viewControllerToCommit, sender: self)
     }
+    
+    // MARK: TodayCalendarViewController Delegate Methods
+    
+    /*func didSelectNewDate(date: NSDate) {
+        changeDate(date)
+    }*/
     
     // MARK: Notifications
     

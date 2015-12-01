@@ -31,6 +31,10 @@ class CategoriesSplitViewController: UISplitViewController, UISplitViewControlle
         prayersVC.currentCategory = CategoryStore.sharedInstance.categoryForString("Uncategorized")
         prayersVC.isAllPrayers = true
         
+        self.tabBarController!.tabBar.layer.zPosition = 1
+        
+        self.extendedLayoutIncludesOpaqueBars = true
+        
         //print("PrayersVC currentCategory = \(prayersVC.currentCategory!.name)")
     }
     
@@ -38,14 +42,21 @@ class CategoriesSplitViewController: UISplitViewController, UISplitViewControlle
     
     // When rotating to portrait, make sure Master View Controller is show
     func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController: UIViewController, ontoPrimaryViewController primaryViewController: UIViewController) -> Bool {
+        let categoriesVC = (primaryViewController as! UINavigationController).topViewController as! CategoriesViewController
+        let searchItem = UIBarButtonItem(barButtonSystemItem: .Search, target: categoriesVC, action: "showSearch:")
+        categoriesVC.navigationItem.rightBarButtonItem = searchItem
         return true
     }
     
     // When rotating into split view make sure everything is displayed correctly.
     func splitViewController(splitViewController: UISplitViewController, separateSecondaryViewControllerFromPrimaryViewController primaryViewController: UIViewController) -> UIViewController? {
+        
         if primaryViewController is UINavigationController {
             for controller in (primaryViewController as! UINavigationController).viewControllers {
                 if controller is UINavigationController && (controller as! UINavigationController).visibleViewController is PersonalPrayerViewController {
+                    return controller
+                } else if controller is UINavigationController && (controller as! UINavigationController).visibleViewController is CategoriesViewController {
+                    (controller as! UINavigationController).navigationItem.rightBarButtonItem = nil
                     return controller
                 }
             }
@@ -53,9 +64,6 @@ class CategoriesSplitViewController: UISplitViewController, UISplitViewControlle
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let navController = storyboard.instantiateViewControllerWithIdentifier(SBPersonalCategoriesNavID) as! UINavigationController
-        
-        //let prayersVC = navController.topViewController as! PersonalPrayerViewController
-        //prayersVC.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Categories", style: .Plain, target: self.splitViewController!.displayModeButtonItem().target, action: self.splitViewController!.displayModeButtonItem().action)
         
         return navController
     }
@@ -67,7 +75,6 @@ class CategoriesSplitViewController: UISplitViewController, UISplitViewControlle
         
         return .Portrait
     }
-
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)

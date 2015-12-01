@@ -10,6 +10,7 @@ import UIKit
 import CoreData
 import PDKit
 import GoogleMaps
+import QuartzCore
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -68,6 +69,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AlertStore.sharedInstance.deletePastAlerts()
                 
         validatePurchase() // Validate In-App Purchase
+        
+        (self.window!.rootViewController as! UITabBarController).tabBar.layer.zPosition = 1
         
         return true
     }
@@ -202,13 +205,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // MARK: Device Orientation
     
-    func application(application: UIApplication, supportedInterfaceOrientationsForWindow window: UIWindow?) -> UIInterfaceOrientationMask {
+    /*func application(application: UIApplication, supportedInterfaceOrientationsForWindow window: UIWindow?) -> UIInterfaceOrientationMask {
         if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
             return .Portrait
         } else {
             return .All
         }
-    }
+    }*/
     
     // MARK: Migration
     

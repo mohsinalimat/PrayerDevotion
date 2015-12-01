@@ -98,7 +98,7 @@ class PrayerDetailsViewController: UITableViewController, UITextFieldDelegate, U
     // MARK: UITableView Methods
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return currentPrayer.answered == true ? 6 : 7
+        return currentPrayer.answered == true ? 7 : 8
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -110,6 +110,7 @@ class PrayerDetailsViewController: UITableViewController, UITextFieldDelegate, U
         case 4: return 1
         case 5: return prayerAlertsCount
         case 6: return 1
+        case 7: return currentPrayer.locationAlert != nil ? 2 : 1
         default: return 0
         }
     }
@@ -172,6 +173,10 @@ class PrayerDetailsViewController: UITableViewController, UITextFieldDelegate, U
         if cell is PrayerPriorityCell {
             let priorityCell = cell as! PrayerPriorityCell
             
+            priorityCell.segmentedControl.tintColor = delegate.themeTextColor == Color.Black ? UIColor.darkGrayColor() : delegate.themeTextColor
+            priorityCell.priorityLabel.textColor = delegate.themeTextColor == Color.Black ? UIColor.darkGrayColor() : delegate.themeTextColor
+            priorityCell.tintAdjustmentMode = .Normal
+            priorityCell.backgroundColor = UIColor.clearColor()
             priorityCell.selectionStyle = .None
             priorityCell.currentPrayer = currentPrayer
             priorityCell.segmentedControl.selectedSegmentIndex = Int(currentPrayer.priority)
@@ -230,6 +235,14 @@ class PrayerDetailsViewController: UITableViewController, UITextFieldDelegate, U
             return
         }
         
+        if cell is PrayerLocationAlertMapCell {
+            let locationAlertMapCell = cell as! PrayerLocationAlertMapCell
+            locationAlertMapCell.locationAlert = currentPrayer.locationAlert!
+            locationAlertMapCell.refreshCell()
+            
+            return
+        }
+        
         // NOTE: No longer relevant... Code to be removed later
         /*if cell.reuseIdentifier == ChangeCategoryCellID {
             let pickerView = cell.viewWithTag(1) as! UIPickerView
@@ -264,6 +277,20 @@ class PrayerDetailsViewController: UITableViewController, UITextFieldDelegate, U
             } else {
                 locationLabel.text = "Assign Location"
             }
+            
+            return
+        }
+        
+        if cell.reuseIdentifier == PrayerLocationAlertCellID {
+            let locationAlertLabel = cell.viewWithTag(1) as! UILabel
+            
+            if let locationAlert = currentPrayer.locationAlert {
+                locationAlertLabel.text = "\(locationAlert.locationName)"
+            } else {
+                locationAlertLabel.text = "Assign Location Alert"
+            }
+            
+            locationAlertLabel.textColor = delegate.themeTintColor
             
             return
         }
@@ -303,7 +330,26 @@ class PrayerDetailsViewController: UITableViewController, UITextFieldDelegate, U
             } else {
                 cell = tableView.dequeueReusableCellWithIdentifier(PrayerLocationCellID, forIndexPath: indexPath) 
             }
-        case 6: cell = tableView.dequeueReusableCellWithIdentifier(PrayerLocationCellID, forIndexPath: indexPath) 
+        case 6:
+            if currentPrayer.answered == false {
+                cell = tableView.dequeueReusableCellWithIdentifier(PrayerLocationCellID, forIndexPath: indexPath)
+            } else {
+                if indexPath.row == 0 {
+                    cell = tableView.dequeueReusableCellWithIdentifier(PrayerLocationAlertCellID, forIndexPath: indexPath)
+                } else {
+                    if currentPrayer.locationAlert != nil {
+                        cell = tableView.dequeueReusableCellWithIdentifier(PrayerLocationAlertMapCellID, forIndexPath: indexPath)
+                    }
+                }
+            }
+        case 7:
+            if indexPath.row == 0 {
+                cell = tableView.dequeueReusableCellWithIdentifier(PrayerLocationAlertCellID, forIndexPath: indexPath)
+            } else {
+                if currentPrayer.locationAlert != nil {
+                    cell = tableView.dequeueReusableCellWithIdentifier(PrayerLocationAlertMapCellID, forIndexPath: indexPath)
+                }
+            }
         default: cell = UITableViewCell()
         }
         
@@ -386,7 +432,7 @@ class PrayerDetailsViewController: UITableViewController, UITextFieldDelegate, U
             tableView.endUpdates()
             
             if cell.isAddingAlert { tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Bottom, animated: true) }
-        } else if (indexPath.section == 5 && currentPrayer.answered == true) || indexPath.section == 6 {
+        } else if (indexPath.section == 5 && currentPrayer.answered == true) || indexPath.section == 6 && currentPrayer.answered == false {
             if let previousVC = previousViewController {
                 if previousVC is LocationPrayersViewController {
                     print("Cannot change location while viewing from location")
@@ -400,6 +446,15 @@ class PrayerDetailsViewController: UITableViewController, UITextFieldDelegate, U
             (createLocationVC.topViewController as! CreateLocationViewController).selectedPrayer = self.currentPrayer
             (createLocationVC.topViewController as! CreateLocationViewController).delegate = self
             presentViewController(createLocationVC, animated: true, completion: nil)
+        }
+        
+        if (indexPath.section == 6 && indexPath.row == 0 && currentPrayer.answered == true) || indexPath.section == 7 && indexPath.row == 0 {
+            print("Assigning location alert - required auth for user location")
+            
+            let createLocationAlertVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier(SBCreateLocationAlertViewControllerNavID) as! UINavigationController
+            (createLocationAlertVC.topViewController as! LocationAlertsViewController).selectedPrayer = self.currentPrayer
+            //(createLocationAlertVC.topViewController as! LocationAlertsViewController).delegate = self
+            presentViewController(createLocationAlertVC, animated: true, completion: nil)
         }
     }
     
@@ -460,9 +515,9 @@ class PrayerDetailsViewController: UITableViewController, UITextFieldDelegate, U
         switch section {
         case 0: return "Prayer Name"
         case 1: return "Extended Details"
-        case 3: return ""
-        case 5: return "Alerts"
-        case 6: return "Location"
+        case 5: return currentPrayer.answered == false ? "Alerts" : "Location"
+        case 6: return currentPrayer.answered == false ? "Location" : "Location Alerts"
+        case 7: return "Location Alerts"
         default: return ""
         }
     }

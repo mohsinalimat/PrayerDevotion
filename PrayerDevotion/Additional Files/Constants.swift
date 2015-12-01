@@ -50,6 +50,8 @@ let PriorityCellID = "PriorityCellID" // This is the cell ID of the cell that ho
 let PrayerCategoryCellID = "PrayerCategoryCellID" // This is the cell ID of the cell that holds the prayer category
 let PrayerLocationCellID = "PrayerLocationCellID" // This is the cell ID of the cell that holds the assigned location
 let PrayerUpdateCellID = "PrayerUpdateCellID" // This is the cell ID of the cell that holds a prayer update
+let PrayerLocationAlertCellID = "PrayerLocationAlertCellID" // This is the cell ID of the cell that holds the assigned location alert
+let PrayerLocationAlertMapCellID = "PrayerLocationAlertMapCellID" // This is the cell ID of the cell that holds the assign location alert (in a map)
 
 // -- TodayPrayersViewController
 let TodayCellID = "TodayPrayerCellID" // This is the cell ID of the cell that is used in TodayPrayersViewController to display the prayer
@@ -64,5 +66,8 @@ let SBTodayNavControllerID = "SBTodayNavControllerID" // This is the storyboard 
 let SBPrayerDetailsNavControllerID = "SBPrayerDetailsNavControllerID" // This is the storyboard ID of the PrayerDetailsViewController's NavigationController
 let SBPrayerLocationsViewControllerID = "SBPrayerLocationsViewControllerID" // This the is storyboard ID of the PrayerLocationsViewContoller
 let SBCreateLocationViewControllerID = "SBCreateLocationViewControllerID" // This is the storyboard ID of the CreateLocationViewController's NavigationController
-let SBPrayerUpdatesViewControllerID = "SBPrayerUpdatesViewControllerID" // This is the storyboard ID of the PrayerUpdatesViewControllerlet SBLocationPrayersViewControllerID = "SBLocationPrayersViewControllerID" // This is the storyboard ID of the LocationPrayersViewController
+let SBPrayerUpdatesViewControllerID = "SBPrayerUpdatesViewControllerID" // This is the storyboard ID of the PrayerUpdatesViewController
+let SBLocationPrayersViewControllerID = "SBLocationPrayersViewControllerID" // This is the storyboard ID of the LocationPrayersViewController
 let SBPersonalCategoriesNavID = "SBPersonalCategoriesNavID"
+let SBTodayCalendarNavID = "SBTodayCalendarNavID"
+let SBCreateLocationAlertViewControllerNavID = "SBCreateLocationAlertViewControllerNavID" // This is the storyboard ID of the PrayerLocationAlertsViewController

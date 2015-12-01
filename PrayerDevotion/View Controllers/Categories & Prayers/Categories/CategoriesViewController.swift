@@ -9,6 +9,7 @@
 import UIKit
 import PDKit
 import CoreLocation
+import Foundation
 
 protocol CategoriesViewControllerDelegate: class {
     func categories(categoriesViewController: CategoriesViewController, didSelectCategory category: PDCategory, isAllPrayers allPrayers: Bool)
@@ -47,6 +48,8 @@ class CategoriesViewController: UITableViewController, CLLocationManagerDelegate
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleURL:", name: "HandleURLNotification", object: nil)
         
         prayerStore.requestProductInfo()
+        
+        self.navigationController?.tabBarController?.tabBar.translucent = true
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -60,7 +63,19 @@ class CategoriesViewController: UITableViewController, CLLocationManagerDelegate
         tableView.backgroundColor = appDelegate.themeBackgroundColor
     }
     
+    func showSearch(sender: UIBarButtonItem) {
+        self.performSegueWithIdentifier(ShowSearchSegueID, sender: sender)
+    }
+    
     func refreshUI() {
+        let searchButton = UIBarButtonItem(barButtonSystemItem: .Search, target: self, action: "showSearch:")
+        
+        if !(self.traitCollection.userInterfaceIdiom == .Pad && self.splitViewController!.collapsed == false) {
+            self.navigationItem.rightBarButtonItem = searchButton
+        } else {
+            self.navigationItem.rightBarButtonItem = nil
+        }
+        
         // This is the sorting feature - it calls the userPrefs "categoriesSortKey" (a String) and then
         // passes that key along to the PrayerStore for the NSSortDescriptor
         // In the instance that the sort key is nil (meaning it isn't set yet - such as the first time opening the application)
@@ -322,50 +337,102 @@ class CategoriesViewController: UITableViewController, CLLocationManagerDelegate
         
         let prayersVC: PersonalPrayerViewController!
         
-        if self.traitCollection.userInterfaceIdiom == .Pad && UIDeviceOrientationIsLandscape(UIDevice.currentDevice().orientation) == true {
+        /*if self.traitCollection.userInterfaceIdiom == .Pad && UIDeviceOrientationIsLandscape(UIDevice.currentDevice().orientation) == true {
             let navController = self.splitViewController!.viewControllers.last as! UINavigationController
             prayersVC = navController.visibleViewController as! PersonalPrayerViewController
         } else {
             prayersVC = storyboard.instantiateViewControllerWithIdentifier(SBPrayersViewControllerID) as! PersonalPrayerViewController
-        }
-        //let prayersVC = storyboard.instantiateViewControllerWithIdentifier(SBPrayersViewControllerID) as! PersonalPrayerViewController
+        }*/
+        var viewController: UIViewController?
+        var category: PDCategory?
+        
+        //prayersVC = storyboard.instantiateViewControllerWithIdentifier(SBPrayersViewControllerID) as! PersonalPrayerViewController
         
         if indexPath.section == 0 {
             switch indexPath.row {
+            case 0, 1:
+                viewController = storyboard.instantiateViewControllerWithIdentifier(SBPrayersViewControllerID) as! PersonalPrayerViewController
+                self.delegate = (viewController as! PersonalPrayerViewController)
+                (viewController as! PersonalPrayerViewController).isAllPrayers = indexPath.row == 0
+                category = CategoryStore.sharedInstance.categoryForString("Uncategorized")!
+            case 2:
+                viewController = storyboard.instantiateViewControllerWithIdentifier(SBAnsweredPrayersViewControllerID) as! AnsweredPrayersViewController
+            default: break
+            }
+        } else if indexPath.section == 1 {
+            viewController = storyboard.instantiateViewControllerWithIdentifier(SBPrayerLocationsViewControllerID) as! PrayerLocationsViewController
+        } else {
+            viewController = storyboard.instantiateViewControllerWithIdentifier(SBPrayersViewControllerID) as! PersonalPrayerViewController
+            self.delegate = (viewController as! PersonalPrayerViewController)
+            (viewController as! PersonalPrayerViewController).isAllPrayers = false
+            category = fetchedCategories[indexPath.row]
+        }
+        
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        
+        if let viewController = viewController {
+            if self.traitCollection.userInterfaceIdiom == .Pad && self.splitViewController!.collapsed == false {
+                setSplitViewDetailView(viewController)
+            } else {
+                self.navigationController?.pushViewController(viewController, animated: true)
+            }
+            
+            if let category = category {
+                delegate?.categories(self, didSelectCategory: category, isAllPrayers: (indexPath.section == 0 && indexPath.row == 0))
+            }
+        }
+        /*if indexPath.section == 0 {
+            switch indexPath.row {
             case 0:
-                //prayersVC.isAllPrayers = true
-                prayersVC.currentCategory = CategoryStore.sharedInstance.categoryForString("Uncategorized")
+                let prayersViewController = storyboard.instantiateViewControllerWithIdentifier(SBPrayersViewControllerID) as! PersonalPrayerViewController
+                prayersViewController.currentCategory = CategoryStore.sharedInstance.categoryForString("Uncategorized")
+                setSplitViewDetailView(prayersViewController)
                 delegate?.categories(self, didSelectCategory: CategoryStore.sharedInstance.categoryForString("Uncategorized")!, isAllPrayers: true)
                 
             case 1:
-                //prayersVC.isAllPrayers = false
-                prayersVC.currentCategory = CategoryStore.sharedInstance.categoryForString("Uncategorized")!
+                let prayersViewController = storyboard.instantiateViewControllerWithIdentifier(SBPrayersViewControllerID) as! PersonalPrayerViewController
+                prayersViewController.currentCategory = CategoryStore.sharedInstance.categoryForString("Uncategorized")
+                setSplitViewDetailView(prayersViewController)
                 delegate?.categories(self, didSelectCategory: CategoryStore.sharedInstance.categoryForString("Uncategorized")!, isAllPrayers: false)
                 
             case 2:
                 let answeredPrayersVC = storyboard.instantiateViewControllerWithIdentifier(SBAnsweredPrayersViewControllerID) as! AnsweredPrayersViewController
-                answeredPrayersVC.navigationItem.title = "Answered"
                 
-                navigationController?.pushViewController(answeredPrayersVC, animated: true)
-                return
+                if self.traitCollection.userInterfaceIdiom == .Pad {
+                    setSplitViewDetailView(answeredPrayersVC)
+                } else {
+                    navigationController?.pushViewController(answeredPrayersVC, animated: true)
+                }
                 
             default: break
             }
         } else if indexPath.section == 1 {
             let prayerLocationsVC = storyboard.instantiateViewControllerWithIdentifier(SBPrayerLocationsViewControllerID) as! PrayerLocationsViewController
-            navigationController?.pushViewController(prayerLocationsVC, animated: true)
-            return
+            
+            if self.traitCollection.userInterfaceIdiom == .Pad {
+                setSplitViewDetailView(prayerLocationsVC)
+            } else {
+                navigationController?.pushViewController(prayerLocationsVC, animated: true)
+            }
         } else {
-            //prayersVC.isAllPrayers = false
-            //prayersVC.currentCategory = fetchedCategories[indexPath.row]
+            let prayersViewController = storyboard.instantiateViewControllerWithIdentifier(SBPrayersViewControllerID) as! PersonalPrayerViewController
+            setSplitViewDetailView(prayersViewController)
             delegate?.categories(self, didSelectCategory: fetchedCategories[indexPath.row], isAllPrayers: false)
         }
         
-        if self.traitCollection.userInterfaceIdiom == .Phone {
+        /*if self.traitCollection.userInterfaceIdiom == .Phone {
             navigationController?.pushViewController(prayersVC, animated: true)
-        }
+        }*/
         
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)*/
+    }
+    
+    func setSplitViewDetailView(newViewController: UIViewController) {
+        let newDetailNavVC = UINavigationController()
+        newDetailNavVC.pushViewController(newViewController, animated: true)
+        
+        let newViewControllers = [self.splitViewController!.viewControllers[0], newDetailNavVC]
+        self.splitViewController!.viewControllers = newViewControllers
     }
     
     override func tableView(tableView: UITableView, didHighlightRowAtIndexPath indexPath: NSIndexPath) {

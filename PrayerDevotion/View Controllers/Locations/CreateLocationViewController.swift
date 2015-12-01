@@ -265,10 +265,8 @@ class CreateLocationViewController: UIViewController, UISearchResultsUpdating, U
     func queryPlaces() {
         let query: String = searchTimer!.userInfo as! String
         
-        let placesClient = GMSPlacesClient.sharedClient()
-        
         let filter = GMSAutocompleteFilter()
-        filter.type = GMSPlacesAutocompleteTypeFilter.Geocode
+        filter.type = .Geocode
         
         placesClient.autocompleteQuery(query, bounds: nil, filter: filter, callback: { (results, error: NSError?) in
             if let error = error {

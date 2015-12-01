@@ -18,14 +18,16 @@ class AnsweredPrayersViewController: UITableViewController, UIViewControllerPrev
     
     let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
+    var categoriesItem: UIBarButtonItem!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let categoriesItem = UIBarButtonItem(title: "Categories", style: .Plain, target: self, action: "unwindToCategories:")
+        //let categoriesItem = UIBarButtonItem(title: "Categories", style: .Plain, target: self, action: "unwindToCategories:")
         let searchItem = UIBarButtonItem(barButtonSystemItem: .Search, target: self, action: "openSearch:")
         
         navigationItem.rightBarButtonItem = searchItem
-        navigationItem.leftBarButtonItem = categoriesItem
+        navigationItem.title = "Answered"
         
         if #available(iOS 9.0, *) {
             if self.traitCollection.forceTouchCapability == .Available {
@@ -41,11 +43,26 @@ class AnsweredPrayersViewController: UITableViewController, UIViewControllerPrev
         answeredPrayers = PrayerStore.sharedInstance.fetchAllAnsweredPrayers(sortDescriptors)
         answeredCount = answeredPrayers.count
         tableView.reloadData()
-        
-        navigationItem.title = "Categories"
-        
+                
         navigationController!.navigationBar.tintColor = delegate.themeTintColor
         tableView.backgroundColor = delegate.themeBackgroundColor
+        
+        refreshUI()
+    }
+    
+    func refreshUI() {
+        if self.traitCollection.userInterfaceIdiom == .Phone {
+            categoriesItem = UIBarButtonItem(title: "Categories", style: .Plain, target: self, action: "unwindToCategories:")
+            self.navigationItem.leftBarButtonItem = categoriesItem
+        } else {
+            categoriesItem = UIBarButtonItem(title: "Hide Categories", style: .Plain, target: self, action: "showHideCategories:")
+            self.navigationItem.leftBarButtonItem = categoriesItem
+        }
+    }
+    
+    func showHideCategories(sender: UIBarButtonItem) {
+        sender.title = sender.title == "Show Categories" ? "Hide Categories" : "Show Categories"
+        self.splitViewController!.displayModeButtonItem().target!.performSelector(self.splitViewController!.displayModeButtonItem().action)
     }
     
     override func didReceiveMemoryWarning() {

@@ -1,14 +1,17 @@
 PODS:
+  - FSCalendar (1.7.0)
   - GoogleMaps (1.10.5)
   - RMStore (0.7.1):
     - RMStore/Core (= 0.7.1)
   - RMStore/Core (0.7.1)
 
 DEPENDENCIES:
+  - FSCalendar
   - GoogleMaps
   - RMStore (~> 0.7)
 
 SPEC CHECKSUMS:
+  FSCalendar: ee727a0db4e915a606813ba9e87522ba59920b25
   GoogleMaps: da51c62c338c2d9c47cdad470a0d1e0e4b8544e4
   RMStore: 64ba13a9c040e3b7572765d169f77175cd3243e5
 

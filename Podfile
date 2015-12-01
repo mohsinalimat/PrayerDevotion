@@ -8,6 +8,7 @@ use_frameworks!
 
 pod 'GoogleMaps'
 pod 'RMStore', '~> 0.7'
+pod 'FSCalendar'
 
 end
 

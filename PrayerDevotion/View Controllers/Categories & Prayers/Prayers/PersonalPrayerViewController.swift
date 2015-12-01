@@ -61,8 +61,8 @@ class PersonalPrayerViewController: UITableViewController, UITextFieldDelegate, 
             }
         }
         
-        let categoriesVC = (self.splitViewController!.viewControllers.first as! UINavigationController).topViewController as! CategoriesViewController
-        categoriesVC.delegate = self
+        //let categoriesVC = (self.splitViewController!.viewControllers.first as! UINavigationController).topViewController as! CategoriesViewController
+        //categoriesVC.delegate = self
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -94,7 +94,15 @@ class PersonalPrayerViewController: UITableViewController, UITextFieldDelegate, 
         if self.traitCollection.userInterfaceIdiom == .Phone {
             categoriesItem = UIBarButtonItem(title: "Categories", style: .Plain, target: self, action: "unwindFromPrayers:")
             navItem.leftBarButtonItem = categoriesItem
+        } else {
+            categoriesItem = UIBarButtonItem(title: "Hide Categories", style: .Plain, target: self, action: "showHideCategories:")
+            navItem.leftBarButtonItem = categoriesItem
         }
+    }
+    
+    func showHideCategories(sender: UIBarButtonItem) {
+        sender.title = sender.title == "Show Categories" ? "Hide Categories" : "Show Categories"
+        self.splitViewController!.displayModeButtonItem().target!.performSelector(self.splitViewController!.displayModeButtonItem().action)
     }
     
     override func shouldAutorotate() -> Bool {
@@ -290,7 +298,7 @@ class PersonalPrayerViewController: UITableViewController, UITextFieldDelegate, 
     }
     
     override func scrollViewWillBeginDragging(scrollView: UIScrollView) {
-        categoriesItem.enabled = true
+        //categoriesItem.enabled = true
     }
     
     // MARK: Segue
@@ -510,7 +518,7 @@ class PersonalPrayerViewController: UITableViewController, UITextFieldDelegate, 
         self.isAllPrayers = allPrayers
         
         fetchAndUpdatePrayers([NSSortDescriptor(key: "priority", ascending: false), NSSortDescriptor(key: "creationDate", ascending: false)])
-        tableView.reloadData()
+        self.tableView.reloadData()
         
         refreshUI()
     }

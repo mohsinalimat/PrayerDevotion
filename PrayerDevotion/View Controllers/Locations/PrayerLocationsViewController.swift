@@ -38,6 +38,8 @@ class PrayerLocationsViewController: UIViewController, GMSMapViewDelegate {
         LocationStore.sharedInstance.fetchLocations()
         allLocations = LocationStore.sharedInstance.locations()
         
+        refreshUI()
+        
         mapView.clear()
         for location in allLocations {
             print("Location ID is \(location.locationID)")
@@ -54,6 +56,21 @@ class PrayerLocationsViewController: UIViewController, GMSMapViewDelegate {
                 }
             })
         }
+    }
+    
+    func refreshUI() {
+        if self.traitCollection.userInterfaceIdiom == .Phone {
+            let categoriesItem = UIBarButtonItem(title: "Categories", style: .Plain, target: self, action: "unwindToCategories:")
+            self.navigationItem.leftBarButtonItem = categoriesItem
+        } else {
+            let categoriesItem = UIBarButtonItem(title: "Hide Categories", style: .Plain, target: self, action: "showHideCategories:")
+            self.navigationItem.leftBarButtonItem = categoriesItem
+        }
+    }
+    
+    func showHideCategories(sender: UIBarButtonItem) {
+        sender.title = sender.title == "Show Categories" ? "Hide Categories" : "Show Categories"
+        self.splitViewController!.displayModeButtonItem().target!.performSelector(self.splitViewController!.displayModeButtonItem().action)
     }
     
     override func didReceiveMemoryWarning() {

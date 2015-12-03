@@ -12,6 +12,7 @@ import CoreLocation
 
 public class LocationAlertStore: BaseStore {
     
+    private let locationManager = CLLocationManager()
     
     // MARK: Singleton Instance
     // This is the singleton variable for LocationAlertStore that is
@@ -44,6 +45,8 @@ public class LocationAlertStore: BaseStore {
         locationAlert.onEnter = onEnter
         
         saveDatabase()
+        
+        reloadAndMonitorAlerts()
         
         return locationAlert
     }
@@ -107,6 +110,68 @@ public class LocationAlertStore: BaseStore {
         } catch let error as NSError {
             print("An error occurred while fetching location for identifier \(identifier): \(error), \(error.localizedDescription)")
             return nil
+        }
+    }
+    
+    // MARK: Monitoring
+    
+    public func reloadAndMonitorAlerts() {
+        let currentLocation = locationManager.location
+        
+        if currentLocation != nil {
+            let fetchReqest = NSFetchRequest(entityName: "LocationAlert")
+            
+            /*let coord = currentLocation.coordinate
+            let radius = 100.0
+            let earthRadius = 6371009.0
+            let meanLat = coord.latitude * M_PI / 180
+            let deltaLat = radius / earthRadius * 180 / M_PI
+            let deltaLong = radius / (earthRadius * cos(meanLat)) * 180 / M_PI
+            let minLong = coord.latitude - deltaLong
+            let maxLong = coord.latitude + deltaLong
+            let minLat = coord.longitude - deltaLat
+            let maxLat = coord.longitude + deltaLat
+            
+            fetchReqest.predicate = NSPredicate(format: "latitude >= %d AND latitude <= %d AND longitude >= %d AND longitude <= %d", minLat, maxLat, minLong, maxLong)*/
+            fetchReqest.fetchLimit = 20
+            
+            stopMonitoringCurrentLocations()
+            
+            do {
+                let regionsToMonitor = try managedContext!.executeFetchRequest(fetchReqest) as! [PDLocationAlert]
+                
+                let maxRadius: CLLocationDistance = 50
+                let regions = regionsToMonitor.filter() {
+                    let coordinate = CLLocation(latitude: $0.latitude, longitude: $0.longitude)
+                    return coordinate.distanceFromLocation(currentLocation!) <= maxRadius
+                }
+                
+                var i = 1
+                for region in regions {
+                    if i <= regionsToMonitor.count {
+                        let monitorRegion = CLCircularRegion(center: region.coordinate, radius: region.radius, identifier: region.identifier)
+                        monitorRegion.notifyOnEntry = region.onEnter
+                        monitorRegion.notifyOnExit = !region.onEnter
+                    
+                        locationManager.startMonitoringForRegion(monitorRegion)
+                        i++
+                    } else {
+                        break
+                    }
+                }
+            } catch let error as NSError {
+                print("There was an error reloading location alerts: \(error), \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    //private func haversine
+    
+    private func stopMonitoringCurrentLocations() {
+        let regions = locationManager.monitoredRegions
+        
+        for region in regions {
+            locationManager.stopMonitoringForRegion(region)
         }
     }
 }

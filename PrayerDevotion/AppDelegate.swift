@@ -11,9 +11,10 @@ import CoreData
 import PDKit
 import GoogleMaps
 import QuartzCore
+import CoreLocation
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
 
     var window: UIWindow?
     
@@ -25,8 +26,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var didBuyAdditionalFeatures = false
     
+    let locationManager = CLLocationManager()
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        if CLLocationManager.authorizationStatus() == .AuthorizedAlways {
+            locationManager.startUpdatingLocation()
+        }
+        
+        locationManager.delegate = self
         
         // Migrate the data from the first release of the application
         migrateData()
@@ -129,6 +138,50 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
         Notifications.sharedNotifications.updateNotificationQueue()
     }
+    
+    // MARK: CLLocationManager Delegate Methods
+    
+    func handleRegionEvent(region: CLRegion!) {
+        print("Geofence triggered!")
+        
+        let identifier = region.identifier
+        let locationAlert = LocationAlertStore.sharedInstance.fetchLocationAlertForIdentifier(identifier)
+        
+        if let alert = locationAlert {
+            if UIApplication.sharedApplication().applicationState == .Active {
+                print("Recieved Geofence Event While Running App")
+            } else {
+                let notification = UILocalNotification()
+                notification.soundName = "Default"
+                notification.alertBody = alert.prayer.name
+                UIApplication.sharedApplication().presentLocalNotificationNow(notification)
+            }
+        }
+    }
+    
+    func locationManager(manager: CLLocationManager, didEnterRegion region: CLRegion) {
+        if region is CLCircularRegion {
+            handleRegionEvent(region)
+        }
+    }
+    
+    func locationManager(manager: CLLocationManager, didExitRegion region: CLRegion) {
+        if region is CLCircularRegion {
+            handleRegionEvent(region)
+        }
+    }
+    
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        LocationAlertStore.sharedInstance.reloadAndMonitorAlerts()
+    }
+    
+    func locationManager(manager: CLLocationManager, rangingBeaconsDidFailForRegion region: CLBeaconRegion, withError error: NSError) {
+        print("Monitoring failed for region: \(region) with error: \(error), \(error.localizedDescription)")
+    }
+    
+    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+        print("Location managed failed with error: \(error), \(error.localizedDescription)")
+    }
 
     // MARK: - Core Data stack
 
@@ -149,6 +202,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Create the coordinator and store
         var coordinator: NSPersistentStoreCoordinator? = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
         let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("PrayerDevotion.sqlite")
+        
+        let newURL = NSFileManager().containerURLForSecurityApplicationGroupIdentifier("group.shadowsystems.prayerdevotion")!.URLByAppendingPathComponent("PrayerDevotion.sqlite")
         var error: NSError? = nil
         var failureReason = "There was an error creating or loading the application's saved data."
         do {

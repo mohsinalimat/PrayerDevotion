@@ -619,6 +619,15 @@ class CategoriesViewController: UITableViewController, CLLocationManagerDelegate
         tableView.reloadData()
     }
     
+    @IBAction func prepareForUnwindFromLocations(segue: UIStoryboardSegue) {
+        print("Unwinding from Prayer Locations")
+        
+        fetchedCategories = CategoryStore.sharedInstance.allCategories()
+        categoryCount = fetchedCategories.count
+        
+        tableView.reloadData()
+    }
+    
     // MARK: Notifications
     
     func handleURL(notification: NSNotification) {

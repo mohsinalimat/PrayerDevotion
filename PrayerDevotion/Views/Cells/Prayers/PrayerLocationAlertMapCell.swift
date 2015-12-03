@@ -17,11 +17,16 @@ class PrayerLocationAlertMapCell: UITableViewCell {
     var mapView: GMSMapView!
     
     var locationAlert: PDLocationAlert!
+    var circleOverlay: GMSCircle?
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
         mapView = self.viewWithTag(1) as! GMSMapView
+        
+        CLLocationManager().startUpdatingLocation()
+        mapView.myLocationEnabled = CLLocationManager.authorizationStatus() == .AuthorizedAlways
+        mapView.settings.myLocationButton = false
     }
     
     func refreshCell() {
@@ -30,32 +35,46 @@ class PrayerLocationAlertMapCell: UITableViewCell {
                 print("An error occurred trying to fetch place: \(error), \(error.localizedDescription)")
             } else {
                 if let place = place {
-                    let locationMarker = LocationMarker(place: place)
-                    locationMarker.map = self.mapView
-                    
-                    // Code adapted from http://stackoverflow.com/questions/26115047/change-camera-zoom-based-on-radius-google-maps-ios-sdk by @tounabun
-                    let range = self.translateCoordinate(self.locationAlert.coordinate, metersLat: self.locationAlert.radius * 2, metersLong: self.locationAlert.radius * 2)
-                    let bounds = GMSCoordinateBounds(coordinate: self.locationAlert.coordinate, coordinate: range)
-                    let update = GMSCameraUpdate.fitBounds(bounds, withPadding: 5.0)
-                    // End adapted code
-                    
-                    self.mapView.moveCamera(update)
+                    self.addAndZoomToPlacemark(place)
                 }
             }
         })
     }
     
-    // Code taken from http://stackoverflow.com/questions/26115047/change-camera-zoom-based-on-radius-google-maps-ios-sdk by @tounabun
-    func translateCoordinate(coordinate: CLLocationCoordinate2D, metersLat: Double, metersLong: Double) -> CLLocationCoordinate2D {
-        var tempCoordinate = coordinate
+    func addAndZoomToPlacemark(place: GMSPlace) {
+        let placeMarker = LocationMarker(place: place)
+        placeMarker.map = self.mapView
         
-        let tempRegion = MKCoordinateRegionMakeWithDistance(coordinate, metersLat, metersLong)
-        let tempSpan = tempRegion.span
+        let center = place.coordinate
+        let region = MKCoordinateRegionMakeWithDistance(center, self.locationAlert.radius * 2, self.locationAlert.radius * 2)
+        let northEast = CLLocationCoordinate2DMake(region.center.latitude - region.span.latitudeDelta / 2, region.center.longitude - region.span.longitudeDelta / 2)
+        let southWest = CLLocationCoordinate2DMake(region.center.latitude + region.span.latitudeDelta / 2, region.center.longitude + region.span.longitudeDelta / 2)
         
-        tempCoordinate.latitude = coordinate.latitude + tempSpan.latitudeDelta
-        tempCoordinate.longitude = coordinate.longitude + tempSpan.longitudeDelta
+        let bounds = GMSCoordinateBounds(coordinate: northEast, coordinate: southWest)
+        let update = GMSCameraUpdate.fitBounds(bounds, withPadding: 30.0)
         
-        return tempCoordinate
+        self.mapView.moveCamera(update)
+        
+        removeOverlayFromMap()
+        drawOverlayForLocation(place)
     }
     
+    func drawOverlayForLocation(location: GMSPlace) {
+        let coordinate = location.coordinate
+        let radius = self.locationAlert.radius
+        let circle = GMSCircle(position: coordinate, radius: radius)
+        circle.fillColor = UIColor(white: 0.7, alpha: 0.5)
+        circle.strokeWidth = 4
+        circle.strokeColor = (UIApplication.sharedApplication().delegate as! AppDelegate).themeBackgroundColor
+        circle.map = self.mapView
+        
+        circleOverlay = circle
+    }
+    
+    func removeOverlayFromMap() {
+        if let overlay = circleOverlay {
+            overlay.map = nil
+            circleOverlay = nil
+        }
+    }
 }

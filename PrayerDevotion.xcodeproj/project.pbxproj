@@ -240,6 +240,7 @@
 		61478CC21B582A6A00F0775F /* PrayerDevotion 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "PrayerDevotion 2.xcdatamodel"; sourceTree = "<group>"; };
 		614BCE531C081D17003B19FF /* MBCalendarKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MBCalendarKit.framework; path = "Pods/../build/Debug-iphoneos/MBCalendarKit.framework"; sourceTree = "<group>"; };
 		614C98801B6FF1D600667C64 /* PrayerDevotion 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "PrayerDevotion 3.xcdatamodel"; sourceTree = "<group>"; };
+		6150F4EE1C0E698E008E10A8 /* TestLocations.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = TestLocations.gpx; path = "Supporting Files/TestLocations.gpx"; sourceTree = "<group>"; };
 		6166A5551B5F024100C55CD3 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = "Additional Files/Constants.swift"; sourceTree = "<group>"; };
 		617213F31B62C40D004B45F9 /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Color.swift; path = "Additional Files/Color.swift"; sourceTree = "<group>"; };
 		618359411B60395800AEA7AE /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -558,6 +559,7 @@
 				61FBDE081BA9DE650026A0A7 /* PrayerDevotion-Bridging-Header.h */,
 				61FBDE091BA9DE650026A0A7 /* PrayerDevotion.entitlements */,
 				61FBDE0A1BA9DE650026A0A7 /* PrayerDevotion.xcdatamodeld */,
+				6150F4EE1C0E698E008E10A8 /* TestLocations.gpx */,
 				61FBDE0C1BA9DE650026A0A7 /* Settings.bundle */,
 				61A62B3B1BA51EA200A05525 /* Licenses */,
 			);

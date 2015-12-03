@@ -28,6 +28,7 @@ let UnwindFromEditID = "UnwindFromEditID" // This is the ID of the unwind segue 
 let UnwindFromMoveID = "UnwindFromMoveID" // This is the ID of the unwind segue from the MovePrayersViewController
 let UnwindFromAnsweredID = "UnwindFromAnsweredID" // This is the ID of the unwind segue from the AnsweredPrayersViewController
 let UnwindFromPrayersID = "UnwindFromPrayersID" // This is the ID of the unwind segue from the PersonalPrayersViewController
+let UnwindFromLocationsID = "UnwindFromLocationsID" // This is the ID of the unwind segue from the PrayerLocationsViewController
 
 // Cell IDs
 

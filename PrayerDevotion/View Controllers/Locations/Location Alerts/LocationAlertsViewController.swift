@@ -17,6 +17,15 @@ protocol LocationAlertsViewControllerDelegate {
     func didFinishPickingLocationAlert()
 }
 
+extension LocationAlertsViewController: UITextFieldDelegate {
+    
+    func textFieldDidEndEditing(textField: UITextField) {
+        if let location = selectedPlace {
+            addAndZoomToPlacemark(location)
+        }
+    }
+}
+
 class LocationAlertsViewController: UIViewController, UISearchResultsUpdating, UISearchBarDelegate, GMSMapViewDelegate, LocationSearchViewControllerDelegate, CLLocationManagerDelegate {
     
     // IBOutlets / UI
@@ -50,13 +59,36 @@ class LocationAlertsViewController: UIViewController, UISearchResultsUpdating, U
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     var delegate: LocationAlertsViewControllerDelegate?
     
-    let locationManager = CLLocationManager()
+    // Extra
+    var circleOverlay: GMSCircle?
+    var keyboardShown = false
+    
+    let locationManager = (UIApplication.sharedApplication().delegate as! AppDelegate).locationManager
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         locationManager.delegate = self
         locationManager.requestAlwaysAuthorization()
+        
+        radiusTextField.delegate = self
+        
+        let doneToolbar = UIToolbar()
+        doneToolbar.barStyle = .Default
+        
+        let doneAction = UIBarButtonItem(title: "Done", style: .Plain, target: self, action: "textEndEditing:")
+        doneAction.tintColor = UIColor.blackColor()
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: nil, action: nil)
+        
+        doneToolbar.items = [flexSpace, doneAction]
+        
+        doneToolbar.sizeToFit()
+        
+        radiusTextField.inputAccessoryView = doneToolbar
+    }
+    
+    func textEndEditing(sender: AnyObject) {
+        radiusTextField.endEditing(true)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -91,6 +123,21 @@ class LocationAlertsViewController: UIViewController, UISearchResultsUpdating, U
         if let locationAlert = selectedPrayer.locationAlert {
             selectedLocationLabel.hidden = false
             selectedLocationLabel.text = "Selected \(locationAlert.locationName)"
+            
+            radiusTextField.text = locationAlert.radius == 25 ? "" : "\(locationAlert.radius)"
+            
+            placesClient.lookUpPlaceID(locationAlert.locationID, callback: { place, error in
+                if let error = error {
+                    print("Error fetching place for location alert: \(error), \(error.localizedDescription)")
+                } else {
+                    if let place = place {
+                        self.selectedPlace = place
+                        self.addAndZoomToPlacemark(place)
+                    }
+                }
+            })
+            
+            self.removeButton.enabled = true
         } else {
             selectedLocationLabel.hidden = true
         }
@@ -117,10 +164,14 @@ class LocationAlertsViewController: UIViewController, UISearchResultsUpdating, U
             
             BaseStore.baseInstance.saveDatabase()
         } else {
-            print("Unable to create location")
+            print("Unable to create location alert")
         }
         
         delegate?.didFinishPickingLocationAlert()
+        
+        if let prevAlert = previousSelectedAlert {
+            LocationAlertStore.sharedInstance.deleteLocationAlert(prevAlert)
+        }
         
         dismissViewControllerAnimated(true, completion: nil)
     }
@@ -133,12 +184,14 @@ class LocationAlertsViewController: UIViewController, UISearchResultsUpdating, U
         if let locationAlert = selectedPrayer.locationAlert {
             selectedPrayer.locationAlert = nil
             LocationAlertStore.sharedInstance.deleteLocationAlert(locationAlert)
-            
-            selectedMarker?.map = nil
         }
         
+        selectedMarker!.map = nil
+        selectedPlace = nil
         selectedLocationLabel.hidden = true
         removeButton.enabled = false
+        
+        removeOverlayFromMap()
         
         mapView.animateToZoom(1)
     }
@@ -157,10 +210,37 @@ class LocationAlertsViewController: UIViewController, UISearchResultsUpdating, U
         // TODO: Make Sure PrayerDetailsViewController checks to make sure that CLLocationManager
         // can monitor CLCircularRegions
         // Example: if !CLLocationManager.isMonitoringAvailableForClass(CLCircularRegion) { ... }
-        
-        let region = regionForLocationAlert(locationAlert)
-        // TODO: Add Function to LocationAlertStore that reloads all locations and finds 20 nearest and monitors them.
+
         // TODO: Make sure to use didUpdateLocation: to reload region monitoring as well
+    }
+    
+    func drawOverlayForLocation(location: GMSPlace) {
+        let coordinate = location.coordinate
+        let radius = self.radiusTextField.text == "" ? 25 : Double(self.radiusTextField.text!)!
+        let circle = GMSCircle(position: coordinate, radius: radius)
+        circle.fillColor = UIColor(white: 0.7, alpha: 0.5)
+        circle.strokeWidth = 4
+        circle.strokeColor = appDelegate.themeBackgroundColor
+        circle.map = self.mapView
+        
+        circleOverlay = circle
+    }
+    
+    func drawOverlayForLocationAlert(locationAlert: PDLocationAlert) {
+        let circle = GMSCircle(position: locationAlert.coordinate, radius: locationAlert.radius)
+        circle.fillColor = UIColor(white: 0.7, alpha: 0.5)
+        circle.strokeWidth = 4
+        circle.strokeColor = appDelegate.themeBackgroundColor
+        circle.map = self.mapView
+        
+        circleOverlay = circle
+    }
+    
+    func removeOverlayFromMap() {
+        if let overlay = circleOverlay {
+            overlay.map = nil
+            circleOverlay = nil
+        }
     }
     
     // MARK: GMSMapView Delegate Methods
@@ -231,16 +311,10 @@ class LocationAlertsViewController: UIViewController, UISearchResultsUpdating, U
         })
     }
     
-    // MARK: LocationSearchViewController Delegate Methods
-    
-    func locationController(controller: LocationSearchViewController, didSelectLocation location: GMSPlace) {
-        print("Place with name \(location.name) and ID \(location.placeID) selected")
-        selectedPlace = location
-        selectedLocationLabel.hidden = false
-        selectedLocationLabel.text = "Selected: \(selectedPlace!.formattedAddress)"
-        
-        let placeMarker = LocationMarker(place: selectedPlace!)
+    func addAndZoomToPlacemark(place: GMSPlace) {
+        let placeMarker = LocationMarker(place: place)
         placeMarker.map = self.mapView
+        selectedMarker = placeMarker
         
         var radius: Double {
             if self.radiusTextField.text == "" {
@@ -250,19 +324,31 @@ class LocationAlertsViewController: UIViewController, UISearchResultsUpdating, U
             }
         }
         
-        //let range = self.translateCoordinate(location.coordinate, metersLat: radius * 2, metersLong: radius * 2)
-        //let bounds = GMSCoordinateBounds(coordinate: location.coordinate, coordinate: range)
-        //let update = GMSCameraUpdate.fitBounds(bounds, withPadding: 10.0)
-        
-        let center = location.coordinate
+        let center = place.coordinate
         let region = MKCoordinateRegionMakeWithDistance(center, radius * 2, radius * 2)
         let northEast = CLLocationCoordinate2DMake(region.center.latitude - region.span.latitudeDelta / 2, region.center.longitude - region.span.longitudeDelta / 2)
         let southWest = CLLocationCoordinate2DMake(region.center.latitude + region.span.latitudeDelta / 2, region.center.longitude + region.span.longitudeDelta / 2)
         
         let bounds = GMSCoordinateBounds(coordinate: northEast, coordinate: southWest)
-        let update = GMSCameraUpdate.fitBounds(bounds, withPadding: 5.0)
+        let update = GMSCameraUpdate.fitBounds(bounds, withPadding: 100.0)
         
         self.mapView.moveCamera(update)
+        
+        removeOverlayFromMap()
+        drawOverlayForLocation(place)
+    }
+    
+    // MARK: LocationSearchViewController Delegate Methods
+    
+    func locationController(controller: LocationSearchViewController, didSelectLocation location: GMSPlace) {
+        print("Place with name \(location.name) and ID \(location.placeID) selected")
+        selectedPlace = location
+        selectedLocationLabel.hidden = false
+        selectedLocationLabel.text = "Selected: \(selectedPlace!.formattedAddress)"
+        
+        addAndZoomToPlacemark(selectedPlace!)
+        
+        self.removeButton.enabled = true
         
         navigationItem.rightBarButtonItem = saveButton
     }
@@ -287,10 +373,12 @@ class LocationAlertsViewController: UIViewController, UISearchResultsUpdating, U
             locationManager.startUpdatingLocation()
             mapView.myLocationEnabled = true
             mapView.settings.myLocationButton = false
-        case .Denied, .NotDetermined, .Restricted:
+        case .Denied, .Restricted:
             let alertController = UIAlertController(title: "Error", message: "You must allow PrayerDevotion to use location services in order to use the location alerts feature. Please go to Settings -> PrayerDevotion to change your location settings", preferredStyle: .Alert)
             
-            let closeAction = UIAlertAction(title: "Close", style: .Default, handler: nil)
+            let closeAction = UIAlertAction(title: "Close", style: .Default, handler: { alertAction in
+                self.dismissViewControllerAnimated(true, completion: nil)
+            })
             let settingsAction = UIAlertAction(title: "Settings", style: .Default, handler: { alertAction in
                 UIApplication.sharedApplication().openURL(NSURL(string: UIApplicationOpenSettingsURLString)!)
             })
@@ -298,9 +386,11 @@ class LocationAlertsViewController: UIViewController, UISearchResultsUpdating, U
             alertController.addAction(closeAction)
             alertController.addAction(settingsAction)
             
-            dismissViewControllerAnimated(true) {
-                self.presentViewController(alertController, animated: true, completion: nil)
-            }
+            self.presentViewController(alertController, animated: true, completion: nil)
+            
+        case .NotDetermined: break
         }
+        
+        locationManager.delegate = appDelegate
     }
 }

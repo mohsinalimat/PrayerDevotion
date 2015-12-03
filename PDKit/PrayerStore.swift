@@ -356,6 +356,8 @@ public class PrayerStore: BaseStore {
         }*/
         
         saveDatabase()
+        
+        LocationAlertStore.sharedInstance.reloadAndMonitorAlerts()
     }
     
     // MARK: Adding Prayers

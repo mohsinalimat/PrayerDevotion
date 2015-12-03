@@ -68,6 +68,10 @@ class PrayerLocationsViewController: UIViewController, GMSMapViewDelegate {
         }
     }
     
+    func unwindToCategories(sender: AnyObject) {
+        performSegueWithIdentifier(UnwindFromLocationsID, sender: self)
+    }
+    
     func showHideCategories(sender: UIBarButtonItem) {
         sender.title = sender.title == "Show Categories" ? "Hide Categories" : "Show Categories"
         self.splitViewController!.displayModeButtonItem().target!.performSelector(self.splitViewController!.displayModeButtonItem().action)

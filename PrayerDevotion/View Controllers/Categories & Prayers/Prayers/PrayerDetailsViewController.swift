@@ -15,6 +15,50 @@ import AddressBook
 import AddressBookUI
 import GoogleMaps
 
+extension PrayerDetailsViewController: LocationAlertsViewControllerDelegate {
+    func didFinishPickingLocationAlert() {
+        let cell: UITableViewCell? = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: currentPrayer.answered == true ? 6 : 7))
+        
+        if let cell = cell {
+            let label = cell.viewWithTag(1) as! UILabel
+            
+            if let previousVC = previousViewController {
+                if previousVC is LocationAlertsViewController {
+                    label.textColor = UIColor.lightGrayColor()
+                    cell.selectionStyle = .None
+                } else {
+                    label.textColor = delegate.themeTintColor
+                    cell.selectionStyle = .Default
+                }
+            }
+            
+            if let locationAlert = currentPrayer.locationAlert {
+                label.text = "\(locationAlert.locationName)"
+                
+                if tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: currentPrayer.answered == true ? 6 : 7)) == nil {
+                    tableView.beginUpdates()
+                    tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: 1, inSection: currentPrayer.answered == true ? 6 : 7)], withRowAnimation: .Fade)
+                    tableView.endUpdates()
+                }
+                
+                tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 1, inSection: currentPrayer.answered == true ? 6 : 7), atScrollPosition: .Bottom, animated: true)
+            } else {
+                label.text = "Assign Location Alert"
+                
+                if tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: currentPrayer.answered == true ? 6 : 7)) != nil {
+                    tableView.beginUpdates()
+                    tableView.deleteRowsAtIndexPaths([NSIndexPath(forRow: 1, inSection: currentPrayer.answered == true ? 6 : 7)], withRowAnimation: .Fade)
+                    tableView.endUpdates()
+                }
+                
+                tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: currentPrayer.answered == true ? 6 : 7), atScrollPosition: .Bottom, animated: true)
+            }
+            
+            LocationAlertStore.sharedInstance.reloadAndMonitorAlerts()
+        }
+    }
+}
+
 class PrayerDetailsViewController: UITableViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource, MFMailComposeViewControllerDelegate, ABPeoplePickerNavigationControllerDelegate, AddPrayerDateCellDelegate_New, CreateLocationViewControllerDelegate {
     
     @IBOutlet var navItem: UINavigationItem!
@@ -108,8 +152,8 @@ class PrayerDetailsViewController: UITableViewController, UITextFieldDelegate, U
         case 2: return 1
         case 3: return currentPrayer.answered == true ? 2 : 1
         case 4: return 1
-        case 5: return prayerAlertsCount
-        case 6: return 1
+        case 5: return currentPrayer.answered == true ? 1 : prayerAlertsCount
+        case 6: return currentPrayer.answered == false || currentPrayer.locationAlert == nil ? 1 : 2
         case 7: return currentPrayer.locationAlert != nil ? 2 : 1
         default: return 0
         }
@@ -236,10 +280,6 @@ class PrayerDetailsViewController: UITableViewController, UITextFieldDelegate, U
         }
         
         if cell is PrayerLocationAlertMapCell {
-            let locationAlertMapCell = cell as! PrayerLocationAlertMapCell
-            locationAlertMapCell.locationAlert = currentPrayer.locationAlert!
-            locationAlertMapCell.refreshCell()
-            
             return
         }
         
@@ -453,8 +493,24 @@ class PrayerDetailsViewController: UITableViewController, UITextFieldDelegate, U
             
             let createLocationAlertVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier(SBCreateLocationAlertViewControllerNavID) as! UINavigationController
             (createLocationAlertVC.topViewController as! LocationAlertsViewController).selectedPrayer = self.currentPrayer
-            //(createLocationAlertVC.topViewController as! LocationAlertsViewController).delegate = self
-            presentViewController(createLocationAlertVC, animated: true, completion: nil)
+            (createLocationAlertVC.topViewController as! LocationAlertsViewController).delegate = self
+            
+            if CLLocationManager.authorizationStatus() == .Restricted || CLLocationManager.authorizationStatus() == .Denied {
+                let alertController = UIAlertController(title: "Error", message: "You must allow PrayerDevotion to use location services in order to use the location alerts feature. Please go to Settings -> PrayerDevotion to change your location settings", preferredStyle: .Alert)
+                
+                let closeAction = UIAlertAction(title: "Close", style: .Default, handler: nil)
+                let settingsAction = UIAlertAction(title: "Settings", style: .Default, handler: { alertAction in
+                    UIApplication.sharedApplication().openURL(NSURL(string: UIApplicationOpenSettingsURLString)!)
+                })
+                
+                alertController.addAction(closeAction)
+                alertController.addAction(settingsAction)
+                
+                self.presentViewController(alertController, animated: true, completion: nil)
+            } else {
+                //(createLocationAlertVC.topViewController as! LocationAlertsViewController).delegate = self
+                presentViewController(createLocationAlertVC, animated: true, completion: nil)
+            }
         }
     }
     
@@ -507,6 +563,17 @@ class PrayerDetailsViewController: UITableViewController, UITextFieldDelegate, U
                 return 44
             }
             
+        case 6:
+            if currentPrayer.answered == false { return 44 }
+            else {
+                if indexPath.row == 0 { return 44 }
+                else { return 140 }
+            }
+            
+        case 7:
+            if indexPath.row == 0 { return 44 }
+            else { return 140 }
+            
         default: return 44
         }
     }
@@ -516,8 +583,8 @@ class PrayerDetailsViewController: UITableViewController, UITextFieldDelegate, U
         case 0: return "Prayer Name"
         case 1: return "Extended Details"
         case 5: return currentPrayer.answered == false ? "Alerts" : "Location"
-        case 6: return currentPrayer.answered == false ? "Location" : "Location Alerts"
-        case 7: return "Location Alerts"
+        case 6: return currentPrayer.answered == false ? "Location" : "Location Alert"
+        case 7: return "Location Alert"
         default: return ""
         }
     }
@@ -543,6 +610,12 @@ class PrayerDetailsViewController: UITableViewController, UITextFieldDelegate, U
     
     override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         cell.contentView.clipsToBounds = true
+        
+        if cell is PrayerLocationAlertMapCell {
+            let locationAlertMapCell = cell as! PrayerLocationAlertMapCell
+            locationAlertMapCell.locationAlert = currentPrayer.locationAlert!
+            locationAlertMapCell.refreshCell()
+        }
     }
     
     override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
@@ -766,7 +839,7 @@ class PrayerDetailsViewController: UITableViewController, UITextFieldDelegate, U
         p.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    // CreateLocationPrayerViewController Delegate Methods
+    // MARK: CreateLocationPrayerViewController Delegate Methods
     
     func didFinishPickingLocation() {
         let cell: UITableViewCell? = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: currentPrayer.answered == true ? 5 : 6))

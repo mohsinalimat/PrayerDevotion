@@ -105,25 +105,27 @@ public class AlertStore: BaseStore {
     public func deletePastAlerts() {
         let fetchRequest = NSFetchRequest(entityName: "Alert")
         
-        do {
-            let results = try managedContext!.executeFetchRequest(fetchRequest) as? [PDAlert]
-            
-            if let fetchedAlerts = results {
-                for fetchedAlert in fetchedAlerts {
-                    let alert = fetchedAlert
-                    
-                    let now = NSDate()
-                    let alertDate = alert.alertDate
-                    
-                    if now.compare(alertDate) == .OrderedDescending && alert.didSchedule {
-                        deleteAlert(alert, inPrayer: alert.prayer)
-                    } else {
-                        print("Alert is either in the future or has not been scheduled yet.")
+        if let managedContext = managedContext {
+            do {
+                let results = try managedContext.executeFetchRequest(fetchRequest) as? [PDAlert]
+                
+                if let fetchedAlerts = results {
+                    for fetchedAlert in fetchedAlerts {
+                        let alert = fetchedAlert
+                        
+                        let now = NSDate()
+                        let alertDate = alert.alertDate
+                        
+                        if now.compare(alertDate) == .OrderedDescending && alert.didSchedule {
+                            deleteAlert(alert, inPrayer: alert.prayer)
+                        } else {
+                            print("Alert is either in the future or has not been scheduled yet.")
+                        }
                     }
                 }
+            } catch let error as NSError {
+                print("Error deleting all past alerts: \(error), \(error.userInfo)")
             }
-        } catch let error as NSError {
-            print("Error deleting all past alerts: \(error), \(error.userInfo)")
         }
     }
     

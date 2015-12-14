@@ -5,11 +5,11 @@
 #import "SDKDemos/Samples/IndoorMuseumNavigationViewController.h"
 
 @implementation IndoorMuseumNavigationViewController {
-  GMSMapView *mapView_;
-  NSArray *exhibits_;     // Array of JSON exhibit data.
-  NSDictionary *exhibit_; // The currently selected exhibit. Will be nil initially.
-  GMSMarker *marker_;
-  NSDictionary *levels_;  // The levels dictionary is updated when a new building is selected, and
+  GMSMapView *_mapView;
+  NSArray *_exhibits;     // Array of JSON exhibit data.
+  NSDictionary *_exhibit; // The currently selected exhibit. Will be nil initially.
+  GMSMarker *_marker;
+  NSDictionary *_levels;  // The levels dictionary is updated when a new building is selected, and
                           // contains mapping from localized level name to GMSIndoorLevel.
 }
 
@@ -19,18 +19,18 @@
   GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:38.8879
                                                           longitude:-77.0200
                                                                zoom:17];
-  mapView_ = [GMSMapView mapWithFrame:CGRectZero camera:camera];
-  mapView_.settings.myLocationButton = NO;
-  mapView_.settings.indoorPicker = NO;
-  mapView_.delegate = self;
-  mapView_.indoorDisplay.delegate = self;
+  _mapView = [GMSMapView mapWithFrame:CGRectZero camera:camera];
+  _mapView.settings.myLocationButton = NO;
+  _mapView.settings.indoorPicker = NO;
+  _mapView.delegate = self;
+  _mapView.indoorDisplay.delegate = self;
 
-  self.view = mapView_;
+  self.view = _mapView;
 
   // Load the exhibits configuration from JSON
   NSString *jsonPath = [[NSBundle mainBundle] pathForResource:@"museum-exhibits" ofType:@"json"];
   NSData *data = [NSData dataWithContentsOfFile:jsonPath];
-  exhibits_ = [NSJSONSerialization JSONObjectWithData:data
+  _exhibits = [NSJSONSerialization JSONObjectWithData:data
                                               options:kNilOptions
                                                 error:nil];
 
@@ -44,9 +44,9 @@
              forControlEvents:UIControlEventValueChanged];
   [self.view addSubview:segmentedControl];
 
-  for (NSDictionary *exhibit in exhibits_) {
+  for (NSDictionary *exhibit in _exhibits) {
     [segmentedControl insertSegmentWithImage:[UIImage imageNamed:exhibit[@"key"]]
-                                     atIndex:[exhibits_ indexOfObject:exhibit]
+                                     atIndex:[_exhibits indexOfObject:exhibit]
                                     animated:NO];
   }
 
@@ -66,32 +66,32 @@
 }
 
 - (void)moveMarker {
-  CLLocationCoordinate2D loc = CLLocationCoordinate2DMake([exhibit_[@"lat"] doubleValue],
-                                                          [exhibit_[@"lng"] doubleValue]);
-  if (marker_ == nil) {
-    marker_ = [GMSMarker markerWithPosition:loc];
-    marker_.map = mapView_;
+  CLLocationCoordinate2D loc = CLLocationCoordinate2DMake([_exhibit[@"lat"] doubleValue],
+                                                          [_exhibit[@"lng"] doubleValue]);
+  if (_marker == nil) {
+    _marker = [GMSMarker markerWithPosition:loc];
+    _marker.map = _mapView;
   } else {
-    marker_.position = loc;
+    _marker.position = loc;
   }
-  marker_.title = exhibit_[@"name"];
-  [mapView_ animateToLocation:loc];
-  [mapView_ animateToZoom:19];
+  _marker.title = _exhibit[@"name"];
+  [_mapView animateToLocation:loc];
+  [_mapView animateToZoom:19];
 }
 
 - (void)exhibitSelected:(UISegmentedControl *)segmentedControl {
-  exhibit_ = exhibits_[[segmentedControl selectedSegmentIndex]];
+  _exhibit = _exhibits[[segmentedControl selectedSegmentIndex]];
   [self moveMarker];
 }
 
 #pragma mark - GMSMapViewDelegate
 
 - (void)mapView:(GMSMapView *)mapView idleAtCameraPosition:(GMSCameraPosition *)camera {
-  if (exhibit_ != nil) {
-    CLLocationCoordinate2D loc = CLLocationCoordinate2DMake([exhibit_[@"lat"] doubleValue],
-                                                            [exhibit_[@"lng"] doubleValue]);
-    if ([mapView_.projection containsCoordinate:loc] && levels_ != nil) {
-      [mapView.indoorDisplay setActiveLevel:levels_[exhibit_[@"level"]]];
+  if (_exhibit != nil) {
+    CLLocationCoordinate2D loc = CLLocationCoordinate2DMake([_exhibit[@"lat"] doubleValue],
+                                                            [_exhibit[@"lng"] doubleValue]);
+    if ([_mapView.projection containsCoordinate:loc] && _levels != nil) {
+      [mapView.indoorDisplay setActiveLevel:_levels[_exhibit[@"level"]]];
     }
   }
 }
@@ -106,9 +106,9 @@
       [levels setObject:level forKey:level.shortName];
     }
 
-    levels_ = [NSDictionary dictionaryWithDictionary:levels];
+    _levels = [NSDictionary dictionaryWithDictionary:levels];
   } else {
-    levels_ = nil;
+    _levels = nil;
   }
 }
 

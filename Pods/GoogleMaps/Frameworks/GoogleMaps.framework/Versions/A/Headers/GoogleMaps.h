@@ -11,9 +11,13 @@
 #import <CoreLocation/CoreLocation.h>
 #import <UIKit/UIKit.h>
 #import <GoogleMaps/GMSAddress.h>
+#import <GoogleMaps/GMSAutocompleteFetcher.h>
 #import <GoogleMaps/GMSAutocompleteFilter.h>
 #import <GoogleMaps/GMSAutocompleteMatchFragment.h>
 #import <GoogleMaps/GMSAutocompletePrediction.h>
+#import <GoogleMaps/GMSAutocompleteResultsViewController.h>
+#import <GoogleMaps/GMSAutocompleteTableDataSource.h>
+#import <GoogleMaps/GMSAutocompleteViewController.h>
 #import <GoogleMaps/GMSCALayer.h>
 #import <GoogleMaps/GMSCameraPosition.h>
 #import <GoogleMaps/GMSCameraUpdate.h>

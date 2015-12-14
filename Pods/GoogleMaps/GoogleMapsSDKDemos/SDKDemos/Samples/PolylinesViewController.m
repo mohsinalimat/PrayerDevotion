@@ -74,12 +74,6 @@ static bool kAnimate = true;
   }
 }
 
-- (void)mapView:(GMSMapView *)mapView
-    didTapAtCoordinate:(CLLocationCoordinate2D)coordinate {
-  [self initLines];
-  [self tick];
-}
-
 - (void)viewDidLoad {
   [super viewDidLoad];
   GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:-30
@@ -88,7 +82,6 @@ static bool kAnimate = true;
   GMSMapView *mapView = [GMSMapView mapWithFrame:CGRectZero camera:camera];
   mapView.accessibilityElementsHidden = YES;
   self.view = mapView;
-  mapView.delegate = self;
   _mapView = mapView;
 
   CGFloat alpha = 1;

@@ -7,7 +7,7 @@
 #import <GoogleMaps/GoogleMaps.h>
 
 @implementation IndoorViewController {
-  GMSMapView *mapView_;
+  GMSMapView *_mapView;
 }
 
 - (void)viewDidLoad {
@@ -16,10 +16,10 @@
                                                           longitude:-122.403874
                                                                zoom:18];
 
-  mapView_ = [GMSMapView mapWithFrame:CGRectZero camera:camera];
-  mapView_.settings.myLocationButton = YES;
+  _mapView = [GMSMapView mapWithFrame:CGRectZero camera:camera];
+  _mapView.settings.myLocationButton = YES;
 
-  self.view = mapView_;
+  self.view = _mapView;
 }
 
 

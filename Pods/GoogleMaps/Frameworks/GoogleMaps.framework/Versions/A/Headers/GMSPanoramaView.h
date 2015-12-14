@@ -84,6 +84,18 @@
 - (BOOL)panoramaView:(GMSPanoramaView *)panoramaView
         didTapMarker:(GMSMarker *)marker;
 
+/**
+ * Called when the panorama tiles for the current view have just been requested
+ * and are beginning to load.
+ */
+- (void)panoramaViewDidStartRendering:(GMSPanoramaView *)panoramaView;
+
+/**
+ * Called when the panorama tiles have been loaded (or permanently failed to load)
+ * and rendered on screen.
+ */
+- (void)panoramaViewDidFinishRendering:(GMSPanoramaView *)panoramaView;
+
 @end
 
 /**

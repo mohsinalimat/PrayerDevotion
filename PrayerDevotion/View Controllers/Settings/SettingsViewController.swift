@@ -21,6 +21,8 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
     @IBOutlet weak var verseView: UITextView!
     
     @IBOutlet weak var prayerDetailsAutoSwitch: UISwitch!
+    @IBOutlet weak var iCloudEnabledSwitch: UISwitch!
+    @IBOutlet weak var keepLocalPrayerBackupSwitch: UISwitch!
     
     @IBOutlet weak var cell: ThemeColorCell_New!
     
@@ -66,6 +68,11 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
         cell.setThemeColor(delegate.themeBackgroundColor)
         
         verseView.textColor = delegate.themeTextColor
+        
+        let autoOpenPrayers = userDefaults.boolForKey("openPrayerDetailsAuto")
+        let iCloudEnabled = userDefaults.boolForKey(Setting_iCloudEnabled)
+        prayerDetailsAutoSwitch.on = autoOpenPrayers
+        iCloudEnabledSwitch.on = iCloudEnabled
         
         tableView.reloadData()
 
@@ -153,6 +160,46 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
         let switchState = sender.on
         
         userDefaults.setBool(switchState, forKey: "openPrayerDetailsAuto")
+    }
+    
+    @IBAction func changeiCloudEnabled(sender: UISwitch) {
+        let enabled = sender.on
+        
+        PrayerDevotionCloudStore.sharedInstance.toggleiCloud(enabled)
+        
+        // TODO: Check to make sure user is logged into iCloud first
+        
+        /*let migrateAlert = UIAlertController(title: "Turn iCloud \(enabled ? "On" : "Off")", message: "Are you sure you want to \(enabled ? "enable" : "disable") iCloud Support?\(enabled ? "" : " You will not lose any saved data by disabling iCloud")", preferredStyle: .Alert)
+        let confirmAction = UIAlertAction(title: "Confirm", style: .Default, handler: { alertAction in
+            if enabled {
+                CoreDataStore.sharedInstance.iCloudEnabled = true
+                CoreDataStore.sharedInstance.migrateLocalStoreToiCloud()
+            } else {
+                CoreDataStore.sharedInstance.iCloudEnabled = false
+                CoreDataStore.sharedInstance.migrateiCloudStoreToLocal()
+            }
+            
+            let keepLocalPrayerBackup = self.userDefaults.boolForKey("keepLocalPrayerBackup")
+            self.keepLocalPrayerBackupSwitch.on = keepLocalPrayerBackup == true && enabled == true
+            self.keepLocalPrayerBackupSwitch.enabled = enabled
+            
+            self.userDefaults.setBool(enabled, forKey: "iCloudEnabled")
+            self.userDefaults.synchronize()
+        })
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: { alertAction in
+            sender.on = !enabled
+        })
+        
+        migrateAlert.addAction(confirmAction)
+        migrateAlert.addAction(cancelAction)
+        
+        presentViewController(migrateAlert, animated: true, completion: nil)*/
+    }
+    
+    @IBAction func changeKeepLocalPrayerBackup(sender: UISwitch) {
+        let enabled = sender.on
+        
+        userDefaults.setBool(enabled, forKey: "keepLocalPrayerBackup")
     }
     
     @IBAction func purchaseAdditionalFeatures(sender: AnyObject) {

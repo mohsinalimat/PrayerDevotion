@@ -10,12 +10,13 @@ import UIKit
 import PDKit
 import CoreLocation
 import Foundation
+import CoreData
 
 protocol CategoriesViewControllerDelegate: class {
     func categories(categoriesViewController: CategoriesViewController, didSelectCategory category: PDCategory, isAllPrayers allPrayers: Bool)
 }
 
-class CategoriesViewController: UITableViewController, CLLocationManagerDelegate {
+class CategoriesViewController: UITableViewController, CLLocationManagerDelegate, CoreDataStoreDelegate {
     
     // Button to click to sort categories
     private var sortBarButton: UIBarButtonItem!
@@ -40,6 +41,13 @@ class CategoriesViewController: UITableViewController, CLLocationManagerDelegate
     var selectedIndex: NSIndexPath = NSIndexPath(forRow: 0, inSection: 0)
     
     weak var delegate: CategoriesViewControllerDelegate?
+    
+    var persistentStoreCoordinatorChangesObserver: NSNotificationCenter? {
+        didSet {
+            oldValue?.removeObserver(self, name: NSPersistentStoreCoordinatorStoresDidChangeNotification, object: CoreDataStore.sharedInstance.persistentStoreCoordinator!)
+            persistentStoreCoordinatorChangesObserver?.addObserver(self, selector: "persistentStoreCoordinatorDidChangeStores:", name: NSPersistentStoreCoordinatorStoresDidChangeNotification, object: CoreDataStore.sharedInstance.persistentStoreCoordinator!)
+        }
+    }
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,6 +69,10 @@ class CategoriesViewController: UITableViewController, CLLocationManagerDelegate
         
         navigationController!.navigationBar.tintColor = appDelegate.themeTintColor
         tableView.backgroundColor = appDelegate.themeBackgroundColor
+        
+        CoreDataStore.sharedInstance.updateContextWithUbiquitousContentUpdates = true
+        CoreDataStore.sharedInstance.delegate = self
+        persistentStoreCoordinatorChangesObserver = NSNotificationCenter.defaultCenter()
     }
     
     func showSearch(sender: UIBarButtonItem) {
@@ -335,7 +347,7 @@ class CategoriesViewController: UITableViewController, CLLocationManagerDelegate
         //let cell = tableView.cellForRowAtIndexPath(indexPath)!
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
-        let prayersVC: PersonalPrayerViewController!
+        // let prayersVC: PersonalPrayerViewController!
         
         /*if self.traitCollection.userInterfaceIdiom == .Pad && UIDeviceOrientationIsLandscape(UIDevice.currentDevice().orientation) == true {
             let navController = self.splitViewController!.viewControllers.last as! UINavigationController
@@ -648,6 +660,21 @@ class CategoriesViewController: UITableViewController, CLLocationManagerDelegate
             
             presentViewController(prayerNavController, animated: true, completion: nil)
         }
+    }
+        
+    // MARK: iCloud
+    
+    func persistentStoreCoordinatorDidChangeStores(notification: NSNotification) {
+        print("Coordinator Did Change Store")
+        
+        refreshUI()
+    }
+    
+    func didMergeUbiquitousChanges() {
+        print("New Changes Merged")
+        
+        refreshUI()
+        
     }
     
 }

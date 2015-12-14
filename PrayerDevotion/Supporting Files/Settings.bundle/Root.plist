@@ -8,9 +8,9 @@
 			<key>Type</key>
 			<string>PSChildPaneSpecifier</string>
 			<key>Title</key>
-			<string>RMStore Acknowledgements</string>
+            <string>Licenses</string>
 			<key>File</key>
-			<string>Acknowledgements</string>
+			<string>Licenses</string>
 		</dict>
 	</array>
 	<key>StringsTable</key>

@@ -9,8 +9,9 @@
 import Foundation
 import UIKit
 import PDKit
+import CoreData
 
-class TodayPrayersViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIViewControllerPreviewingDelegate {
+class TodayPrayersViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIViewControllerPreviewingDelegate, CoreDataStoreDelegate {
     
     var todayPrayers = [PDPrayer]()
     var todayCount = 0
@@ -32,6 +33,13 @@ class TodayPrayersViewController: UIViewController, UITableViewDelegate, UITable
     
     var date = NSDate()
     
+    var persistentStoreCoordinatorChangesObserver: NSNotificationCenter? {
+        didSet {
+            oldValue?.removeObserver(self, name: NSPersistentStoreCoordinatorStoresDidChangeNotification, object: CoreDataStore.sharedInstance.persistentStoreCoordinator!)
+            persistentStoreCoordinatorChangesObserver?.addObserver(self, selector: "persistentStoreCoordinatorDidChangeStores:", name: NSPersistentStoreCoordinatorStoresDidChangeNotification, object: CoreDataStore.sharedInstance.persistentStoreCoordinator!)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -47,7 +55,7 @@ class TodayPrayersViewController: UIViewController, UITableViewDelegate, UITable
         
         todayBarButton = UIBarButtonItem(title: "Today", style: UIBarButtonItemStyle.Plain, target: self, action: "backToToday")
         
-        PrayerStore.sharedInstance.checkIDs()
+        //PrayerStore.sharedInstance.checkIDs()
         
         // Peek and Pop
         if #available(iOS 9.0, *) {
@@ -60,10 +68,20 @@ class TodayPrayersViewController: UIViewController, UITableViewDelegate, UITable
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        fetchTodayPrayers()
+        setupData()
+        
+        if !userPrefs.boolForKey("migratedToVersion2_0") {
+            fetchTodayPrayers()
+            tableView.reloadData()
+            
+            noPrayersLabel.hidden = !(todayCount == 0)
+            
+            userPrefs.setBool(true, forKey: "migratedToVersion2_0")
+        }
+        /*fetchTodayPrayers()
         tableView.reloadData()
         
-        noPrayersLabel.hidden = !(todayCount == 0)
+        noPrayersLabel.hidden = !(todayCount == 0)*/
         
         view.backgroundColor = delegate.themeBackgroundColor
         
@@ -72,6 +90,52 @@ class TodayPrayersViewController: UIViewController, UITableViewDelegate, UITable
         prevDayButton.tintColor = delegate.themeTextColor
         nextDayButton.tintColor = delegate.themeTextColor
         
+        let currentState = PrayerDevotionCloudStore.sharedInstance.currentState
+        if currentState == .DataStoreOnline {
+            fetchTodayPrayers()
+            tableView.reloadData()
+            
+            noPrayersLabel.hidden = !(todayCount == 0)
+        }
+        
+        /*CoreDataStore.sharedInstance.updateContextWithUbiquitousContentUpdates = true
+        CoreDataStore.sharedInstance.delegate = self
+        persistentStoreCoordinatorChangesObserver = NSNotificationCenter.defaultCenter()*/
+    }
+    
+    func setupData() {
+        NSNotificationCenter.defaultCenter().postNotificationName("LoadedNewViewController", object: nil, userInfo: ["viewController": self])
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didImportChanges:", name: DidImportChangesNotificationID, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "willChangeStore:", name: WillChangeStoreNotificationID, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didChangeStore:", name: DidChangeStoreNotificationID, object: nil)
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        let showiCloudMigrateAlert = userPrefs.boolForKey("showiCloudMigrateAlert")
+        if showiCloudMigrateAlert {
+            let migrateAlert = UIAlertController(title: "Migrate Data to iCloud?", message: "iCloud Support is finally here! Do you want to go ahead and migrate your data to iCloud (you must be logged in to do this)?", preferredStyle: .Alert)
+            let okAction = UIAlertAction(title: "Migrate", style: .Default, handler: { alertAction in
+                CoreDataStore.sharedInstance.migrateLocalStoreToiCloud()
+                self.userPrefs.setBool(false, forKey: "showiCloudMigrateAlert")
+            })
+            let notNowAction = UIAlertAction(title: "Not Now", style: .Default, handler: nil)
+            let doNotShowAgainAction = UIAlertAction(title: "Do Not Show Again", style: .Destructive, handler: { alertAction in
+                self.userPrefs.setBool(false, forKey: "showiCloudMigrateAlert")
+            })
+            
+            migrateAlert.addAction(okAction)
+            migrateAlert.addAction(notNowAction)
+            migrateAlert.addAction(doNotShowAgainAction)
+            
+            self.presentViewController(migrateAlert, animated: true, completion: nil)
+        }
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
     }
     
     override func didReceiveMemoryWarning() {
@@ -403,4 +467,55 @@ class TodayPrayersViewController: UIViewController, UITableViewDelegate, UITable
         }
     }
     
+    // MARK: iCloud
+    
+    func persistentStoreCoordinatorDidChangeStores(notification: NSNotification) {
+        print("Coordinator Did Change Store")
+        fetchTodayPrayers()
+        self.tableView.reloadData()
+    }
+    
+    func didMergeUbiquitousChanges() {
+        print("New Changes Merged")
+        fetchTodayPrayers()
+        self.tableView.reloadData()
+        
+        noPrayersLabel.hidden = !(todayCount == 0)
+        
+        view.backgroundColor = delegate.themeBackgroundColor
+        
+        todayLabel.textColor = delegate.themeTextColor
+        noPrayersLabel.textColor = delegate.themeTextColor
+        prevDayButton.tintColor = delegate.themeTextColor
+        nextDayButton.tintColor = delegate.themeTextColor
+    }
+    
+    // MARK: CoreDataManager Store Notifications
+        
+    func didImportChanges(notification: NSNotification) {
+        print("TodayPrayerViewController DidImportChanges: called")
+        
+        self.fetchTodayPrayers()
+        self.tableView.reloadData()
+    }
+    
+    func willChangeStore(notification: NSNotification) {
+        print("TodayPrayersViewController WillChangeStore: called")
+    }
+    
+    func didChangeStore(notification: NSNotification) {
+        print("TodayPrayersViewController DidChangeStore: called")
+        
+        fetchTodayPrayers()
+        tableView.reloadData()
+        
+        noPrayersLabel.hidden = !(todayCount == 0)
+        
+        view.backgroundColor = delegate.themeBackgroundColor
+        
+        todayLabel.textColor = delegate.themeTextColor
+        noPrayersLabel.textColor = delegate.themeTextColor
+        prevDayButton.tintColor = delegate.themeTextColor
+        nextDayButton.tintColor = delegate.themeTextColor
+    }
 }

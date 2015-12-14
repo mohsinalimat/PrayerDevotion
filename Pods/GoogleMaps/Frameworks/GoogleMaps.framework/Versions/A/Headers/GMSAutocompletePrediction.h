@@ -43,6 +43,25 @@ extern NSString *const kGMSAutocompleteMatchAttribute;
  */
 @property(nonatomic, copy, readonly) NSAttributedString *attributedFullText;
 
+/**
+ * The main text of a prediction as a NSAttributedString, usually the name of the place.
+ * E.g. "Sydney Opera House".
+ *
+ * Text ranges that match user input are have a |kGMSAutocompleteMatchAttribute|,
+ * like |attributedFullText|.
+ */
+@property(nonatomic, copy, readonly) NSAttributedString *attributedPrimaryText;
+
+/**
+ * The secondary text of a prediction as a NSAttributedString, usually the location of the place.
+ * E.g. "Sydney, New South Wales, Australia".
+ *
+ * Text ranges that match user input are have a |kGMSAutocompleteMatchAttribute|, like
+ * |attributedFullText|.
+ *
+ * May be nil.
+ */
+@property(nonatomic, copy, readonly) NSAttributedString *attributedSecondaryText;
 
 /**
  * An optional property representing the place ID of the prediction, suitable for use in a place

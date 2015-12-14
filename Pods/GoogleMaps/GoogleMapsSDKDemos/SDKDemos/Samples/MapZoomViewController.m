@@ -7,9 +7,9 @@
 #import <GoogleMaps/GoogleMaps.h>
 
 @implementation MapZoomViewController {
-  GMSMapView *mapView_;
-  UITextView *zoomRangeView_;
-  NSUInteger nextMode_;
+  GMSMapView *_mapView;
+  UITextView *_zoomRangeView;
+  NSUInteger _nextMode;
 }
 
 - (void)viewDidLoad {
@@ -17,20 +17,20 @@
   GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:-33.868
                                                           longitude:151.2086
                                                                zoom:6];
-  mapView_ = [GMSMapView mapWithFrame:CGRectZero camera:camera];
-  mapView_.settings.scrollGestures = NO;
-  self.view = mapView_;
+  _mapView = [GMSMapView mapWithFrame:CGRectZero camera:camera];
+  _mapView.settings.scrollGestures = NO;
+  self.view = _mapView;
 
   // Add a display for the current zoom range restriction.
-  zoomRangeView_ = [[UITextView alloc] init];
-  zoomRangeView_.frame =
+  _zoomRangeView = [[UITextView alloc] init];
+  _zoomRangeView.frame =
       CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 0);
-  zoomRangeView_.text = @"";
-  zoomRangeView_.textAlignment = NSTextAlignmentCenter;
-  zoomRangeView_.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.8f];
-  zoomRangeView_.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-  [self.view addSubview:zoomRangeView_];
-  [zoomRangeView_ sizeToFit];
+  _zoomRangeView.text = @"";
+  _zoomRangeView.textAlignment = NSTextAlignmentCenter;
+  _zoomRangeView.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.8f];
+  _zoomRangeView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+  [self.view addSubview:_zoomRangeView];
+  [_zoomRangeView sizeToFit];
   [self didTapNext];
 
   // Add a button toggling through modes.
@@ -45,7 +45,7 @@
   float minZoom = kGMSMinZoomLevel;
   float maxZoom = kGMSMaxZoomLevel;
 
-  switch (nextMode_) {
+  switch (_nextMode) {
     case 0:
       label = @"Default";
       break;
@@ -63,11 +63,11 @@
       label = @"Small range";
       break;
   }
-  nextMode_ = (nextMode_ + 1) % 4;
+  _nextMode = (_nextMode + 1) % 4;
 
-  [mapView_ setMinZoom:minZoom maxZoom:maxZoom];
-  zoomRangeView_.text =
-      [NSString stringWithFormat:@"%@ (%.2f - %.2f)", label, mapView_.minZoom, mapView_.maxZoom];
+  [_mapView setMinZoom:minZoom maxZoom:maxZoom];
+  _zoomRangeView.text =
+      [NSString stringWithFormat:@"%@ (%.2f - %.2f)", label, _mapView.minZoom, _mapView.maxZoom];
 }
 
 @end

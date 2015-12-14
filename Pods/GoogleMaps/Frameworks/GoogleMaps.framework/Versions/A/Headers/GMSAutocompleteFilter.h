@@ -59,4 +59,10 @@ typedef NS_ENUM(NSInteger, GMSPlacesAutocompleteTypeFilter) {
  */
 @property(nonatomic, assign) GMSPlacesAutocompleteTypeFilter type;
 
+/**
+ * The country to restrict results to. This should be a ISO 3166-1 Alpha-2 country code (case
+ * insensitive). If nil, no country filtering will take place.
+ */
+@property(nonatomic, copy) NSString *country;
+
 @end

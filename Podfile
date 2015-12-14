@@ -3,12 +3,12 @@ platform :ios, '8.0'
 
 target 'PrayerDevotion' do
 
-source 'http://github.com/CocoaPods/Specs.git'
-use_frameworks!
+    source 'http://github.com/CocoaPods/Specs.git'
+    use_frameworks!
 
-pod 'GoogleMaps'
-pod 'RMStore', '~> 0.7'
-pod 'FSCalendar'
+    pod 'GoogleMaps'
+    pod 'RMStore', '~> 0.7'
+    pod 'FSCalendar'
 
 end
 

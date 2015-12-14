@@ -22,6 +22,12 @@
 /** The path that describes this polygon. The coordinates composing the path must be valid. */
 @property(nonatomic, copy) GMSPath *path;
 
+/**
+ * The array of GMSPath instances that describes any holes in this polygon. The coordinates
+ * composing each path must be valid.
+ */
+@property(nonatomic, copy) NSArray *holes;
+
 /** The width of the polygon outline in screen points. Defaults to 1. */
 @property(nonatomic, assign) CGFloat strokeWidth;
 

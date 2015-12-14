@@ -1,4 +1,4 @@
-//
+        //
 //  AppDelegate.swift
 //  PrayerDevotion
 //
@@ -38,28 +38,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         locationManager.delegate = self
         
         // Migrate the data from the first release of the application
-        migrateData()
-        migrateToDaily()
+        //  migrateData()
+        // migrateToDaily()
         
-        GMSServices.provideAPIKey(googleiOSAPIKey) // Provide Google Maps with API Key
+        // Migrate to iCloud usage
+        let userPrefs = NSUserDefaults.standardUserDefaults()
+        
+        GMSServices.provideAPIKey(googleiOSAPIKey) // Provide Google Maps   with API Key
         
         // Ask for notifications
         let userNotifications = UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil)
         UIApplication.sharedApplication().registerUserNotificationSettings(userNotifications)
-        
-        let userPrefs = NSUserDefaults.standardUserDefaults() // Get users prefs
-        
-        let installString: String? = userPrefs.objectForKey("didInstallApp_2.0") as? String
-        
-        if installString == nil || installString == "" {
-            userPrefs.setBool(true, forKey: "firstInstallation")
-            CategoryStore.sharedInstance.addCategoryToDatabase("Uncategorized", dateCreated: NSDate())
-            
-            print("User installed app for the first time. Make sure all local notifications are deleted")
-            UIApplication.sharedApplication().cancelAllLocalNotifications()
-            
-            userPrefs.setObject("installed", forKey: "didInstallApp_2.0")
-        }
         
         Color.setThemeColors(&themeBackgroundColor, tintColor: &themeTintColor, textColor: &themeTextColor, colorString: &themeColorString)
         let tintColor = userPrefs.stringForKey("themeBackgroundColor")!
@@ -72,14 +61,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         }
         
         window!.tintColor = tintColor != "White" ? Color.stringToColor(tintColor) : Color.Brown
-                
-        // Check for pending alerts and notifications and update them
-        Notifications.sharedNotifications.updateNotificationQueue()
-        AlertStore.sharedInstance.deletePastAlerts()
+        
+        //if (userPrefs.boolForKey("iCloudMigrateComplete") == false) {
+        //    CoreDataStore.migrateToICloud()
+        //}
                 
         validatePurchase() // Validate In-App Purchase
         
         (self.window!.rootViewController as! UITabBarController).tabBar.layer.zPosition = 1
+        
+        userPrefs.setBool(true, forKey: Version_1_0_Installed)
+        
+        if userPrefs.boolForKey("didInstallApp_2.0") && !userPrefs.boolForKey("migratedToVersion2_0") {
+            PrayerDevotionCloudStore.sharedInstance.migratingFromVersion1_0 = true
+        }
+        
+        CoreDataManager.sharedInstance.applicationInitialized()
         
         return true
     }
@@ -149,7 +146,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         
         if let alert = locationAlert {
             if UIApplication.sharedApplication().applicationState == .Active {
-                print("Recieved Geofence Event While Running App")
+                print("Received Geofence Event While Running App")
             } else {
                 let notification = UILocalNotification()
                 notification.soundName = "Default"
@@ -173,6 +170,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         LocationAlertStore.sharedInstance.reloadAndMonitorAlerts()
+        
+        //print("Number of monitored regions: \(locationManager.monitoredRegions)")
     }
     
     func locationManager(manager: CLLocationManager, rangingBeaconsDidFailForRegion region: CLBeaconRegion, withError error: NSError) {
@@ -303,7 +302,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
                         print("Error migrating old store")
                     }
                     
-                    migrateToPrayerID()
+                    //migrateToPrayerID()
                     
                     userDefaults.setBool(true, forKey: "didMigratePrayerToBeta2.0")
                 }
@@ -318,12 +317,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         
         if userDefaults.boolForKey("didAddPrayerIDs") == false {
             print("Adding Prayer IDs to prayers")
-            PrayerStore.sharedInstance.addPrayerIDDuringMigration()
+            //PrayerStore.sharedInstance.addPrayerIDDuringMigration()
         }
     }
     
     func migrateToDaily() {
-        PrayerStore.sharedInstance.addDailyDateToPrayers()
+        //PrayerStore.sharedInstance.addDailyDateToPrayers()
     }
     
     // This takes a URL that I make and returns the prayer ID sent

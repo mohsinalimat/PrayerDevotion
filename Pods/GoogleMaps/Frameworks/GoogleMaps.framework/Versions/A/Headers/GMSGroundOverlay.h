@@ -40,6 +40,12 @@
 @property(nonatomic, strong) UIImage *icon;
 
 /**
+ * Sets the opacity of the ground overlay, between 0 (completely transparent)
+ * and 1 (default) inclusive.
+ */
+@property(nonatomic, assign) float opacity;
+
+/**
  * Bearing of this ground overlay, in degrees. The default value, zero, points
  * this ground overlay up/down along the normal Y axis of the earth.
  */

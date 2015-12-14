@@ -1,4 +1,4 @@
-//
+    //
 //  BaseStore.swift
 //  PrayerDevotion
 //
@@ -15,8 +15,16 @@ public class BaseStore {
     
     // This is a reference to the app delegate (as AppDelegate for its methods
     // and variables)
-    let managedContext: NSManagedObjectContext? = CoreDataStore.sharedInstance.managedObjectContext
+    //public let managedContext: NSManagedObjectContext? = PrayerDevotionCloudStore.sharedInstance.managedObjectContext //CoreDataStore.sharedInstance.managedObjectContext
+    public var managedContext: NSManagedObjectContext! {
+        get {
+            return PrayerDevotionCloudStore.sharedInstance.managedObjectContext
+        }
+    }
+    
     let userPrefs = NSUserDefaults.standardUserDefaults()
+    
+    public let coordinator: NSPersistentStoreCoordinator? = PrayerDevotionCloudStore.sharedInstance.persistentStoreCoordinator //CoreDataStore.sharedInstance.persistentStoreCoordinator
     
     // MARK: -----------
     // MARK: Saving / Deleting
@@ -40,13 +48,14 @@ public class BaseStore {
     
     // Save the database
     public func saveDatabase() {
-        do {
-            try managedContext!.save()
+        /*do {
+            try PrayerDevotionCloudStore.sharedInstance.saveContext()
         } catch let error as NSError {
             print("An error occurred while saving the database: \(error.localizedDescription)")
-        }
+        }*/
+        
+        PrayerDevotionCloudStore.sharedInstance.saveContext()
     }
     
     // MARK: -----------
-    
 }

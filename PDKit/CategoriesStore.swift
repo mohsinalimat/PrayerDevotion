@@ -130,26 +130,28 @@ public class CategoryStore: BaseStore {
     // Add a category to the database
     // Takes a String argument and an NSDate argument
     public func addCategoryToDatabase(name: String, dateCreated: NSDate) {
-        let category = NSEntityDescription.insertNewObjectForEntityForName("Category", inManagedObjectContext: managedContext!) as! PDCategory
-        
-        // This is the method for an "order" - may use in the future
-        /*var order = 1.0
-        
-        if categories.count > 0 {
-        for category in categories {
-        (category as! Category).order += 1.0
-        
-        println("Category with name \((category as! Category).shortName) changed order to new order \((category as! Category).order)")
-        }
-        }*/
-        
-        category.name = name
-        category.creationDate = NSDate()
-        category.prayerCount = 0
-        
-        categories.insert(category, atIndex: 0)
-        
-        saveDatabase()
+        managedContext!.performBlockAndWait({
+            let category = NSEntityDescription.insertNewObjectForEntityForName("Category", inManagedObjectContext: self.managedContext!) as! PDCategory
+            
+            // This is the method for an "order" - may use in the future
+            /*var order = 1.0
+            
+            if categories.count > 0 {
+            for category in categories {
+            (category as! Category).order += 1.0
+            
+            println("Category with name \((category as! Category).shortName) changed order to new order \((category as! Category).order)")
+            }
+            }*/
+            
+            category.name = name
+            category.creationDate = NSDate()
+            category.prayerCount = 0
+            
+            self.categories.insert(category, atIndex: 0)
+            
+            PrayerDevotionCloudStore.sharedInstance.saveContext()
+        })
     }
     
     // MARK: Moving Prayers in Category
@@ -197,6 +199,11 @@ public class CategoryStore: BaseStore {
         
         do {
             let category = try managedContext!.executeFetchRequest(fetchRequest) as! [PDCategory]
+            
+            if categoryName == "Uncategorized" && category.count == 0 {
+                CategoryStore.sharedInstance.addCategoryToDatabase("Uncategorized", dateCreated: NSDate())
+                return categoryForString("Uncategorized")
+            }
             
             return category[0]
         } catch let error as NSError {

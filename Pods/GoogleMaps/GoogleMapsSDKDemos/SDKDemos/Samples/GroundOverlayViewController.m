@@ -6,8 +6,11 @@
 
 #import <GoogleMaps/GoogleMaps.h>
 
+@interface GroundOverlayViewController ()<GMSMapViewDelegate>
+@end
+
 @implementation GroundOverlayViewController {
-  GMSGroundOverlay *overlay_;
+  GMSGroundOverlay *_overlay;
 }
 
 - (void)viewDidLoad {
@@ -26,16 +29,23 @@
                                                           bearing:0
                                                      viewingAngle:45];
   GMSMapView *mapView = [GMSMapView mapWithFrame:CGRectZero camera:camera];
+  mapView.delegate = self;
 
   // Add the ground overlay, centered in Newark, NJ
   GMSGroundOverlay *groundOverlay = [[GMSGroundOverlay alloc] init];
   // Image from http://www.lib.utexas.edu/maps/historical/newark_nj_1922.jpg
   groundOverlay.icon = [UIImage imageNamed:@"newark_nj_1922.jpg"];
+  groundOverlay.tappable = YES;
   groundOverlay.position = newark;
   groundOverlay.bounds = overlayBounds;
   groundOverlay.map = mapView;
 
   self.view = mapView;
+}
+
+- (void)mapView:(GMSMapView *)mapView didTapOverlay:(GMSOverlay *)overlay {
+  float opacity = (((float)arc4random()/0x100000000)*0.5f + 0.5f);
+  ((GMSGroundOverlay *)overlay).opacity = opacity;
 }
 
 @end

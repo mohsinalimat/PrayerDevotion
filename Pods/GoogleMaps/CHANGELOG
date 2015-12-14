@@ -1,3 +1,47 @@
+Version 1.11.1 - December 2015
+==============================
+Resolved Issues:
+  - Modally presented Place Autocomplete widgets now correctly respect
+    UINavigationBar appearance proxy settings.
+  - Resolved minor UI issues with the Place Autocomplete widgets.
+  - Updated GoogleMaps.bundle info.plist to avoid triggering checks in
+    pre-submission verification.
+
+Version 1.11.0 - December 2015
+==============================
+Features:
+  - Bitcode is now included in the SDK binary for all device architectures.
+  - Added Place Autocomplete widget classes.
+  - New events for long press on an info window, and closing an info window, have
+    been added to GMSMapViewDelegate.
+  - GMSMapViewDelegate has new events to indicate when map tiles and labels are
+    pending and finished rendering.
+  - GMSPanoramaViewDelegate has new events to indicate when panorama tiles are
+    pending and finished rendering.
+  - GMSGroundOverlay now supports an alpha multiplier via the opacity property.
+  - Added a holes property to GMSPolygon to allow for the subtraction away from
+    the filled area in order to create more complex shapes.
+  - At zoom levels greater than 14, the maximum tilt has been increased.
+  - Added an autocomplete screen to the Place Picker.
+  - Split autocomplete predictions into primary and secondary text fields.
+  - Added a country filter option to GMSAutocompleteFilter.
+  - Added a viewport field to GMSPlace.
+
+Resolved Issues:
+  - Correct handling of taps on overlapping markers.
+  - Address a race condition dependent crash which can happen when an application
+    enters and leaves the background while showing a map.
+  - Fix blank maps which can happen when launching an app into the background.
+  - Workaround issues with core animation that caused markers to jump.
+  - Updated to avoid subtle conflicts with applications which use
+    google-toolbox-for-mac.
+  - Use the iPhone language instead of the region formatting language for
+    Places API results.
+
+Notes:
+  - Setting GMSMapView selectedMarker to a marker not on the map is now ignored,
+    always set the marker's map property before attempting to select it.
+
 Version 1.10.5 - October 2015
 =============================
 Resolved Issues:

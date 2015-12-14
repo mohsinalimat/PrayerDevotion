@@ -7,7 +7,7 @@
 #import <GoogleMaps/GoogleMaps.h>
 
 @implementation MapLayerViewController {
-  GMSMapView *mapView_;
+  GMSMapView *_mapView;
 }
 
 - (void)viewDidLoad {
@@ -15,11 +15,11 @@
   GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:-37.81969
                                                           longitude:144.966085
                                                                zoom:4];
-  mapView_ = [GMSMapView mapWithFrame:CGRectZero camera:camera];
-  self.view = mapView_;
+  _mapView = [GMSMapView mapWithFrame:CGRectZero camera:camera];
+  self.view = _mapView;
 
   dispatch_async(dispatch_get_main_queue(), ^{
-    mapView_.myLocationEnabled = YES;
+    _mapView.myLocationEnabled = YES;
   });
 
   UIBarButtonItem *myLocationButton =
@@ -32,14 +32,14 @@
 }
 
 - (void)didTapMyLocation {
-  CLLocation *location = mapView_.myLocation;
+  CLLocation *location = _mapView.myLocation;
   if (!location || !CLLocationCoordinate2DIsValid(location.coordinate)) {
     return;
   }
 
-  mapView_.layer.cameraLatitude = location.coordinate.latitude;
-  mapView_.layer.cameraLongitude = location.coordinate.longitude;
-  mapView_.layer.cameraBearing = 0.0;
+  _mapView.layer.cameraLatitude = location.coordinate.latitude;
+  _mapView.layer.cameraLongitude = location.coordinate.longitude;
+  _mapView.layer.cameraBearing = 0.0;
 
   // Access the GMSMapLayer directly to modify the following properties with a
   // specified timing function and duration.
@@ -52,28 +52,28 @@
   animation.duration = 2.0f;
   animation.timingFunction = curve;
   animation.toValue = @(location.coordinate.latitude);
-  [mapView_.layer addAnimation:animation forKey:kGMSLayerCameraLatitudeKey];
+  [_mapView.layer addAnimation:animation forKey:kGMSLayerCameraLatitudeKey];
 
   animation = [CABasicAnimation animationWithKeyPath:kGMSLayerCameraLongitudeKey];
   animation.duration = 2.0f;
   animation.timingFunction = curve;
   animation.toValue = @(location.coordinate.longitude);
-  [mapView_.layer addAnimation:animation forKey:kGMSLayerCameraLongitudeKey];
+  [_mapView.layer addAnimation:animation forKey:kGMSLayerCameraLongitudeKey];
 
   animation = [CABasicAnimation animationWithKeyPath:kGMSLayerCameraBearingKey];
   animation.duration = 2.0f;
   animation.timingFunction = curve;
   animation.toValue = @0.0;
-  [mapView_.layer addAnimation:animation forKey:kGMSLayerCameraBearingKey];
+  [_mapView.layer addAnimation:animation forKey:kGMSLayerCameraBearingKey];
 
   // Fly out to the minimum zoom and then zoom back to the current zoom!
-  CGFloat zoom = mapView_.camera.zoom;
+  CGFloat zoom = _mapView.camera.zoom;
   NSArray *keyValues = @[@(zoom), @(kGMSMinZoomLevel), @(zoom)];
   CAKeyframeAnimation *keyFrameAnimation =
       [CAKeyframeAnimation animationWithKeyPath:kGMSLayerCameraZoomLevelKey];
   keyFrameAnimation.duration = 2.0f;
   keyFrameAnimation.values = keyValues;
-  [mapView_.layer addAnimation:keyFrameAnimation forKey:kGMSLayerCameraZoomLevelKey];
+  [_mapView.layer addAnimation:keyFrameAnimation forKey:kGMSLayerCameraZoomLevelKey];
 }
 
 @end

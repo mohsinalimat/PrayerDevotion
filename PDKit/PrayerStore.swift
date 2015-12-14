@@ -335,7 +335,6 @@ public class PrayerStore: BaseStore {
         
         if let prayerLocation = prayer.location {
             let mutablePrayers = prayerLocation.prayers.mutableCopy() as! NSMutableSet
-            mutablePrayers.removeObject(prayer)
             
             prayerLocation.prayers = mutablePrayers.copy() as! NSSet
             

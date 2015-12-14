@@ -19,6 +19,7 @@
   // Create the first polygon.
   GMSPolygon *polygon = [[GMSPolygon alloc] init];
   polygon.path = [self pathOfNewYorkState];
+  polygon.holes = @[ [self pathOfNewYorkStateHole] ];
   polygon.title = @"New York";
   polygon.fillColor = [UIColor colorWithRed:0.25 green:0 blue:0 alpha:0.2f];
   polygon.strokeColor = [UIColor blackColor];
@@ -175,6 +176,14 @@
   [path addLatitude:42.0003 longitude:-79.7621];
   [path addLatitude:42.1827 longitude:-79.7621];
   [path addLatitude:42.5146 longitude:-79.7621];
+  return path;
+}
+
+- (GMSPath *)pathOfNewYorkStateHole {
+  GMSMutablePath *path = [GMSMutablePath path];
+  [path addLatitude:43.5000 longitude:-76.3651];
+  [path addLatitude:43.5000 longitude:-74.3651];
+  [path addLatitude:42.0000 longitude:-74.3651];
   return path;
 }
 

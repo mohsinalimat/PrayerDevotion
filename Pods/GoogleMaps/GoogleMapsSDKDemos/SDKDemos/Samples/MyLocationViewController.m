@@ -7,8 +7,8 @@
 #import <GoogleMaps/GoogleMaps.h>
 
 @implementation MyLocationViewController {
-  GMSMapView *mapView_;
-  BOOL firstLocationUpdate_;
+  GMSMapView *_mapView;
+  BOOL _firstLocationUpdate;
 }
 
 - (void)viewDidLoad {
@@ -17,26 +17,26 @@
                                                           longitude:151.2086
                                                                zoom:12];
 
-  mapView_ = [GMSMapView mapWithFrame:CGRectZero camera:camera];
-  mapView_.settings.compassButton = YES;
-  mapView_.settings.myLocationButton = YES;
+  _mapView = [GMSMapView mapWithFrame:CGRectZero camera:camera];
+  _mapView.settings.compassButton = YES;
+  _mapView.settings.myLocationButton = YES;
 
   // Listen to the myLocation property of GMSMapView.
-  [mapView_ addObserver:self
+  [_mapView addObserver:self
              forKeyPath:@"myLocation"
                 options:NSKeyValueObservingOptionNew
                 context:NULL];
 
-  self.view = mapView_;
+  self.view = _mapView;
 
   // Ask for My Location data after the map has already been added to the UI.
   dispatch_async(dispatch_get_main_queue(), ^{
-    mapView_.myLocationEnabled = YES;
+    _mapView.myLocationEnabled = YES;
   });
 }
 
 - (void)dealloc {
-  [mapView_ removeObserver:self
+  [_mapView removeObserver:self
                 forKeyPath:@"myLocation"
                    context:NULL];
 }
@@ -47,12 +47,12 @@
                       ofObject:(id)object
                         change:(NSDictionary *)change
                        context:(void *)context {
-  if (!firstLocationUpdate_) {
+  if (!_firstLocationUpdate) {
     // If the first location update has not yet been recieved, then jump to that
     // location.
-    firstLocationUpdate_ = YES;
+    _firstLocationUpdate = YES;
     CLLocation *location = [change objectForKey:NSKeyValueChangeNewKey];
-    mapView_.camera = [GMSCameraPosition cameraWithTarget:location.coordinate
+    _mapView.camera = [GMSCameraPosition cameraWithTarget:location.coordinate
                                                      zoom:14];
   }
 }

@@ -133,7 +133,7 @@ class CreateLocationViewController: UIViewController, UISearchResultsUpdating, U
                 
                 let mutablePrayers = location.prayers.mutableCopy() as! NSMutableSet
                 mutablePrayers.addObject(selectedPrayer)
-                
+
                 location.prayers = mutablePrayers.copy() as! NSSet
                 
                 BaseStore.baseInstance.saveDatabase()
@@ -147,7 +147,7 @@ class CreateLocationViewController: UIViewController, UISearchResultsUpdating, U
                     
                     let mutablePrayers = location.prayers.mutableCopy() as! NSMutableSet
                     mutablePrayers.addObject(selectedPrayer)
-                    
+
                     location.prayers = mutablePrayers.copy() as! NSSet
                     
                     BaseStore.baseInstance.saveDatabase()
@@ -162,7 +162,7 @@ class CreateLocationViewController: UIViewController, UISearchResultsUpdating, U
         if let prevPlace = previousSelectedPlace, let location = selectedPrayer.location {
             if location != prevPlace {
                 let prayers = prevPlace.prayers.mutableCopy() as! NSMutableSet
-                prayers.removeObject(selectedPrayer)
+
                 prevPlace.prayers = prayers.copy() as! NSSet
                 
                 BaseStore.baseInstance.saveDatabase()
@@ -185,7 +185,7 @@ class CreateLocationViewController: UIViewController, UISearchResultsUpdating, U
             
             let mutablePrayers = prayerLocation.prayers.mutableCopy() as! NSMutableSet
             mutablePrayers.removeObject(selectedPrayer)
-                
+
             prayerLocation.prayers = mutablePrayers.copy() as! NSSet
             selectedPrayer.location = nil
             

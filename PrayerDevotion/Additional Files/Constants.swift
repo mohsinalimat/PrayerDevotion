@@ -8,6 +8,11 @@
 
 import Foundation
 
+// NSUserDefault Keys
+
+let Version_1_0_Installed = "Version_1_0_Installed"
+let Version_2_0_Installed = "Version_2_0_Installed"
+
 // In-App Purchase Keys
 let AdditionalFeaturesKey = "PD_AddFeatures_1_2015"
 

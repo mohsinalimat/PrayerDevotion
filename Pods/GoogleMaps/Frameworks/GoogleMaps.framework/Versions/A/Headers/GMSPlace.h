@@ -106,4 +106,13 @@ typedef NS_ENUM(NSInteger, GMSPlacesPriceLevel) {
  */
 @property(nonatomic, copy, readonly) NSAttributedString *attributions;
 
+/**
+ * The recommended viewport for this place. May be nil if the size of the place is not known.
+ *
+ * This returns a viewport of a size that is suitable for displaying this place. For example, a
+ * |GMSPlace| object representing a store may have a relatively small viewport, while a |GMSPlace|
+ * object representing a country may have a very large viewport.
+ */
+@property(nonatomic, strong, readonly) GMSCoordinateBounds *viewport;
+
 @end

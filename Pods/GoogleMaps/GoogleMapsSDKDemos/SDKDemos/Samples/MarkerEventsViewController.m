@@ -9,8 +9,8 @@
 #import <QuartzCore/QuartzCore.h>
 
 @implementation MarkerEventsViewController {
-  GMSMapView *mapView_;
-  GMSMarker *melbourneMarker_;
+  GMSMapView *_mapView;
+  GMSMarker *_melbourneMarker;
 }
 
 - (void)viewDidLoad {
@@ -18,24 +18,24 @@
   GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:-37.81969
                                                           longitude:144.966085
                                                                zoom:4];
-  mapView_ = [GMSMapView mapWithFrame:CGRectZero camera:camera];
+  _mapView = [GMSMapView mapWithFrame:CGRectZero camera:camera];
 
   GMSMarker *sydneyMarker = [[GMSMarker alloc] init];
   sydneyMarker.position = CLLocationCoordinate2DMake(-33.8683, 151.2086);
-  sydneyMarker.map = mapView_;
+  sydneyMarker.map = _mapView;
 
-  melbourneMarker_ = [[GMSMarker alloc] init];
-  melbourneMarker_.position = CLLocationCoordinate2DMake(-37.81969, 144.966085);
-  melbourneMarker_.map = mapView_;
+  _melbourneMarker = [[GMSMarker alloc] init];
+  _melbourneMarker.position = CLLocationCoordinate2DMake(-37.81969, 144.966085);
+  _melbourneMarker.map = _mapView;
 
-  mapView_.delegate = self;
-  self.view = mapView_;
+  _mapView.delegate = self;
+  self.view = _mapView;
 }
 
 #pragma mark - GMSMapViewDelegate
 
 - (UIView *)mapView:(GMSMapView *)mapView markerInfoWindow:(GMSMarker *)marker {
-  if (marker == melbourneMarker_) {
+  if (marker == _melbourneMarker) {
     return [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Icon"]];
   }
 
@@ -58,8 +58,8 @@
   // Melbourne marker has a InfoWindow so return NO to allow markerInfoWindow to
   // fire. Also check that the marker isn't already selected so that the
   // InfoWindow doesn't close.
-  if (marker == melbourneMarker_ &&
-      mapView.selectedMarker != melbourneMarker_) {
+  if (marker == _melbourneMarker &&
+      mapView.selectedMarker != _melbourneMarker) {
     return NO;
   }
 

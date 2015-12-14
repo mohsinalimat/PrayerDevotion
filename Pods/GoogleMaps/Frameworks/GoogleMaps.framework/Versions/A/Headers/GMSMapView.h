@@ -93,6 +93,12 @@
     didTapInfoWindowOfMarker:(GMSMarker *)marker;
 
 /**
+ * Called after a marker's info window has been long pressed.
+ */
+- (void)mapView:(GMSMapView *)mapView
+    didLongPressInfoWindowOfMarker:(GMSMarker *)marker;
+
+/**
  * Called after an overlay has been tapped.
  * This method is not called for taps on markers.
  *
@@ -125,11 +131,16 @@
  *
  * @param mapView The map view that was pressed.
  * @param marker The marker that was pressed.
- * @return The custom view to disaply as contents in the info window, or null to
+ * @return The custom view to display as contents in the info window, or nil to
  * use the default content rendering instead
  */
 
 - (UIView *)mapView:(GMSMapView *)mapView markerInfoContents:(GMSMarker *)marker;
+
+/**
+ * Called when the marker's info window is closed.
+ */
+- (void)mapView:(GMSMapView *)mapView didCloseInfoWindowOfMarker:(GMSMarker *)marker;
 
 /**
  * Called when dragging has been initiated on a marker.
@@ -154,6 +165,16 @@
  *         camera to move such that it is centered on the user location.
  */
 - (BOOL)didTapMyLocationButtonForMapView:(GMSMapView *)mapView;
+
+/**
+ * Called when tiles have just been requested or labels have just started rendering.
+ */
+- (void)mapViewDidStartTileRendering:(GMSMapView *)mapView;
+
+/**
+ * Called when all tiles have been loaded (or failed permanently) and labels have been rendered.
+ */
+- (void)mapViewDidFinishTileRendering:(GMSMapView *)mapView;
 
 @end
 

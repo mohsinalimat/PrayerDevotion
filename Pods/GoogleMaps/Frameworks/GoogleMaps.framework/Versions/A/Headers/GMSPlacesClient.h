@@ -86,7 +86,12 @@ typedef NS_ENUM(NSInteger, GMSPlacesErrorCode) {
    * See the <a href="https://developers.google.com/places/ios/start">developer's guide</a>
    * for how to configure bundle restrictions on API keys.
    */
-  kGMSPlacesIncorrectBundleIdentifier = -10
+  kGMSPlacesIncorrectBundleIdentifier = -10,
+  /**
+   * The Places API could not find the user's location. This may be because the user has not allowed
+   * the application to access location information.
+   */
+  kGMSPlacesLocationError = -11
 };
 
 /**

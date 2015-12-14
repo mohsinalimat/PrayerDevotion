@@ -142,8 +142,14 @@ public class LocationAlertStore: BaseStore {
                 
                 let maxRadius: CLLocationDistance = 50
                 let regions = regionsToMonitor.filter() {
-                    let coordinate = CLLocation(latitude: $0.latitude, longitude: $0.longitude)
-                    return coordinate.distanceFromLocation(currentLocation!) <= maxRadius
+                    //let coordinate = CLLocation(latitude: $0.latitude, longitude: $0.longitude)
+                    let location = CLLocation(coordinate: CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude), altitude: 1, horizontalAccuracy: 1, verticalAccuracy: -1, timestamp: NSDate())
+                    //print("Current Location: Lat - \(currentLocation!.coordinate.latitude); Long - \(currentLocation!.coordinate.longitude)")
+                    //print("Fetched Location: Lat - \($0.latitude); Long - \($0.longitude)")
+                    //print("Convert Location: Lat - \(location.coordinate.latitude); Long - \(location.coordinate.longitude)")
+                    let distance: CLLocationDistance = location.distanceFromLocation(currentLocation!)
+                    //print("Distance: \(distance)")
+                    return distance <= maxRadius
                 }
                 
                 var i = 1
@@ -159,6 +165,7 @@ public class LocationAlertStore: BaseStore {
                         break
                     }
                 }
+                //print("NumLocations: \(locationManager.monitoredRegions)")
             } catch let error as NSError {
                 print("There was an error reloading location alerts: \(error), \(error.localizedDescription)")
             }

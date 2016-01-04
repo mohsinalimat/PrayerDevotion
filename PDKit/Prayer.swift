@@ -32,4 +32,39 @@ public class PDPrayer: NSManagedObject {
     @NSManaged public var location: PDLocation? // This is the location parent of the prayer instance. It can be nil.
     @NSManaged public var locationAlert: PDLocationAlert? // This is the location alert parent of the prayer instance. It can be nil.
     @NSManaged public var updates: NSOrderedSet // This is the ordered set of the alerts for the selected prayer
+    
+    public func remapAlerts(toPrayer prayer: PDPrayer) {
+        prayer.alerts = NSOrderedSet()
+        let copyAlerts = self.alerts
+        var tempArray = [PDAlert]()
+        for alert in copyAlerts {
+            (alert as! PDAlert).prayer = prayer
+            tempArray.append(alert as! PDAlert)
+        }
+        
+        prayer.alerts = tempArray.count == 0 ? NSOrderedSet() : NSOrderedSet(array: tempArray)
+        
+        PrayerDevotionCloudStore.sharedInstance.saveContext()
+    }
+    
+    public func remapUpdates(toPrayer prayer: PDPrayer) {
+        prayer.updates = NSOrderedSet()
+        let copyUpdates = self.updates
+        var tempArray = [PDUpdate]()
+        for update in copyUpdates {
+            (update as! PDUpdate).prayer = prayer
+            tempArray.append(update as! PDUpdate)
+        }
+        
+        prayer.updates = tempArray.count == 0 ? NSOrderedSet() :  NSOrderedSet(array: tempArray)
+        
+        PrayerDevotionCloudStore.sharedInstance.saveContext()
+    }
+    
+    public func remapLocationAlert(toPrayer prayer: PDPrayer) {
+        locationAlert?.prayer = prayer
+        prayer.locationAlert = locationAlert
+        
+        PrayerDevotionCloudStore.sharedInstance.saveContext()
+    }
 }

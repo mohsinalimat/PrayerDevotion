@@ -102,6 +102,8 @@ let DidImportChangesNotificationID = "PDDidImportChangesNotification"
     func storeDidImportUbiquitousContentChangesNotification(notification: NSNotification) {
         PrayerDevotionCloudStore.sharedInstance.saveContext()
         
+        CoreDataMaintainance.performDataDeduplication()
+        
         NSNotificationCenter.defaultCenter().postNotificationName(DidImportChangesNotificationID, object: nil)
     }
     
@@ -117,6 +119,8 @@ let DidImportChangesNotificationID = "PDDidImportChangesNotification"
         /*if UIApplication.sharedApplication().isIgnoringInteractionEvents() {
             UIApplication.sharedApplication().endIgnoringInteractionEvents()
         }*/
+        
+        CoreDataMaintainance.performDataDeduplication()
         
         NSNotificationCenter.defaultCenter().postNotificationName(DidChangeStoreNotificationID, object: nil)
     }

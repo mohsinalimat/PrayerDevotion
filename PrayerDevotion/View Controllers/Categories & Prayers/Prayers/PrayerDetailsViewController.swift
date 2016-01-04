@@ -100,7 +100,7 @@ class PrayerDetailsViewController: UITableViewController, UITextFieldDelegate, U
         
         navItem.title = currentPrayer.name // Sets the Nav Bar title to the current prayer name
         prayerAlerts = currentPrayer.alerts.mutableCopy() as! NSMutableOrderedSet // This passes the currentPrayer alerts to a copy called prayerAlerts
-        prayerAlertsCount = prayerAlerts.count + 1
+        prayerAlertsCount = prayerAlerts != nil ? prayerAlerts.count + 1 : 0
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleURL:", name: "HandleURLNotification", object: nil)
         
@@ -196,6 +196,7 @@ class PrayerDetailsViewController: UITableViewController, UITextFieldDelegate, U
             categoryCell.pickerView.frame.size.height = 162
             categoryPickerView = categoryCell.pickerView // Need to look into this variable
             
+            print("current category = \(currentPrayer.category)")
             let categoryIdx = currentPrayer.category == "Uncategorized" ? 0 : allCategories.indexOf(currentPrayer.category)! + 1
             categoryCell.pickerView.selectRow(categoryIdx, inComponent: 0, animated: false)
             

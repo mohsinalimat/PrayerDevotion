@@ -107,4 +107,18 @@ public class UpdatesStore: BaseStore {
             return 0
         }
     }
+    
+    public func getAllUpdates() -> [PDUpdate] {
+        let fetchRequest = NSFetchRequest(entityName: "Updates")
+        
+        do {
+            let fetchedResults = try managedContext!.executeFetchRequest(fetchRequest) as! [PDUpdate]
+            
+            return fetchedResults
+        } catch let error as NSError {
+            print("An error occurred while fetching all updates: \(error), \(error.localizedDescription)")
+            
+            return [PDUpdate]()
+        }
+    }
 }

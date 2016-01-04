@@ -183,4 +183,21 @@ public class AlertStore: BaseStore {
         saveDatabase()
     }
     
+    // MARK: Migrations
+    
+    public func getAllAlerts() -> [PDAlert] {
+        let fetchRequest = NSFetchRequest(entityName: "Alert")
+        fetchRequest.fetchBatchSize = 50
+        
+        do {
+            let fetchedAlerts = try managedContext!.executeFetchRequest(fetchRequest) as! [PDAlert]
+            
+            return fetchedAlerts
+        } catch let error as NSError {
+            print("An error occurred while fetching all alerts: \(error), \(error.localizedDescription)")
+            
+            return [PDAlert]()
+        }
+    }
+    
 }

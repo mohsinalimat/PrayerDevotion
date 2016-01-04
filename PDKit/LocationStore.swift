@@ -146,4 +146,20 @@ public class LocationStore: BaseStore {
     public func locationPrayersCount(forLocation: PDLocation) -> Int {
         return forLocation.prayers.count
     }
+    
+    // MARK: All
+    
+    public func getAllLocations() -> [PDLocation] {
+        let fetchRequest = NSFetchRequest(entityName: "Location")
+        
+        do {
+            let fetchedLocations = try managedContext!.executeFetchRequest(fetchRequest) as! [PDLocation]
+            
+            return fetchedLocations
+        } catch let error as NSError {
+            print("An error occurred while fetching all locations: \(error), \(error.localizedDescription)")
+            
+            return [PDLocation]()
+        }
+    }
 }

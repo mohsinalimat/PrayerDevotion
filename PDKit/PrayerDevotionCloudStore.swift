@@ -279,7 +279,34 @@ public class PrayerDevotionCloudStore: NSObject {
     private var _persistentStoreCoordinator: NSPersistentStoreCoordinator? = nil
     
     public var persistentStoreCoordinator: NSPersistentStoreCoordinator? {
-        get {
+        if let psc = self._persistentStoreCoordinator {
+            if self.currentState == .ReadyToLoadStore {
+                self.CoreData_RegisterForNotifications(psc)
+            }
+            
+            return psc
+        }
+        
+        let coordinator: NSPersistentStoreCoordinator? = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
+        
+        if self.currentState == .ReadyToLoadStore {
+            self.CoreData_RegisterForNotifications(coordinator!)
+        }
+        
+        let workingOptions = self.storeOptions
+        
+        do {
+            try coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: self.storeURL, options: workingOptions)
+        } catch let error as NSError {
+            print("Unresolved Error with code \(error.code): \(error), \(error.localizedDescription)")
+            abort()
+        }
+        
+        self._persistentStoreCoordinator = coordinator
+        return coordinator
+    }
+    /*public var persistentStoreCoordinator: NSPersistentStoreCoordinator? = {
+        //get {
             /*if _persistentStoreCoordinator != nil {
                 if self.currentState == .ReadyToLoadStore {
                     self.CoreData_RegisterForNotifications(_persistentStoreCoordinator!)
@@ -288,7 +315,7 @@ public class PrayerDevotionCloudStore: NSObject {
                 return _persistentStoreCoordinator
             }*/
             
-            let coordinator: NSPersistentStoreCoordinator? = NSPersistentStoreCoordinator(managedObjectModel: managedObjectModel)
+            let coordinator: NSPersistentStoreCoordinator? = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
             
             if self.currentState == .ReadyToLoadStore {
                 self.CoreData_RegisterForNotifications(coordinator!)
@@ -303,28 +330,52 @@ public class PrayerDevotionCloudStore: NSObject {
                 abort()
             }
             
-            _persistentStoreCoordinator = coordinator
+            self._persistentStoreCoordinator = coordinator
             return coordinator
-        }
+        /*}
         
         set(coordinator) {
             //self.persistentStoreCoordinator = coordinator
-        }
-    }
+        }*/
+    }*/
     
     private var _managedObjectContext: NSManagedObjectContext? = nil
     
     public var managedObjectContext: NSManagedObjectContext? {
-        get {
-            if _managedObjectContext != nil {
-                return _managedObjectContext
+        if let moc = self._managedObjectContext {
+            return moc
+        }
+        
+        var context: NSManagedObjectContext! = nil
+        
+        let coordinator = self.persistentStoreCoordinator
+        if let coord = coordinator {
+            if self.currentState.rawValue >= StoreState.ReadyToLoadStore.rawValue || self.migratingFromVersion1_0 {
+                context = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
+                context.persistentStoreCoordinator = coord
+                context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+            } else {
+                context = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
+                context.persistentStoreCoordinator = coord
+                context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+            }
+        }
+        
+        self._managedObjectContext = context
+        return context
+    }
+    
+    /*public var managedObjectContext: NSManagedObjectContext? = {
+        //get {
+            if self._managedObjectContext != nil {
+                return self._managedObjectContext
             }
             
             var context: NSManagedObjectContext! = nil
             
             let coordinator = self.persistentStoreCoordinator
             if let coordinator = coordinator {
-                if currentState.rawValue >= StoreState.ReadyToLoadStore.rawValue || migratingFromVersion1_0 {
+                if self.currentState.rawValue >= StoreState.ReadyToLoadStore.rawValue || self.migratingFromVersion1_0 {
                     context = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
                     context.persistentStoreCoordinator = coordinator
                     context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
@@ -339,14 +390,14 @@ public class PrayerDevotionCloudStore: NSObject {
                 }
             }
             
-            _managedObjectContext = context
+            self._managedObjectContext = context
             return context
-        }
+        /*}
         
         set(context) {
             //self.managedObjectContext = context
-        }
-    }
+        }*/
+    }*/
     
     public var managedObjectModel: NSManagedObjectModel {
         let bundle = NSBundle(identifier: "com.shadowsystems.PDKit")!
@@ -402,8 +453,8 @@ public class PrayerDevotionCloudStore: NSObject {
             }
         }
         
-        persistentStoreCoordinator = nil
-        managedObjectContext = nil
+        _persistentStoreCoordinator = nil
+        _managedObjectContext = nil
     }
     
     // MARK: Information Retrieval Methods
@@ -825,11 +876,6 @@ public class PrayerDevotionCloudStore: NSObject {
                     dispatch_async(dispatch_get_main_queue(), {
                         let alertView = UIAlertController(title: "Migrate Data From iCloud", message: " You have data currently in your iCloud storage. Would you like to keep your iCloud data locally or start afresh (current iCloud data will not be overwritten)?", preferredStyle: .Alert)
                         let replaceAction = UIAlertAction(title: "Refresh", style: .Default, handler: { alertAction in
-                            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                                self.migrateCloudStoreToLocal(true)
-                            })
-                        })
-                        let keepAction = UIAlertAction(title: "Keep", style: .Default, handler: { alertAction in
                             self.switchStoreToLocal()
                             
                             self.currentState = .ReadyToLoadStore
@@ -841,6 +887,11 @@ public class PrayerDevotionCloudStore: NSObject {
                             NSUserDefaults.standardUserDefaults().synchronize()
                             
                             self.requestLoadDataStore()
+                        })
+                        let keepAction = UIAlertAction(title: "Keep", style: .Default, handler: { alertAction in
+                            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                                self.migrateCloudStoreToLocal(true)
+                            })
                         })
                         
                         alertView.addAction(replaceAction)
@@ -1141,7 +1192,7 @@ public class PrayerDevotionCloudStore: NSObject {
             if NSThread.currentThread().isMainThread {
                 didChangeBlock()
             } else {
-                dispatch_sync(dispatch_get_main_queue(), didChangeBlock)
+                dispatch_async(dispatch_get_main_queue(), didChangeBlock)
             }
             
             if firstTimeOnline {

@@ -163,7 +163,15 @@ class TodayPrayersViewController: UIViewController, UITableViewDelegate, UITable
         todayPrayers += PrayerStore.sharedInstance.fetchPrayersOnDate(.Daily, prayerDate: fetchDate);
         todayPrayers += PrayerStore.sharedInstance.fetchPrayersOnDate(.Weekly, prayerDate: fetchDate);
         
+        for prayer in todayPrayers {
+            print("Prayer:\n\(prayer)")
+            for alert in prayer.alerts {
+                print("Alert:\n\(alert)")
+            }
+        }
+        
         todayCount = todayPrayers.count
+        var i = 0;
     }
     
     // MARK: IBActions
@@ -308,7 +316,14 @@ class TodayPrayersViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        print("Index Path Row: \(indexPath.row)")
+        
+        for prayer in todayPrayers {
+            print("today: \(prayer)")
+        }
+        
         selectedPrayer = self.todayPrayers[indexPath.row]
+        print("Selected Prayer: \(selectedPrayer)")
         
         performSegueWithIdentifier(PresentPrayerDetailsSegueID, sender: self)
     }
@@ -504,18 +519,25 @@ class TodayPrayersViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func didChangeStore(notification: NSNotification) {
-        print("TodayPrayersViewController DidChangeStore: called")
+        //dispatch_async(dispatch_get_main_queue(), {
+            print("TodayPrayersViewController DidChangeStore: called")
         
-        fetchTodayPrayers()
-        tableView.reloadData()
+            self.fetchTodayPrayers()
+            self.tableView.reloadData()
         
-        noPrayersLabel.hidden = !(todayCount == 0)
-        
-        view.backgroundColor = delegate.themeBackgroundColor
-        
-        todayLabel.textColor = delegate.themeTextColor
-        noPrayersLabel.textColor = delegate.themeTextColor
-        prevDayButton.tintColor = delegate.themeTextColor
-        nextDayButton.tintColor = delegate.themeTextColor
+            for prayer in todayPrayers {
+                print("Today Prayer: \(prayer)")
+            }
+            
+            self.noPrayersLabel.hidden = !(self.todayCount == 0)
+            
+            self.view.backgroundColor = self.delegate.themeBackgroundColor
+            
+            self.todayLabel.textColor = self.delegate.themeTextColor
+            self.noPrayersLabel.textColor = self.delegate.themeTextColor
+            self.prevDayButton.tintColor = self.delegate.themeTextColor
+            self.nextDayButton.tintColor = self.delegate.themeTextColor
+            print("Finished Syncing")
+        //3})
     }
 }

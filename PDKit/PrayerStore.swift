@@ -608,4 +608,43 @@ public class PrayerStore: BaseStore {
             print("An error occurred fetching prayers for check: \(error), \(error.localizedDescription)")
         }
     }
+    
+    // MARK: Migrating
+    
+    public func getAllPrayers() -> [PDPrayer] {
+        let fetchRequest = NSFetchRequest(entityName: "Prayer")
+        fetchRequest.fetchBatchSize = 50
+        
+        do {
+            let fetchedPrayers = try managedContext!.executeFetchRequest(fetchRequest) as! [PDPrayer]
+            
+            return fetchedPrayers
+        } catch let error as NSError {
+            print("An error occurred while fetching all prayers: \(error), \(error.localizedDescription)")
+            
+            return [PDPrayer]()
+        }
+    }
+    
+    public func getAllPrayerIDs() -> [Int32] {
+        let fetchRequest = NSFetchRequest(entityName: "Prayer")
+        fetchRequest.fetchBatchSize = 50
+        fetchRequest.resultType = .DictionaryResultType
+        fetchRequest.propertiesToFetch = ["prayerID"]
+        
+        do {
+            let fetchedPrayerIDs = try managedContext!.executeFetchRequest(fetchRequest)
+            
+            var ids = [Int32]()
+            for dict in fetchedPrayerIDs {
+                ids.append((dict as! NSDictionary).valueForKey("prayerID") as! Int32)
+            }
+            
+            return ids
+        } catch let error as NSError {
+            print("Error: \(error), \(error.localizedDescription)")
+            
+            return [Int32]()
+        }
+    }
 }

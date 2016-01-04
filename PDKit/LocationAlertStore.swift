@@ -181,4 +181,20 @@ public class LocationAlertStore: BaseStore {
             locationManager.stopMonitoringForRegion(region)
         }
     }
+    
+    // MARK: Migration
+    
+    public func getAllLocationAlerts() -> [PDLocationAlert] {
+        let fetchRequest = NSFetchRequest(entityName: "LocationAlert")
+        
+        do {
+            let fetchedLocationAlerts = try managedContext!.executeFetchRequest(fetchRequest) as! [PDLocationAlert]
+            
+            return fetchedLocationAlerts
+        } catch let error as NSError {
+            print("An error occurred while fetching all location alerts: \(error), \(error.localizedDescription)")
+            
+            return [PDLocationAlert]()
+        }
+    }
 }

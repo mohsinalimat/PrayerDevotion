@@ -35,5 +35,12 @@ public class PDLocation: NSManagedObject, MKAnnotation {
     public var coordinate: CLLocationCoordinate2D {
         return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
     }
+    
+    public func remapLocations(toLocation location: PDLocation) {
+        let copyPrayers = self.prayers
+        for prayer in copyPrayers {
+            (prayer as! PDPrayer).location = location
+        }
+    }
         
 }
